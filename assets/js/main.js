@@ -357,7 +357,7 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
     form_data.append("remark", remark);
     $.ajax({
         method: "POST",
-        url: baseUrl + "Upload_files/upload_file",
+        url: baseUrl + "Upload_files/Upload_file",
         data: form_data,
         contentType: false,
         cache: false,

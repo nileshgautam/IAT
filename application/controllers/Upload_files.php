@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Upload_Files extends CI_Controller
+class Upload_files extends CI_Controller
 {
     function  __construct()
     {
