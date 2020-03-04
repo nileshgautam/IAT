@@ -4,6 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class ControlUnit extends CI_Controller
 {
 
+	function __construct()
+	{
+		parent::__construct();
+		date_default_timezone_set("Asia/Kolkata"); //Set server date an time to Asia
+		if (!isset($_SESSION['userInfo'])) {
+			$this->session->sess_destroy();
+			redirect('Login/index');
+		}
+	}
 	public function index()
 	{
 		//$this->load->view('pages/login');
@@ -57,9 +66,8 @@ class ControlUnit extends CI_Controller
 		$this->load->view('layout/sidebar');
 		$this->load->view('template/all-clients', $data);
 		$this->load->view('layout/footer');
+	}
 
-	}	
-	
 	public function managerallClients()
 	{
 		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
@@ -80,7 +88,7 @@ class ControlUnit extends CI_Controller
 	}
 
 	// Manager dashboard
- 	public function manager()
+	public function manager()
 	{
 		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
 		$this->load->view('layout/header');
@@ -89,37 +97,33 @@ class ControlUnit extends CI_Controller
 		$this->load->view('layout/footer');
 	}
 
-	
+
 
 	public function managerAllWorkOrder()
 	{
-		$data['worksOrders']=$this->MainModel->selectAll('work_order', 'client_id');
+		$data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
 		$this->load->view('layout/header');
 		$this->load->view('manager/manager-sidebar');
-		$this->load->view('pages/manager-work-orders',$data);
+		$this->load->view('pages/manager-work-orders', $data);
 		$this->load->view('layout/footer');
 	}
 
-
-
-
-	public function newWorkOrder($clientid=null)
+	public function newWorkOrder($clientid = null)
 	{
-		$data['clients']=$this->MainModel->selectAll('client_details', 'client_name');
-		$data['clientid']=$clientid;
+		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
+		$data['clientid'] = $clientid;
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
-		$this->load->view('pages/new-work-order',$data);
+		$this->load->view('pages/new-work-order', $data);
 		$this->load->view('layout/footer');
 	}
 
 	public function allWorkOrder()
 	{
-		$data['worksOrders']=$this->MainModel->selectAll('work_order', 'client_id');
+		$data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
-		$this->load->view('pages/all-workorder',$data);
+		$this->load->view('pages/all-workorder', $data);
 		$this->load->view('layout/footer');
 	}
 }
-

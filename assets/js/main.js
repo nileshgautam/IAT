@@ -131,7 +131,7 @@ $('.submit-services').on('click', function () {
         // $('#process').val(JSON.stringify(process))
 
     })
-    console.log(process)
+
     // if{}
     let message = "Required";
     // console.log($("[type='text']"))
@@ -144,38 +144,39 @@ $('.submit-services').on('click', function () {
     let error = false;
 
     if (clientId == "") {
-        $('#messageclient').html(message).css("color", 'red');
+        $('#messageclient').html(message)
         error = true;
     } if (workorderId == "") {
-        $('#textWork-Order-id').val(message).css("color", 'red');
+        $('#messageworkorderid').html(message)
         error = true;
     } if (workOrderName == "") {
-        $('#textWork-Order-Name').val(message).css("color", 'red');
-        error = true;
+        $('#messageworkorder').html(message)
     } if (startDate == "") {
-        $('#start-date').val(message).css("color", 'red');
-        error = true;
+
+        $('#error-start-date').html(message)
     } if (endDate == '') {
-        $('#end-date').val(message).css("color", 'red');
+        $('#error-end-date').html(message)
+        error = true;
+    }
+    if (ValidateDate()) {
+        $('#error-end-date').html('End date should be greater from start date');
+        error = true;
+    }
+    if (Object.keys(process).length == 0) {
+        showAlert('Please choose process first', "warning");
         error = true;
     }
 
-
     let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
     if (!error) {
-        console.log(error);
+        // console.log(error);
         $.ajax({
             type: 'POST',
             url: baseUrl + '/Auditapp/create_work_order',
             data: formData,
             success: function (data, success) {
-
                 let resonce = JSON.parse(data);
-
-
-
                 showAlert(resonce.msg, "success");
-
                 setTimeout(() => {
                     window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + resonce.client_id;
                 }, 1000);
@@ -345,37 +346,47 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
     let fileTitle = $(this).attr('fn-name');
     let filesname = $(this).attr('files-name');
     let remarktxt = $(this).attr('remark-name');
+
     let t = $('[name=' + fileTitle + ']');
     let f = $('[name=' + filesname + ']');
     let r = $('[name=' + remarktxt + ']');
+    let error = false;
     let title = t.val();
     //let files = f.val();
     let remark = r.val();
-    let form_data = new FormData(uploaddata);
-    form_data.append("title", title);
-    form_data.append("files", f[0].files[0]);
-    form_data.append("remark", remark);
-    $.ajax({
-        method: "POST",
-        url: baseUrl + "Upload_files/Upload_file",
-        data: form_data,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data) {
-            console.log(data);
-            let message = JSON.parse(data);
 
-            $('#messages').text(message)
-            // if (data) {
-            //     $('#uploadModalCenter').modal('hide');
+    if (remark == '') {
+        t.val('Required').css('color', 'red');
+        title = true;
+    }
 
-            // }
+    // if(f[0].files[0]==undefined){
+    //     f.val('Required').css('color', 'red');
+    //     error =true;
+    // }
 
-            // setTimeout(function () { location.reload(true); }, 1000);
-            alert("File uploaded");
-        }
-    });
+
+    if (!error) {
+        let form_data = new FormData(uploaddata);
+        form_data.append("title", title);
+
+        form_data.append("files", f[0].files[0]);
+        form_data.append("remark", remark);
+        $.ajax({
+            method: "POST",
+            url: baseUrl + "Upload_files/Upload_file",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                // console.log(data);
+                let message = JSON.parse(data);
+                showAlert(message['msg'], message['type']);
+
+            }
+        });
+    }
 
 });
 
@@ -403,7 +414,7 @@ $('#select-client').on('change', function () {
         $('#message').html('Client Required');
         error = true;
     }
-    else{
+    else {
         $('#message').empty();
     }
     let form_data = { id: clientId };
@@ -418,7 +429,7 @@ $('#select-client').on('change', function () {
 
                 data = workOrderData(obj);
                 $('#work-order').html(data)
-                console.log(data);
+                // console.log(data);
             }
 
         });
@@ -486,16 +497,19 @@ $(document).ready(() => {
             showAlert('Work order required', 'warning');
             error = true;
         }
-
-
+        // console.log(radioValue);
+        if (radioValue == undefined) {
+            showAlert('Select Access role required', 'danger');
+            error = true;
+        }
         // let form_data = new FormData();
         let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: clientId, workorderId: workorderId }
+
+
         if (!error) {
             $.post(baseUrl + "AssignWorkOrder/save_assigned_work",
                 form_data,
                 function (data, status) {
-                    // ("Data: " + data + "\nStatus: " + status);
-                    // console.log(data)
                     let responce = JSON.parse(data);
                     showAlert(responce['msg'], responce['type']);
                 });
@@ -513,7 +527,7 @@ $(document).ready(() => {
         } else {
             checkValue = 1;
             $.post(baseUrl + "Auditapp/updateWorkSteps", { workstepsid: workstepsid, workOrderId: workOrderId, checkValue: checkValue }, function (data, status) {
-                console.log(data);
+                // console.log(data);
             });
 
         }
@@ -552,11 +566,27 @@ $('.all-work-order').on('click', function () {
 $('.download-master').click(function () {
     $.get(baseUrl + "Auditapp/downlodDatabaseMaster", function (data, status) {
         masterDatabase = JSON.parse(data);
-        console.log(masterDatabase);
+        // console.log(masterDatabase);
     });
 });
 
 
 
 
-
+// date validate function
+function ValidateDate() {
+    var start = $('#start-date').val();
+    var end = $('#end-date').val();
+    var startDay = new Date(start);
+    var endDay = new Date(end);
+    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+    var millisBetween = endDay.getTime() - startDay.getTime();
+    var days = millisBetween / millisecondsPerDay;
+    // Round down.
+    days = Math.floor(days);
+    if (days < 0) {
+        return true
+    } else {
+        return false
+    }
+}

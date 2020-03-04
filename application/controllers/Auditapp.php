@@ -40,7 +40,7 @@ class Auditapp extends CI_Controller
         date_default_timezone_set("Asia/Kolkata"); //Set server date an time to Asia
         if (!isset($_SESSION['userInfo'])) {
             $this->session->sess_destroy();
-            redirect('login');
+            redirect('Login/index');
         }
     }
 
@@ -404,7 +404,7 @@ class Auditapp extends CI_Controller
     // function to show all the process for perticular work order
     public function workprocess($id)
     {
-        // $id = $_POST['workid'];
+        $id = base64_decode($id);
         // print_r($id);die;
 
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
@@ -545,7 +545,7 @@ class Auditapp extends CI_Controller
 
         // $datavalue = ;
         $data = array(
-            'complete_status' =>$_POST['checkValue']
+            'complete_status' => $_POST['checkValue']
         );
         $result = $this->MainModel->update_table('files', $condition, $data);
         echo $result = json_encode($result, true);

@@ -49,38 +49,23 @@ class Upload_files extends CI_Controller
                 // print_r($_FILES['file']['name']);
                 echo  $this->upload->display_errors();
             }
-
-
             if (!empty($data)) {
                 // Insert files data into the database
-                // print_r($uploadData);
-                // $insert = $this->Files->insert($data);
                 $result = $this->MainModel->insertInto('files', $data);
 
                 // Upload status message
-                if($result){
-                    $messages = array(
-                        'success' => 'Files uploaded successfully',
-                       );
-                }else{
-                    $messages = array(
-                        
-                        'error' => 'Some problem occurred, please try again' );
+                if ($result) {
+                    echo json_encode(array("type" => 'success', 'msg' => "Files uploaded successfully"));
+                } else {
+                    echo json_encode(array("type" => 'danger', 'msg' => "Some problem occurred, please try again"));
                 }
-              
-
-                echo  json_encode($messages);
-                // $statusMsg = $insert ? 'Files uploaded successfully.' : 'Some problem occurred, please try again.';
-                // $this->session->set_flashdata('statusMsg', $statusMsg);
             }
+        } else {
+            echo json_encode(array("type" => 'danger', 'msg' => "Chosse file first"));
         }
+    }
 
-        // Get files data from the database
-        // $data['files'] = $this->Files->getRows();
-        // $json_data = json_encode($data, true);
-        // echo $json_data;
-
-    }    // $this->load->view('Auditapp/upload_file', $data);
+    // $this->load->view('Auditapp/upload_file', $data);
 
 
     function get_Uploaded_file()

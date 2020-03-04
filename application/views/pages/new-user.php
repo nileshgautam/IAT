@@ -1,3 +1,16 @@
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
 <!-- ============================================================== -->
 <!-- wrapper  -->
 <!-- ============================================================== -->
@@ -52,7 +65,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="input-email">Email address</label>
-                                        <input id="input-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
+                                        <input id="input-email" type="email" name="email" placeholder="Enter email"  autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +133,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="mobile-no">Mobile No.</label>
-                                        <input id="mobile-no" type="text" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>">
+                                        <input id="mobile-no" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -134,7 +147,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input id="password" type="password" name="password" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['password'] : "" ?>">
+                                        <input id="password" type="password" name="password" placeholder="Enter password." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['password'] : "" ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

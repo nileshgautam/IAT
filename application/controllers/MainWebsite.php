@@ -9,6 +9,10 @@ class MainWebsite extends CI_Controller
 		parent::__construct();
 		$this->load->model('Audit_model');
 		$this->load->helper('filter');
+		if (!isset($_SESSION['userInfo'])) {
+            $this->session->sess_destroy();
+            redirect('Login/index');
+        }
 	}
 
 	// private function common_view($views = [], $vars = [])

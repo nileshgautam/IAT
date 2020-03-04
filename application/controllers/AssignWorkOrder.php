@@ -54,7 +54,7 @@ class AssignWorkOrder extends CI_Controller
             $validate = $this->MainModel->selectAllWhere('users_work_order_relationship', array('work_order_id' => $_POST['workorderId'], 'user_id' => $_POST['employeeId']));
             if (!empty($validate)) {
                 echo json_encode(array("type" => 'danger', 'msg' => "User Already working on this work order"));
-                // die;
+                die; // for terminate process
             }
             $insert = array(
                 'work_order_id' => $_POST['workorderId'],

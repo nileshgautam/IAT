@@ -48,32 +48,44 @@
                                         <div class="card-body">
                                             <p class="lead">
                                                 <div class="card">
+
+
                                                     <h5 class="card-header">Sub Process</h5>
                                                     <div class="card-body">
                                                         <?php if (!empty($process['sub_process_data'])) {
-                                                            $count=1;
+                                                            $count = 1;
                                                             foreach ($process['sub_process_data'] as $subprocess) {
                                                                 // print_r($subprocess);
                                                         ?>
-                                                                <a href="<?php echo base_url('Auditapp/workSteps/') . base64_encode($subprocess['sub_process_id']) . '/' . base64_encode($work_order) . '/' . base64_encode($process['process_id']) ?>" class="list-group-item list-group-item-action work_order_id"> <?php echo  $count++ .' : '. $subprocess['sub_process_name'] ?></a>
-                                                                
-                                                            
-                                                               <b>Risks</b>
-                                                                    <ol>
+                                                                <a href="<?php echo base_url('Auditapp/workSteps/') . base64_encode($subprocess['sub_process_id']) . '/' . base64_encode($work_order) . '/' . base64_encode($process['process_id']) ?>" class="list-group-item  work_order_id">
+                                                                    <?php echo  $count++ . ' : ' . $subprocess['sub_process_name'] ?></a>
 
-    
-                                                                    <?php 
-                                                                   if(!empty($subprocess['sub_process_id'])){
-                                                                       $risk=$this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocess['sub_process_id']));
-                                                                       if($risk){
-                                                                           foreach($risk as $subprocessRisk){?>
-<li><?php echo $subprocessRisk['risk_name']?></li>
-                                                                           <?php }
-                                                                       }
-                                                                   }
+                                                                <div class="list-group-item">
+                                                                <b>Risks</b> 
+                                                                    <ol>
+                                                                    <?php
+                                                                    if (!empty($subprocess['sub_process_id'])) {
+                                                                        $risk = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocess['sub_process_id']));
+                                                                        if (!empty($risk)) {
+                                                                            foreach ($risk as $subprocessRisk) { ?>
+                                                                            
+                                                                                <li><?php echo $subprocessRisk['risk_name'] ?></li>
+                                                                    <?php }
+                                                                        }
+
+                                                                  
+                                                                       
+                                                                    }
                                                                     ?>
-                                                                    </ol>
-                                                              
+                                                                    <ol>
+                                                                </div>
+                                                    
+                                                                
+
+
+                                                                 
+                                            
+
                                                         <?php }
                                                         } ?>
 

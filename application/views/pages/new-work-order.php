@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="Clients">Clients</label> &nbsp; <label for="messageclient" id="messageclient" class="text-danger"></label>
+                                <label for="Clients">Clients</label>
                                 <select name="client" id="client" placeholder="Select client" autocomplete="off" class="form-control">
                                     <option value="">Select client</option>
                                     <?php if (!empty($clients)) {
@@ -48,20 +48,24 @@
                                     }
                                     ?>
                                 </select>
+                                <label for="messageclient" id="messageclient" class="text-danger"></label>
                                 <!-- <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="Enter user name" autocomplete="off" class="form-control"> -->
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="textWork-Order-Name">Work Order Name</label>
-                                <input id="textWork-Order-Name" type="text" name="Work-Order-Name" placeholder="Enter work order name" required autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['first_name'] : "" ?>">
+                                <input id="textWork-Order-Name" type="text" name="Work-Order-Name" placeholder="Enter work order name" autocomplete="off" class="form-control">
+                                <label for="textWork-Order-Name" id="messageworkorder" class="text-danger"></label>
                             </div>
+                            
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <?php $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order'); ?>
-                                <label for="textWork-Order-Name">Work Order Id</label>
+                                <label for="textWork-Order-id">Work Order Id</label>
                                 <input id="textWork-Order-id" type="text" name="Work-Order-id" value="<?php echo $wo_id ?>" readonly required autocomplete="off" class="form-control">
+                                <label for="textWork-Order-id" id="messageworkorderid" class=""></label>
                             </div>
                         </div>
                     </div>
@@ -69,20 +73,21 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="start-date">Start Date</label>
-                                <input id="start-date" type="date" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control" value="<?php echo (isset($user)) ? $user[0]['last_name'] : "" ?>">
+                                <input id="start-date" type="date" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control">
+                                <label for="start-date" id="error-start-date" class="text-danger"></label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="end-date">End Date</label>
-                                <input id="end-date" type="date" name="end-date" placeholder="Enter end date" autocomplete="off" required class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>">
+                                <input id="end-date" type="date" name="end-date" placeholder="Enter end date" autocomplete="off" required class="form-control" >
+                                <label for="end-date" id="error-end-date" class="text-danger"></label>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <h5 style="margin-left: 15px">Select Processes</h5>
+                <h5 style="margin-left: 15px">Choose Processes</h5>
 
                 <div class="row">
                     <!-- Processes Section -->

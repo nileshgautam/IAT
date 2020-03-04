@@ -60,14 +60,14 @@
                                                 <td>
                                                     
                                                 <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id']? '<span class="badge badge-info">Under Process</span>':'<span class="badge badge-warning">New</span>'?></td>
-                                                <td><a href="<?php echo base_url('Auditapp/workprocess/') . $assignedTask['work_order_id'] ?>" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0?'Start':''?></td>
+                                                <td><a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0?'Start':''?></td>
                                             </tr>
                                     <?php
                                         }
                                     } ?>
-                                    <tr>
+                                    <!-- <tr>
                                         <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
