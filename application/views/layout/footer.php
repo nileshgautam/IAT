@@ -1,3 +1,26 @@
+        <!-- Modal -->
+        <div class="modal fade" id="allWorkOrderModalCenter" tabindex="-1" role="dialog" aria-labelledby="allWorkOrderModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="allWorkOrderModalCenterTitle"> Total Work Orders</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="all-work-order">
+                  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 <!-- Optional JavaScript -->
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 <!-- jquery 3.3.1 js-->
@@ -19,6 +42,7 @@
 <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/spark-js.js"></script>
 <!-- dashboard sales js-->
 <script src="<?php echo base_url(); ?>assets/libs/js/dashboard-sales.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 
 <!-- datepicker -->
 
@@ -44,6 +68,8 @@ if ($this->session->flashdata('error')) {
 <?php
 }
 ?>
+
+
 
 </body>
 

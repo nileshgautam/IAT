@@ -31,26 +31,11 @@ class MainModel extends ci_model
 
         return $this->db->affected_rows() ? $result : FALSE;
     }
+
     public function selectDistict($tableName = null, $selection_value = null)
     {
         $this->db->distinct();
         $this->db->select($selection_value);
-        $result = $this->db->get($tableName)->result_array();
-        return $this->db->affected_rows() ? $result : FALSE;
-    }
-
-    public function selectDetails($tableName = null, $selectColumn = null, $columnName = null)
-    {
-        $this->db->select($selectColumn); // ('a,b,c')
-        $this->db->where('type', $columnName);
-        $result = $this->db->get($tableName)->result_array();
-        return $this->db->affected_rows() ? $result : FALSE;
-    }
-
-    public function selectSelectedShirtDetails($tableName = null, $selectColumn = null, $id = null, $columnName = null)
-    {
-        $this->db->select($selectColumn); // ('a,b,c')
-        $this->db->where($columnName, $id);
         $result = $this->db->get($tableName)->result_array();
         return $this->db->affected_rows() ? $result : FALSE;
     }
@@ -77,49 +62,6 @@ class MainModel extends ci_model
         }
     }
 
-    public function get_field($tableName = null)
-    {
-        $result = $this->db->list_fields($tableName);
-        // foreach($result as $field)
-        // {
-        // $data[] = $field;
-        return $result;
-        // }
-    }
-    public function update_field($id = null,  $table = null, $data = null)
-    {
-        $this->db->where('id', $id);
-        $query = $this->db->update($table, $data);
-        if ($query != null) {
-            return "FALSE";
-        } else {
-            return TRUE;
-        }
-    }
-
-
-    public function update_error_log_field($id = null,  $table = null, $data = null)
-    {
-        $this->db->where('error_id', $id);
-        $query = $this->db->update($table, $data);
-        if ($query != null) {
-            return "FALSE";
-        } else {
-            return TRUE;
-        }
-    }
-
-    public function update_tbl($table = null, $status = null)
-    {
-        $this->db->where($status);
-        $query = $this->db->update($table);
-        if ($query != null) {
-            return "FALSE";
-        } else {
-            return TRUE;
-        }
-    }
-
     public function update_field_where($clm_name = null, $clm_val = null, $table = null, $data = null)
     {
         $this->db->where($clm_name, $clm_val);
@@ -141,6 +83,7 @@ class MainModel extends ci_model
             return TRUE;
         }
     }
+
     //create new id for product/order table
     public function getNew_Id($prefix, $table, $pad_length = 3)
     {
@@ -156,10 +99,6 @@ class MainModel extends ci_model
 
         return $Id; // $maxid==NULL?1:$maxid+1;
     }
-
-
-
-
     public function update_table($table = null, $condition = null, $data = null)
     {
         // $this->db->set('status', $data);
@@ -172,24 +111,12 @@ class MainModel extends ci_model
         }
     }
 
-    public function selectAllWhere($tableName = null, $condition = null)
-    {
-        $this->db->where($condition);
-        $query = $this->db->get($tableName)->result_array();
-        return $this->db->affected_rows() ? $query : false;
-    }
-
-
     public function insert_status($table = null, $data = null)
     {
         $this->db->insert($table, $data);
         return $this->db->affected_rows() ? 'TRUE' : 'FALSE';
     }
-
-
-
     //delete records by using 
-
     public function delete($tableName = null, $id = null)
     {
         $query =  $this->db->where($id);
@@ -201,8 +128,6 @@ class MainModel extends ci_model
         }
     }
 
-
-
     public function max_date($table = null, $date_clm = null)
     {
 
@@ -210,9 +135,6 @@ class MainModel extends ci_model
         $query = $this->db->get($table);  // Produces: SELECT MAX(date) as date FROM members
         return $query->result_array();
     }
-
-
-
     // function to select records by column
     public function select_Column($column = null, $tableName = null, $condition = null)
     {
@@ -234,7 +156,6 @@ class MainModel extends ci_model
     }
 
     // function to extract date in yyyy-mm-dd format from timestamp field between given range
-
     public function selectAllBetween($tableName = null, $first_condition = null, $second_condition = null)
     {
         $this->db->where($first_condition);
@@ -303,6 +224,7 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+
     public function getAllProcessWithSubprocess()
     {
         $query = "SELECT p.process_name,p.process_id,sp.sub_process_name,sp.sub_process_id
@@ -311,12 +233,19 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
-    public function count($table = null, $id = null)
+    // public function count($table = null, $id = null)
+    // {
+    //     $query = "SELECT COUNT(client_id) FROM $table WHERE client_id = '$id'";
+    //     $result = $this->db->query($query)->result_array();
+    //     return $this->db->affected_rows() ? $result[0]['COUNT(client_id)'] : false;
+    //     // return $query;
+    // }
+
+    public function selectAllWhere($tableName = null, $condition = null)
     {
-        $query = "SELECT COUNT(client_id) FROM $table WHERE client_id = '$id'";
-        $result = $this->db->query($query)->result_array();
-        return $this->db->affected_rows() ? $result[0]['COUNT(client_id)'] : false;
-        // return $query;
+        $this->db->where($condition);
+        $query = $this->db->get($tableName)->result_array();
+        return $this->db->affected_rows() ? $query : false;
     }
 
     public function getClientOrders($table, $id)
@@ -338,12 +267,35 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
-
-// function to pick all the users data from the database
+    // function to pick all the users data from the database
     public function getAlluersWithAsseignedWorkorders()
     {
         $query = "SELECT * FROM `users`LEFT JOIN users_work_order_relationship on users.user_id =users_work_order_relationship.user_id";
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+
+    // Function to count all the rows from database by table name.
+    public function count( $table = null)
+    {
+       $query= "SELECT count(*) as total FROM $table ORDER BY id DESC";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+
+    public function selectWhere( $table = null, $conditionOne=null, $conditionTwo=null)
+    {
+        $query= "SELECT * FROM $table where $conditionOne and $conditionTwo ORDER BY id DESC";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }  
+    
+    // funtion to select all the worksteps by client name and their orders
+    public function selectAllworkOrder()
+    {
+        $query= "SELECT * , client_details.client_name FROM work_order LEFT join client_details on work_order.client_id=client_details.client_id";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+
 }

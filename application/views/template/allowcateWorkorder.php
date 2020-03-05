@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h3 class="mb-2">Assign Work Order</h3>
+                    <h3 class="mb-2">Assign Work Order</h3> <a style="margin: -45px 20px;
+"               class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard')?>" >Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -47,6 +48,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="card-users" id="assigned-users" style="padding-bottom:20px;display:none">
+        <h4>Assigned Employee</h4>
+            <table class="table dataTable">
+                <thead>
+                    <tr>
+                        <th>Employees</th>
+                        <th>Work Order</th>
+                        <th>Assigned As</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                </thead>
+                <tbody id="assigned_user">
+                </tbody>
+            </table>
+        </div>
+        
         <div class="card">
             <div id="search-user" style="padding:10px; display:flex;">
                 <label for="users"> Search Employees

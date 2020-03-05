@@ -4,7 +4,9 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h3 class="mb-2">Work Order</h3>
+                    <h3 class="mb-2">Create work order</h3> <a style="margin: -45px 20px;
+" class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard') ?>">Exit</a>
+
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -28,7 +30,7 @@
                 </h5>
                 <!-- <?php print_r($clientid);
 
-                ?> -->
+                        ?> -->
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -39,9 +41,9 @@
                                     <?php if (!empty($clients)) {
                                         foreach ($clients as $client) { ?>
 
-                                            <option value="<?php echo isset($clientid)? $clientid: $client['client_id']; ?>" <?php if (!empty($clientid)) {
-                                     echo ($clientid ==  $client['client_id']) ? ' selected="selected"' : '';
-                                     } ?>>
+                                            <option value="<?php echo isset($clientid) ? $clientid : $client['client_id']; ?>" <?php if (!empty($clientid)) {
+                                                                                                                                    echo ($clientid ==  $client['client_id']) ? ' selected="selected"' : '';
+                                                                                                                                } ?>>
                                                 <?php echo $client['client_name']; ?></option>
                                     <?php
                                         }
@@ -58,7 +60,7 @@
                                 <input id="textWork-Order-Name" type="text" name="Work-Order-Name" placeholder="Enter work order name" autocomplete="off" class="form-control">
                                 <label for="textWork-Order-Name" id="messageworkorder" class="text-danger"></label>
                             </div>
-                            
+
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -72,16 +74,31 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="start-date">Start Date</label>
-                                <input id="start-date" type="date" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control">
+                            <label for="start-date">Start Date</label>
+                                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                                    <input type="text" id="start-date" class="form-control datetimepicker-input" data-target="#datetimepicker4">
+                                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                    </div>                                    
+                                </div>
                                 <label for="start-date" id="error-start-date" class="text-danger"></label>
                             </div>
+                            <!-- <div class="form-group">
+                                <label for="start-date">Start Date</label>
+                                <input id="start-date" type="text" class="datepicker" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control">
+                                <label for="start-date" id="error-start-date" class="text-danger"></label>
+                            </div> -->
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="end-date">End Date</label>
-                                <input id="end-date" type="date" name="end-date" placeholder="Enter end date" autocomplete="off" required class="form-control" >
-                                <label for="end-date" id="error-end-date" class="text-danger"></label>
+                        <div class="form-group">
+                            <label for="start-date">End Date</label>
+                                <div class="input-group date" id="datetimepicker12" data-target-input="nearest">
+                                    <input type="text" id="end-date" class="form-control datetimepicker-input" data-target="#datetimepicker12">
+                                    <div class="input-group-append" data-target="#datetimepicker12" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                    </div>
+                                </div>
+                                <label for="start-date" id="error-end-date" class="text-danger"></label>
                             </div>
                         </div>
                     </div>

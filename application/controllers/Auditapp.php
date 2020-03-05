@@ -160,8 +160,7 @@ class Auditapp extends CI_Controller
                 // print_r($res);die;
 
                 if (!empty($res)) {
-                    $this->session->set_flashdata("success", "Company Successfully Registered.");
-
+                    $this->session->set_flashdata("success", "Client Successfully Registered.");
                     $company_data = array(
                         'company_name' => $c_name,
                         'client_id' => $c_id,
@@ -172,7 +171,7 @@ class Auditapp extends CI_Controller
                     redirect('ControlUnit/newWorkOrder/' . $c_id);
                 }
             } else {
-                $this->session->set_flashdata("error", "Company Already Exist.");
+                $this->session->set_flashdata("error", "Client Already Exist.");
                 redirect('ControlUnit/allClients');
             }
         }
@@ -289,6 +288,7 @@ class Auditapp extends CI_Controller
             redirect('ControlUnit/allUsers');
         }
     }
+
     // function to populate dashboard for all the company
     function user_editpost()
     {
@@ -347,7 +347,7 @@ class Auditapp extends CI_Controller
                 $reply = array(
                     'work_order_id' => $wo_id,
                     'client_id' => $_POST['client_id'],
-                    'msg' => "Work Order Successfully Created"
+                    'msg' => "Work order successfully created"
                 );
                 $result = json_encode($reply, true);
                 echo $result;
@@ -550,4 +550,11 @@ class Auditapp extends CI_Controller
         $result = $this->MainModel->update_table('files', $condition, $data);
         echo $result = json_encode($result, true);
     }
+
+    // function to loading users details from database
+	public function allUesrs()
+	{
+        $data = $this->MainModel->selectAll('users');
+        echo $data=json_encode($data,true);
+	}
 }

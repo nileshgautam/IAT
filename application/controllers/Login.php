@@ -43,8 +43,6 @@ class Login extends CI_Controller
                 $validate = $this->MainModel->selectAllFromWhere('users', array('email' => $email, 'password' => $password));
                 // echo '<pre>';
                 // print_r($validate) ;die;
-
-               
                 if (!empty($validate)) {
                     $data  = $validate;
 

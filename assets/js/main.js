@@ -34,6 +34,7 @@ $("#country").change(function () {
                 $('#state').empty();
                 $('#state').append(data);
                 // company_responce = obj;
+                $("#state").change();
             }
         },
         error: function () {
@@ -46,8 +47,9 @@ $("#country").change(function () {
 // 
 
 $("#state").change(function () {
-    let state = $(this).attr('data-state');
+    let state = $(this).attr('data-state');    
     let id = $(this).children("option:selected").attr('id');
+    console.log(id);
     country_id = {
         c_id: id
     }
@@ -59,7 +61,8 @@ $("#state").change(function () {
         success: function (comp_responce) {
             obj = JSON.parse(comp_responce)
             if (obj) {
-                // console.log(obj)
+                console.log("object")
+                console.log(obj)
                 let data = populate_cities(obj);
                 //  console.log(data);
                 $('#city').empty();
@@ -75,16 +78,17 @@ $("#state").change(function () {
 });
 
 
+$("#country").change();
 $("#state").change();
-$("#state").change();
+
 
 function populate_option(obj, id, name) {
 
-    console.log(id + " " + name);
+    // console.log(obj);
 
     let html = '';
     for (let i = 0; i < obj.length; i++) {
-        html += `<option id="${id == obj[i]['id'] ? id : obj[i]['id']}">${name == obj[i]['name'] ? name : obj[i]['name']}</option>`
+        html += `<option id="${id == obj[i]['id'] ? id : obj[i]['id']}" ${obj[i]['name'] == "Haryana" ? "selected" : ""}>${name == obj[i]['name'] ? name : obj[i]['name']}</option>`
     }
     // $("#country").change();
     return html;
@@ -94,10 +98,11 @@ function populate_cities(obj) {
 
     let html = '';
     for (let i = 0; i < obj.length; i++) {
-        html += `<option id="${obj[i]['state_id']}" >${obj[i]['name']}</option>`
+        html += `<option id="${obj[i]['state_id']}" ${obj[i]['name']=='Gurgaon'?'selected':''}>${obj[i]['name']}</option>`
     }
     return html;
 }
+
 // end coutnry data
 
 
@@ -463,10 +468,10 @@ $(document).ready(() => {
                         <td>${name[i].first_name} ${name[i].last_name}</td>
                             <td>
                              <label class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="radio-inline${name[i].id}" value="Team member" class="custom-control-input"><span class="custom-control-label">Team member</span>
+                                <input type="radio" name="radio-inline${name[i].id}" value="Team member" class="custom-control-input checked"><span class="custom-control-label">Team member</span>
                                 </label>
                                  <label class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="radio-inline${name[i].id}" value="Team leader" class="custom-control-input"><span class="custom-control-label">Team leader</span>
+                                <input type="radio" name="radio-inline${name[i].id}" value="Team leader" class="custom-control-input checked"><span class="custom-control-label">Team leader</span>
                                 </label>
                                 </td>
                                 <td><button data-employees-id='${name[i].user_id}' data-radio-name="radio-inline${name[i].id}" class="btn btn-outline-primary btn-xs assign-task">Update</button></td>
@@ -480,6 +485,11 @@ $(document).ready(() => {
         }
     });
 
+    var role = ''
+    $('#user-data').on('click','.checked',function(){
+        role = $(this).val()        
+    })
+
     $('#user-data').on('click', '.assign-task', function (e) {
         let error = false;
         let radioName = $(this).attr('data-radio-name');
@@ -488,7 +498,15 @@ $(document).ready(() => {
         let radioValue = $(`input[name=${radioName}]:checked`).val();
         let clientId = $('#select-client').val().trim();
         let workorderId = $('#work-order').val().trim();
-
+        let html = `<tr>
+                      <td>${$(this).parent().parent().find('td:first').html()}</td>
+                      <td>${$('#work-order option:selected').text()}</td>
+                      <td>${role}</td>
+                      </tr>`;
+        $('#assigned-users').css('display','block');
+        $('#assigned_user').append(html);
+        $(this).parent().parent().remove()
+        // console.log(html)
         if (clientId == '') {
             error = true;
             showAlert('Client required', 'warning');
@@ -569,6 +587,8 @@ $('.download-master').click(function () {
         // console.log(masterDatabase);
     });
 });
+
+
 
 
 

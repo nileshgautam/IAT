@@ -29,9 +29,9 @@
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="text-muted">Total Clients</h5>
+                                <h5 class="text-muted">Assigned Work orders</h5>
                                 <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">1,000 </h1>
+                                    <h1 class="mb-1 text-primary">10</h1>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <h5 class="text-muted">Total Work Orders</h5>
                                 <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">200 </h1>
+                                    <h1 class="mb-1 text-primary">200</h1>
                                 </div>
                             </div>
                         </div>
@@ -74,13 +74,14 @@
                     </div>
                     <!-- /. metric -->
                 </div>
+                
                 <div class="row">
                     <!-- ============================================================== -->
                     <!-- top selling products  -->
                     <!-- ============================================================== -->
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">Clients</h5>
+                            <h5 class="card-header">Work orders</h5>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -107,53 +108,6 @@
                                                 <td><span class="badge badge-brand">pending</span></td>
                                                 <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-secondary">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -167,7 +121,7 @@
                     <!-- ============================================================== -->
                     <!-- total sale  -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-4 col-sm-12 col-12">
+                    <!-- <div class="col-xl-12 col-lg-12 col-md-4 col-sm-12 col-12">
                         <div class="card">
                             <h5 class="card-header">Total Work Orders</h5>
                             <div class="card-body">
@@ -194,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- ============================================================== -->
                     <!-- end total sale  -->
                     <!-- ============================================================== -->
@@ -203,7 +157,7 @@
                     <!-- ============================================================== -->
                     <!-- sales traffic country source  -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <!-- <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <h5 class="card-header">Client By City Traffic Source</h5>
                             <div class="card-body p-0">
@@ -225,7 +179,7 @@
                                 <a href="#" class="btn-primary-link">View Details</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- ============================================================== -->
                     <!-- end sales traffice country source  -->
                     <!-- ============================================================== -->
@@ -234,7 +188,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <div class="footer">
+            <!-- <div class="footer">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -249,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- ============================================================== -->
             <!-- end footer -->
             <!-- ============================================================== -->

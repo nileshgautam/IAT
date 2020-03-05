@@ -25,9 +25,17 @@ class ControlUnit extends CI_Controller
 
 	public function dashboard()
 	{
+		$data['clients']=$this->MainModel->count('client_details');
+		$data['users']=$this->MainModel->count('users');
+		$data['workorders']=$this->MainModel->count('work_order');
+
+		$data['allclients']=$this->MainModel->selectAll('client_details');
+		$data['workOrder']=$this->MainModel->selectAllworkOrder();
+		$data['Users']=$this->MainModel->selectAll('users');
+		// print_r($data);die;
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
-		$this->load->view('dashboard');
+		$this->load->view('dashboard', $data);
 		$this->load->view('layout/footer');
 	}
 
@@ -126,4 +134,5 @@ class ControlUnit extends CI_Controller
 		$this->load->view('pages/all-workorder', $data);
 		$this->load->view('layout/footer');
 	}
+
 }

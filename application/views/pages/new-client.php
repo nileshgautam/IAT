@@ -23,7 +23,8 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h3 class="mb-2">Clients</h3>
+                    <h3 class="mb-2">Clients</h3> <a style="margin: -45px 20px;
+"               class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard')?>" >Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -82,12 +83,14 @@
                                     <div class="form-group">
                                         <label for="inputUserName">Country</label>
                                         <select name="country" id="country" placeholder="Select state" autocomplete="off" class="form-control">
-                                            <option value="India">India</option>
+
                                             <?php if (!empty($country)) {
 
                                                 foreach ($country as $countries) { ?>
                                                     <option id='<?php echo $countries['id'] ?>' <?php if (!empty($client)) {
                                                                                                     echo ($countries['name'] ==  $client[0]['country']) ? ' selected="selected"' : '';
+                                                                                                } elseif ($countries['name'] == "India") {
+                                                                                                    echo "selected";
                                                                                                 } ?>>
 
                                                         <?php echo $countries['name']; ?> </option>
@@ -106,7 +109,7 @@
                                     <div class="form-group">
                                         <label for="inputEmail">State</label>
                                         <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control">
-                                            <option value="<?php echo isset($client) ? $client[0]['state'] : 'Haryana' ?>"><?php echo isset($client) ? $client[0]['state'] : 'Haryana' ?></option>
+                                            <option value="<?php echo isset($client) ? $client[0]['state'] : '' ?>"><?php echo isset($client) ? $client[0]['state'] : '' ?></option>
                                         </select>
                                         <!-- <option value="Haryana"> Haryana</option> -->
                                         </select>
@@ -128,7 +131,7 @@
                                     <label for="address">Address </label>
                                     <div class="form-group">
 
-                                        <textarea name="address" id="" cols="60" rows=""><?php echo (isset($client)) ? $client[0]['address'] : "" ?></textarea>
+                                        <textarea name="address" id="" cols="60" rows="4" class='form-control'><?php echo (isset($client)) ? $client[0]['address'] : "" ?></textarea>
 
                                     </div>
                                 </div>
@@ -143,6 +146,7 @@
                                 <p class="float-right text-right">
                                     <input type="hidden" name="client_id" value="<?php echo (isset($client)) ? $client[0]['client_id'] : '' ?>">
                                     <button type="submit" class="btn btn-space btn-primary">Submit</button>
+
                                 </p>
                             </div>
                     </div>

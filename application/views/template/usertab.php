@@ -56,7 +56,7 @@
                                             <td> <?php echo $user['phone'] ?></td>
                                             <td class="">
                                                 <a href="<?php echo base_url('Auditapp/edit_user/') . $user['user_id']; ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a>
-                                                <a href="<?php echo base_url('Auditapp/delete_user/') . $user['user_id']; ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-trash text-danger" aria-hidden="true" title="Delete"></i></a>
+                                                <!-- <a href="<?php echo base_url('Auditapp/delete_user/') . $user['user_id']; ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-trash text-danger" aria-hidden="true" title="Delete"></i></a> -->
                                             </td>
                                         </tr>
                                 <?php }
