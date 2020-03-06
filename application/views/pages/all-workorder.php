@@ -38,9 +38,10 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        // echo '<pre>';
                                         if (!empty($worksOrders)) {
                                             $count = 1;
-                                            // print_r($clients);
+                                            // print_r($worksOrders);
                                             foreach ($worksOrders as $worksOrder) {
                                         ?>
                                                 <tr>
@@ -48,7 +49,7 @@
                                                     <td>
                                                         <?php echo $worksOrder['work_order_name']; ?>
                                                     </td>
-                                                    <td><?php echo $worksOrder['client_id'] ?></td>
+                                                    <td><?php echo $worksOrder['client_name'] ?></td>
                                                     <td><?php echo $worksOrder['start_date'] ?></td>
                                                     <td><?php echo $worksOrder['end_date'] ?></td>
                                                     <!-- <td><span class="badge badge-brand">pending</span></td> -->

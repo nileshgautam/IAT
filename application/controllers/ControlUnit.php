@@ -128,7 +128,9 @@ class ControlUnit extends CI_Controller
 
 	public function allWorkOrder()
 	{
-		$data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
+		// $data['workOrder']=$this->MainModel->selectAllworkOrder();
+		// $data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
+		$data['worksOrders'] = $this->MainModel->selectAllworkOrder();
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('pages/all-workorder', $data);

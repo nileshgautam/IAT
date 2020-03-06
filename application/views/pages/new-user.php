@@ -82,7 +82,9 @@
                                                 foreach ($country as $countries) { ?>
                                                     <option id='<?php echo $countries['id'] ?>' <?php if (!empty($user)) {
                                                                                                     echo ($countries['name'] ==  $user[0]['country']) ? ' selected="selected"' : '';
-                                                                                                } ?>>
+                                                                                                }elseif ($countries['name'] == "India") {
+                                                                                                    echo "selected";
+                                                                                                }  ?>>
 
                                                         <?php echo $countries['name']; ?> </option>
 

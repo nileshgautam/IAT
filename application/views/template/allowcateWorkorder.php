@@ -43,7 +43,7 @@
                 <div class="form-group col-md-6">
                     <label for="work-order"> Select Work Order</label>
                     <select  id="work-order" class="form-control">
-                        <option>Select client</option>
+                        <option>Select client first</option>
                     </select>
                 </div>
             </div>
