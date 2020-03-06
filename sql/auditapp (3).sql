@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2020 at 06:55 AM
+-- Generation Time: Mar 06, 2020 at 12:48 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.3.13
+-- PHP Version: 7.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48030,17 +48030,8 @@ CREATE TABLE `client_details` (
 --
 
 INSERT INTO `client_details` (`id`, `client_id`, `client_name`, `address`, `city`, `state`, `country`, `pin_code`, `contact_no`, `email`, `date`, `gst_number`) VALUES
-(1, 'CL200221001', 'Gennextit', 'C-23, Sector 63', 'Noida', 'Uttar Pradesh', 'India', '201005', '1234567890', 'gennextit@sample.com', '2020-02-21 07:21:36', '102365478'),
-(2, 'CL200221002', 'BPCL', 'Noida', 'Gurgaon', 'Haryana', 'India', '201301', '7894561230', 'client1@gmail.com', '2020-02-21 08:49:19', 'Abcd123456789'),
-(3, 'CL200227003', 'HCL', 'nodia', 'Noida', 'Uttar Pradesh', 'India', '201301', '978465000', 'hcl@hcl.com', '2020-02-27 07:10:18', '455546546465'),
-(4, 'CL200227004', 'NMC Genetics', 'Gururam', 'Gurgaon', 'Haryana', 'India', '123', '789456123', 'nmc@nmc.com', '2020-02-27 07:20:20', 'gst123456'),
-(5, 'CL200302005', 'Capgemini IT India Pvt. Ltd.', 'Gurgaon', 'Gurgaon', 'Haryana', 'India', '789456', '7894561230', 'capgemini@it.com', '2020-03-02 04:48:34', '1234567890n'),
-(6, 'CL200302006', 'ITinfoCube IT Services', '1st Floor, Plot No, 768, Phase V, Udyog Vihar, Sector 19, Gurugram, Haryana ', 'Gurgaon', 'Haryana', 'India', '122016', '7894561230', 'itinfocube@it.com', '2020-03-02 05:04:10', 'abcd123456'),
-(7, 'CL200302007', 'Infinite IT Solutions', 'Tower B2, Spaze iTech Park, 28A, Ground, Sohna - Gurgaon Rd, Sector 49, Gurugram, Haryana ', 'Gurgaon', 'Haryana', 'India', '122018', '7894561230', 'solutions@gmail.com', '2020-03-02 05:21:06', '7894561230'),
-(8, 'CL200302008', 'abcd', 'Tower B2, Spaze iTech Park, 28A, Ground, Sohna - Gurgaon Rd, Sector 49, Gurugram, Haryana ', 'Gurgaon', 'Haryana', 'India', '54444', '7894561320', 'abcd@gmai.com', '2020-03-02 05:28:13', '798456032sdf'),
-(9, 'CL200302009', 'xxx', 'sdfasdf', 'Gurgaon', 'Haryana', 'India', '123456', '78945612130', 'dddd@gmail.com', '2020-03-02 05:32:58', '5463210'),
-(10, 'CL200302010', 'AAA', 'gurgaon', 'Gurgaon', 'Haryana', 'India', '789', '77777777777', 'aa@gmail.com', '2020-03-02 05:39:06', '777777777g'),
-(11, 'CL200302011', 'asfsdafs', 'sdfas', 'Gurgaon', 'Haryana', 'India', '123456', '78945610', 'na@na.com', '2020-03-02 05:54:06', '45689445');
+(12, 'CL200303001', 'HCL', 'Gurgaon', 'Gurgaon', 'Haryana', 'India', '22110022', '7894561230', 'info@hcl', '2020-03-03 06:18:07', '1234567890H'),
+(14, 'CL200304014', 'IBM', 'Gurgaon', 'Gurgaon', 'Haryana', 'India', '221100', '9823456810', 'info@ibm.com', '2020-03-04 10:37:51', 'IBM123456');
 
 -- --------------------------------------------------------
 
@@ -48059,31 +48050,13 @@ CREATE TABLE `client_workorder_relationship` (
 --
 
 INSERT INTO `client_workorder_relationship` (`id`, `work_order_id`, `client_id`) VALUES
-(1, 'WO200221001', 'CL200221001'),
-(2, 'WO200221002', 'CL200221001'),
-(3, 'WO200221003', 'CL200221001'),
-(4, 'WO200221004', 'CL200221002'),
-(5, 'WO200221005', 'CL200221002'),
-(6, 'WO200227006', 'CL200227004'),
-(7, 'WO200227007', 'CL200221002'),
-(8, 'WO200227008', 'CL200227004'),
-(9, 'WO200227009', 'CL200221001'),
-(10, 'WO200228010', 'Select client'),
-(11, 'WO200228010', 'Select client'),
-(12, 'WO200228012', 'Select client'),
-(13, 'WO200228013', 'Select client'),
-(14, 'WO200228014', ''),
-(15, 'WO200228015', ''),
-(16, 'WO200228016', ''),
-(17, 'WO200228017', ''),
-(18, 'WO200228018', ''),
-(19, 'WO200228019', ''),
-(20, 'WO200228020', 'CL200221002'),
-(21, 'WO200228021', 'CL200221001'),
-(22, 'WO200228022', 'CL200221002'),
-(23, 'WO200229023', 'CL200221002'),
-(24, 'WO200302024', 'CL200302010'),
-(25, 'WO200302025', 'CL200302011');
+(26, 'WO200303001', 'CL200303001'),
+(27, 'WO200304027', 'CL200303001'),
+(28, 'WO200304028', 'CL200304014'),
+(29, 'WO200304029', 'CL200304014'),
+(30, 'WO200304030', 'CL200304014'),
+(31, 'WO200304031', 'CL200303001'),
+(32, 'WO200304032', 'CL200303001');
 
 -- --------------------------------------------------------
 
@@ -48371,43 +48344,6 @@ CREATE TABLE `files` (
   `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `files`
---
-
-INSERT INTO `files` (`id`, `title`, `file_name`, `upload_time`, `uploaded_by`, `work_order_id`, `process_id`, `sub_process_id`, `work_step_id`, `remarks`, `file_type`, `status`) VALUES
-(88, 'Obtain an overview of process for updating and maintenance of the vendors', 'dubai_burj.png', '2020-02-29 09:57:11', '0', 'WO200228022', 1, 1, 4, 'Obtain an overview of process for updating and maintenance of the vendors\n', 'NM', '1'),
-(89, 'Obtain an overview of process for updating and maintenance of the vendors 2', '0d.jpg', '2020-02-29 09:57:41', '0', 'WO200228022', 1, 1, 4, 'Obtain an overview of process for updating and maintenance of the vendors\n', 'NM', '1'),
-(90, 'titleaaa', 'dubai-mall-1.jpg', '2020-02-29 10:25:22', '0', 'WO200228022', 1, 1, 6, 'asdfsdafsdaf', 'NM', '1'),
-(91, 'title2', 'intercontinental-dubai-4875611266-2x1.jpg', '2020-02-29 10:25:44', '0', 'WO200228022', 1, 1, 6, 'asf', 'NM', '1'),
-(92, 'abcd', 'dubai-mall-11.jpg', '2020-02-29 10:56:46', '0', 'WO200228022', 1, 1, 7, 'asdfasdf', 'NM', '1'),
-(93, 'abcd', '31st-New-year-71.jpg', '2020-02-29 11:01:21', '0', 'WO200228022', 1, 1, 8, 'afsdfsdaf', 'NM', '1'),
-(94, 'title 34', 'ananxes4.xlsx', '2020-02-29 11:01:53', '0', 'WO200228022', 1, 1, 8, 'asdfsdafsda', 'NM', '1'),
-(95, 'procurement file', 'Amazon_Product_Proffit_Calculator.xlsx', '2020-02-29 11:34:37', '0', 'WO200228022', 1, 2, 1, 'procurement file', 'NM', '1'),
-(96, 'procurement 2', 'AI.jpg', '2020-02-29 11:36:27', '0', 'WO200228022', 1, 2, 2, 'procurement 2', 'NM', '1'),
-(97, 'abcd', 'AI1.jpg', '2020-02-29 11:37:23', '0', 'WO200228022', 1, 2, 3, 'asdfsdafsdaf', 'NM', '1'),
-(98, 'abcd', 'ananxes41.xlsx', '2020-02-29 11:38:56', '0', 'WO200228022', 1, 2, 3, 'asdfsdafasd', 'NM', '1'),
-(99, 'abcd', 'AI2.jpg', '2020-02-29 11:40:43', '0', 'WO200228022', 1, 2, 29, 'asdfsdafs', 'M', '1'),
-(100, 'asdfsg', 'AI3.jpg', '2020-02-29 11:41:20', '0', 'WO200228022', 1, 2, 29, 'sdfgsdfg', 'M', '1'),
-(101, 'New title', 'cf.jpg', '2020-02-29 12:11:25', '0', 'WO200228022', 1, 1, 5, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.', 'NM', '1'),
-(102, 'Lorem ipsum dolor', 'Chart.png', '2020-02-29 12:13:27', '0', 'WO200227008', 1, 1, 4, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque illo quasi, libero voluptatum tempore dicta nam odit, quo architecto consequuntur delectus distinctio beatae? Voluptatibus deleniti labore neque reprehenderit quos necessitatibus?', 'NM', '1'),
-(103, 'Lorem ipsum ', 'AI4.jpg', '2020-02-29 12:13:59', '0', 'WO200227008', 1, 1, 4, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque illo quasi, libero voluptatum tempore dicta nam odit, quo architecto consequuntur delectus distinctio beatae? Voluptatibus deleniti labore neque reprehenderit quos necessitatibus?', 'NM', '1'),
-(104, 'AF', 'AI5.jpg', '2020-02-29 12:15:15', '0', 'WO200227008', 1, 1, 25, 'ASDFSDAFSDA', 'M', '1'),
-(105, 'ASDFSADFASDF', 'ananxes42.xlsx', '2020-02-29 12:15:35', '0', 'WO200227008', 1, 1, 4, 'ASDFASDFSDAF', 'NM', '1'),
-(106, 'ASDFASDFSADF', 'AI6.jpg', '2020-02-29 12:15:55', '0', 'WO200227008', 1, 1, 26, 'ASDFASDFASD', 'M', '1'),
-(107, 'SDFASDFASD', 'ananxes43.xlsx', '2020-02-29 12:16:11', '0', 'WO200227008', 1, 1, 4, 'ASDFASDFASDF', 'NM', '1'),
-(108, 'DGDGSDG', 'AI7.jpg', '2020-02-29 12:17:49', '0', 'WO200227008', 1, 1, 4, 'ASDFSADFSAD', 'NM', '1'),
-(109, 'gggg', 'ananxes44.xlsx', '2020-02-29 12:19:09', '0', 'WO200227008', 1, 1, 5, 'sdfasdf', 'NM', '1'),
-(110, 'gggg', 'AI8.jpg', '2020-02-29 12:19:39', '0', 'WO200227008', 1, 1, 27, '', 'M', '1'),
-(111, 'gg', 'AI9.jpg', '2020-02-29 12:19:51', '0', 'WO200227008', 1, 1, 20, '', 'NM', '1'),
-(112, 'ffff', 'AI10.jpg', '2020-02-29 12:20:05', '0', 'WO200227008', 1, 1, 8, '', 'NM', '1'),
-(113, '', 'AI11.jpg', '2020-02-29 12:21:34', '0', 'WO200227008', 1, 1, 8, 'tgg', 'NM', '1'),
-(114, 'sdfsdfsd', 'AI12.jpg', '2020-02-29 12:22:16', '0', 'WO200227008', 3, 1, 4, 'sdfdsfgsfd', 'NM', '1'),
-(115, 'sadfasdfsda', 'AI13.jpg', '2020-02-29 12:22:41', '0', 'WO200227008', 3, 1, 4, 'sdfsdafsa', 'NM', '1'),
-(116, '56', 'AI14.jpg', '2020-02-29 12:32:18', '0', 'WO200227008', 1, 1, 6, '', 'NM', '1'),
-(117, '5665', 'AI15.jpg', '2020-02-29 12:32:33', '0', 'WO200227008', 1, 1, 7, '', 'NM', '1'),
-(118, 'sdfasdfsdaf', 'AI16.jpg', '2020-02-29 12:49:47', 'U200225018', 'WO200228022', 1, 1, 11, 'asdfsadfsdaf', 'NM', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -48430,8 +48366,8 @@ CREATE TABLE `logs_master` (
 
 CREATE TABLE `process_master` (
   `id` int(11) NOT NULL,
-  `process_name` text NOT NULL,
   `process_id` varchar(50) NOT NULL,
+  `process_name` text NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -48439,11 +48375,8 @@ CREATE TABLE `process_master` (
 -- Dumping data for table `process_master`
 --
 
-INSERT INTO `process_master` (`id`, `process_name`, `process_id`, `status`) VALUES
-(1, 'Procurement', '1', 0),
-(3, 'p2', '2', 0),
-(4, 'p3', '3', 0),
-(5, 'P1', 'P200217005', 0);
+INSERT INTO `process_master` (`id`, `process_id`, `process_name`, `status`) VALUES
+(1, '1', 'Procurement', 0);
 
 -- --------------------------------------------------------
 
@@ -48452,7 +48385,8 @@ INSERT INTO `process_master` (`id`, `process_name`, `process_id`, `status`) VALU
 --
 
 CREATE TABLE `risk_master` (
-  `risk_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `risk_id` varchar(50) NOT NULL,
   `sub_process_id` varchar(50) NOT NULL,
   `risk_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -48461,13 +48395,10 @@ CREATE TABLE `risk_master` (
 -- Dumping data for table `risk_master`
 --
 
-INSERT INTO `risk_master` (`risk_id`, `sub_process_id`, `risk_name`) VALUES
-(1, '1', 'Redundant vendors exist in VMF'),
-(2, '1', 'Duplicate Vendors exist in VMF'),
-(3, '2', 'vendors performance is not reviewed.'),
-(4, '0', 'r1'),
-(5, '0', 'r2'),
-(6, '0', 'r3');
+INSERT INTO `risk_master` (`id`, `risk_id`, `sub_process_id`, `risk_name`) VALUES
+(1, '1', '1', 'Redundant vendors exist in VMF\r\n'),
+(2, '2', '1', 'Duplicate Vendors exist in VMF\r\n'),
+(3, '3', '2', 'vendors performance is not reviewed.');
 
 -- --------------------------------------------------------
 
@@ -52642,16 +52573,7 @@ CREATE TABLE `sub_process_master` (
 
 INSERT INTO `sub_process_master` (`id`, `sub_process_id`, `sub_process_name`, `process_id`, `status`) VALUES
 (1, '1', 'Vendor master maintenance', '1', 0),
-(2, '2', 'Vendor performance appraisal', '1', 0),
-(5, '1', 'sp21', '2', 0),
-(6, '2', 'sp22', '2', 0),
-(7, '1', 'sp31', '3', 0),
-(8, '2', 'sp32', '3', 0),
-(9, '3', 'sp33', '3', 0),
-(10, '0', 'S1', '0', 0),
-(11, '0', 'S2', '3', 0),
-(12, '0', 'S3', '2', 0),
-(13, 'SP200217013', 'S1', 'P200217005', 0);
+(2, '2', 'Vendor performance appraisal', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -52681,13 +52603,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_id`, `first_name`, `last_name`, `email`, `password`, `phone`, `country`, `state`, `city`, `address`, `adress_line_two`, `zip_pin_code`, `role`) VALUES
-(1, '123456', 'John', 'D\'souza', 'gennext@gn.com', '123456', '7894561230', '', '', '', '', '', '', 'Admin'),
-(13, '123457', 'Mohit', 'Singh', 'mohit@gmail.com', '123', '12345600', 'India', 'Delhi', 'New Delhi', 'Delhi NCR', 'Delhi NCR', '110091', 'Team member'),
-(14, '123458', 'Nilesh', 'Gautam', 'as@gmail.com', '123456', '123456789', 'India', 'Uttar Pradesh', 'Noida', 'Noida', 'Noida', '110091', 'Team member'),
-(15, 'U200221015', 'Varun', 'Rana', 'varun@gmail.com', '123456', '7894561230', 'India', 'Uttar Pradesh', 'Noida', 'Noida', 'noida', '201301', 'Team member'),
-(17, 'U200224016', 'Aakash', 'Morya', 'aakash@gmail.com', '123', '7894561230', 'India', 'Delhi', 'New Delhi', 'Laxmi Nagar', 'East Delhi', '110091', NULL),
-(18, 'U200225018', 'Yogesh', 'mittal', 'yogesh@gennextit.com', '123456', '789456123', 'India', 'Delhi', 'New Delhi', 'Mayur vihar', 'new delhi', '110091', 'Manager'),
-(21, 'U200229019', 'Mahesh', 'roy', 'mahesh@gmail.com', '123', '7894561230', 'India', 'Uttar Pradesh', 'Noida', 'Noida', 'Noida', '201301', 'Team member');
+(1, '123456', 'John', 'D\'souza', 'admin@audit.com', '123', '7894561230', 'India', 'Haryana', 'Gurgaon', '', '', '', 'Admin'),
+(13, '123457', 'Mohit', 'Singh', 'mohit@audit.com', '123', '12345600', 'India', 'Delhi', 'New Delhi', 'Delhi NCR', 'Delhi NCR', '110091', 'Team member'),
+(18, 'U200225018', 'Yogesh', 'mittal', 'manager@audit.com', '123', '789456123', 'India', 'Delhi', 'New Delhi', 'Mayur vihar', 'new delhi', '110091', 'Manager'),
+(22, 'U200303019', 'Aakash', 'Morya', 'aakash@audit.com', '123', '7894561230', 'India', 'Delhi', 'New Delhi', 'New delhi', '', '110091', 'Team member');
 
 -- --------------------------------------------------------
 
@@ -52712,26 +52631,14 @@ CREATE TABLE `users_work_order_relationship` (
 --
 
 INSERT INTO `users_work_order_relationship` (`id`, `clientId`, `work_order_id`, `user_id`, `role`, `created_date`, `start_date`, `end_date`, `work_status`) VALUES
-(1, '', 'WO200221001', '123457', 'Team member', '2020-02-21 10:17:08', '2020-02-21', '2020-02-23', 0),
-(2, '', 'WO200221005', '123457', 'Team member', '2020-02-24 04:42:19', '2020-02-25', '2020-02-29', 0),
-(3, 'Team leader', 'WO200221003', '123457', 'Team leader', '2020-02-29 06:20:07', NULL, NULL, 0),
-(4, 'Team leader', 'WO200221005', '123457', 'Team leader', '2020-02-29 06:24:11', NULL, NULL, 0),
-(5, 'Team leader', 'WO200221005', '123457', 'Team leader', '2020-02-29 06:24:20', NULL, NULL, 0),
-(6, 'Team member', 'WO200229023', 'U200224016', 'Team member', '2020-02-29 06:26:35', NULL, NULL, 0),
-(7, 'Team member', 'WO200229023', 'U200224016', 'Team member', '2020-02-29 06:27:19', NULL, NULL, 0),
-(8, 'Team leader', 'Select client', 'U200224016', 'Team leader', '2020-02-29 06:27:27', NULL, NULL, 0),
-(9, 'Team leader', 'WO200227008', 'U200224016', 'Team leader', '2020-02-29 06:27:42', NULL, NULL, 0),
-(10, 'Team leader', 'WO200228022', 'U200225018', 'Team leader', '2020-02-29 06:36:17', NULL, NULL, 0),
-(11, 'Team member', 'WO200221004', '123457', 'Team member', '2020-02-29 06:37:55', NULL, NULL, 0),
-(12, 'Team leader', 'WO200227008', 'U200229019', 'Team leader', '2020-02-29 07:40:12', NULL, NULL, 0),
-(13, 'Team leader', 'WO200228022', 'U200229019', 'Team leader', '2020-02-29 07:42:25', NULL, NULL, 0),
-(14, 'Team leader', 'WO200228022', 'U200229019', 'Team leader', '2020-02-29 07:42:52', NULL, NULL, 0),
-(15, 'Team leader', 'WO200228022', 'U200229019', 'Team leader', '2020-02-29 07:42:54', NULL, NULL, 0),
-(16, 'Team leader', 'WO200228022', 'U200229019', 'Team leader', '2020-02-29 07:42:54', NULL, NULL, 0),
-(17, 'Team leader', 'WO200229023', 'U200229019', 'Team leader', '2020-02-29 12:29:58', NULL, NULL, 0),
-(18, 'Team leader', 'WO200228021', 'U200225018', 'Team leader', '2020-02-29 12:34:09', NULL, NULL, 0),
-(19, 'CL200221001', 'WO200221005', 'null', 'Team leader', '2020-02-29 12:52:02', NULL, NULL, 0),
-(20, 'CL200221001', 'WO200228021', '123457', 'Team member', '2020-03-02 04:14:06', NULL, NULL, 0);
+(28, 'CL200303001', 'WO200303001', '123457', 'Team leader', '2020-03-04 11:58:34', NULL, NULL, 0),
+(29, 'CL200304014', 'WO200304028', '123457', 'Team member', '2020-03-04 12:21:09', NULL, NULL, 0),
+(30, 'CL200303001', 'WO200304027', '123457', 'Team member', '2020-03-04 12:21:24', NULL, NULL, 0),
+(31, 'CL200304014', 'WO200304030', 'U200225018', 'Team leader', '2020-03-05 12:34:55', NULL, NULL, 0),
+(32, 'CL200304014', 'WO200304030', '123457', 'Team leader', '2020-03-05 12:35:03', NULL, NULL, 0),
+(33, 'CL200304014', 'WO200304030', 'U200303019', 'Team leader', '2020-03-05 12:35:11', NULL, NULL, 0),
+(34, 'CL200303001', 'WO200304032', '123457', 'Team leader', '2020-03-06 04:22:03', NULL, NULL, 0),
+(35, 'CL200303001', 'WO200304032', 'U200303019', 'Team member', '2020-03-06 04:22:16', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -52758,21 +52665,11 @@ CREATE TABLE `work_order` (
 --
 
 INSERT INTO `work_order` (`id`, `client_id`, `work_order_id`, `work_order_name`, `processes`, `start_date`, `end_date`, `created_date`, `assign_status`, `status`, `complete_status`) VALUES
-(1, 'CL200221001', 'WO200221001', 'Lorem, ipsum dolor', '{\"P200217005\":[\"SP200217013\"]}', '0000-00-00', '0000-00-00', '2020-02-21 07:29:15', 0, 0, 0),
-(2, 'CL200221001', 'WO200221002', 'Lorem, ipsum dolor', '{\"1\":[\"1\",\"2\"],\"3\":[\"1\",\"2\"]}', '0000-00-00', '0000-00-00', '2020-02-21 07:29:49', 0, 0, 0),
-(3, 'CL200221001', 'WO200221003', 'Lorem, ipsum dolor', '{\"1\":[\"1\",\"2\"],\"3\":[\"1\",\"2\"]}', '0000-00-00', '0000-00-00', '2020-02-21 07:29:49', 0, 0, 0),
-(4, 'CL200221001', 'WO200221004', 'Lorem, ipsum dolor', '{\"1\":[\"1\",\"2\"],\"2\":[\"1\",\"2\"],\"3\":[\"1\",\"2\",\"3\"],\"P200217005\":[\"SP200217013\"]}', '0000-00-00', '0000-00-00', '2020-02-21 09:46:12', 0, 0, 0),
-(5, 'CL200221001', 'WO200221005', 'Lorem, ipsum dolor', '{\"1\":[\"1\",\"2\"],\"2\":[\"1\",\"2\"],\"3\":[\"1\",\"2\",\"3\"],\"P200217005\":[\"SP200217013\"]}', '0000-00-00', '0000-00-00', '2020-02-21 09:46:36', 0, 0, 0),
-(6, 'CL200227004', 'WO200227006', 'aaaaaaaaa', '{\"1\":[\"1\",\"2\"],\"P200217005\":[\"SP200217013\"]}', '2020-02-28', '2020-02-21', '2020-02-27 12:44:57', 0, 0, 0),
-(7, 'CL200221002', 'WO200227007', 'procurement ', '{\"1\":[\"2\"]}', '2020-02-20', '2020-02-29', '2020-02-27 12:46:32', 0, 0, 0),
-(8, 'CL200227004', 'WO200227008', 'aaaaaaaaaa', '{\"1\":[\"1\",\"2\"],\"3\":[\"1\",\"2\"]}', '2020-02-18', '2020-02-27', '2020-02-27 12:48:03', 0, 0, 0),
-(9, 'CL200221001', 'WO200227009', 'aaaaaa', '{\"1\":[\"1\",\"2\"]}', '2020-02-28', '2020-02-29', '2020-02-27 13:01:31', 0, 0, 0),
-(20, 'CL200221002', 'WO200228020', 'Required', '{}', '0000-00-00', '0000-00-00', '2020-02-28 06:20:28', 0, 0, 0),
-(21, 'CL200221001', 'WO200228021', 'Abcd', '{\"1\":[\"1\"]}', '2020-02-29', '2020-02-29', '2020-02-28 06:29:36', 0, 0, 0),
-(22, 'CL200221002', 'WO200228022', 'Procurment', '{\"1\":[\"1\",\"2\"],\"2\":[\"1\",\"2\",\"0\"]}', '2020-02-29', '2020-02-29', '2020-02-28 06:34:51', 0, 0, 0),
-(23, 'CL200221002', 'WO200229023', 'BCPL-workorder', '{\"1\":[\"1\"],\"2\":[\"1\",\"2\"]}', '2020-02-29', '2020-03-07', '2020-02-29 04:18:34', 0, 0, 0),
-(24, 'CL200302010', 'WO200302024', 'AAA-Procurment', '{\"1\":[\"1\"]}', '2020-03-02', '2020-03-07', '2020-03-02 05:41:48', 0, 0, 0),
-(25, 'CL200302011', 'WO200302025', 'bbbb', '{\"1\":[\"1\",\"2\"]}', '2020-03-28', '2020-03-28', '2020-03-02 05:54:29', 0, 0, 0);
+(26, 'CL200303001', 'WO200303001', 'HCL-Procurment', '{\"1\":[\"1\",\"2\"]}', '2020-03-03', '2020-03-28', '2020-03-03 06:18:47', 0, 0, 0),
+(27, 'CL200303001', 'WO200304027', 'HCL-p1', '{\"P200217005\":[\"SP200217013\"]}', '2020-03-28', '2020-03-31', '2020-03-04 04:30:44', 0, 0, 0),
+(28, 'CL200304014', 'WO200304028', 'Ibm-procurment', '{\"1\":[\"1\",\"2\"]}', '2020-03-19', '2020-03-31', '2020-03-04 10:57:53', 0, 0, 0),
+(30, 'CL200304014', 'WO200304030', 'xyz-procurement', '{\"1\":[\"1\",\"2\"]}', '2020-03-28', '2020-03-30', '2020-03-04 11:06:04', 0, 0, 0),
+(32, 'CL200303001', 'WO200304032', 'abcd', '{\"1\":[\"2\"]}', '2020-03-04', '2020-03-28', '2020-03-04 11:41:29', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -52814,6 +52711,34 @@ INSERT INTO `work_steps` (`work_steps_id`, `sub_process_id`, `steps_name`, `mand
 (27, '1', 'List of new vendors created / deleted / blocked along with relevant approvals and documentation ', 'M', 0),
 (28, '1', 'Approvals for change in details of vendor master', 'M', 0),
 (29, '2', 'Vendor appraisal / performance reports', 'M', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `work_steps_complete_status`
+--
+
+CREATE TABLE `work_steps_complete_status` (
+  `id` int(11) NOT NULL,
+  `work_order_id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `process_id` int(11) NOT NULL,
+  `sub_process_id` int(11) NOT NULL,
+  `work_step_id` int(11) NOT NULL,
+  `file_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `complete_status` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `work_steps_complete_status`
+--
+
+INSERT INTO `work_steps_complete_status` (`id`, `work_order_id`, `process_id`, `sub_process_id`, `work_step_id`, `file_type`, `complete_status`) VALUES
+(1, 'WO200304030', 1, 1, 4, 'NM', 1),
+(2, 'WO200304030', 1, 1, 5, 'NM', 1),
+(3, 'WO200304030', 1, 1, 6, 'NM', 1),
+(4, 'WO200304030', 1, 1, 7, 'NM', 1),
+(5, 'WO200304030', 1, 1, 8, 'NM', 1),
+(6, 'WO200303001', 1, 1, 21, 'NM', 1);
 
 --
 -- Indexes for dumped tables
@@ -52866,7 +52791,7 @@ ALTER TABLE `process_master`
 -- Indexes for table `risk_master`
 --
 ALTER TABLE `risk_master`
-  ADD PRIMARY KEY (`risk_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `roles`
@@ -52917,6 +52842,12 @@ ALTER TABLE `work_steps`
   ADD PRIMARY KEY (`work_steps_id`);
 
 --
+-- Indexes for table `work_steps_complete_status`
+--
+ALTER TABLE `work_steps_complete_status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -52930,13 +52861,13 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `client_details`
 --
 ALTER TABLE `client_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `client_workorder_relationship`
 --
 ALTER TABLE `client_workorder_relationship`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -52948,7 +52879,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs_master`
@@ -52966,7 +52897,7 @@ ALTER TABLE `process_master`
 -- AUTO_INCREMENT for table `risk_master`
 --
 ALTER TABLE `risk_master`
-  MODIFY `risk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -52996,25 +52927,31 @@ ALTER TABLE `sub_process_master`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users_work_order_relationship`
 --
 ALTER TABLE `users_work_order_relationship`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `work_order`
 --
 ALTER TABLE `work_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `work_steps`
 --
 ALTER TABLE `work_steps`
   MODIFY `work_steps_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `work_steps_complete_status`
+--
+ALTER TABLE `work_steps_complete_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

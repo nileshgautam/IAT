@@ -47,7 +47,6 @@ class Auditapp extends CI_Controller
     public function assignedTask($var = null)
     {
         $data['workorder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
-
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/todolist', $data);
@@ -69,8 +68,6 @@ class Auditapp extends CI_Controller
         $data['risk'] = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $sub_process_id), 'risk_name');
         $data['work_steps'] = $this->MainModel->selectAllFromWhere('tbl_work_steps', array('sub_process_id' => $sub_process_id), 'steps_name');
         $data['data_required'] = $this->MainModel->selectAllFromWhere('tbl_data_required', array('sub_process_id' => $sub_process_id), 'data_required');
-
-
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/workSteps', $data);
@@ -402,11 +399,10 @@ class Auditapp extends CI_Controller
     }
 
     // function to show all the process for perticular work order
-    public function workprocess($id)
+    public function workprocess($id = null)
     {
         $id = base64_decode($id);
         // print_r($id);die;
-
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
         // echo '<pre>';
         // print_r($data);
@@ -434,6 +430,7 @@ class Auditapp extends CI_Controller
         // $upload_files = json_encode($p_data, true);
         $p_data['p_data'] = $p_data;
         $p_data['work_order'] = $id;
+        $p_data['work_order_name'] = $data[0]['work_order_name'];
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/work-space', $p_data);
@@ -552,9 +549,38 @@ class Auditapp extends CI_Controller
     }
 
     // function to loading users details from database
-	public function allUesrs()
-	{
+    public function allUesrs()
+    {
         $data = $this->MainModel->selectAll('users');
-        echo $data=json_encode($data,true);
-	}
+        echo $data = json_encode($data, true);
+    }
+
+    public function saveWorkSteps()
+    {
+        if (isset($_POST['data'])) {
+            $data  = json_decode($_POST['data'], true);
+            // print_r($data);die;           
+            for ($i = 0; $i < count($data); $i++) {
+                $insert = array(
+                    'work_order_id' => $data[$i]['order_id'],
+                    'process_id' => $data[$i]['process_id'],
+                    'sub_process_id' => $data[$i]['subprocess_id'],
+                    'work_step_id' => $data[$i]['work_step_id'],
+                    'file_type' => $data[$i]['mandatory_type'],
+                    'complete_status' => '1'
+                );
+                $validate = $this->MainModel->selectAllFromWhere('work_steps_complete_status', $insert);
+                if (empty($validate)) {
+                    $res = $this->MainModel->insertInto('work_steps_complete_status', $insert);
+                }
+            }
+            if ($res) {
+                echo (json_encode(array('status' => 'success', 'msg' => 'Steps saved successfully')));
+            } else {
+                echo (json_encode(array('status' => 'danger', 'msg' => 'Steps did not save successfully, Contact to IT')));
+            }
+        } else {
+            echo (json_encode(array('status' => 'danger', 'msg' => 'System Error! Contact to IT')));
+        }
+    }
 }

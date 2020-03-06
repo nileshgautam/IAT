@@ -8,6 +8,7 @@ class MainModel extends ci_model
         $insert_id = $this->db->insert_id();
         return $this->db->affected_rows() ? $insert_id : FALSE;
     }
+
     public function Update($column_name = null, $tableName = null, $data = null, $id = null)
     {
         $this->db->set($column_name, $data);  //Set the column name and which value to set..
@@ -233,6 +234,7 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+
     // public function count($table = null, $id = null)
     // {
     //     $query = "SELECT COUNT(client_id) FROM $table WHERE client_id = '$id'";
@@ -261,9 +263,11 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+    
     public function getallworkorder($id)
     {
-        $query = "SELECT client_workorder_relationship.client_id, work_order.work_order_id, work_order.processes, users_work_order_relationship.user_id,users_work_order_relationship.work_status FROM work_order LEFT JOIN client_workorder_relationship on work_order.work_order_id= client_workorder_relationship.work_order_id LEFT JOIN users_work_order_relationship on work_order.work_order_id=users_work_order_relationship.work_order_id WHERE users_work_order_relationship.user_id='$id'";
+        $query = "SELECT client_workorder_relationship.client_id, work_order.work_order_id, work_order.work_order_name, work_order.processes, work_order.end_date as target_date, users_work_order_relationship.user_id, users_work_order_relationship.work_status FROM work_order LEFT JOIN client_workorder_relationship on work_order.work_order_id= client_workorder_relationship.work_order_id LEFT JOIN users_work_order_relationship on work_order.work_order_id=users_work_order_relationship.work_order_id
+        WHERE users_work_order_relationship.user_id='$id' ORDER by users_work_order_relationship.created_date DESC";
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }

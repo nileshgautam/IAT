@@ -47,7 +47,7 @@ $("#country").change(function () {
 // 
 
 $("#state").change(function () {
-    let state = $(this).attr('data-state');    
+    let state = $(this).attr('data-state');
     let id = $(this).children("option:selected").attr('id');
     console.log(id);
     country_id = {
@@ -98,7 +98,7 @@ function populate_cities(obj) {
 
     let html = '';
     for (let i = 0; i < obj.length; i++) {
-        html += `<option id="${obj[i]['state_id']}" ${obj[i]['name']=='Gurgaon'?'selected':''}>${obj[i]['name']}</option>`
+        html += `<option id="${obj[i]['state_id']}" ${obj[i]['name'] == 'Gurgaon' ? 'selected' : ''}>${obj[i]['name']}</option>`
     }
     return html;
 }
@@ -229,6 +229,7 @@ $('.view-file').click(function () {
     form_data.append('workid', workid);
     form_data.append('workstepsid', workstepsid);
     $('#view-file-data').append('');
+
     $.ajax({
         type: 'POST',
         url: baseUrl + '/Auditapp/viewFiles',
@@ -246,7 +247,7 @@ $('.view-file').click(function () {
                         <th>File Name</th>
                
                         <th>Remarks</th>
-                        <th>Uploaded On</th>
+                        <th>Updated On</th>
                     </tr>
                 </thead>
                 <tbody>`
@@ -261,7 +262,7 @@ $('.view-file').click(function () {
 
                 html += `
                 <tr>
-            <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title} </a></td>
+            <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title == "" ? uploadfile.file_name : uploadfile.title} </a></td>
           
             <td>${uploadfile.remarks}</td> 
 
@@ -337,9 +338,13 @@ $('.add-new').on('click', function () {
     let newRow = `<tr>
     <td>${iterable + 1}</td>
     <td><input id="file-name" type="text" name="file-name${iterable}" class="form-control" placeholder="Enter file name" /></td>
-    <td> <input id="files" type="file" name="files${iterable}" class="form-control"></td>
+    <td> 
+    <div class="upload-btn-wrapper">
+    <button class="btn-upload">Choose a file</button>
+    <input id="files" type="file" name="files${iterable}" class="form-control">
+    </div></td>
     <td><textarea name="remark${iterable}" id="remark" cols="" rows="" class="form-control"></textarea></td>
-    <td><button type="submit" fn-name="file-name${iterable}" files-name="files${iterable}" remark-name="remark${iterable}" class="upload-data"><i class="fa fa-upload"></i></button>
+    <td><button type="submit" fn-name="file-name${iterable}" files-name="files${iterable}" remark-name="remark${iterable}" class="upload-data"><i class="fa fa-save"></i></button>
     </td>
 </tr>`;
     $('#upload-multiple-file').append(newRow);
@@ -359,10 +364,19 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
     let title = t.val();
     //let files = f.val();
     let remark = r.val();
-
-    if (remark == '') {
-        t.val('Required').css('color', 'red');
-        title = true;
+    let f_type = $('#filetyple').val();
+    if (f_type != 'NM') {
+        if (remark == '' && f[0].files[0] == undefined && title == "") {
+            showAlert('All fields are Mandatory for this step', 'danger');
+            error = true;
+        }
+    }
+    else if (remark == '' && f[0].files[0] == undefined && title == "") {
+        showAlert('All fields are empty, remarks required', 'warning');
+        error = true;
+    }else if (f[0].files[0] == undefined && title != ""){
+        showAlert('You are giving a file name, Please choose a file first', 'warning');
+        error = true;
     }
 
     // if(f[0].files[0]==undefined){
@@ -486,8 +500,8 @@ $(document).ready(() => {
     });
 
     var role = ''
-    $('#user-data').on('click','.checked',function(){
-        role = $(this).val()        
+    $('#user-data').on('click', '.checked', function () {
+        role = $(this).val()
     })
 
     $('#user-data').on('click', '.assign-task', function (e) {
@@ -503,7 +517,7 @@ $(document).ready(() => {
                       <td>${$('#work-order option:selected').text()}</td>
                       <td>${role}</td>
                       </tr>`;
-        $('#assigned-users').css('display','block');
+        $('#assigned-users').css('display', 'block');
         $('#assigned_user').append(html);
         $(this).parent().parent().remove()
         // console.log(html)
@@ -610,3 +624,33 @@ function ValidateDate() {
         return false
     }
 }
+
+//Save Work Steps Complete status
+$('#save_wSteps').click(() => {
+    let check_steps_data = [];
+    let w_id = $('input[type="checkbox"]:checked').each(function () {
+        let data = {
+            work_step_id: $(this).attr('data-work-step-id'),
+            order_id: $(this).attr('data-work-order-id'),
+            process_id: $(this).attr('data-process-id'),
+            subprocess_id: $(this).attr('data-sub-process-id'),
+            mandatory_type: $(this).attr('data-work-steps-type'),
+        }
+        check_steps_data.push(data);
+    });
+    if (check_steps_data.length == 0) {
+        showAlert('No Work Step is chose for save', 'danger');
+    } else {
+
+        $.post(baseUrl + "Auditapp/saveWorkSteps", { data: JSON.stringify(check_steps_data) }, function (data, status) {
+            let response = JSON.parse(data);
+            showAlert(response['msg'], response['status']);
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+
+        });
+    }
+    // console.log(check_steps_data)
+})
+

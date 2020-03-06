@@ -88,7 +88,7 @@ class ControlUnit extends CI_Controller
 	// team dashboard will apear after login
 	public function teamDashboard()
 	{
-		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
+		$data['workorder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
 		$this->load->view('layout/header');
 		$this->load->view('team/team-sidebar', $data);
 		$this->load->view('team/team-dashboard');

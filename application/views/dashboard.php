@@ -47,11 +47,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade  show active" id="clients" role="tabpanel" aria-labelledby="clients-tab">
                     <div class="card">
-                        <h5 class="card-header">Clients <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newClientPage'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a></h5> 
+                        <h5 class="card-header">Clients
+                            <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newClientPage'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a></h5> 
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
@@ -63,7 +63,6 @@
                                             <th class="border-0">Phone No.</th>
                                             <th class="border-0">City</th>
                                             <th class="border-0">Action</th>
-                             
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,12 +84,9 @@
                                                     <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a>
                                                         <button data-id="<?php echo base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order"  data-toggle="modal" data-target="#allWorkOrderModalCenter" >Projects</button>
                                                     </td>
-                                           
-
                                                 </tr>
                                         <?php }
                                         }
-
 
                                         ?>
                                     </tbody>
@@ -150,7 +146,7 @@
                 </div>
                 <div class="tab-pane fade" id="employee" role="tabpanel" aria-labelledby="employee-tab">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header"> Employees
                         <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newUsersPage'); ?>"> Add new <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
                                     </div>
                         <div class="card-body p-0">

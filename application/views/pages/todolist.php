@@ -35,32 +35,63 @@
                                     <tr class="border-0">
                                         <th class="border-0">#</th>
                                         <th class="border-0">Name</th>
+                                        <th class="border-0">Assigned Date</th>
+
+                                        <th class="border-0">Target Date</th>
                                         <th class="border-0">Status</th>
                                         <th class="border-0">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
+                                    <?php
                                     // echo '<pre>';
                                     // print_r($workorder);
-                                    if (!empty($workorder)) 
-                                    {
-                                        $count =1;
-                                        $sr=1;
-                                        foreach ($workorder as $assignedTask) { 
+                                    if (!empty($workorder)) {
+                                        $count = 1;
+                                        $sr = 1;
+                                        foreach ($workorder as $assignedTask) {
                                             $uploadedData = $this->MainModel->selectAllFromWhere('files', array('work_order_id' => $assignedTask['work_order_id']));
                                             // echo '<pre>';
                                             // print_r($uploadedData);
-                                            ?>
+                                    ?>
                                             <tr>
-                                                <td><?php echo $sr++?></td>
+                                                <td><?php echo $sr++ ?></td>
                                                 <td>
-                                                    Work order <?php echo $count++?>
+                                                    <?php echo ucfirst($assignedTask['work_order_name']); ?>
                                                 </td>
                                                 <td>
-                                                    
-                                                <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id']? '<span class="badge badge-info">Under Process</span>':'<span class="badge badge-warning">New</span>'?></td>
-                                                <td><a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0?'Start':''?></td>
+                                                    <?php
+
+                                                    $date = explode("-", $assignedTask['target_date']);
+                                                    $d = explode(" ", $date[2]);
+                                                    // print_r($date);
+                                                    $yy = $date[0];
+                                                    $mm = $date[1];
+                                                    $dd = $d[0];
+                                                    $fdate = $dd . '-' . $mm . '-' . $yy;
+                                                    echo $fdate
+
+                                                    ?>
+                                                </td>
+
+                                                <td>
+                                                    <?php
+
+                                                    $date = explode("-", $assignedTask['target_date']);
+                                                    //  $d=explode(" ",$date[2]);
+                                                    // print_r($date);
+                                                    $yy = $date[0];
+                                                    $mm = $date[1];
+                                                    $dd = $date[2];
+                                                    $fdate = $dd . '-' . $mm . '-' . $yy;
+                                                    echo $fdate
+
+                                                    ?>
+                                                </td>
+                                                <td>
+
+                                                    <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id'] ? '<span class="badge badge-info">Under Process</span>' : '<span class="badge badge-warning">New</span>' ?></td>
+                                                <td><a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" title="Click to show selected processes" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0 ? 'Start' : '' ?></td>
                                             </tr>
                                     <?php
                                         }
