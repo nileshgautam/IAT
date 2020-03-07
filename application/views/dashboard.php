@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Total Clients</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo $clients[0]['total'] ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo  !empty($clients[0]['total'])?$clients[0]['total']:'0' ?></h1>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Total Work Orders</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo $workorders[0]['total'] ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo !empty($workorders[0]['total'])?$workorders[0]['total']:'0' ?></h1>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Employees</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo $users[0]['total'] ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo (!empty($users[0]['total']))?$users[0]['total']:'0' ?></h1>
                             </div>
                         </div>
                     </div>
@@ -106,9 +106,10 @@
                                     <thead class="bg-light">
                                         <tr class="border-0">
                                             <th class="border-0">#</th>
-                                            <th class="border-0">Name</th>
-                                            <th class="border-0">Client name</th>
+                                            <th class="border-0">Work orders</th>
+                                            <th class="border-0">Client</th>
                                             <th class="border-0">Created date</th>
+                                            <th class="border-0">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,14 +127,9 @@
                                                     <td> <?php echo $works['client_name'] ?></td>
                                                     <td>
                                                     <?php
-                                                    $date=explode("-",$works['date']);
-                                                    $d=explode(" ",$date[2]);
-                                                    $yy=$date[0];
-                                                    $mm=$date[1];
-                                                    $dd=$d[0];
-                                                    $fdate= $dd.'-'.$mm.'-'.$yy;
-                                                    echo $fdate ?>
+                                                    echo ddmmyytt($works['date']);?>
                                                     </td>
+                                                    <td>  <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/').base64_encode($works['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
                                                 </tr>
                                         <?php }
                                         }
@@ -159,6 +155,7 @@
                                             <th class="border-0">Email</th>
                                             <th class="border-0">Phone No.</th>
                                             <th class="border-0">City</th>
+                                            <th class="border-0">Role</th>
                                             <th class="border-0">Action</th>
                                             <!-- <th class="border-0">Status</th> -->
                                             <!-- <th class="border-0">Action</th> -->
@@ -179,6 +176,7 @@
                                                     <td> <?php echo $employee['email'] ?></td>
                                                     <td><?php echo $employee['phone'] ?></td>
                                                     <td><?php echo $employee['city'] ?></td>
+                                                    <td><?php echo $employee['role'] ?></td>
                                                     <td> <a href="<?php echo base_url('Auditapp/edit_user/') . $employee['user_id']; ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a></td>
 
                                                 </tr>

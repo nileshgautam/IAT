@@ -10,7 +10,10 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h3 class="mb-2"><span> <?php echo ucfirst($work_order_name);?></span> </h3>
+                    <h3 class="mb-2"><span> <?php echo ucfirst($work_order_name); ?></span> </h3>
+                    <a style="margin: -28px 7px;
+    padding: 2px 5px;
+" class="btn btn-danger exit-btn-style float-right text-white" href="<?php echo base_url('ControlUnit/teamDashboard') ?>">Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -29,18 +32,18 @@
                     <div id="accordionProcess">
                         <?php
                         // echo '<pre>';
-                      
+
                         if (!empty($p_data)) {
                             foreach ($p_data as $process) {
                                 // print_r($process);
                         ?>
                                 <div class="card">
-                                    <div class="card-header" id="heading<?php echo $process['process_id'] ?>" data-toggle="collapse"  title="Click here, view all the subprocess." data-target="#collapse<?php echo $process['process_id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $process['process_id'] ?>">
+                                    <div class="card-header" id="heading<?php echo $process['process_id'] ?>" data-toggle="collapse" title="Click here, view all the subprocess." data-target="#collapse<?php echo $process['process_id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $process['process_id'] ?>">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-link" >
+                                            <button class="btn btn-link">
                                                 <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_name'] ?>
                                             </button>
-                                            <i class="fa fa-info-circle float-right text-primary"  title="Click over the process view all the subprocess respectively." aria-hidden="true"></i>
+                                            <i class="fa fa-info-circle float-right text-primary" title="Click over the process view all the subprocess respectively." aria-hidden="true"></i>
                                         </h5>
                                     </div>
                                     <div id="collapse<?php echo $process['process_id'] ?>" class="collapse" aria-labelledby="heading<?php echo $process['process_id'] ?>" data-parent="#accordionProcess">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2020 at 12:48 PM
+-- Generation Time: Mar 07, 2020 at 12:53 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -48045,19 +48045,6 @@ CREATE TABLE `client_workorder_relationship` (
   `client_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `client_workorder_relationship`
---
-
-INSERT INTO `client_workorder_relationship` (`id`, `work_order_id`, `client_id`) VALUES
-(26, 'WO200303001', 'CL200303001'),
-(27, 'WO200304027', 'CL200303001'),
-(28, 'WO200304028', 'CL200304014'),
-(29, 'WO200304029', 'CL200304014'),
-(30, 'WO200304030', 'CL200304014'),
-(31, 'WO200304031', 'CL200303001'),
-(32, 'WO200304032', 'CL200303001');
-
 -- --------------------------------------------------------
 
 --
@@ -48343,6 +48330,20 @@ CREATE TABLE `files` (
   `file_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `title`, `file_name`, `upload_time`, `uploaded_by`, `work_order_id`, `process_id`, `sub_process_id`, `work_step_id`, `remarks`, `file_type`, `status`) VALUES
+(1, 'title', 'ananxes1.xlsx', '2020-03-07 07:54:05', 'U200303019', 'WO200304028', 1, 1, 8, '', 'NM', '1'),
+(2, 'ddddd', 'ananxes2.xlsx', '2020-03-07 08:16:44', 'U200303019', 'WO200304028', 1, 1, 4, 'abcd', 'NM', '1'),
+(3, 'ddddd', 'ananxes3.xlsx', '2020-03-07 08:19:59', 'U200303019', 'WO200304028', 1, 1, 4, 'abcd', 'NM', '1'),
+(4, '', 'No File', '2020-03-07 11:31:34', 'U200303019', 'WO200304028', 1, 1, 4, 'aaa', 'NM', '1'),
+(5, '', 'No File', '2020-03-07 11:32:01', 'U200303019', 'WO200304028', 1, 1, 4, 'aaa', 'NM', '1'),
+(6, '111111', 'ananxes4.xlsx', '2020-03-07 12:08:10', 'U200303019', 'WO200304028', 1, 1, 4, 'aaaaa', 'NM', '1'),
+(7, '222', 'ASIN.docx', '2020-03-07 12:08:24', 'U200303019', 'WO200304028', 1, 1, 4, 'bbbb', 'NM', '1'),
+(8, 'aaaaa', 'AI.jpg', '2020-03-07 12:52:38', 'U200303019', 'WO200303001', 1, 2, 1, 'xxxxx', 'NM', '1');
 
 -- --------------------------------------------------------
 
@@ -52603,7 +52604,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_id`, `first_name`, `last_name`, `email`, `password`, `phone`, `country`, `state`, `city`, `address`, `adress_line_two`, `zip_pin_code`, `role`) VALUES
-(1, '123456', 'John', 'D\'souza', 'admin@audit.com', '123', '7894561230', 'India', 'Haryana', 'Gurgaon', '', '', '', 'Admin'),
+(1, '123456', 'John', 'D\'souza', 'admin@audit.com', '123', '7894561230', 'India', 'Haryana', 'Gurgaon', 'Gurgaon', 'Phase2', '201301', 'Admin'),
 (13, '123457', 'Mohit', 'Singh', 'mohit@audit.com', '123', '12345600', 'India', 'Delhi', 'New Delhi', 'Delhi NCR', 'Delhi NCR', '110091', 'Team member'),
 (18, 'U200225018', 'Yogesh', 'mittal', 'manager@audit.com', '123', '789456123', 'India', 'Delhi', 'New Delhi', 'Mayur vihar', 'new delhi', '110091', 'Manager'),
 (22, 'U200303019', 'Aakash', 'Morya', 'aakash@audit.com', '123', '7894561230', 'India', 'Delhi', 'New Delhi', 'New delhi', '', '110091', 'Team member');
@@ -52631,14 +52632,7 @@ CREATE TABLE `users_work_order_relationship` (
 --
 
 INSERT INTO `users_work_order_relationship` (`id`, `clientId`, `work_order_id`, `user_id`, `role`, `created_date`, `start_date`, `end_date`, `work_status`) VALUES
-(28, 'CL200303001', 'WO200303001', '123457', 'Team leader', '2020-03-04 11:58:34', NULL, NULL, 0),
-(29, 'CL200304014', 'WO200304028', '123457', 'Team member', '2020-03-04 12:21:09', NULL, NULL, 0),
-(30, 'CL200303001', 'WO200304027', '123457', 'Team member', '2020-03-04 12:21:24', NULL, NULL, 0),
-(31, 'CL200304014', 'WO200304030', 'U200225018', 'Team leader', '2020-03-05 12:34:55', NULL, NULL, 0),
-(32, 'CL200304014', 'WO200304030', '123457', 'Team leader', '2020-03-05 12:35:03', NULL, NULL, 0),
-(33, 'CL200304014', 'WO200304030', 'U200303019', 'Team leader', '2020-03-05 12:35:11', NULL, NULL, 0),
-(34, 'CL200303001', 'WO200304032', '123457', 'Team leader', '2020-03-06 04:22:03', NULL, NULL, 0),
-(35, 'CL200303001', 'WO200304032', 'U200303019', 'Team member', '2020-03-06 04:22:16', NULL, NULL, 0);
+(38, 'CL200303001', 'WO200303001', 'U200303019', 'Team member', '2020-03-07 11:33:54', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -52666,7 +52660,6 @@ CREATE TABLE `work_order` (
 
 INSERT INTO `work_order` (`id`, `client_id`, `work_order_id`, `work_order_name`, `processes`, `start_date`, `end_date`, `created_date`, `assign_status`, `status`, `complete_status`) VALUES
 (26, 'CL200303001', 'WO200303001', 'HCL-Procurment', '{\"1\":[\"1\",\"2\"]}', '2020-03-03', '2020-03-28', '2020-03-03 06:18:47', 0, 0, 0),
-(27, 'CL200303001', 'WO200304027', 'HCL-p1', '{\"P200217005\":[\"SP200217013\"]}', '2020-03-28', '2020-03-31', '2020-03-04 04:30:44', 0, 0, 0),
 (28, 'CL200304014', 'WO200304028', 'Ibm-procurment', '{\"1\":[\"1\",\"2\"]}', '2020-03-19', '2020-03-31', '2020-03-04 10:57:53', 0, 0, 0),
 (30, 'CL200304014', 'WO200304030', 'xyz-procurement', '{\"1\":[\"1\",\"2\"]}', '2020-03-28', '2020-03-30', '2020-03-04 11:06:04', 0, 0, 0),
 (32, 'CL200303001', 'WO200304032', 'abcd', '{\"1\":[\"2\"]}', '2020-03-04', '2020-03-28', '2020-03-04 11:41:29', 0, 0, 0);
@@ -52879,7 +52872,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `logs_master`
@@ -52933,7 +52926,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_work_order_relationship`
 --
 ALTER TABLE `users_work_order_relationship`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `work_order`

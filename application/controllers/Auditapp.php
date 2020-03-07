@@ -302,8 +302,8 @@ class Auditapp extends CI_Controller
             'address' => $this->input->post('address'),
             'adress_line_two' => $this->input->post('address-line-two'),
             'phone' => $this->input->post('mobile-no'),
-            'zip_pin_code' => $this->input->post('zip-pin-code'),
-            'role' => $this->input->post('role')
+            'zip_pin_code' => $this->input->post('zip-pin-code')
+            // 'role' => $this->input->post('role')
 
         );
         $id = $this->input->post('id');
@@ -529,8 +529,6 @@ class Auditapp extends CI_Controller
         $this->load->view('manager/work-space-all-process', $p_data);
         $this->load->view('layout/footer');
     }
-
-
 
     public function updateWorkSteps($var = null)
     {

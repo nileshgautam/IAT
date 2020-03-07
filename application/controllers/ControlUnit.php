@@ -28,7 +28,6 @@ class ControlUnit extends CI_Controller
 		$data['clients']=$this->MainModel->count('client_details');
 		$data['users']=$this->MainModel->count('users');
 		$data['workorders']=$this->MainModel->count('work_order');
-
 		$data['allclients']=$this->MainModel->selectAll('client_details');
 		$data['workOrder']=$this->MainModel->selectAllworkOrder();
 		$data['Users']=$this->MainModel->selectAll('users');

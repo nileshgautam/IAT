@@ -103,6 +103,10 @@ function populate_cities(obj) {
 }
 
 // end coutnry data
+<<<<<<< HEAD
+=======
+
+>>>>>>> nilesh_github
 $('#client').change(function () {
 
     let client = $(this).children("option:selected").attr('data');
@@ -401,11 +405,7 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
 
 });
 
-// reload windows after uploaded file
 
-$('#reload').click(function () {
-    location.reload(true);
-});
 
 // show all the workorder by client
 function workOrderData(obj) {
@@ -528,7 +528,6 @@ $(document).ready(() => {
         // let form_data = new FormData();
         let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: clientId, workorderId: workorderId }
 
-
         if (!error) {
             $.post(baseUrl + "AssignWorkOrder/save_assigned_work",
                 form_data,
@@ -643,5 +642,22 @@ $('#save_wSteps').click(() => {
         });
     }
     // console.log(check_steps_data)
-})
+});
 
+
+// show password
+
+$(document).ready(function () {
+    $("#show_hide_password a").on('click', function (event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass("fa-eye-slash");
+            $('#show_hide_password i').removeClass("fa-eye");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass("fa-eye-slash");
+            $('#show_hide_password i').addClass("fa-eye");
+        }
+    });
+});

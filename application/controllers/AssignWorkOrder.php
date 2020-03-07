@@ -15,11 +15,13 @@ class AssignWorkOrder extends CI_Controller
     }
 
     function allowcated_work_order($clientid=null)
+
     {
+
         $data['users'] = $this->MainModel->selectAllWhere('users', array('role!=' => 'Admin'));
         $data['roles'] = $this->MainModel->selectAllWhere('roles', array('status' => '0'));
         $data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
-        $data['clientid'] = $clientid;
+        $data['clientid'] = base64_decode($clientid);
 
         // echo '<pre>';
         // print_r($data['clientid']);die;

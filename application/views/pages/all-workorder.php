@@ -33,7 +33,7 @@
                                             <th class="border-0">Start date</th>
                                             <th class="border-0">End Date</th>
                                             <!-- <th class="border-0">Status</th> -->
-                                            <!-- <th class="border-0">Action</th> -->
+                                            <th class="border-0">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,21 +50,19 @@
                                                         <?php echo $worksOrder['work_order_name']; ?>
                                                     </td>
                                                     <td><?php echo $worksOrder['client_name'] ?></td>
-                                                    <td><?php echo $worksOrder['start_date'] ?></td>
-                                                    <td><?php echo $worksOrder['end_date'] ?></td>
-                                                    <!-- <td><span class="badge badge-brand">pending</span></td> -->
                                                     <td>
-                                                        <!-- <a href="<?php echo base_url('Auditapp/edit_client/') .base64_encode($cilent['client_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a> -->
-                                                        <!-- <a href="#" class="btn btn-outline-primary btn-xs">Assign</td> -->
+                                                    <?php echo ddmmyy($worksOrder['start_date']);
+                                                    
+                                                    ?>
+                                                </td>
+                                                    <td><?php echo ddmmyy($worksOrder['end_date']); ?></td>
+
+                                                    <td><a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/').base64_encode($worksOrder['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
+                                                  
                                                 </tr>
                                         <?php }
                                         } ?>
-                                        <tr>
-                                            <td colspan="8">
-
-                                                <a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                        </tr>
-
+                                      
                                     </tbody>
                                 </table>
                             </div>
