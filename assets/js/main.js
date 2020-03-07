@@ -77,7 +77,6 @@ $("#state").change(function () {
     // alert(id);
 });
 
-
 $("#country").change();
 $("#state").change();
 
@@ -104,9 +103,6 @@ function populate_cities(obj) {
 }
 
 // end coutnry data
-
-
-
 $('#client').change(function () {
 
     let client = $(this).children("option:selected").attr('data');
@@ -191,7 +187,6 @@ $('.submit-services').on('click', function () {
     }
 });
 
-
 // set required data to the model
 $('.set-data').click(function () {
 
@@ -216,7 +211,6 @@ dateFormatDDMMYY = (date) => {
     let newdate = day + "-" + month + "-" + year;
     return newdate;
 }
-
 
 // function to show uploaded files in mandatory
 $('.view-file').click(function () {
@@ -280,7 +274,6 @@ $('.view-file').click(function () {
     });
     // console.log(companyid);
 });
-
 
 // work-orders
 $('.work-orders').on('click', function (e) {
@@ -352,7 +345,6 @@ $('.add-new').on('click', function () {
 });
 
 $('#upload-multiple-file').on('click', '.upload-data', function () {
-
     let fileTitle = $(this).attr('fn-name');
     let filesname = $(this).attr('files-name');
     let remarktxt = $(this).attr('remark-name');
@@ -374,7 +366,7 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
     else if (remark == '' && f[0].files[0] == undefined && title == "") {
         showAlert('All fields are empty, remarks required', 'warning');
         error = true;
-    }else if (f[0].files[0] == undefined && title != ""){
+    } else if (f[0].files[0] == undefined && title != "") {
         showAlert('You are giving a file name, Please choose a file first', 'warning');
         error = true;
     }
@@ -466,7 +458,6 @@ $(document).ready(() => {
         allEmployees = JSON.parse(data);
         // console.log(obj);
     });
-
 
     //  Searching employees in to the array comes from database
     $('#search-users').on('change keyup', function () {
