@@ -103,10 +103,6 @@ function populate_cities(obj) {
 }
 
 // end coutnry data
-<<<<<<< HEAD
-=======
-
->>>>>>> nilesh_github
 $('#client').change(function () {
 
     let client = $(this).children("option:selected").attr('data');
