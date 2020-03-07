@@ -23,6 +23,7 @@
 
 <!-- Optional JavaScript -->
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+
 <!-- jquery 3.3.1 js-->
 <!-- bootstrap bundle js-->
 <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>

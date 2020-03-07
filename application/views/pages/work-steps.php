@@ -10,7 +10,9 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h3 class="mb-2">Work Steps</h3>
+                    <h3 class="mb-2">Work Steps</h3> <a style="margin: -28px 7px;
+    padding: 2px 5px;
+" class="btn btn-danger exit-btn-style float-right text-white" href="<?php echo base_url('ControlUnit/teamDashboard') ?>">Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -144,10 +146,8 @@
                             </tr>
                         </tfoot>
                     </table>
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="reload">Close</button>
-
+                        <button type="button" class="btn btn-secondary save-selected-files" id="reload">Close</button>
                     </div>
 
                 </div>

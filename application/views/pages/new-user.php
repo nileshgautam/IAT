@@ -24,7 +24,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
                     <h3 class="mb-2">User</h3> <a style="margin: -45px 20px;
-"               class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard')?>" >Exit</a>
+" class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard') ?>">Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -66,7 +66,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="input-email">Email address</label>
-                                        <input id="input-email" type="email" name="email" placeholder="Enter email"  autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
+                                        <input id="input-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -75,14 +75,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="selectcountry">Country</label>
-                                        <select name="country" id="country"  placeholder="Select state" autocomplete="off" class="form-control"  data-state="<?php echo (isset($user) ? $user[0]['state'] : '') ?>">
+                                        <select name="country" id="country" placeholder="Select state" autocomplete="off" class="form-control" data-state="<?php echo (isset($user) ? $user[0]['state'] : '') ?>">
                                             <option>Select country</option>
                                             <?php if (!empty($country)) {
 
                                                 foreach ($country as $countries) { ?>
                                                     <option id='<?php echo $countries['id'] ?>' <?php if (!empty($user)) {
                                                                                                     echo ($countries['name'] ==  $user[0]['country']) ? ' selected="selected"' : '';
-                                                                                                }elseif ($countries['name'] == "India") {
+                                                                                                } elseif ($countries['name'] == "India") {
                                                                                                     echo "selected";
                                                                                                 }  ?>>
 
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label for="state">State</label>
                                         <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control">
-                                            <option id='statechiled' value="<?php echo isset($user)? $user[0]['state']:'' ?>"><?php echo isset($user)? $user[0]['state']:'Select State' ?></option>
+                                            <option id='statechiled' value="<?php echo isset($user) ? $user[0]['state'] : '' ?>"><?php echo isset($user) ? $user[0]['state'] : 'Select State' ?></option>
                                         </select>
                                         <!-- <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="Enter email" autocomplete="off" class="form-control"> -->
                                     </div>
@@ -112,9 +112,9 @@
                                     <div class="form-group">
                                         <label for="city">City</label>
                                         <select name="city" id="city" autocomplete="off" class="form-control">
-                                        <option value="<?php echo isset($user)? $user[0]['city']:'' ?>"><?php echo isset($user)? $user[0]['city']:'Select State' ?></option>
+                                            <option value="<?php echo isset($user) ? $user[0]['city'] : '' ?>"><?php echo isset($user) ? $user[0]['city'] : 'Select State' ?></option>
                                         </select>
-                                
+
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="address">Address </label>
-                                        <input id="address" type="text" name="address" placeholder="Enter address line 1" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['address'] : "" ?>" >
+                                        <input id="address" type="text" name="address" placeholder="Enter address line 1" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['address'] : "" ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -149,8 +149,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+
                                         <label for="password">Password</label>
-                                        <input id="password" type="password" name="password" placeholder="Enter password." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['password'] : "" ?>" required>
+                                        <div class="input-group" id="show_hide_password">
+                                            <input id="password" type="password" name="password" placeholder="Enter password." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['password'] : "" ?>" required>
+                                            <div class="input-group-addon">
+                                                <a href='#'><i class="fa fa-eye-slash" aria-hidden="true" style="padding: 10px; border: 1px solid #d3cfcf;"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

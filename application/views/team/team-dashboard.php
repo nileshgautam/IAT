@@ -22,7 +22,7 @@
                         <h5 class="text-muted">Total work orders</h5>
                         <div class="metric-value d-inline-block">
                             <h1 class="mb-1 text-primary"></h1>
-                            <h1 class="mb-1 text-primary"><?php echo count($workorder) ?></h1>
+                            <h1 class="mb-1 text-primary"><?php echo (!empty($workorder)) ? count($workorder) : '0' ?></h1>
                         </div>
                     </div>
                 </div>
@@ -85,35 +85,15 @@
                                                 </td>
                                                 <td>
                                                     <?php
-
-                                                    $date = explode("-", $assignedTask['target_date']);
-                                                    $d = explode(" ", $date[2]);
-                                                    // print_r($date);
-                                                    $yy = $date[0];
-                                                    $mm = $date[1];
-                                                    $dd = $d[0];
-                                                    $fdate = $dd . '-' . $mm . '-' . $yy;
-                                                    echo $fdate
-
+                                                    echo ddmmyytt($assignedTask['assgindate']);
                                                     ?>
                                                 </td>
-
                                                 <td>
                                                     <?php
-
-                                                    $date = explode("-", $assignedTask['target_date']);
-                                                    //  $d=explode(" ",$date[2]);
-                                                    // print_r($date);
-                                                    $yy = $date[0];
-                                                    $mm = $date[1];
-                                                    $dd = $date[2];
-                                                    $fdate = $dd . '-' . $mm . '-' . $yy;
-                                                    echo $fdate
-
+                                                    echo ddmmyy($assignedTask['target_date']);
                                                     ?>
                                                 </td>
                                                 <td>
-
                                                     <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id'] ? '<span class="badge badge-info">Under Process</span>' : '<span class="badge badge-warning">New</span>' ?></td>
                                                 <td>
                                                     <a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" title="Click to show selected processes" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0 ? 'Start' : '' ?></td>
