@@ -21,9 +21,10 @@ class AssignWorkOrder extends CI_Controller
         $data['users'] = $this->MainModel->selectAllWhere('users', array('role!=' => 'Admin'));
         $data['roles'] = $this->MainModel->selectAllWhere('roles', array('status' => '0'));
         $data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
-        $data['clientid'] = base64_decode($clientid);
+        // $data['clientid'] = base64_decode($clientid);
+        $data['clientid'] = $clientid;
 
-        // echo '<pre>';
+        // // echo '<pre>';
         // print_r($data['clientid']);die;
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');

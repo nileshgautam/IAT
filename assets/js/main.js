@@ -417,7 +417,10 @@ function workOrderData(obj) {
 $('#select-client').on('change', function () {
     let error = false;
     let clientId = $(this).val();
-    if (clientId == " ") {
+
+    console.log(clientId);
+
+    if (clientId == "") {
         $('#message').html('Client Required');
         error = true;
     }
@@ -433,7 +436,6 @@ $('#select-client').on('change', function () {
             data: form_data,
             success: function (data, success) {
                 let obj = JSON.parse(data);
-
                 data = workOrderData(obj);
                 $('#work-order').html(data)
                 // console.log(data);
@@ -442,7 +444,6 @@ $('#select-client').on('change', function () {
         });
     }
 });
-
 
 $('#select-client').change();
 
@@ -547,9 +548,7 @@ $(document).ready(() => {
             $.post(baseUrl + "Auditapp/updateWorkSteps", { workstepsid: workstepsid, workOrderId: workOrderId, checkValue: checkValue }, function (data, status) {
                 // console.log(data);
             });
-
         }
-
     });
 
 });
@@ -587,11 +586,6 @@ $('.download-master').click(function () {
         // console.log(masterDatabase);
     });
 });
-
-
-
-
-
 
 // date validate function
 function ValidateDate() {
@@ -640,9 +634,7 @@ $('#save_wSteps').click(() => {
     // console.log(check_steps_data)
 });
 
-
 // show password
-
 $(document).ready(function () {
     $("#show_hide_password a").on('click', function (event) {
         event.preventDefault();

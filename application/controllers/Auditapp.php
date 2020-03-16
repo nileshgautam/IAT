@@ -322,14 +322,18 @@ class Auditapp extends CI_Controller
         // print_r($_POST);die;
 
         if (!empty($_POST)) {
+            $sdate=yymmdd($_POST['sdate']);
+            $edate=yymmdd($_POST['enddate']);
+            // print_r($sdate);die;
+
             $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order');
             $data = array(
                 'client_id' => $_POST['client_id'],
                 'work_order_id' => $_POST['workorderId'],
                 'work_order_name' => $_POST['workOrderName'],
                 'processes' => $_POST['process'],
-                'start_date' => $_POST['sdate'],
-                'end_date' => $_POST['enddate'],
+                'start_date' => $sdate,
+                'end_date' =>$edate,
                 'assign_status' => '0',
                 'complete_status' => '0'
             );
