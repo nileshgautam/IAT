@@ -98,13 +98,12 @@ class ControlUnit extends CI_Controller
 	public function manager()
 	{
 		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
+		$data['workOrders']=$this->MainModel->selectAllworkOrder();
 		$this->load->view('layout/header');
-		$this->load->view('manager/manager-sidebar', $data);
-		$this->load->view('manager/manager-dashboard');
+		$this->load->view('manager/manager-sidebar');
+		$this->load->view('manager/manager-dashboard',$data);
 		$this->load->view('layout/footer');
 	}
-
-
 
 	public function managerAllWorkOrder()
 	{

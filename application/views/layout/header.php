@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/vector-map/jqvmap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/custom.css">
    
 
     <!-- jQuery 3 -->

@@ -322,8 +322,8 @@ class Auditapp extends CI_Controller
         // print_r($_POST);die;
 
         if (!empty($_POST)) {
-            $sdate=yymmdd($_POST['sdate']);
-            $edate=yymmdd($_POST['enddate']);
+            $sdate = yymmdd($_POST['sdate']);
+            $edate = yymmdd($_POST['enddate']);
             // print_r($sdate);die;
 
             $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order');
@@ -333,7 +333,7 @@ class Auditapp extends CI_Controller
                 'work_order_name' => $_POST['workOrderName'],
                 'processes' => $_POST['process'],
                 'start_date' => $sdate,
-                'end_date' =>$edate,
+                'end_date' => $edate,
                 'assign_status' => '0',
                 'complete_status' => '0'
             );
@@ -497,14 +497,13 @@ class Auditapp extends CI_Controller
     {
         $id = base64_decode($id);
         // print_r($id);die;
-
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
         $clientID = $this->MainModel->selectAllFromWhere('client_details', array('client_id' => $data[0]['client_id']));
         // echo '<pre>';
         // print_r($data);
         // die;
         $process = json_decode($data[0]['processes'], true);
-        // $processArray =
+
         // print_r($process);
         // die;
         $p_data = [];
@@ -528,6 +527,7 @@ class Auditapp extends CI_Controller
         $p_data['work_order'] = $id;
         $p_data['clientName'] = $clientID[0]['client_name'];
         $p_data['workOrdername'] = $data[0]['work_order_name'];
+        // echo $data = json_encode($p_data, true);
         $this->load->view('layout/header');
         $this->load->view('manager/manager-sidebar');
         $this->load->view('manager/work-space-all-process', $p_data);
@@ -556,7 +556,7 @@ class Auditapp extends CI_Controller
         $data = $this->MainModel->selectAll('users');
         echo $data = json_encode($data, true);
     }
-
+    // function to save work steps
     public function saveWorkSteps()
     {
         if (isset($_POST['data'])) {
@@ -584,5 +584,9 @@ class Auditapp extends CI_Controller
         } else {
             echo (json_encode(array('status' => 'danger', 'msg' => 'System Error! Contact to IT')));
         }
+    }
+
+    public function allsubprocess($var = null)
+    {
     }
 }

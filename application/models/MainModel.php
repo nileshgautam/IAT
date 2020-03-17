@@ -301,5 +301,20 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+// count complete work steps
+    public function workstepCount($wId='',$prId='',$spId='')
+    {
+        $query1 = "SELECT COUNT(work_step_id) AS completeSteps FROM work_steps_complete_status WHERE work_order_id = '$wId' AND process_id = '$prId' AND sub_process_id = '$spId'";
+        $query2 = "SELECT COUNT(work_steps_id) AS totalSteps  FROM work_steps WHERE sub_process_id = '$spId'";
+        $result1 = $this->db->query($query1)->result_array();
+        $result2 = $this->db->query($query2)->result_array();
+        return $this->db->affected_rows() ? array($result2[0],$result1[0]) : false;
+    }
+
+    public function FunctionName($table = null )
+    {
+       $query= 'SELECT COUNT(*) FROM `work_steps` WHERE sub_process_id=1';
+    }
+   
 
 }

@@ -42,7 +42,7 @@
 <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
 <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/spark-js.js"></script>
 <!-- dashboard sales js-->
-<script src="<?php echo base_url(); ?>assets/libs/js/dashboard-sales.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/libs/js/dashboard-sales.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 
 <!-- datepicker -->

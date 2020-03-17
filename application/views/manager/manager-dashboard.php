@@ -1,263 +1,188 @@
-       <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
-            <div class="container-fluid  dashboard-content">
-                <!-- ============================================================== -->
-                <!-- pagehader  -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                            <h3 class="mb-2">Dashboard</h3>
-                            <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- pagehader  -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <!-- metric -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Total Clients</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">1,000 </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /. metric -->
-                    <!-- metric -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Total Work Orders</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">200 </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /. metric -->
-                    <!-- metric -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Revenue</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">$5,656</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /. metric -->
-                    <!-- metric -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Growth</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">+28.45% </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /. metric -->
-                </div>
-                <div class="row">
-                    <!-- ============================================================== -->
-                    <!-- top selling products  -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Clients</h5>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">#</th>
-                                                <th class="border-0">Name</th>
-                                                <th class="border-0">Email</th>
-                                                <th class="border-0">Phone No.</th>
-                                                <th class="border-0">City</th>
-                                                <th class="border-0">Status</th>
-                                                <th class="border-0">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-brand">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>
-                                                    Nilesh Wephyre
-                                                </td>
-                                                <td>Nilesh.wephyre@gmail.com</td>
-                                                <td>9191919191</td>
-                                                <td>Noida</td>
-                                                <td><span class="badge badge-secondary">pending</span></td>
-                                                <td><a href="#" class="btn btn-outline-primary btn-xs">Projects</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end top selling products  -->
-                    <!-- ============================================================== -->
-
-                    <!-- ============================================================== -->
-                    <!-- total sale  -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-4 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Total Work Orders</h5>
-                            <div class="card-body">
-                                <div class="row">
-
-                                    <canvas class="col-md-8" id="total-sale"></canvas>
-                                    <div class="chart-widget-list col-md-4">
-                                        <p>
-                                            <span class="fa-xs text-primary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">Complete</span>
-                                            <span class="float-right">60%</span>
-                                        </p>
-                                        <p>
-                                            <span class="fa-xs text-secondary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">Pending</span>
-                                            <span class="float-right">18%</span>
-                                        </p>
-                                        <p>
-                                            <span class="fa-xs text-brand mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">New</span>
-                                            <span class="float-right">22%</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end total sale  -->
-                    <!-- ============================================================== -->
-                </div>
-                <div class="row">
-                    <!-- ============================================================== -->
-                    <!-- sales traffic country source  -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Client By City Traffic Source</h5>
-                            <div class="card-body p-0">
-                                <ul class="country-sales list-group list-group-flush">
-                                    <li class="country-sales-content list-group-item"><span class="mr-2"><i class="flag-icon flag-icon-in" title="us" id="us"></i> </span>
-                                        <span class="">Delhi</span><span class="float-right text-dark">40%</span>
-                                    </li>
-                                    <li class="list-group-item country-sales-content"><span class="mr-2"><i class="flag-icon flag-icon-in" title="ca" id="ca"></i></span><span class="">Noida</span><span class="float-right text-dark">37%</span>
-                                    </li>
-                                    <li class="list-group-item country-sales-content"><span class="mr-2"><i class="flag-icon flag-icon-in" title="ru" id="ru"></i></span><span class="">Gurugram</span><span class="float-right text-dark">20%%</span>
-                                    </li>
-                                    <li class="list-group-item country-sales-content"><span class=" mr-2"><i class="flag-icon flag-icon-in" title="in" id="in"></i></span><span class="">Chandigarh</span><span class="float-right text-dark">12%</span>
-                                    </li>
-                                    <li class="list-group-item country-sales-content"><span class=" mr-2"><i class="flag-icon flag-icon-in" title="fr" id="fr"></i></span><span class="">Faridabad</span><span class="float-right text-dark">16%</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="#" class="btn-primary-link">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end sales traffice country source  -->
-                    <!-- ============================================================== -->
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <div class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="text-md-right footer-links d-none d-sm-block">
-                                <a href="javascript: void(0);">About</a>
-                                <a href="javascript: void(0);">Support</a>
-                                <a href="javascript: void(0);">Contact Us</a>
-                            </div>
-                        </div>
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h3 class="mb-2">Dashboard</h3>
+                    <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- end wrapper  -->
-        <!-- ============================================================== -->
+        <div class="nav nav-tabs" id="myTab" role="tablist">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="clients-tab" data-toggle="tab" href="#clients" role="tab" aria-controls="clients" aria-selected="true">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-muted">Total work orders</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 text-primary"><?php echo  !empty($workOrders) ? count($workOrders) : '0' ?></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="work-order-tab" data-toggle="tab" href="#work-order" role="tab" aria-controls="work-order" aria-selected="false">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-muted">Total Work Orders</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 text-primary"><?php echo !empty($workorders[0]['total']) ? $workorders[0]['total'] : '0' ?></h1>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="false">
+                <div class="card ">
+                    <div class="card-body">
+                        <h5 class="text-muted">Complete work orders</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 text-primary"><?php echo (!empty($users[0]['total'])) ? $users[0]['total'] : '0' ?></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade  show active" id="clients" role="tabpanel" aria-labelledby="clients-tab">
+                <div class="card">
+                    <h5 class="card-header">All Work orders
+                    </h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">Clinets</th>
+                                        <th class="border-0">Work orders</th>
+                                        <th class="border-0">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // echo '<pre>';
+                                    // print_r($workOrders);
+                                    $count = 1;
+                                    if (!empty($workOrders)) {
+                                        foreach ($workOrders  as $workorder) { ?>
+                                            <tr>
+                                                <td><?php echo $count++; ?></td>
+                                                <td>
+                                                    <?php echo $workorder['client_name'] ?>
+                                                </td>
+                                                <td> <?php echo $workorder['work_order_name'] ?></td>
+                                                <td>
+                                                    <a href="<?php echo base_url('Auditapp/workOrderprocess/') . base64_encode($workorder['work_order_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-tasks" title="Check progress"></i></a>
+
+                                                </td>
+                                            </tr>
+                                    <?php }
+                                    }
+
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="tab-pane fade" id="work-order" role="tabpanel" aria-labelledby="work-order-tap">
+                <div class="card">
+                    <div class="card-header">Work order
+                    
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">Work orders</th>
+                                        <th class="border-0">Client</th>
+                                        <th class="border-0">Created date</th>
+                                        <th class="border-0">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // echo '<pre>';
+                                    // print_r($workOrders);
+                                    $count = 1;
+                                    if (!empty($workOrder)) {
+                                        foreach ($workOrder  as $works) { ?>
+                                            <tr>
+                                                <td><?php echo $count++; ?></td>
+                                                <td>
+                                                    <?php echo $works['work_order_name'] ?>
+                                                </td>
+                                                <td> <?php echo $works['client_name'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    echo ddmmyytt($works['date']); ?>
+                                                </td>
+                                                <td> <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/') . base64_encode($works['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
+                                            </tr>
+                                    <?php }
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="tab-pane fade" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                <div class="card">
+                    <h5 class="card-header"> Complete
+
+                    </h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">Clinets</th>
+                                        <th class="border-0">Work orders</th>
+                                        <th class="border-0">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    echo '<pre>';
+                                    print_r($workOrders);
+                                    $count = 1;
+                                    if (!empty($allclients)) {
+                                        foreach ($allclients  as $clients) { ?>
+                                            <tr>
+                                                <td><?php echo $count++; ?></td>
+                                                <td>
+                                                    <?php echo $clients['client_name'] ?>
+                                                </td>
+                                                <td> <?php echo $clients['email'] ?></td>
+                                                <td><?php echo $clients['contact_no'] ?></td>
+                                                <td><?php echo $clients['city'] ?></td>
+                                                <td>
+                                                    <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a>
+                                                    <button data-id="<?php echo base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order" data-toggle="modal" data-target="#allWorkOrderModalCenter">Projects</button>
+                                                </td>
+                                            </tr>
+                                    <?php }
+                                    }
+
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- end main wrapper  -->
-    <!-- ============================================================== -->
+</div>
