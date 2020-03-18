@@ -19,7 +19,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">Clients
-                            <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newClientPage'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a>
+                            <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('new-client'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a>
                         </div>
 
                         <div class="card-body p-0">

@@ -53,3 +53,30 @@ $route['default_controller'] = 'login';
 $route['upload']='MainWebsite/excel_reader';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+// custome route Admin screen
+$route['admin'] = 'ControlUnit/dashboard';
+$route['dashboard'] = 'ControlUnit/dashboard';
+$route['new-client'] = 'ControlUnit/newClientPage';
+$route['all-clients'] = 'ControlUnit/allClients';
+$route['new-user'] = 'ControlUnit/newUsersPage';
+$route['all-users'] = 'ControlUnit/allUsers';
+$route['new-work-order'] = 'ControlUnit/newWorkOrder';
+$route['assign-work'] = 'AssignWorkOrder/allowcated_work_order';
+$route['all-work-orders'] = 'ControlUnit/allWorkOrder';
+// custome route manager screen
+$route['manager'] = 'ControlUnit/manager';
+$route['manager/dashboard'] = 'ControlUnit/manager';
+$route['manager/work-orders'] ='ControlUnit/managerAllWorkOrder';
+$route['manager/all-clients'] ='ControlUnit/managerallClients';
+
+$route['work-order/process'] ='Auditapp/workOrderprocess';
+
+// custome for users 
+$route['member'] = 'ControlUnit/teamDashboard';
+$route['manager/dashboard'] = 'ControlUnit/manager';
+$route['manager/work-orders'] ='ControlUnit/managerAllWorkOrder';
+$route['manager/all-clients'] ='ControlUnit/managerallClients';
+
+$route['login']='Login/index';

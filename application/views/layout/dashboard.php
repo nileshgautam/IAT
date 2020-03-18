@@ -39,7 +39,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="false">
                     <div class="card ">
                         <div class="card-body">
-                            <h5 class="text-muted">Employees</h5>
+                            <h5 class="text-muted">Users</h5>
                             <div class="metric-value d-inline-block">
                                 <h1 class="mb-1 text-primary"><?php echo (!empty($users[0]['total']))?$users[0]['total']:'0' ?></h1>
                             </div>
@@ -50,8 +50,8 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade  show active" id="clients" role="tabpanel" aria-labelledby="clients-tab">
                     <div class="card">
-                        <h5 class="card-header">Clients
-                            <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newClientPage'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a></h5> 
+                        <div class="card-header">Clients
+                            <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('new-client'); ?>"> Add Client &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a></div> 
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
@@ -98,7 +98,7 @@
                 <div class="tab-pane fade" id="work-order" role="tabpanel" aria-labelledby="work-order-tap">
                     <div class="card">
                         <div class="card-header">Work order
-                        <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newWorkOrder'); ?>"> Add New &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a>
+                        <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('new-work-order'); ?>"> Add New &nbsp;&nbsp;<i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create Client"></i></a>
                                     </div>   
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -142,8 +142,8 @@
                 </div>
                 <div class="tab-pane fade" id="employee" role="tabpanel" aria-labelledby="employee-tab">
                     <div class="card">
-                        <div class="card-header"> Employees
-                        <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newUsersPage'); ?>"> Add new <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
+                        <div class="card-header"> Users
+                        <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('new-user'); ?>"> Add new <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
                                     </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">

@@ -7,7 +7,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="<?php echo base_url('ControlUnit/manager') ?>">Internal Audit Tool</a>
+                <a class="navbar-brand" href="<?php echo base_url('manager') ?>">Internal Audit Tool</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,7 +53,7 @@
                                 Menu
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?php echo base_url('ControlUnit/manager') ?>"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                                <a class="nav-link" href="<?php echo base_url('manager/dashboard') ?>"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                             </li>
                            
                             <li class="nav-item">
@@ -62,7 +62,7 @@
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <!-- <a class="nav-link" href="<?php echo base_url('Auditapp/assignedTask')?>">Assigned Task</a> -->
-                                            <a class="nav-link" href="<?php echo base_url().'ControlUnit/managerAllWorkOrder'?>">All Work Order</a>
+                                            <a class="nav-link" href="<?php echo base_url().'manager/work-orders'?>">All Work Order</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -75,7 +75,7 @@
                                             <a class="nav-link" href="<?php echo base_url('ControlUnit/newClientPage');?>">New</a>
                                         </li> -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('ControlUnit/managerallClients');?>">All Clients</a>
+                                            <a class="nav-link" href="<?php echo base_url('manager/all-clients');?>">All Clients</a>
                                         </li>
                                     </ul>
                                 </div>

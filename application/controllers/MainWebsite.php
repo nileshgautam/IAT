@@ -10,9 +10,9 @@ class MainWebsite extends CI_Controller
 		$this->load->model('Audit_model');
 		$this->load->helper('filter');
 		if (!isset($_SESSION['userInfo'])) {
-            $this->session->sess_destroy();
-            redirect('Login/index');
-        }
+			$this->session->sess_destroy();
+			redirect('Login/index');
+		}
 	}
 
 	// private function common_view($views = [], $vars = [])
@@ -35,7 +35,7 @@ class MainWebsite extends CI_Controller
 
 	public function upload_excel()
 	{
-	// $data=
+		// $data=
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('template/upload-master');
@@ -46,7 +46,7 @@ class MainWebsite extends CI_Controller
 	{
 		if (empty($_FILES['sample_file']['tmp_name'])) {
 			$this->session->set_flashdata('error', "Please Choose file");
-			redirect(__CLASS__.'/upload_excel');
+			redirect(__CLASS__ . '/upload_excel');
 		}
 
 		$file = $_FILES['sample_file']['tmp_name'];
@@ -56,12 +56,12 @@ class MainWebsite extends CI_Controller
 		if (!empty($extension)) {
 			if ($extension != 'csv' && $extension != 'xlsx' && $extension != 'XLSX') {
 				$this->session->set_flashdata("error", "System Error, Only CSV and Xlsx files are allowed.");
-				redirect(__CLASS__.'/upload_excel');
+				redirect(__CLASS__ . '/upload_excel');
 			}
 		}
 		if (!is_readable($file)) {
 			$this->session->set_flashdata('error', "File is not readable.");
-			redirect(__CLASS__.'/upload_excel');
+			redirect(__CLASS__ . '/upload_excel');
 		}
 
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
@@ -87,7 +87,7 @@ class MainWebsite extends CI_Controller
 		$count = 0;
 		// iterate processes
 		foreach ($processes as $key => $value) {
-			
+
 			if (!empty($value)) {
 				// find process exist or not
 				$res = $this->Audit_model->find_process_id('tbl_process', 'process_name', $value);
@@ -102,7 +102,7 @@ class MainWebsite extends CI_Controller
 					$tbl_data = array('process_name' => $value, 'status' => 0, 'process_id' => $next_id);
 					$this->Audit_model->insertData('tbl_process', $tbl_data);
 				}
-			
+
 
 				///////////////sub_process/////////////////////////////
 
@@ -110,7 +110,7 @@ class MainWebsite extends CI_Controller
 				$sub_process = $this->get_data_by_filter($data['0'], $value, 'process');
 				// find unique sub_process
 				$unique_sub_process = $this->get_all_unique($sub_process, 'sub_process');
-				
+
 				// iterate sub_process
 				foreach ($unique_sub_process as $key => $sc) {
 					if (!empty($sc)) {
@@ -124,21 +124,20 @@ class MainWebsite extends CI_Controller
 							// if added then save id
 							$next_sub_process_id = $res[0]['sub_process_id'];
 						} else {
-							
-								// otherwise add new sub_process
-								$next_sub_process_id = $this->Audit_model->getNewIDorNo('sp', 'tbl_sub_process');
-								$tbl_data = array('sub_process_name' => $sc, 'status' => 0, 'process_id' => $next_id, 'sub_process_id' => $next_sub_process_id);
-								$this->Audit_model->insertData('tbl_sub_process', $tbl_data);
-							} 
-					}
-					else {
-						$next_sub_process_id=$next_id;
+
+							// otherwise add new sub_process
+							$next_sub_process_id = $this->Audit_model->getNewIDorNo('sp', 'tbl_sub_process');
+							$tbl_data = array('sub_process_name' => $sc, 'status' => 0, 'process_id' => $next_id, 'sub_process_id' => $next_sub_process_id);
+							$this->Audit_model->insertData('tbl_sub_process', $tbl_data);
+						}
+					} else {
+						$next_sub_process_id = $next_id;
 						$count++;
 					}
-				
+
 
 					/////////////////Data Required/////////////////
-					
+
 					// filter those records which mach with process and sub_process
 					$Data_required = $this->get_data_by_multiple_column_filter($data['0'], [$value, $sc], ['process', 'sub_process']);
 
@@ -147,24 +146,23 @@ class MainWebsite extends CI_Controller
 					// iterate unique records
 					foreach ($Data_required as $key => $dr) {
 						if (!empty($dr)) {
-						// make a condition array
-						$condition = array('data_required' => $dr, 'sub_process_id' => $next_sub_process_id);
-						// check the data exist already or not 
-						$res = $this->Audit_model->select_table_Where_data('tbl_data_required', $condition);
-						if ($res) {
-							// if added then save id
-							$next_Data_required_id = $res[0]['id'];
-						} else {
-							
+							// make a condition array
+							$condition = array('data_required' => $dr, 'sub_process_id' => $next_sub_process_id);
+							// check the data exist already or not 
+							$res = $this->Audit_model->select_table_Where_data('tbl_data_required', $condition);
+							if ($res) {
+								// if added then save id
+								$next_Data_required_id = $res[0]['id'];
+							} else {
+
 								// otherwise add new data required
 								$tbl_data = array('data_required' => $dr, 'status' => 0, 'sub_process_id' => $next_sub_process_id);
 								$this->Audit_model->insertData('tbl_data_required', $tbl_data);
-							
+							}
+						} else {
+							$count++;
 						}
-					} else {
-						$count++;
 					}
-				}
 
 					//////////////////work steps//////////////
 
@@ -175,24 +173,22 @@ class MainWebsite extends CI_Controller
 					// iterate unique records
 					foreach ($step_name as $key => $sn) {
 						if (!empty($sn)) {
-						// make a condition array
-						$condition = array('steps_name' => $sn, 'sub_process_id' => $next_sub_process_id);
-						// check the data exist already or not
-						$res = $this->Audit_model->select_table_Where_data('tbl_work_steps', $condition);
-						if ($res) {
-							// if added then save id
-							$next_step_name_id = $res[0]['work_seteps_id'];
+							// make a condition array
+							$condition = array('steps_name' => $sn, 'sub_process_id' => $next_sub_process_id);
+							// check the data exist already or not
+							$res = $this->Audit_model->select_table_Where_data('tbl_work_steps', $condition);
+							if ($res) {
+								// if added then save id
+								$next_step_name_id = $res[0]['work_seteps_id'];
+							} else {
+
+								// otherwise add new data required
+								$tbl_data = array('steps_name' => $sn, 'status' => 0, 'sub_process_id' => $next_sub_process_id);
+								$this->Audit_model->insertData('tbl_work_steps', $tbl_data);
+							}
 						} else {
-							
-							// otherwise add new data required
-							$tbl_data = array('steps_name' => $sn, 'status' => 0, 'sub_process_id' => $next_sub_process_id);
-							$this->Audit_model->insertData('tbl_work_steps', $tbl_data);
-							
+							$count++;
 						}
-					}
-					else{
-						$count++;
-					}
 					}
 
 					///////////////////Risk /////////////
@@ -212,32 +208,29 @@ class MainWebsite extends CI_Controller
 							if ($res) {
 								// if added then save id
 								$next_step_name_id = $res[0]['risk_id'];
-							} 
-							else {
-								
+							} else {
+
 								// otherwise add new data required
 								$tbl_data = array('risk_name' => $rn, 'sub_process_id' => $next_sub_process_id);
-								$this->Audit_model->insertData('tbl_risk', $tbl_data);	
+								$this->Audit_model->insertData('tbl_risk', $tbl_data);
 							}
-						}
-						else{ 
+						} else {
 
-						$count++; 
-
+							$count++;
 						}
 					}
 				}
-			}else {
-					$count++;
-				}	
+			} else {
+				$count++;
+			}
 		}
 
 		if ($count > 0) {
-			$this->session->set_flashdata('error',  " There are ". $count . " empty cell, so that data not entered");
-			redirect(__CLASS__.'/upload_excel');
+			$this->session->set_flashdata('error',  " There are " . $count . " empty cell, so that data not entered");
+			redirect(__CLASS__ . '/upload_excel');
 		} else {
 			$this->session->set_flashdata('success', "Uploded Successfully");
-			redirect(__CLASS__.'/upload_excel');
+			redirect(__CLASS__ . '/upload_excel');
 		}
 	}
 

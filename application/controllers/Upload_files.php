@@ -7,7 +7,6 @@ class Upload_files extends CI_Controller
         parent::__construct();
         // Load session library
         $this->load->library('session');
-
         // Load file model
         $this->load->model('Files');
     }
@@ -75,8 +74,8 @@ class Upload_files extends CI_Controller
 
             } else {
                 // print_r($_FILES['file']['name']);
-                
-                echo   json_encode(array('type'=>'danger', 'msg'=>$this->upload->display_errors()));
+
+                echo   json_encode(array('type' => 'danger', 'msg' => $this->upload->display_errors()));
             }
             if (!empty($data)) {
                 // Insert files data into the database
@@ -97,10 +96,10 @@ class Upload_files extends CI_Controller
     // $this->load->view('Auditapp/upload_file', $data);
 
 
-    function get_Uploaded_file()
-    {
-        // Get files data from the database
-        $filedata = $this->MainModel->selectAll('files');
-        echo $filedata = json_encode($filedata, true);
-    }
+    // function get_Uploaded_file()
+    // {
+    //     // Get files data from the database
+    //     $filedata = $this->MainModel->selectAll('files');
+    //     echo $filedata = json_encode($filedata, true);
+    // }
 }

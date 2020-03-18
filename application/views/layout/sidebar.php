@@ -7,7 +7,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="<?php echo base_url('ControlUnit/dashboard')?>">Internal Audit Tool</a>
+                <a class="navbar-brand" href="<?php echo base_url('dashboard')?>">Internal Audit Tool</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -54,17 +54,17 @@
                                 Menu
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?php echo base_url('ControlUnit/dashboard') ?>"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                                <a class="nav-link" href="<?php echo base_url('dashboard') ?>"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Clients</a>
                                 <div id="submenu-2" class="collapse submenu">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('ControlUnit/newClientPage');?>">New</a>
+                                            <a class="nav-link" href="<?php echo base_url('new-client');?>">New</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('ControlUnit/allClients');?>">All Clients</a>
+                                            <a class="nav-link" href="<?php echo base_url('all-clients');?>">All Clients</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -74,10 +74,10 @@
                                 <div id="submenu-3" class="collapse submenu" >
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('ControlUnit/newUsersPage');?>">New</a>
+                                            <a class="nav-link" href="<?php echo base_url('new-user');?>">New</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url('ControlUnit/allUsers');?>" allUsers>All Users</a>
+                                            <a class="nav-link" href="<?php echo base_url('all-users');?>" allUsers>All Users</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,9 +88,9 @@
                                 <div id="submenu-8" class="collapse submenu" >
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo base_url().'ControlUnit/newWorkOrder'?>">New</a>
-                                            <a class="nav-link" href="<?php echo base_url().'AssignWorkOrder/allowcated_work_order'?>">Assign</a>
-                                            <a class="nav-link" href="<?php echo base_url().'ControlUnit/allWorkOrder'?>">All Work Order</a>
+                                            <a class="nav-link" href="<?php echo base_url().'new-work-order'?>">New</a>
+                                            <a class="nav-link" href="<?php echo base_url().'assign-work'?>">Assign</a>
+                                            <a class="nav-link" href="<?php echo base_url().'all-work-orders'?>">All Work Order</a>
                                         </li>
                                     </ul>
                                 </div>

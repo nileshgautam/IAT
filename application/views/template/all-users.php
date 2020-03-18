@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-header">
                     Users
-                    <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('ControlUnit/newUsersPage'); ?>"> Add new <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
+                    <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('new-user'); ?>"> Add new <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">

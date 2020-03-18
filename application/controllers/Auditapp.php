@@ -15,8 +15,6 @@ class Filter
     {
         $result = false;
         if (is_array($this->colName) && is_array($this->searchValue)) {
-
-
             $colcount = count($this->colName);
             $valcount = count($this->searchValue);
             if ($colcount == $valcount) {
@@ -31,7 +29,7 @@ class Filter
         return $result;
     }
 }
-
+// new class started
 class Auditapp extends CI_Controller
 {
     function __construct()
@@ -40,7 +38,7 @@ class Auditapp extends CI_Controller
         date_default_timezone_set("Asia/Kolkata"); //Set server date an time to Asia
         if (!isset($_SESSION['userInfo'])) {
             $this->session->sess_destroy();
-            redirect('Login/index');
+            redirect('login');
         }
     }
 
@@ -64,17 +62,7 @@ class Auditapp extends CI_Controller
         $this->load->view('layout/footer');
     }
 
-    // function to load work steps according to process
-    function work_steps($sub_process_id)
-    {
-        $data['risk'] = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $sub_process_id), 'risk_name');
-        $data['work_steps'] = $this->MainModel->selectAllFromWhere('tbl_work_steps', array('sub_process_id' => $sub_process_id), 'steps_name');
-        $data['data_required'] = $this->MainModel->selectAllFromWhere('tbl_data_required', array('sub_process_id' => $sub_process_id), 'data_required');
-        $this->load->view('layout/header');
-        $this->load->view('layout/sidenav');
-        $this->load->view('template/workSteps', $data);
-        $this->load->view('layout/footer');
-    }
+   
 
     // function to load work steps according to process
     function choose_services($id = null)
@@ -102,7 +90,7 @@ class Auditapp extends CI_Controller
         $this->load->view('layout/footer');
     }
 
-    // function to show state compnay view
+    // function to extract all the state from the database.
     public function select_state()
     {
         // print_r($_POST);die;
@@ -112,7 +100,7 @@ class Auditapp extends CI_Controller
         echo $myjson;
     }
 
-    // function to show city compnay view
+   // function to extract all the city from the database.
     public function select_cities()
     {
 
@@ -121,7 +109,7 @@ class Auditapp extends CI_Controller
         $myjson = json_encode($data, true);
         echo $myjson;
     }
-
+// function to insert new client details into the database.
     public function clientPost()
     {
 
@@ -176,7 +164,7 @@ class Auditapp extends CI_Controller
         }
         redirect('ControlUnit/allClients');
     }
-    // edit client 
+    // function to update clients in to the database.
     public function saveEditedClient()
     {
         // print_r($_POST);die;      
@@ -213,7 +201,7 @@ class Auditapp extends CI_Controller
         redirect('ControlUnit/allClients');
     }
 
-    //  function to insert userdata into the database
+    //  function to insert user details into the database.
     function user_post()
     {
 
@@ -264,7 +252,7 @@ class Auditapp extends CI_Controller
             }
         }
     }
-    //  function to insert userdata into the database
+    //  function to show  users in edit mode.
     public function edit_user($id)
     {
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
@@ -276,6 +264,7 @@ class Auditapp extends CI_Controller
         $this->load->view('layout/footer');
     }
 
+    // function to delete records from database by given id.
     public function delete_user($id)
     {
         $data = $this->MainModel->delete('users', array('user_id' => $id));
@@ -288,16 +277,14 @@ class Auditapp extends CI_Controller
         }
     }
 
-    // function to populate dashboard for all the company
+//  function to update users into the database.
     function user_editpost()
     {
-
-        $data = array(
+       $data = array(
             'password' => $this->input->post('password'),
             'first_name' => $this->input->post('first-name'),
             'last_name' => $this->input->post('last-name'),
             'email' => $this->input->post('email'),
-
             'country' => $this->input->post('country'),
             'state' => $this->input->post('state'),
             'city' => $this->input->post('city'),
@@ -306,8 +293,8 @@ class Auditapp extends CI_Controller
             'phone' => $this->input->post('mobile-no'),
             'zip_pin_code' => $this->input->post('zip-pin-code')
             // 'role' => $this->input->post('role')
-
         );
+
         $id = $this->input->post('id');
         $result = $this->MainModel->update_table('users', array('user_id' => $id), $data);
         if ($result == "FALSE") {
@@ -318,7 +305,8 @@ class Auditapp extends CI_Controller
             redirect('ControlUnit/allUsers');
         }
     }
-    // createing workorder
+
+    // function to createing workorder
     function create_work_order()
     {
         // print_r($_POST);die;
@@ -362,33 +350,7 @@ class Auditapp extends CI_Controller
         }
     }
 
-    public function sub_process($sub_id)
-    {
-        if (!empty($sub_id)) {
-            $id = json_decode(base64_decode($sub_id), true);
-            $data['subProcess'] = $this->MainModel->selectAllProcessAndSubprocess('tbl_sub_process', $id['p_id'], $id['sp_id']);
-            $this->load->view('layout/header');
-            $this->load->view('layout/sidenav');
-            $this->load->view('template/subservices', $data);
-            $this->load->view('layout/footer');
-        }
-    }
-
-    //manager View
-    public function manager_process($sub_id)
-    {
-        if (!empty($sub_id)) {
-            $id = json_decode(base64_decode($sub_id), true);
-            $data['subProcess'] = $this->MainModel->selectAllProcessAndSubprocess('tbl_sub_process', $id['p_id'], $id['sp_id']);
-            $data['p_id'] = $id['p_id'];
-            $this->load->view('layout/header');
-            $this->load->view('layout/sidenav');
-            $this->load->view('template/manager_view', $data);
-            $this->load->view('layout/footer');
-        }
-    }
-
-    // function to show uploaded mandatory file 
+    // function to show list of all the uploaded files.
     public function viewFiles()
     {
         // $id=$_POST;
@@ -404,7 +366,7 @@ class Auditapp extends CI_Controller
         echo $uploads_file = json_encode($data, true);
     }
 
-    // function to show all the process for perticular work order
+    // function to show list of all the selected process by the
     public function workprocess($id = null)
     {
         $id = base64_decode($id);
@@ -552,12 +514,13 @@ class Auditapp extends CI_Controller
         echo $result = json_encode($result, true);
     }
 
-    // function to loading users details from database
+    // function to loading list of all the  users details from database
     public function allUesrs()
     {
         $data = $this->MainModel->selectAll('users');
         echo $data = json_encode($data, true);
     }
+
     // function to save work steps
     public function saveWorkSteps()
     {
@@ -587,7 +550,6 @@ class Auditapp extends CI_Controller
             echo (json_encode(array('status' => 'danger', 'msg' => 'System Error! Contact to IT')));
         }
     }
-
     public function updateWorkorder($var = null)
     {
         // print_r($_POST);die;
