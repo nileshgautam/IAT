@@ -47,6 +47,8 @@ class Auditapp extends CI_Controller
     public function assignedTask($var = null)
     {
         $data['workorder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
+        // echo '<pre>';
+        // print_r($data);die;
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/todolist', $data);
@@ -586,7 +588,13 @@ class Auditapp extends CI_Controller
         }
     }
 
-    public function allsubprocess($var = null)
+    public function updateWorkorder($var = null)
     {
+        // print_r($_POST);die;
+        $condition = array('work_order_id'=>$_POST['workOrderId']);
+        $data = array('complete_status'=>$_POST['completeWorkOrder']);
+        $r = $this->MainModel->update_table('work_order', $condition, $data);
+        // print_r($r);die;
+        // $result = json_encode($r, true);
     }
 }

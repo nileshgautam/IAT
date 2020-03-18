@@ -43,7 +43,7 @@
                                             <button class="btn btn-link">
                                                 <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_name'] ?>
                                             </button>
-                                            <i class="fa fa-info-circle float-right text-primary" title="Click over the process view all the subprocess respectively." aria-hidden="true"></i>
+                                            <i class="fa fa-info-circle float-right text-primary" style="font-size:18px; font-weight:600" title="Click over the process view all the subprocess respectively." aria-hidden="true"></i>
                                         </h5>
                                     </div>
                                     <div id="collapse<?php echo $process['process_id'] ?>" class="collapse" aria-labelledby="heading<?php echo $process['process_id'] ?>" data-parent="#accordionProcess">

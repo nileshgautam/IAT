@@ -97,8 +97,10 @@ class ControlUnit extends CI_Controller
 	// Manager dashboard
 	public function manager()
 	{
-		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
+	
+		$data['workOrder'] = $this->MainModel->CompleteWorkorder();
 		$data['workOrders']=$this->MainModel->selectAllworkOrder();
+		$data['completeSteps']=$this->MainModel->CompleteWorkstepsByworkorders();
 		$this->load->view('layout/header');
 		$this->load->view('manager/manager-sidebar');
 		$this->load->view('manager/manager-dashboard',$data);
@@ -107,7 +109,9 @@ class ControlUnit extends CI_Controller
 
 	public function managerAllWorkOrder()
 	{
-		$data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
+		// $data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
+		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
+		$data['workOrders']=$this->MainModel->selectAllworkOrder();
 		$this->load->view('layout/header');
 		$this->load->view('manager/manager-sidebar');
 		$this->load->view('pages/manager-work-orders', $data);

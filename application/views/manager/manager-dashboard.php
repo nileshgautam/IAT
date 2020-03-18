@@ -15,6 +15,10 @@
                 </div>
             </div>
         </div>
+
+<!-- <?php echo'<pre>';  
+print_r($completeSteps)?> -->
+
         <div class="nav nav-tabs" id="myTab" role="tablist">
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="clients-tab" data-toggle="tab" href="#clients" role="tab" aria-controls="clients" aria-selected="true">
                 <div class="card">
@@ -36,12 +40,12 @@
                     </div>
                 </div>
             </div> -->
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="false">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" id="complete-workorder-tab" data-toggle="tab" href="#complete-workorder" role="tab" aria-controls="complete-workorder" aria-selected="false">
                 <div class="card ">
                     <div class="card-body">
                         <h5 class="text-muted">Complete work orders</h5>
                         <div class="metric-value d-inline-block">
-                            <h1 class="mb-1 text-primary"><?php echo (!empty($users[0]['total'])) ? $users[0]['total'] : '0' ?></h1>
+                            <h1 class="mb-1 text-primary"><?php echo  !empty($workOrder) ? count($workOrder) : '0' ?></h1>
                         </div>
                     </div>
                 </div>
@@ -92,52 +96,8 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="tab-pane fade" id="work-order" role="tabpanel" aria-labelledby="work-order-tap">
-                <div class="card">
-                    <div class="card-header">Work order
-                    
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="bg-light">
-                                    <tr class="border-0">
-                                        <th class="border-0">#</th>
-                                        <th class="border-0">Work orders</th>
-                                        <th class="border-0">Client</th>
-                                        <th class="border-0">Created date</th>
-                                        <th class="border-0">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    // echo '<pre>';
-                                    // print_r($workOrders);
-                                    $count = 1;
-                                    if (!empty($workOrder)) {
-                                        foreach ($workOrder  as $works) { ?>
-                                            <tr>
-                                                <td><?php echo $count++; ?></td>
-                                                <td>
-                                                    <?php echo $works['work_order_name'] ?>
-                                                </td>
-                                                <td> <?php echo $works['client_name'] ?></td>
-                                                <td>
-                                                    <?php
-                                                    echo ddmmyytt($works['date']); ?>
-                                                </td>
-                                                <td> <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/') . base64_encode($works['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
-                                            </tr>
-                                    <?php }
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <div class="tab-pane fade" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+       
+            <div class="tab-pane fade" id="complete-workorder" role="tabpanel" aria-labelledby="complete-workorder-tab">
                 <div class="card">
                     <h5 class="card-header"> Complete
 
@@ -150,28 +110,26 @@
                                         <th class="border-0">#</th>
                                         <th class="border-0">Clinets</th>
                                         <th class="border-0">Work orders</th>
-                                        <th class="border-0">Action</th>
+                                        <th class="border-0">Complete status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    echo '<pre>';
-                                    print_r($workOrders);
+                                    // // echo '<pre>';
+                                    // print_r($workOrder);
                                     $count = 1;
-                                    if (!empty($allclients)) {
-                                        foreach ($allclients  as $clients) { ?>
+                                    if (!empty($workOrder)) {
+                                        foreach ($workOrder  as $completeWork) { ?>
                                             <tr>
                                                 <td><?php echo $count++; ?></td>
                                                 <td>
-                                                    <?php echo $clients['client_name'] ?>
+                                                    <?php echo $completeWork['client_name'] ?>
                                                 </td>
-                                                <td> <?php echo $clients['email'] ?></td>
-                                                <td><?php echo $clients['contact_no'] ?></td>
-                                                <td><?php echo $clients['city'] ?></td>
-                                                <td>
-                                                    <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a>
-                                                    <button data-id="<?php echo base64_encode($clients['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order" data-toggle="modal" data-target="#allWorkOrderModalCenter">Projects</button>
-                                                </td>
+                                                <td> <?php echo $completeWork['work_order_name'] ?></td>
+                                                <td> <?php echo $completeWork['complete_status']. '% <div class="progress progress-sm">
+                                                        <div id="process-progress<?php echo $count++; ?>" class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:'.$completeWork['complete_status'].'%"></div>
+                                                    </div>' ?></td>
+                                           
                                             </tr>
                                     <?php }
                                     }

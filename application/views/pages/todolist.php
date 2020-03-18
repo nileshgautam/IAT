@@ -60,7 +60,7 @@
                                                 </td>
                                                 <td>
                                                     <?php
-                                                    echo ddmmyytt($assignedTask['assigndate']);
+                                                    echo ddmmyytt($assignedTask['assgindate']);
                                                     ?>
                                                 </td>
                                                 <td>

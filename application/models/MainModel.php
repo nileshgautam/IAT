@@ -302,18 +302,32 @@ class MainModel extends ci_model
         return $this->db->affected_rows() ? $result : false;
     }
 // count complete work steps
+
     public function workstepCount($wId='',$prId='',$spId='')
     {
         $query1 = "SELECT COUNT(work_step_id) AS completeSteps FROM work_steps_complete_status WHERE work_order_id = '$wId' AND process_id = '$prId' AND sub_process_id = '$spId'";
+      
         $query2 = "SELECT COUNT(work_steps_id) AS totalSteps  FROM work_steps WHERE sub_process_id = '$spId'";
         $result1 = $this->db->query($query1)->result_array();
         $result2 = $this->db->query($query2)->result_array();
         return $this->db->affected_rows() ? array($result2[0],$result1[0]) : false;
     }
 
-    public function FunctionName($table = null )
+    public function CompleteWorkorder()
     {
-       $query= 'SELECT COUNT(*) FROM `work_steps` WHERE sub_process_id=1';
+       $query= 'SELECT *, client_details.client_name FROM `work_order` left JOIN client_details on client_details.client_id=work_order.client_id where work_order.complete_status='.Complete.'
+       ';
+       $result = $this->db->query($query)->result_array();
+       return $this->db->affected_rows() ? $result : false;
+    }
+    
+    
+    public function CompleteWorkstepsByworkorders()
+    {
+       $query= 'SELECT work_order_id, process_id,sub_process_id, COUNT(*) as Complete_steps_total FROM `work_steps_complete_status` GROUP by work_order_id
+       ';
+       $result = $this->db->query($query)->result_array();
+       return $this->db->affected_rows() ? $result : false;
     }
    
 

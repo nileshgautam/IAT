@@ -90,3 +90,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('SuperAdmin','Admin');
 define('Manager','Manager');
 define('TeamMember', 'Team member');
+define('Complete', 100);
