@@ -38,7 +38,7 @@ $("#country").change(function () {
             }
         },
         error: function () {
-            console.log("error logind data")
+            console.log("error loading data");
         }
     });
     // alert(id);
@@ -49,7 +49,7 @@ $("#country").change(function () {
 $("#state").change(function () {
     let state = $(this).attr('data-state');
     let id = $(this).children("option:selected").attr('id');
-    console.log(id);
+    // console.log(id);
     country_id = {
         c_id: id
     }
@@ -61,8 +61,8 @@ $("#state").change(function () {
         success: function (comp_responce) {
             obj = JSON.parse(comp_responce)
             if (obj) {
-                console.log("object")
-                console.log(obj)
+                // console.log("object")
+                // console.log(obj)
                 let data = populate_cities(obj);
                 //  console.log(data);
                 $('#city').empty();
@@ -71,7 +71,7 @@ $("#state").change(function () {
             }
         },
         error: function () {
-            console.log("error logind data")
+            console.log("error loading data")
         }
     });
     // alert(id);
@@ -292,7 +292,7 @@ $('.work-orders').on('click', function (e) {
         processData: false,
         success: function (data, success) {
             let fileData = JSON.parse(data);
-            console.log(fileData);
+            // console.log(fileData);
             for (process in fileData) {
                 html += `
              <div class="col-md-12">
@@ -401,24 +401,32 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
 
 });
 
-
-
 // show all the workorder by client
 function workOrderData(obj) {
-    // console.log(obj)
     let html = '';
-    for (let i = 0; i < obj.length; i++) {
-        html += `<option value="${obj[i]['work_order_id']}" >${obj[i]['work_order_name']}</option>`
+    if (obj != '') {
+        // console.log(obj)
+        for (let i = 0; i < obj.length; i++) {
+            html += `<option value="${obj[i]['work_order_id']}" >${obj[i]['work_order_name']}</option>`;
+        }
+        return html;
     }
-    return html;
+    else {
+        html += `<option value="">NA</option>`;
+        return html;
+    }
 }
 
+// $(function () {
+
+//     $('#work-order').html(`<option value="">Select client first</option>`);
+// });
 // loading all the workorder by selected client
 $('#select-client').on('change', function () {
     let error = false;
     let clientId = $(this).val();
 
-    console.log(clientId);
+    // console.log(clientId);
 
     if (clientId == "") {
         $('#message').html('Client Required');
@@ -437,10 +445,10 @@ $('#select-client').on('change', function () {
             success: function (data, success) {
                 let obj = JSON.parse(data);
                 data = workOrderData(obj);
-                $('#work-order').html(data)
                 // console.log(data);
+                $('#work-order').html(data);
             }
-
+            // console.log(data);
         });
     }
 });
@@ -470,10 +478,10 @@ $(document).ready(() => {
                         <td>${name[i].first_name} ${name[i].last_name}</td>
                             <td>
                              <label class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="radio-inline${name[i].id}" value="Team member" class="custom-control-input checked"><span class="custom-control-label">Team member</span>
+                                <input type="radio" name="radio-inline${name[i].id}" value="Team member" class="custom-control-input checked" ${name[i].role == 'Team member' ? "checked" : ''}><span class="custom-control-label">Team member</span>
                                 </label>
                                  <label class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="radio-inline${name[i].id}" value="Team leader" class="custom-control-input checked"><span class="custom-control-label">Team leader</span>
+                                <input type="radio" name="radio-inline${name[i].id}" value="Team leader" class="custom-control-input checked" ${name[i].role == 'Manager' ? "checked" : ''}><span class="custom-control-label">Team leader</span>
                                 </label>
                                 </td>
                                 <td><button data-employees-id='${name[i].user_id}' data-radio-name="radio-inline${name[i].id}" class="btn btn-outline-primary btn-xs assign-task">Update</button></td>
@@ -490,25 +498,25 @@ $(document).ready(() => {
     var role = ''
     $('#user-data').on('click', '.checked', function () {
         role = $(this).val()
-    })
+        console.log(role);
+    });
 
     $('#user-data').on('click', '.assign-task', function (e) {
+
+
         let error = false;
+        // console.log(html)
+        let html = `<tr>
+        <td>${$(this).parent().parent().find('td:first').html()}</td>
+        <td>${$('#work-order option:selected').text()}</td>
+        <td>${role}</td>
+        </tr>`;
         let radioName = $(this).attr('data-radio-name');
         let employeesId = $(this).attr('data-employees-id');
-
         let radioValue = $(`input[name=${radioName}]:checked`).val();
+
         let clientId = $('#select-client').val().trim();
         let workorderId = $('#work-order').val().trim();
-        let html = `<tr>
-                      <td>${$(this).parent().parent().find('td:first').html()}</td>
-                      <td>${$('#work-order option:selected').text()}</td>
-                      <td>${role}</td>
-                      </tr>`;
-        $('#assigned-users').css('display', 'block');
-        $('#assigned_user').append(html);
-        $(this).parent().parent().remove()
-        // console.log(html)
         if (clientId == '') {
             error = true;
             showAlert('Client required', 'warning');
@@ -525,12 +533,30 @@ $(document).ready(() => {
         // let form_data = new FormData();
         let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: clientId, workorderId: workorderId }
 
+
+
+   
         if (!error) {
             $.post(baseUrl + "AssignWorkOrder/save_assigned_work",
                 form_data,
                 function (data, status) {
+
+                    console.log(data);
+
                     let responce = JSON.parse(data);
-                    showAlert(responce['msg'], responce['type']);
+                 
+                    if (responce.status == 'A') {
+                        showAlert(responce['msg'], responce['type']);
+                    }
+                    else if(responce.status == 'Y'){
+                        $('#assigned-users').css('display', 'block');
+                            $('#assigned_user').append(html);
+                            $(this).parent().parent().remove();
+                    }
+                    else if(responce.status == 'E') {
+                        showAlert(responce['msg'], responce['type']);
+                    }
+                
                 });
         }
     });
@@ -582,28 +608,11 @@ $('.all-work-order').on('click', function () {
 // function to download process master from database
 $('.download-master').click(function () {
     $.get(baseUrl + "Auditapp/downlodDatabaseMaster", function (data, status) {
-        masterDatabase = JSON.parse(data);
-        // console.log(masterDatabase);
+        window.location.href = data;
     });
 });
 
-// date validate function
-function ValidateDate() {
-    var start = $('#start-date').val();
-    var end = $('#end-date').val();
-    var startDay = new Date(start);
-    var endDay = new Date(end);
-    var millisecondsPerDay = 1000 * 60 * 60 * 24;
-    var millisBetween = endDay.getTime() - startDay.getTime();
-    var days = millisBetween / millisecondsPerDay;
-    // Round down.
-    days = Math.floor(days);
-    if (days < 0) {
-        return true
-    } else {
-        return false
-    }
-}
+
 
 //Save Work Steps Complete status
 $('#save_wSteps').click(() => {

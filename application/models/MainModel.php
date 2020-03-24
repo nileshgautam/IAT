@@ -9,6 +9,12 @@ class MainModel extends ci_model
         return $this->db->affected_rows() ? $insert_id : FALSE;
     }
 
+    public function selectAllWhere($tableName = null, $condition = null)
+    {
+        $this->db->where($condition);
+        $query = $this->db->get($tableName)->result_array();
+        return $this->db->affected_rows() ? $query : false;
+    }
     public function Update($column_name = null, $tableName = null, $data = null, $id = null)
     {
         $this->db->set($column_name, $data);  //Set the column name and which value to set..

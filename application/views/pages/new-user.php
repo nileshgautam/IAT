@@ -30,7 +30,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">User</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">New</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link"><?php echo (isset($user)) ? 'Edit User' : ' New User' ?></a></li>
                             </ol>
                         </nav>
                     </div>
@@ -48,8 +48,8 @@
                     </h5>
 
                     <div class="card-body">
-                        <form action="<?php echo (isset($user)) ? base_url('Auditapp/user_editpost') : base_url('Auditapp/user_post') ?>" id="client-form" method="post">
-                            <input type="hidden" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
+                        <form id="user-form" method="post">
+                            <input type="hidden" id ="user-id" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -66,7 +66,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="input-email">Email address</label>
-                                        <input id="input-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
+                                        <input id="input-user-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
+                                        <label for="user-error-email" id="user-error-email" class="text-danger"></></label>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +140,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="mobile-no">Mobile No.</label>
-                                        <input id="mobile-no" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
+                                        <input id="input-user-mobile" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
+                                        <label for="mobile-no" id="user-error-mobile" class="text-danger"></label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -163,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <label for="password">Role</label>
                                         <select name="role" id="role" autocomplete="off" class="form-control">
                                             <option>Select Role</option>
@@ -178,7 +180,7 @@
                                             <?php }
                                             } ?>
                                         </select>
-                                    </div> -->
+                                    </div>
                                 </div>
 
                             </div>

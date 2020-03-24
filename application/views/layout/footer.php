@@ -19,12 +19,6 @@
             </div>
         </div>
 
-
-
-<!-- Optional JavaScript -->
-<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
-
-<!-- jquery 3.3.1 js-->
 <!-- bootstrap bundle js-->
 <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js-->
@@ -33,8 +27,7 @@
 <script src="<?php echo base_url(); ?>assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
 <script src="<?php echo base_url(); ?>assets/vendor/charts/charts-bundle/chartjs.js"></script>
 
-<!-- main js-->
-<script src="<?php echo base_url(); ?>assets/libs/js/main-js.js"></script>
+
 <!-- jvactormap js-->
 <script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
@@ -42,14 +35,17 @@
 <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
 <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/spark-js.js"></script>
 <!-- dashboard sales js-->
-<!-- <script src="<?php echo base_url(); ?>assets/libs/js/dashboard-sales.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
+<!-- main js-->
+<script src="<?php echo base_url(); ?>assets/libs/js/main-js.js"></script>
+<!-- Optional JavaScript -->
+<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
 <!-- datepicker -->
-
-<script src="<?php echo base_url(); ?>assets/vendor/datepicker/moment.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/datepicker/tempusdominus-bootstrap-4.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/datepicker/datepicker.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <!-- show all the messages  -->
 <?php

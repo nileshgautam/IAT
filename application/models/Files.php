@@ -39,7 +39,7 @@ class Files extends CI_Model
 
     public function downlodDatabaseMaster()
     {
-       $query = "SELECT * FROM process_master as p left join sub_process_master as s on p.process_id=s.process_id left join work_steps as w on s.sub_process_id=w.sub_process_id left join risk_master as r on r.sub_process_id=s.sub_process_id
+       $query = "SELECT p.process_id,p.process_name,s.sub_process_id,s.sub_process_name,w.work_steps_id,w.steps_name,w.mandatory_status,r.risk_id,r.risk_name FROM process_master as p left join sub_process_master as s on p.process_id=s.process_id left join work_steps as w on s.sub_process_id=w.sub_process_id left join risk_master as r on r.sub_process_id=s.sub_process_id
        ";
        $result = $this->db->query($query)->result_array();
 

@@ -41,6 +41,14 @@ class Audit_model extends CI_Model{
         return $q;
 
     }
+    public function update_table($table = null, $condition = null, $data = null)
+    {
+        $this->db->where($condition);
+        $query = $this->db->update($table, $data);
+        if ($query != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-
-?>

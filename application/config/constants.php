@@ -91,3 +91,5 @@ define('SuperAdmin','Admin');
 define('Manager','Manager');
 define('TeamMember', 'Team member');
 define('Complete', 100);
+
+define('MOBILENUMBER', '/^[0-9]{10}$/');

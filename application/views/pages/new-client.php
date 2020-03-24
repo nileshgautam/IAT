@@ -30,7 +30,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Clients</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">New</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link"><?php echo (isset($client)) ? 'Edit Client' : ' New Client' ?></a></li>
                             </ol>
                         </nav>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="card">
                     <h5 class="card-header"> <?php echo (isset($client)) ? 'Edit Client' : ' New Client' ?> </h5>
                     <div class="card-body">
-                        <form action="<?php echo (isset($client)) ? base_url('Auditapp/saveEditedClient') : base_url('Auditapp/clientPost') ?>" id="basicform" method="POST">
+                        <form class="client-from" method="POST">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -61,6 +61,7 @@
                                     <div class="form-group">
                                         <label for="txtEmail">Email address</label>
                                         <input id="txtEmail" type="email" name="email" value="<?php echo (isset($client)) ? $client[0]['email'] : "" ?>" placeholder="Enter email" autocomplete="off" class="form-control" required>
+                                        <label for="txtEmail" id="errorEmail" class="text-danger"></label>
                                     </div>
                                 </div>
                             </div>
@@ -68,13 +69,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="txtmobile">Mobile No.</label>
-                                        <input style="-moz-appearance:textfield;" id="txtmobile" type="number" name="mobile-number" maxlength="10" value="<?php echo (isset($client)) ? $client[0]['contact_no'] : "" ?>" placeholder="Enter mobile number" autocomplete="off" class="form-control" required>
+                                        <input style="-moz-appearance:textfield;" id="txtmobile" type="number" name="mobile-number" maxlength="10" value="<?php echo (isset($client)) ? $client[0]['contact_no'] : "" ?>" placeholder="Enter mobile number (Text not allowed)" autocomplete="off" class="form-control" required>
+                                        <label id="errormobile" class="text-danger" for="txtmobile"></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="inputEmail">GST No.</label>
-                                        <input id="inputEmail" type="text" name="gst-number" value="<?php echo (isset($client)) ? $client[0]['gst_number'] : "" ?>" placeholder="Enter GST" autocomplete="off" class="form-control" required>
+                                        <label for="inputgstno">GST No.</label>
+                                        <input id="inputgstno" type="text" name="gst-number" value="<?php echo (isset($client)) ? $client[0]['gst_number'] : "" ?>" placeholder="Enter GST" autocomplete="off" class="form-control" required>
+                                        <label id="errorgstno" class="text-danger" for='inputgstno'></label>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +147,7 @@
                             </div>
                             <div class="col-sm-12 pl-0">
                                 <p class="float-right text-right">
-                                    <input type="hidden" name="client_id" value="<?php echo (isset($client)) ? $client[0]['client_id'] : '' ?>">
+                                    <input type="hidden" name="client_id" id='client-id' value="<?php echo (isset($client)) ? $client[0]['client_id'] : '' ?>">
                                     <button type="submit" class="btn btn-space btn-primary">Submit</button>
 
                                 </p>

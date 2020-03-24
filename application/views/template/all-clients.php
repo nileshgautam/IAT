@@ -54,7 +54,8 @@
                                                     <!-- <td><span class="badge badge-brand">pending</span></td> -->
                                                     <td>
                                                         <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($cilent['client_id']); ?>" class="btn btn-outline-primary btn-xs"> <i class="fa fa-edit" title="Edit"></i></a>
-                                                        <button data-id="<?php echo base64_encode($cilent['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order"  data-toggle="modal" data-target="#allWorkOrderModalCenter" >Projects</button></td>
+                                                        <!-- <button data-id="<?php echo base64_encode($cilent['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order"  data-toggle="modal" data-target="#allWorkOrderModalCenter" >Projects</button> -->
+                                                    </td>
                                                 </tr>
                                         <?php }
                                         } ?>

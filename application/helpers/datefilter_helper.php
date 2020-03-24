@@ -25,10 +25,10 @@ function ddmmyy($date)
 //  change date format MMDDYY to YYMMDD
 function yymmdd($date)
 {
-    $date = explode("/", $date);
-//    print_r($date);die;
-    $mm = $date[0];
-    $dd = $date[1];
+    $date = explode("-", $date);
+    // print_r($date);die;
+    $dd = $date[0];
+    $mm = $date[1];
     $yy = $date[2];
     $date = $yy . '-' . $mm . '-' . $dd;
     return $date;

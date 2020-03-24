@@ -62,7 +62,7 @@ class Auditapp extends CI_Controller
         $this->load->view('layout/footer');
     }
 
-   
+
 
     // function to load work steps according to process
     function choose_services($id = null)
@@ -100,7 +100,7 @@ class Auditapp extends CI_Controller
         echo $myjson;
     }
 
-   // function to extract all the city from the database.
+    // function to extract all the city from the database.
     public function select_cities()
     {
 
@@ -109,9 +109,10 @@ class Auditapp extends CI_Controller
         $myjson = json_encode($data, true);
         echo $myjson;
     }
-// function to insert new client details into the database.
+    // function to insert new client details into the database.
     public function clientPost()
     {
+        // $this->load->helper('customvalidation');
 
         // print_r($_POST);die;
         $c_name = $this->input->post('client-name');
@@ -128,9 +129,11 @@ class Auditapp extends CI_Controller
         if (isset($c_email)) {
             $data = $this->MainModel->selectAllFromWhere('client_details', array('email' => $c_email));
             if (!empty($data)) {
-                $this->session->set_flashdata("error", "Company, Already Exist");
-                redirect(__CLASS__ . '/client_registration_form');
-            } elseif (empty($data)) {
+                // $this->session->set_flashdata("error", "");
+                echo $responce = json_encode(array('message' => 'Email, already exists', 'type' => 'error'), true);
+                // redirect(__CLASS__ . '/client_registration_form');
+            } 
+            else if (empty($data)) {
                 $insert = array(
                     'client_name' => $c_name,
                     'client_id' => $c_id,
@@ -145,9 +148,7 @@ class Auditapp extends CI_Controller
                 );
                 $res = $this->MainModel->insertInto('client_details', $insert);
                 // print_r($res);die;
-
                 if (!empty($res)) {
-                    $this->session->set_flashdata("success", "Client Successfully Registered.");
                     $company_data = array(
                         'company_name' => $c_name,
                         'client_id' => $c_id,
@@ -155,14 +156,19 @@ class Auditapp extends CI_Controller
                         'company_id' => $res
                     );
                     $this->session->set_userdata("company_data", $company_data);
-                    redirect('ControlUnit/newWorkOrder/' . $c_id);
+                    // redirect('ControlUnit/newWorkOrder/' . $c_id);
+                    echo $responce = json_encode(array('message' => 'client, successfully registered', 'type' => 'success', 'path' => 'ControlUnit/newWorkOrder/' . $c_id), true);
                 }
-            } else {
-                $this->session->set_flashdata("error", "Client Already Exist.");
-                redirect('ControlUnit/allClients');
-            }
+            } 
+            
+           
         }
-        redirect('ControlUnit/allClients');
+        else {
+            // $this->session->set_flashdata("error", "Client Already Exist.");
+            // redirect('ControlUnit/allClients');
+            echo $responce = json_encode(array('message' => 'system error! contact IT', 'type' => 'error', 'path' => 'ControlUnit/allClients'), true);
+        }
+       
     }
     // function to update clients in to the database.
     public function saveEditedClient()
@@ -184,8 +190,7 @@ class Auditapp extends CI_Controller
             );
             $res = $this->MainModel->update_table('client_details', array('client_id' => $_POST['client_id']), $insert);
             if (!empty($res)) {
-                $this->session->set_flashdata("success", "Client Successfully Updated.");
-
+                // $this->session->set_flashdata("success", "Client Successfully Updated.");
                 $company_data = array(
                     'company_name' => $_POST['client-name'],
                     'email' => $_POST['email'],
@@ -193,12 +198,18 @@ class Auditapp extends CI_Controller
                 );
 
                 $this->session->set_userdata("company_data", $company_data);
-                redirect(base_url('ControlUnit/allClients'));
+                echo $responce = json_encode(array('message' => 'client, successfully updated', 'type' => 'success', 'path' => 'ControlUnit/allClients'), true);
+
+
+
+
+                // redirect(base_url('ControlUnit/allClients'));
             }
         } else {
-            $this->session->set_flashdata("error", "System Error Contact to IT.");
+            // $this->session->set_flashdata("error", "System Error Contact to IT.");
+            echo $responce = json_encode(array('message' => 'System Error Contact to IT', 'type' => 'error', 'path' => 'ControlUnit/allClients'), true);
         }
-        redirect('ControlUnit/allClients');
+        // redirect('ControlUnit/allClients');
     }
 
     //  function to insert user details into the database.
@@ -209,8 +220,10 @@ class Auditapp extends CI_Controller
         // print_r($_POST);die;
 
         if (empty($_POST)) {
-            $this->session->set_flashdata("error", "Fill all details first.");
-            redirect('ControlUnit/newUsersPage');
+            // $this->session->set_flashdata("error", "Fill all details first.");
+            // redirect('ControlUnit/newUsersPage');
+            echo $responce = json_encode(array('message' => 'Fill all details first.', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
+           
         } else {
             // print_r($_POST);die;
             $data = array(
@@ -228,7 +241,7 @@ class Auditapp extends CI_Controller
                 'adress_line_two' => $this->input->post('address-line-two'),
                 'phone' => $this->input->post('mobile-no'),
                 'zip_pin_code' => $this->input->post('zip-pin-code'),
-                'role' => TeamMember
+                'role' => $this->input->post('role')
             );
             $email = $this->input->post('email');
             if (!empty($email)) {
@@ -237,21 +250,31 @@ class Auditapp extends CI_Controller
                     array('email' => $email)
                 );
                 if (!empty($userid)) {
-                    $this->session->set_flashdata("error", "User already exist");
-                    redirect('ControlUnit/newUsersPage');
+                    // $this->session->set_flashdata("error", "User already exist");
+                    // redirect('ControlUnit/newUsersPage');
+
+                    echo $responce = json_encode(array('message' => 'User already exist', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
                 } elseif (empty($userid)) {
                     $inserted_data = $this->MainModel->insertInto('users', $data);
                     if (isset($inserted_data)) {
-                        $this->session->set_flashdata("success", "User successfuly register.");
-                        redirect('ControlUnit/allUsers');
+
+                        // $this->session->set_flashdata("success", "User successfuly register.");
+                        // redirect('ControlUnit/allUsers');
+
+                        echo $responce = json_encode(array('message' => 'User successfuly register', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
+
                     } else {
-                        $this->session->set_flashdata("error", "error.");
-                        redirect('ControlUnit/allUsers');
+                        // $this->session->set_flashdata("error", "error.");
+                        // redirect('ControlUnit/allUsers');
+
+                        echo $responce = json_encode(array('message' => 'System error contact IT', 'type' => 'error', 'path' => 'ControlUnit/allUsers'), true);
                     }
                 }
             }
         }
     }
+
+
     //  function to show  users in edit mode.
     public function edit_user($id)
     {
@@ -277,10 +300,10 @@ class Auditapp extends CI_Controller
         }
     }
 
-//  function to update users into the database.
+    //  function to update users into the database.
     function user_editpost()
     {
-       $data = array(
+        $data = array(
             'password' => $this->input->post('password'),
             'first_name' => $this->input->post('first-name'),
             'last_name' => $this->input->post('last-name'),
@@ -298,11 +321,16 @@ class Auditapp extends CI_Controller
         $id = $this->input->post('id');
         $result = $this->MainModel->update_table('users', array('user_id' => $id), $data);
         if ($result == "FALSE") {
-            $this->session->set_flashdata("success", " User updated successfuly register.");
-            redirect('ControlUnit/allUsers');
+            // $this->session->set_flashdata("success", " User updated successfuly register.");
+            // redirect('ControlUnit/allUsers');
+
+            echo $responce = json_encode(array('message' => 'User updated successfuly register.', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
+
         } else if ($result == "TRUE") {
-            $this->session->set_flashdata("error", "Error.");
-            redirect('ControlUnit/allUsers');
+            // $this->session->set_flashdata("error", "Error.");
+            // redirect('ControlUnit/allUsers');
+
+            echo $responce = json_encode(array('message' => 'System error contact IT', 'type' => 'error', 'path' => 'ControlUnit/allUsers'), true);
         }
     }
 
@@ -314,7 +342,12 @@ class Auditapp extends CI_Controller
         if (!empty($_POST)) {
             $sdate = yymmdd($_POST['sdate']);
             $edate = yymmdd($_POST['enddate']);
-            // print_r($sdate);die;
+            // print_r($sdate);
+            // echo '<br>';
+            // print_r($edate);
+            // die;
+
+
 
             $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order');
             $data = array(
@@ -327,6 +360,9 @@ class Auditapp extends CI_Controller
                 'assign_status' => '0',
                 'complete_status' => '0'
             );
+            // echo '<pre>';
+            //             print_r($data);die;
+
             $result = $this->MainModel->insertInto('work_order', $data); //save work order
 
             $relation = array(
@@ -452,8 +488,21 @@ class Auditapp extends CI_Controller
     public function downlodDatabaseMaster()
     {
         $data = $this->Files->downlodDatabaseMaster();
-        $data = json_encode($data, true);
-        echo $data;
+        // print_r($data);
+        // Open a file in write mode ('w') 
+        $path = 'assets/sample_data/audit-sheet.csv';
+        $fp = fopen($path, 'w');
+        // Loop through file pointer and a line 
+        $i = 0;
+        foreach ($data as $fields) {
+            if ($i == 0) {
+                fputcsv($fp, array_keys($fields));
+            }
+            fputcsv($fp, array_values($fields));
+            $i++;
+        }
+        fclose($fp);
+        echo base_url($path);
     }
 
     // function to show all the process to manager
@@ -550,11 +599,12 @@ class Auditapp extends CI_Controller
             echo (json_encode(array('status' => 'danger', 'msg' => 'System Error! Contact to IT')));
         }
     }
+
     public function updateWorkorder($var = null)
     {
         // print_r($_POST);die;
-        $condition = array('work_order_id'=>$_POST['workOrderId']);
-        $data = array('complete_status'=>$_POST['completeWorkOrder']);
+        $condition = array('work_order_id' => $_POST['workOrderId']);
+        $data = array('complete_status' => $_POST['completeWorkOrder']);
         $r = $this->MainModel->update_table('work_order', $condition, $data);
         // print_r($r);die;
         // $result = json_encode($r, true);

@@ -73,6 +73,47 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
+                            <label for="date"> Set Date</label>
+                              
+                                <div class="input-group">
+                                <i id="date" class="far fa-calendar-alt text-lg" style="font-size: 2.2rem;
+    margin: 0px 94px;"></i>                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="">Start Date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id='start-date' name="start-date" readonly />
+                                    <!-- <div class="input-group-append">
+                                    <!-- <i class="far fa-calendar-alt input-group-text"></i>
+                                </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="">Target Date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id='end-date' name="end-date" readonly />
+                                    <!-- <div class="input-group-append">
+                                    <!-- <i class="far fa-calendar-alt input-group-text"></i>
+                                </div> -->
+                                </div>
+                            </div>
+                            <!-- 
+                            <div class="form-group">
+                            <label for="start-date">Start Date</label>
+                                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                                    <input type="text" id="start-date" class="form-control datetimepicker-input" data-target="#datetimepicker4">
+                                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                        <
+                                    </div>                                    
+                                </div>
+                                <label for="start-date" id="error-start-date" class="text-danger"></label>
+                            </div> -->
+
+
+                            <!-- <div class="col-md-4">
                             <div class="form-group">
                             <label for="start-date">Start Date</label>
                                 <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
@@ -83,11 +124,12 @@
                                 </div>
                                 <label for="start-date" id="error-start-date" class="text-danger"></label>
                             </div>
+                            
                             <!-- <div class="form-group">
                                 <label for="start-date">Start Date</label>
                                 <input id="start-date" type="text" class="datepicker" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control">
                                 <label for="start-date" id="error-start-date" class="text-danger"></label>
-                            </div> -->
+                            </div> 
                         </div>
                         <div class="col-md-4">
                         <div class="form-group">
@@ -100,87 +142,94 @@
                                 </div>
                                 <label for="start-date" id="error-end-date" class="text-danger"></label>
                             </div>
+                        </div> -->
                         </div>
                     </div>
-                </div>
 
-                <h5 style="margin-left: 15px">Choose Processes</h5>
+                    <h5 style="margin-left: 15px">Select Processes</h5>
 
-                <div class="row">
-                    <!-- Processes Section -->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div id="accordion3">
-                            <?php
-                            foreach ($services as $process) {
-                            ?>
+                    <div class="row">
+                        <!-- Processes Section -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div id="accordion3">
+                                <?php
+                                foreach ($services as $process) {
+                                ?>
 
-                                <div class="card" style="margin-bottom: 1px;">
-                                    <div class="card-header" style="padding: 0.0rem 1.25rem;" id="heading<?php echo $process['id'] ?>">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse<?php echo $process['id'] ?>" aria-expanded="false" aria-controls="collapseSeven">
-                                                <span class="fas mr-3 fa-angle-down"></span><?php echo $process['process_name'] ?>
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse<?php echo $process['id'] ?>" class="collapse" aria-labelledby="heading<?php echo $process['id'] ?>" data-parent="#accordion3">
-                                        <div class="card-body" style="padding: 0.25rem 4.25rem;">
-                                            <?php
-                                            $subprocess = $this->MainModel->selectAllWhere('sub_process_master', array('process_id' => $process['process_id']));
-                                            if (!empty($subprocess)) {
-                                                foreach ($subprocess as $sbprocess) {
-                                            ?>
-                                                    <div class="">
-                                                        <label> <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<?php echo $sbprocess['sub_process_name']; ?></label>
-                                                    </div>
+                                    <div class="card" style="margin-bottom: 1px;">
+                                        <div class="card-header" style="padding: 0.0rem 1.25rem;" id="heading<?php echo $process['id'] ?>">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse<?php echo $process['id'] ?>" aria-expanded="false" aria-controls="collapseSeven">
+                                                    <span class="fas mr-3 fa-angle-down"></span><?php echo $process['process_name'] ?>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapse<?php echo $process['id'] ?>" class="collapse show" aria-labelledby="heading<?php echo $process['id'] ?>" data-parent="#accordion3">
+                                            <div class="card-body" style="padding: 0.25rem 4.25rem;">
+                                                <?php
+                                                $subprocess = $this->MainModel->selectAllWhere('sub_process_master', array('process_id' => $process['process_id']));
+                                                if (!empty($subprocess)) {
+                                                    foreach ($subprocess as $sbprocess) {
+                                                ?>
+                                                        <div class="">
+                                                            <label> <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<?php echo $sbprocess['sub_process_name']; ?></label>
+                                                        </div>
 
-                                            <?php }
-                                            } ?>
+                                                <?php }
+                                                } ?>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- <div class="box box-default col-md-12 collapsed-box mb-8">
-                                                <div class="card">
-                                                    <div class="card-header" id="headingOne<?php echo $process['id'] ?>">
-                                                        <h5 class="ma-0 collapse_heading" data-toggle="collapse" data-target="#collapseOne<?php echo $process['id'] ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $process['id'] ?>">
-                                                            <a>
-                                                                <?php echo $process['process_name'] ?>
-                                                            </a>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOne<?php echo $process['id'] ?>" class="collapse" aria-labelledby="headingOne<?php echo $process['id'] ?>" data-parent="#accordion">
-                                                        <div class="card-body c_body">
-                                                            <?php
-                                                            $subprocess = $this->MainModel->selectAllWhere('sub_process_master', array('process_id' => $process['process_id']));
-                                                            if (!empty($subprocess)) {
-                                                                foreach ($subprocess as $sbprocess) {
-                                                            ?>
-                                                                    <div class="">
-                                                                        <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<label><?php echo $sbprocess['sub_process_name']; ?></label>
-                                                                    </div>
 
-                                                            <?php }
-                                                            } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                            <?php
-                            }
-                            ?>
+                                <?php
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div style="display:flex; justify-content: center; padding:5px 5px;">
-                    <!-- <input type="hidden" id="client_id" name="client_id" value=""> -->
-                    <!-- <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['company_data']['company_id']; ?>"> -->
-                    <button class="btn btn-primary submit-services">Apply</button>
-                    <!-- <a href="<?php echo base_url('Auditapp/company') . '#' . $client_data[0]['client_name'] ?>" class="btn btn-primary" style="float:right; margin:5px;">Back</a> -->
-                </div>
+                    <div style="display:flex; justify-content: center; padding:5px 5px;">
+                        <!-- <input type="hidden" id="client_id" name="client_id" value=""> -->
+                        <!-- <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['company_data']['company_id']; ?>"> -->
+                        <button class="btn btn-primary submit-services">Apply</button>
+                        <!-- <a href="<?php echo base_url('Auditapp/company') . '#' . $client_data[0]['client_name'] ?>" class="btn btn-primary" style="float:right; margin:5px;">Back</a> -->
+                    </div>
 
+                </div>
             </div>
         </div>
+        <!-- end basic form -->
     </div>
-    <!-- end basic form -->
 </div>
-</div>
+
+
+
+
+<script>
+    const today = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = dd + '-' + mm + '-' + yyyy;
+        return today;
+    }
+
+
+
+    $(function() {
+        $('#start-date').val(today);
+        $('#end-date').val(today);
+        $('#date').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            const start_date = start.format('DD-MM-YYYY');
+            const end_date = end.format('DD-MM-YYYY');
+            $('#start-date').val(start_date);
+            $('#end-date').val(end_date);
+        });
+
+    });
+</script>
 <!-- ============================================================== -->

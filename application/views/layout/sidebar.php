@@ -95,7 +95,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!-- <li class="nav-item ">
+                            <li class="nav-item ">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Manage</a>
                                 <div id="submenu-4" class="collapse submenu">
                                     <ul class="nav flex-column">
@@ -104,7 +104,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li> -->
+                            </li>
                         </ul>
                     </div>
                 </nav>
