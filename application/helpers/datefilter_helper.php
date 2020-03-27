@@ -2,6 +2,8 @@
 //  change date format yymmddtt to DDMMYY
 function ddmmyytt($date)
 {
+    // echo '<pre>';
+    // print_r($date);die;
     $date = explode("-", $date);
     $d = explode(" ", $date[2]);
     $yy = $date[0];

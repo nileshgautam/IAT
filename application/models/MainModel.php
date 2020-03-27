@@ -254,5 +254,21 @@ class MainModel extends ci_model
        return $this->db->affected_rows() ? $result : false;
     }
    
+    // function to select all the process data from the database 
 
+    public function getAllprocess($id)
+    {
+        $query= "SELECT process_master.process_id, process_master.process_name,sub_process_master.sub_process_id,sub_process_master.sub_process_name, risk_master.risk_id, risk_master.risk_name, risk_master.risk_level,control_master.control_id, control_master.control_name, work_steps.work_steps_id,work_steps.steps_name,control_objective_master.ctrl_obj_id, control_objective_master.ctrl_obj_name FROM process_master left JOIN sub_process_master on process_master.process_id=sub_process_master.process_id LEFT JOIN risk_master on sub_process_master.sub_process_id=risk_master.sub_process_id LEFT JOIN control_master on risk_master.risk_id=control_master.risk_id LEFT JOIN work_steps on work_steps.control_id=control_master.control_id LEFT JOIN control_objective_master on control_master.control_id=control_objective_master.control_id WHERE sub_process_master.sub_process_id='$id' ORDER BY `risk_master`.`risk_level` ASC";
+
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+
+
+
+function getRiskbyId($subprocessId=null){
+    $query="SELECT risk_master.sub_process_id, risk_master.risk_id, risk_master.risk_name, risk_master.risk_level, control_master.control_id,control_master.control_name FROM `risk_master` LEFT JOIN control_master on risk_master.risk_id=control_master.risk_id WHERE risk_master.sub_process_id='$subprocessId'";
+    $result = $this->db->query($query)->result_array();
+    return $this->db->affected_rows() ? $result : false;
+}
 }

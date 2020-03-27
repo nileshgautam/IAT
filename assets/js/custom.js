@@ -209,3 +209,10 @@ $(function () {
 });
 
 // loading workorder by company id
+
+// $(function(){
+//     $('.choose-process').on('click',function(e){
+//         e.preventDefault();
+//         alert('clicked on next');
+//     });
+// });

@@ -118,9 +118,30 @@ $('#role').change(function () {
 
 // function to submit all the process
 $('.submit-services').on('click', function () {
-    let process = {};
 
-    $('input[name="subprocess"]:checked').each(function () {
+    let process = {};
+    // let subprocess={};
+   // let a=0;
+    // $('input[name="subprocess"]:checked').each(function () {
+    //     for(let i=0;i<5;i++){
+    //     if (process[$(this).attr('data-process-id')] === undefined) {
+    //         subprocess ={
+    //             [$(this).attr('data-sub-id')]: [i],
+    //             ...subprocess
+    //         }
+    //         process = {
+    //             [$(this).attr('data-process-id')]: subprocess,
+    //             ...process
+    //         };
+    //     } else { 
+    //         subprocess[$(this).attr('data-sub-id')] =[...subprocess [$(this).attr('data-sub-id')],i];
+    //         process[$(this).attr('data-process-id')] = [...process[$(this).attr('data-process-id')], subprocess];
+    //     }
+    // }
+    //     // $('#process').val(JSON.stringify(process))
+
+    // });
+      $('input[name="subprocess"]:checked').each(function () {
         if (process[$(this).attr('data-process-id')] === undefined) {
             process = {
                 [$(this).attr('data-process-id')]: [$(this).attr('data-sub-id')],
@@ -133,8 +154,11 @@ $('.submit-services').on('click', function () {
 
     })
 
-    // if{}
+
+
+   
     let message = "Required";
+
     // console.log($("[type='text']"))
 
     let clientId = $('#client').val().trim();
@@ -167,6 +191,8 @@ $('.submit-services').on('click', function () {
         showAlert('Please choose process first', "warning");
         error = true;
     }
+
+    console.log(process);
 
     let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
     if (!error) {
@@ -535,7 +561,7 @@ $(document).ready(() => {
 
 
 
-   
+
         if (!error) {
             $.post(baseUrl + "AssignWorkOrder/save_assigned_work",
                 form_data,
@@ -544,19 +570,19 @@ $(document).ready(() => {
                     console.log(data);
 
                     let responce = JSON.parse(data);
-                 
+
                     if (responce.status == 'A') {
                         showAlert(responce['msg'], responce['type']);
                     }
-                    else if(responce.status == 'Y'){
+                    else if (responce.status == 'Y') {
                         $('#assigned-users').css('display', 'block');
-                            $('#assigned_user').append(html);
-                            $(this).parent().parent().remove();
+                        $('#assigned_user').append(html);
+                        $(this).parent().parent().remove();
                     }
-                    else if(responce.status == 'E') {
+                    else if (responce.status == 'E') {
                         showAlert(responce['msg'], responce['type']);
                     }
-                
+
                 });
         }
     });

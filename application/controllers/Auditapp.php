@@ -132,8 +132,7 @@ class Auditapp extends CI_Controller
                 // $this->session->set_flashdata("error", "");
                 echo $responce = json_encode(array('message' => 'Email, already exists', 'type' => 'error'), true);
                 // redirect(__CLASS__ . '/client_registration_form');
-            } 
-            else if (empty($data)) {
+            } else if (empty($data)) {
                 $insert = array(
                     'client_name' => $c_name,
                     'client_id' => $c_id,
@@ -159,16 +158,12 @@ class Auditapp extends CI_Controller
                     // redirect('ControlUnit/newWorkOrder/' . $c_id);
                     echo $responce = json_encode(array('message' => 'client, successfully registered', 'type' => 'success', 'path' => 'ControlUnit/newWorkOrder/' . $c_id), true);
                 }
-            } 
-            
-           
-        }
-        else {
+            }
+        } else {
             // $this->session->set_flashdata("error", "Client Already Exist.");
             // redirect('ControlUnit/allClients');
             echo $responce = json_encode(array('message' => 'system error! contact IT', 'type' => 'error', 'path' => 'ControlUnit/allClients'), true);
         }
-       
     }
     // function to update clients in to the database.
     public function saveEditedClient()
@@ -223,7 +218,6 @@ class Auditapp extends CI_Controller
             // $this->session->set_flashdata("error", "Fill all details first.");
             // redirect('ControlUnit/newUsersPage');
             echo $responce = json_encode(array('message' => 'Fill all details first.', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
-           
         } else {
             // print_r($_POST);die;
             $data = array(
@@ -262,7 +256,6 @@ class Auditapp extends CI_Controller
                         // redirect('ControlUnit/allUsers');
 
                         echo $responce = json_encode(array('message' => 'User successfuly register', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
-
                     } else {
                         // $this->session->set_flashdata("error", "error.");
                         // redirect('ControlUnit/allUsers');
@@ -325,7 +318,6 @@ class Auditapp extends CI_Controller
             // redirect('ControlUnit/allUsers');
 
             echo $responce = json_encode(array('message' => 'User updated successfuly register.', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
-
         } else if ($result == "TRUE") {
             // $this->session->set_flashdata("error", "Error.");
             // redirect('ControlUnit/allUsers');
@@ -417,10 +409,13 @@ class Auditapp extends CI_Controller
         // die;
         $p_data = [];
         foreach ($process as $process_id => $sub_proceses) {
-            //echo $process_id;
+            // echo $process_id;
+
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
+            // print_r($p_data);
+            // die;
             foreach ($sub_proceses as $sub_procese) {
                 // print_r($sub_procese);die;
                 $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_procese, 'process_id' => $process_id));
@@ -435,6 +430,8 @@ class Auditapp extends CI_Controller
         $p_data['p_data'] = $p_data;
         $p_data['work_order'] = $id;
         $p_data['work_order_name'] = $data[0]['work_order_name'];
+
+        
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/work-space', $p_data);
@@ -447,14 +444,37 @@ class Auditapp extends CI_Controller
         $subprocessid = base64_decode($subprocessId);
         $workorderid = base64_decode($workorderid);
         $processid = base64_decode($processId);
-        $data['work_steps'] = $this->MainModel->selectAllFromWhere('work_steps', array('sub_process_id' => $subprocessid));
-        $data['risks'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
+
+        // print_r($subprocessid);
+        // echo '<br>';
+        // print_r($workorderid);
+        // echo '<br>';
+        // print_r($processid);die;
+
+        $data['risks'] = $this->MainModel->getAllprocess($subprocessid);
+
+
+//  $data['risks'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
+        // getRiskbyId
+
+        // $data['work_steps'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
+
+
+        // $data['risks'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
+
+        // echo '<pre>';
+        // print_r($data);
+        // die;
         $data['workorder_id'] = $workorderid;
         $data['processId'] = $processid;
+
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
-        $this->load->view('pages/work-steps', $data);
+        // $this->load->view('pages/work-steps', $data);
+         $this->load->view('pages/risks-data-table', $data);
         $this->load->view('layout/footer');
+
+
     }
 
     // function to load all the workorders by ajax

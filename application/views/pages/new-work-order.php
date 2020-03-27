@@ -3,12 +3,12 @@
         <!-- Head Area -->
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="page-header">
-                    <h3 class="mb-2">Create work order</h3> <a style="margin: -45px 20px;
-" class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard') ?>">Exit</a>
-
+                <div class="">
+                    <h3 class="mb-2">New work order</h3> <a style="margin: -45px 20px;
+" class="btn btn-rounded btn-danger float-right" href="<?php echo base_url('dashboard') ?>">Exit</a>
+                    <!-- <a href="#" class="btn btn-rounded btn-danger">Danger</a> -->
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
-                    <div class="page-breadcrumb">
+                    <div class="page-breadcrumb float-right">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Work order</a></li>
@@ -23,20 +23,23 @@
         <!-- basic form -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header">
+                <!-- <h5 class="card-header">
                     <?php echo (isset($workOrder)) ? 'Edit' : ' New';
-                    $services = $this->MainModel->selectAll('process_master', 'process_name');
-                    ?>
-                </h5>
-                <!-- <?php print_r($clientid);
 
-                        ?> -->
+                    ?>
+                </h5> -->
+
                 <div class="card-body">
+
+
                     <div class="row">
+
                         <div class="col-md-4">
+
+
                             <div class="form-group">
                                 <label for="Clients">Clients</label>
-                                <select name="client" id="client" placeholder="Select client" autocomplete="off" class="form-control">
+                                <select name="client" id="client" placeholder="Select client" autocomplete="off" class="form-control bootstrap-select dropup">
                                     <option value="">Select client</option>
                                     <?php if (!empty($clients)) {
                                         foreach ($clients as $client) { ?>
@@ -51,7 +54,7 @@
                                     ?>
                                 </select>
                                 <label for="messageclient" id="messageclient" class="text-danger"></label>
-                                <!-- <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="Enter user name" autocomplete="off" class="form-control"> -->
+
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -71,89 +74,47 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-4">
                             <label for="date"> Set Date</label>
-                              
-                                <div class="input-group">
+
+                            <div class="input-group">
                                 <i id="date" class="far fa-calendar-alt text-lg" style="font-size: 2.2rem;
-    margin: 0px 94px;"></i>                                </div>
-
+                                    margin: 0px 94px;"></i>
                             </div>
 
-                            <div class="col-md-4">
-                                <label for="">Start Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id='start-date' name="start-date" readonly />
-                                    <!-- <div class="input-group-append">
-                                    <!-- <i class="far fa-calendar-alt input-group-text"></i>
-                                </div> -->
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="">Target Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id='end-date' name="end-date" readonly />
-                                    <!-- <div class="input-group-append">
-                                    <!-- <i class="far fa-calendar-alt input-group-text"></i>
-                                </div> -->
-                                </div>
-                            </div>
-                            <!-- 
-                            <div class="form-group">
-                            <label for="start-date">Start Date</label>
-                                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                                    <input type="text" id="start-date" class="form-control datetimepicker-input" data-target="#datetimepicker4">
-                                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                        <
-                                    </div>                                    
-                                </div>
-                                <label for="start-date" id="error-start-date" class="text-danger"></label>
-                            </div> -->
-
-
-                            <!-- <div class="col-md-4">
-                            <div class="form-group">
-                            <label for="start-date">Start Date</label>
-                                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                                    <input type="text" id="start-date" class="form-control datetimepicker-input" data-target="#datetimepicker4">
-                                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                                    </div>                                    
-                                </div>
-                                <label for="start-date" id="error-start-date" class="text-danger"></label>
-                            </div>
-                            
-                            <!-- <div class="form-group">
-                                <label for="start-date">Start Date</label>
-                                <input id="start-date" type="text" class="datepicker" name="start-date" placeholder="Enter start date" autocomplete="off" required class="form-control">
-                                <label for="start-date" id="error-start-date" class="text-danger"></label>
-                            </div> 
                         </div>
+
                         <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="start-date">End Date</label>
-                                <div class="input-group date" id="datetimepicker12" data-target-input="nearest">
-                                    <input type="text" id="end-date" class="form-control datetimepicker-input" data-target="#datetimepicker12">
-                                    <div class="input-group-append" data-target="#datetimepicker12" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                                    </div>
-                                </div>
-                                <label for="start-date" id="error-end-date" class="text-danger"></label>
+                            <label for="">Start Date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id='start-date' name="start-date" readonly />
+
                             </div>
-                        </div> -->
                         </div>
+
+                        <div class="col-md-4">
+                            <label for="">Target Date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id='end-date' name="end-date" readonly />
+                            </div>
+                        </div>
+
+
                     </div>
 
-                    <h5 style="margin-left: 15px">Select Processes</h5>
-
-                    <div class="row">
-                        <!-- Processes Section -->
+                    <hr>
+                    <div class="row my-2">
+                        <h5 style="margin-left: 15px">Select Processes</h5>
+                        <!-- 
+                        
+                        Processes Section -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div id="accordion3">
                                 <?php
-                                foreach ($services as $process) {
+                                $processes = $this->MainModel->selectAll('process_master', 'process_name');
+                                foreach ($processes as $process) {
                                 ?>
 
                                     <div class="card" style="margin-bottom: 1px;">
@@ -169,11 +130,69 @@
                                                 <?php
                                                 $subprocess = $this->MainModel->selectAllWhere('sub_process_master', array('process_id' => $process['process_id']));
                                                 if (!empty($subprocess)) {
+
                                                     foreach ($subprocess as $sbprocess) {
+                                                        $condition = array('sub_process_id' => $sbprocess['sub_process_id']);
+                                                        $risks = $this->MainModel->selectAllWhere('risk_master', $condition);
+                                                        $risks_level = $this->MainModel->selectAll('status');
+
+                                                        // $risks = $this->MainModel->getRiskbyId($sbprocess['sub_process_id']);
                                                 ?>
-                                                        <div class="">
-                                                            <label> <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<?php echo $sbprocess['sub_process_name']; ?></label>
-                                                        </div>
+
+
+                                                        <!-- <div class="card"> -->
+                                                            <!-- <h5 class="card-header"> -->
+                                                                <div class="">
+                                                                    <label> <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<?php echo $sbprocess['sub_process_name']; ?></label>
+                                                                </div>
+                                                            </h5>
+                                                            <div class="card-body">
+
+
+                                                                <?php if (!empty($risks)) {
+                                                                    // echo '<pre>';
+                                                                    // print_r($risks);
+                                                                    // die;
+
+                                                                ?>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <!-- <th scope="col">#</th> -->
+                                                                                <th scope="col">Risk</th>
+                                                                                <th scope="col">Risk level</th>
+                                                                             
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <?php 
+                                                                            $risk_count=1;
+                                                                            foreach ($risks as $risk) {
+                                                                            ?>
+                                                                                <tr>
+                                                                                   
+                                                                                    <td><?php echo $risk_count++. ' : ' .$risk['risk_name'] ?></td>
+                                                                                  
+
+
+                                                                                    <td>
+                                                                                        
+                                                                                    <!-- <select data-process-id="<?php echo $sbprocess['process_id'] ?>" data-sub-proecss-id="<?php echo $risk['sub_process_id']; ?>" data-risk-id="<?php echo $risk['risk_id'] ?>" name="risk-level"> -->
+
+                                                                                    <select name="" id="">
+                                                                                        <?php foreach($risks_level as $rl){?>
+                                                                                            <option value="<?php echo $rl['status']?>" <?php echo ($risk['risk_level'] == $rl['status'])?'selected':''?>><?php echo $rl['status'];?></option>
+                                                                                        <?php }?>
+                                                                                        </select></td>
+                                                            
+                                                                                </tr>
+                                                                        <?php }
+                                                                        } else echo "<div class='' style='margin:%'>No risk.</div>"; ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                            </div>
+                                                        <!-- </div> -->
+
 
                                                 <?php }
                                                 } ?>
@@ -186,12 +205,11 @@
                                 ?>
                             </div>
                         </div>
+
                     </div>
+
                     <div style="display:flex; justify-content: center; padding:5px 5px;">
-                        <!-- <input type="hidden" id="client_id" name="client_id" value=""> -->
-                        <!-- <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['company_data']['company_id']; ?>"> -->
-                        <button class="btn btn-primary submit-services">Apply</button>
-                        <!-- <a href="<?php echo base_url('Auditapp/company') . '#' . $client_data[0]['client_name'] ?>" class="btn btn-primary" style="float:right; margin:5px;">Back</a> -->
+                        <button class="btn btn-rounded btn-primary submit-services">Apply</button>
                     </div>
 
                 </div>

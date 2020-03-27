@@ -26,7 +26,58 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+
+        <div class="card">
+            <!-- <?php echo '<pre>';
+                    print_r($p_data); ?> -->
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Process</th>
+                        <th scope="col">subprocess</th>
+                        <!-- <th scope="col">Handle</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($p_data)) {
+                        $processCount=1;
+                        foreach ($p_data as $process) { ?>
+                            <tr>
+                                <th scope="row"><?php echo $processCount++?></th>
+                                <td><?php echo $process['process_name'] ?></td>
+                                <td>
+                                    <table>
+                                       <?php
+                                       $subprocessCount=1;
+                                        // echo '<pre>';
+                                        // print_r($process['sub_process_data']);
+                                        foreach ($process['sub_process_data'] as $subProcess) {
+                                            // print_r($subProcess);
+                                        ?>
+                                            <tr>
+                                               <td><a href="<?php echo base_url('Auditapp/workSteps/') . base64_encode($subProcess['sub_process_id']) . '/' . base64_encode($work_order) . '/' . base64_encode($subProcess['process_id']) ?>"><?php echo $subprocessCount++. ' : '. $subProcess['sub_process_name'] ?></a></td> 
+                                            </tr>
+                                        <?php }
+                                        ?>
+                                    </table>
+                                </td>
+                                <!-- <td>@mdo</td> -->
+                            </tr>
+                    <?php }
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <div>
+
+
+            </div>
+        </div>
+
+
+
+        <!-- <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="accrodion-regular">
                     <div id="accordionProcess">
@@ -83,35 +134,19 @@
                                                 </div>
 
                                             </p>
-                                            <!-- <p> Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p> -->
-                                            <!-- <a href="#" class="btn btn-secondary">Go somewhere</a> -->
+                                    <?php  }
+                            }
+                                    ?>
                                         </div>
                                     </div>
                                 </div>
-                        <?php  }
-                        }
-                        ?>
+
                     </div>
+
                 </div>
             </div>
-
-        </div>
-
-        <!-- ============================================================== -->
-        <!-- end basic form -->
-        <!-- ============================================================== -->
-
+        </div> -->
 
         <!-- ============================================================== -->
-
-
+        <!-- footer -->
         <!-- ============================================================== -->
-        <!-- end nestable list  -->
-        <!-- ============================================================== -->
-    </div>
-</div>
-</div>
-
-<!-- ============================================================== -->
-<!-- footer -->
-<!-- ============================================================== -->

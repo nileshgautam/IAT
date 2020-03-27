@@ -127,7 +127,9 @@
                                                     <td> <?php echo $works['client_name'] ?></td>
                                                     <td>
                                                     <?php
-                                                    echo ddmmyytt($works['date']);?>
+                                                    echo ddmmyytt($works['created_date']);
+                                                    
+                                                    ?>
                                                     </td>
                                                     <td>  <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/').base64_encode($works['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
                                                 </tr>
