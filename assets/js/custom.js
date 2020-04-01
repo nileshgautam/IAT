@@ -68,18 +68,18 @@ $(function () {
 
     // function to validate GST number should be 10 digit only.
 
-    $('#inputgstno').on('change', function () {
-        const GSTNO = $(this).val();
-        let validate = gstNumberValidate(GSTNO);
-        console.log(validate);
-        if (validate != undefined) {
-            $('#errorgstno').text(validate);
-            error = true;
-        }
-        else {
-            console.log(validate);
-        }
-    });
+    // $('#inputgstno').on('change', function () {
+    //     const GSTNO = $(this).val();
+    //     let validate = gstNumberValidate(GSTNO);
+    //     console.log(validate);
+    //     if (validate != undefined) {
+    //         $('#errorgstno').text(validate);
+    //         error = true;
+    //     }
+    //     else {
+    //         console.log(validate);
+    //     }
+    // });
     // function for email validation
     $('#txtEmail').on('change', function () {
         const EMAIL = $(this).val();
@@ -128,6 +128,7 @@ $(function () {
         }
         else {
             // console.log(error);
+            error = 'error';
             showAlert(error, 'danger');
         }
     });
@@ -138,31 +139,31 @@ $(function () {
 
 $(function () {
     let error = false;
-    $('#input-user-email').on('change',function(){
-     const EMAIL = $(this).val();
-     const EMAILRESPONCE=validateEmail(EMAIL);
-     if(EMAILRESPONCE==false){
-         $('#user-error-email').text('Enter valid email id, i.e. example@example.example.');
-         error = true;
-     }
-     else{
-        $('#user-error-email').empty();
-        error = false;
-    }
+    $('#input-user-email').on('change', function () {
+        const EMAIL = $(this).val();
+        const EMAILRESPONCE = validateEmail(EMAIL);
+        if (EMAILRESPONCE == false) {
+            $('#user-error-email').text('Enter valid email id, i.e. example@example.example.');
+            error = true;
+        }
+        else {
+            $('#user-error-email').empty();
+            error = false;
+        }
     });
 
-    $('#input-user-mobile').on('change',function(){
+    $('#input-user-mobile').on('change', function () {
         const MOBILENUMBER = $(this).val();
-        const MOBILERESPONCE=validateMobileNumber(MOBILENUMBER);
-        if(MOBILERESPONCE==false){
+        const MOBILERESPONCE = validateMobileNumber(MOBILENUMBER);
+        if (MOBILERESPONCE == false) {
             $('#user-error-mobile').text('Enter valid mobile number, i.e.: 9999999999, It should be 10 digits only.');
             error = true;
         }
-        else{
+        else {
             $('#user-error-mobile').empty();
             error = false;
         }
-       });
+    });
 
     $('#user-form').submit(function (e) {
         e.preventDefault();
@@ -176,7 +177,7 @@ $(function () {
             url = baseUrl + "Auditapp/user_editpost";
         }
 
- 
+
         // console.log(USERID);
         // console.log(url);
 
@@ -216,3 +217,101 @@ $(function () {
 //         alert('clicked on next');
 //     });
 // });
+
+
+
+
+
+
+$(function () {
+
+    // set required data to the model
+    $('.set-data').click(function () {
+        let WorkStepsid = $(this).attr('data-work-step-id');
+        let controlid = $(this).attr('data-control-id');
+        $('#control-id').val(controlid);
+        $('#worksteps-id').val(WorkStepsid);
+    });
+
+
+    $('#uploadfiles').submit(function (e) {
+        e.preventDefault();
+        
+
+        let error = false;
+
+        let files = $('#files').val();
+        if (files =='') {
+            error = true;
+            showAlert('Please select file', 'danger');
+        }
+        // alert(files);
+        if (error!=true) {
+            let form_data = new FormData(this);
+            let workOrderId = $('#workorder-id').val();
+            let workstepId = $('#worksteps-id').val();
+            form_data.append("workOrderId", workOrderId);
+            form_data.append("workstepId", workstepId);
+            $.ajax({
+                method: "POST",
+                url: baseUrl + "Upload_files/Upload_file",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    // console.log(data);
+                    let message = JSON.parse(data);
+                    if(message['files']!=''){
+                        let filesData= message['files'];
+                        console.log(filesData[0]['file_name']);
+
+
+                       let path = `<div><a href="${baseUrl+'upload/files/'+filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
+                        $('#uploaded_files').append(path);
+
+
+                        showAlert(message['msg'], message['type']);
+                    }
+                  
+                    
+
+                }
+            });
+        }
+
+    });
+    // saveing worksteps
+    $('#save-worksteps-data').submit(function (e) {
+        e.preventDefault();
+        let error = false;
+        let form_data = $(this).serialize();
+        let url = baseUrl + "Auditapp/commitWorkSteps";
+        let observations = $('#observations').val();
+        if (observations == '') {
+            error = true;
+            showAlert('Please required required', 'danger');
+        }
+        if (error != true) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                success: function (responce) {
+                    let data = JSON.parse(responce);
+                    console.log(data);
+                    showAlert(data.message, data.type);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+
+                }
+            });
+        }
+    });
+});
+
+$(function(){
+   let riskLevel= $('.risk-level').text();
+   console.log(riskLevel);
+})

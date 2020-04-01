@@ -12,7 +12,7 @@
                 <div class="col-md-12">
                     <div class="box box-default collapsed-box">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $subProcess['sub_process_name'] ?></h3>
+                            <h3 class="box-title"><?php echo $subProcess['sub_process_description'] ?></h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                 </button>
@@ -36,7 +36,7 @@
                                                     <?php $risk = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $subProcess['id']));
                                                     if (isset($risk)) {
                                                         foreach ($risk as $iter_risk) { ?>
-                                                            <li><?php echo $iter_risk['risk_name'] ?></li>
+                                                            <li><?php echo $iter_risk['risk_description'] ?></li>
                                                     <?php }
                                                     } ?>
                                                 </td>
@@ -69,7 +69,7 @@
                                                                 <tr>
                                                                     <td>
 
-                                                                        <?php echo  $count++ . ' : ' . $work_steps['steps_name']; ?>
+                                                                        <?php echo  $count++ . ' : ' . $work_steps['step_description']; ?>
 
 
                                                                     </td>

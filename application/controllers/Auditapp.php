@@ -71,7 +71,7 @@ class Auditapp extends CI_Controller
         $data['client_data'] = $this->MainModel->selectAllFromWhere('client_details', array('client_id' => $id));
         // print_r($data['client_data']);
         // die;
-        $data['services'] = $this->MainModel->selectAll('process_master', 'process_name');
+        $data['services'] = $this->MainModel->selectAll('process_master', 'process_description');
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar');
         $this->load->view('template/auditServices', $data);
@@ -398,40 +398,30 @@ class Auditapp extends CI_Controller
     public function workprocess($id = null)
     {
         $id = base64_decode($id);
-        // print_r($id);die;
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
-        // echo '<pre>';
-        // print_r($data);
-        // die;
         $process = json_decode($data[0]['processes'], true);
-        // $processArray =
-        // print_r($process);
-        // die;
         $p_data = [];
         foreach ($process as $process_id => $sub_proceses) {
             // echo $process_id;
-
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
-            // print_r($p_data);
-            // die;
-            foreach ($sub_proceses as $sub_procese) {
+            foreach ($sub_proceses as $key => $sub_procese) {
                 // print_r($sub_procese);die;
-                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_procese, 'process_id' => $process_id));
-                $sp_data[$sub_procese] = $sprocess_data[0];
-                // echo $sub_procese;
+                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
+
+                // print_r($sprocess_data);
+                // die;
+                $sprocess_data[0]['risk_data'] = $sub_procese;
+                $sp_data[$key] = $sprocess_data[0];
+
+                // print_r($sprocess_data);
             }
             $p_data[$process_id]['sub_process_data'] = $sp_data;
         }
-        // echo '<pre>';
-        // print_r($p_data);die;
-        // $upload_files = json_encode($p_data, true);
         $p_data['p_data'] = $p_data;
         $p_data['work_order'] = $id;
         $p_data['work_order_name'] = $data[0]['work_order_name'];
-
-        
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/work-space', $p_data);
@@ -439,45 +429,24 @@ class Auditapp extends CI_Controller
     }
 
     // popualte  worksteps from database
-    public function workSteps($subprocessId = null, $workorderid = null, $processId = null)
+    public function workSteps($riskId = null, $controlId = null, $processId = null, $workOrderId = null, $sub_proceseid = null)
     {
-        $subprocessid = base64_decode($subprocessId);
-        $workorderid = base64_decode($workorderid);
-        $processid = base64_decode($processId);
-
-        // print_r($subprocessid);
-        // echo '<br>';
-        // print_r($workorderid);
-        // echo '<br>';
-        // print_r($processid);die;
-
-        $data['risks'] = $this->MainModel->getAllprocess($subprocessid);
-
-
-//  $data['risks'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
-        // getRiskbyId
-
-        // $data['work_steps'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
-
-
-        // $data['risks'] = $this->MainModel->selectAllFromWhere('risk_master', array('sub_process_id' => $subprocessid));
-
-        // echo '<pre>';
-        // print_r($data);
-        // die;
-        $data['workorder_id'] = $workorderid;
-        $data['processId'] = $processid;
+        $controlId = base64_decode($controlId);
+        $data['riskId'] = base64_decode($riskId);
+        $data['processid'] = base64_decode($processId);
+        $data['workorderId'] = base64_decode($workOrderId);
+        $data['subProceseid'] = base64_decode($sub_proceseid);
+        $data['workSteps'] = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $controlId));
 
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
-        // $this->load->view('pages/work-steps', $data);
-         $this->load->view('pages/risks-data-table', $data);
+        $this->load->view('pages/work-steps', $data);
+        // $this->load->view('pages/risks-data-table', $data);
         $this->load->view('layout/footer');
-
-
     }
 
     // function to load all the workorders by ajax
+
     public function workorders()
     {
         //    print_r($_POST);die;
@@ -628,5 +597,48 @@ class Auditapp extends CI_Controller
         $r = $this->MainModel->update_table('work_order', $condition, $data);
         // print_r($r);die;
         // $result = json_encode($r, true);
+    }
+
+
+    public function commitWorkSteps()
+    {
+
+        // echo '<pre>';
+        // print_r($_POST);
+        if (!empty($_POST)) {
+
+            //         [observations] => sssss
+            // [rootcause] => ssss
+            // [date] => 2020-04-10
+            // [recommendation] => sssss
+            // [management-action-plan] => sssssss
+
+
+            $savedData = array(
+                'observations' => $this->input->post('observations'),
+                'rootcause' => $this->input->post('rootcause'),
+                'date' => $this->input->post('date'),
+                'management-action-plan' => $this->input->post('management-action-plan'),
+                'recommendation' => $this->input->post('recommendation'),
+            );
+
+            $data = array(
+                'complete_work_steps_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
+                'work_order_id' => $this->input->post('workorder-id'),
+                'process_id' => $this->input->post('process-id'),
+                'sub_process_id' => $this->input->post('subprocess-id'),
+                'risk_id' => $this->input->post('risk-id'),
+                'control_id' => $this->input->post('control-id'),
+                'work_step_id' => $this->input->post('worksteps-id'),
+                'saved_data' => json_encode($savedData,true)
+            );
+            $res = $this->MainModel->insertInto('complete_work_steps', $data);
+            if (!empty($res)) {
+                echo $responce = json_encode(array('message' => 'successfuly save...', 'type' => 'success'), true);
+            }
+            else{
+                echo $responce = json_encode(array('message' => 'somthing went worng!', 'type' => 'error'), true);
+            }
+        }
     }
 }

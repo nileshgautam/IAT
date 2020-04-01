@@ -3,7 +3,6 @@
 <!-- ============================================================== -->
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
-
         <!-- ============================================================== -->
         <!-- pagehader  -->
         <!-- ============================================================== -->
@@ -25,187 +24,184 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="card col-lg-12 mb-2">
-                <!-- <h5 class="card-header drag-handle"> Risks </h5>
-                <ol>
-                    <?php
-                    // echo '<pre>';
-                    // print_r($risks);
-                    if (!empty($risks)) {
 
-                        foreach ($risks as $risk) { ?>
-                            <li><?php echo $risk['risk_name']; ?></li>
-                    <?php }
-                    }
-                    ?>
-                </ol>
-            <!-- </div> -->
-                <div class="card col-lg-12">
-                    <div class="row">
-                        <h5 class="card-header drag-handle col-sm-10"> Work Steps </h5>
-                        <h5 class="card-header drag-handle col-sm-2" style="text-align:center"> Action </h5>
+        <div class="card">
+            <!-- <?php echo $riskId; ?> -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="botder-0">
+                            <th>
+                                Work Steps
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $workstepscount = 1;
+                        foreach ($workSteps as $worksteps) {
+
+                            $files = $this->MainModel->selectAllFromWhere('complete_work_steps', array('work_step_id' => $worksteps['work_steps_id'], 'work_order_id' => $workorderId));
+
+
+                            echo '<tr>';
+                            echo ' <td>' . $workstepscount++ . ' : ' . $worksteps['step_description'] . '</td>';
+                            echo ' <td><div>
+                           <button  class="btn btn-sm btn-outline-light set-data " data-toggle="modal" data-target="#uploadModalCenter" data-work-step-id=' . $worksteps['work_steps_id'] . ' data-control-id=' . $worksteps['control_id'] . '>
+                            <i class="fa fa-tasks"></i>
+                        </button>
+                        </div>
+                            </td>';
+
+                            echo  '</tr>';
+                        }
+                        ?>
+
+<!-- .($files[0]['work_step_id'] == $worksteps['work_steps_id'] && $files[0]['work_order_id'] == $workorder_id)? 'style="display:block"' : 'style="display:none"'.sss -->
+                        <!-- <button class="btn btn-sm btn-outline-light set-data " data-toggle="modal" data-target="#uploadModalCenter" data-work-step-id=' . $worksteps['work_steps_id'] . ' data-control-id=' . $worksteps['control_id'] . '>
+                            <i class="fa fa-edit"></i>
+                        </button> -->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- Modal upload files -->
+        <div class="modal fade" id="uploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="uploadModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalCenterLongTitle">Data required</h5>
                     </div>
-                    <!-- <h5 class="card-header drag-handle"> Work Steps </h5> -->
-                    <?php if (!empty($work_steps)) {
-                        //echo "<pre>";
-                        //print_r($work_steps);
-                        $count = 1;
-                        foreach ($work_steps as $w_steps) {
+                    <div class="modal-body">
+                        <!-- <div class="messages"></div> -->
 
-                            // print_r($w_steps);
-                            $files = $this->MainModel->selectAllFromWhere('files', array('work_step_id' => $w_steps['work_steps_id'], 'work_order_id' => $workorder_id));
-                            $complete_status = $this->MainModel->selectAllFromWhere('work_steps_complete_status', array('work_step_id' => $w_steps['work_steps_id'], 'work_order_id' => $workorder_id));
-                            //  print_r($complete_status);die;
-                            // echo $files[0]['work_step_id' ]."|";
-                            // echo $w_steps['work_steps_id']."|";
-                            // echo $files[0]['work_order_id' ]."|";
-                            // echo $workorder_id;
-
-                    ?>
-
-                            <li class="dd-item" data-id="11">
-                                <div class="dd-handle"> <span class="drag-indicator"></span>
-                                    <div> <?php echo $count++ . " : " . $w_steps['steps_name'] ?> <?php if ($w_steps['mandatory_status'] == 'M') { ?>
-                                            <span style="color:red">*</span>
-                                        <?php } ?> <i class="fas fa-info-circle text-primary" style="font-size:18px; font-weight:600" title="Work Step info will be shown here"></i> </div>
-                                    <div class="dd-nodrag btn-group ml-auto">
-                                        <div class="btn btn-sm btn-outline-light">
-                                            <input type="checkbox" data-work-order-id='<?php echo $workorder_id ?>' data-process-id="<?php echo $processId ?>" data-work-step-id="<?php echo $w_steps['work_steps_id'] ?>" data-work-steps-type='<?php echo $w_steps['mandatory_status'] ?>' data-sub-process-id='<?php echo $w_steps['sub_process_id'] ?>' <?php echo ($complete_status[0]['complete_status'] == 1) ? 'checked=true' . " disabled" : '' ?> data-check-box-id="check<?php echo $w_steps['work_steps_id'] ?>" name="check<?php echo $w_steps['work_steps_id'] ?>" class="m-2">
-                                        </div>
-                                        <!--  -->
-                                        <button title="Click to see list of all uploaded files" <?php echo ($files[0]['work_step_id'] == $w_steps['work_steps_id'] && $files[0]['work_order_id'] == $workorder_id) && !empty($files[0]['file_name']) ? 'style="display:block"' : 'style="display:none"' ?> data-work-order-id="<?php echo $workorder_id ?>" data-work-step-id="<?php echo $w_steps['work_steps_id'] ?>" class="btn btn-sm btn-outline-light view-file" data-toggle="modal" data-target="#viewModalCenter">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                        <!-- upload files -->
-                                        <button title="Click to upload files(If any)" class="btn btn-sm btn-outline-light set-data" data-work-order-id='<?php echo $workorder_id ?>' data-process-id="<?php echo $processId ?>" data-work-step-id="<?php echo $w_steps['work_steps_id'] ?>" data-work-steps-type='<?php echo $w_steps['mandatory_status'] ?>' data-sub-process-id='<?php echo $w_steps['sub_process_id'] ?>' data-toggle="modal" data-target="#uploadModalCenter">
-                                            <i class="fa fa-tasks"></i>
-                                        </button>
-                                        <!-- save work steps -->
-                                        <!-- <button data-checkbox-name="check<?php echo $w_steps['work_steps_id'] ?>" class="btn btn-sm btn-outline-light save-work-steps" <?php echo ($files[0]['work_step_id'] == $w_steps['work_steps_id'] && $files[0]['work_order_id'] == $workorder_id) ? 'style="display:block"' : 'style="display:none"' ?> <?php echo ($files[0]['work_step_id'] == $w_steps['work_steps_id'] && $files[0]['work_order_id'] == $workorder_id && $files[0]['complete_status'] == 1) ? 'style="display:none"' : 'style="display:block"' ?> data-workorder-id="<?php echo $workorder_id ?>" data-work-step-id="<?php echo $w_steps['work_steps_id'] ?>">
-                                            <i class="fa fa-save"></i>
-                                        </button> -->
-                                    </div>
+                        <form id="save-worksteps-data">
+                            <?php
+                            echo '<input type="hidden" name="workorder-id" id="workorder-id" value=' . $workorderId . '>
+                            <input type="hidden" name="process-id" id="process-id" value=' . $processid . '>
+                            <input type="hidden" name="subprocess-id" id="subprocess-id" value=' . $subProceseid . '>
+                            <input type="hidden" name="risk-id" id="risk-id" value=' . $riskId . '>
+                         
+                            <input type="hidden" name="control-id" id="control-id">
+                            <input type="hidden" name="worksteps-id" id="worksteps-id">';
+                            ?>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="observations">Observations</label>
+                                    <textarea class="form-control" name="observations" id="observations" rows="1" spellcheck="false"></textarea>
                                 </div>
-                            </li>
-                    <?php }
-                    } ?>
-                    <div style="text-align: right;padding: 10px 12px 10px 62px;">
-                        <button class="btn btn-primary" style="width:100px" id="save_wSteps" title="Save Completed Work Steps">Save</button></div>
+                                <div class="form-group col-md-6">
+                                    <label for="rootcause">Root cause</label>
+                                    <textarea class="form-control" name="rootcause" id="rootcause" rows="1" spellcheck="false"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="date">Timeline for action plan</label>
+                                    <input type="date" id="date" name="date" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="responcibility-implementation">Responsibility for implementation</label>
+                                    <input type="text" id="responcibility-implementation" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="recommendation">Recommendation</label>
+                                <textarea class="form-control" name="recommendation" id="recommendation" rows="1" spellcheck="false"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="management-action-plan">Management Action plan</label>
+                                <textarea id="management-action-plan" name="management-action-plan" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">upload file</label>
+                                <button type="button" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#viewModalCenter"><i class="fa fa-upload"></i></button>
+                            </div>
+                            <div id="uploaded_files">
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="form-group float-right">
+                                    <button type="button" class="btn btn-secondary" id="reload">Close</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal upload files -->
-    <div class="modal fade" id="uploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="uploadModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalCenterLongTitle">Upload Files</h5>
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
-                </div>
-                <div class="modal-body">
-                    <form id="uploaddata">
-                        <input type="hidden" name="workorder-id" id="workorder-id">
-                        <input type="hidden" name="process-id" id="process-id">
-                        <input type="hidden" name="subprocess-id" id="subprocess-id">
-                        <input type="hidden" name="filetype" id="filetyple">
-                        <input type="hidden" name="worksteps-id" id="worksteps-id">
-                    </form>
-                    <div class="messages"></div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">File</th>
-                                <th scope="col">Remarks</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="upload-multiple-file">
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><input id="file-name" type="text" name="file-name" class="form-control" placeholder="Enter file name" /></td>
-                                <td>
-                                    <div class="upload-btn-wrapper">
-                                        <button class="btn-upload">Choose a file</button>
-                                        <input id="files" type="file" name="files" class="form-control">
-                                    </div>
-                                </td>
-                                <td><textarea name="remark" id="remark" cols="" rows="" class="form-control"></textarea></td>
-                                <td><button title="Save file" fn-name="file-name" files-name="files" remark-name="remark" class="upload-data"><i class="fa fa-save"></i></button></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="4"> <button style="float: right" type="button"><i class="fa fa-plus add-new float-right" title="Add New"></i></button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary save-selected-files" id="reload">Close</button>
+
+
+
+
+        <!-- Model to view files --->
+
+        <div class="modal fade" id="viewModalCenter" tabindex="-1" role="dialog" aria-labelledby="viewModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body bg-gray">
+                        <form method="POST" id="uploadfiles" enctype="multipart/form-data">
+                            <div class="from-group">
+                                <label for="files">Choose a file:</label>
+                                <input type="file" id="files" name="files" class="form-control">
+                            </div>
+                            <div class="form-group float-right">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+
                     </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!-- Model to view files -->
-
-    <div class="modal fade" id="viewModalCenter" tabindex="-1" role="dialog" aria-labelledby="viewModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewModalCenterLongTitle">Uploaded File</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="view-file-data">
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-                        <!-- <button type="button" class="btn btn-primary upload">Upload</button> -->
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 
     <style>
-        .upload-btn-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
+        label {
+            display: block;
+            font: 1rem 'Fira Sans', sans-serif;
         }
 
-        .btn-upload {
-            border: 2px solid gray;
-            color: gray;
-            background-color: white;
-            padding: 8px 22px;
-            /* border-radius: 8px; */
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        .upload-btn-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
+        input,
+        label {
+            margin: .4rem 0;
         }
     </style>
+    <!-- <style>
+            .upload-btn-wrapper {
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+            }
+
+            .btn-upload {
+                border: 2px solid gray;
+                color: gray;
+                background-color: white;
+                padding: 8px 22px;
+                /* border-radius: 8px; */
+                font-size: 11px;
+                font-weight: bold;
+            }
+
+            .upload-btn-wrapper input[type=file] {
+                font-size: 100px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+            }
+        </style> -->

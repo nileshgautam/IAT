@@ -20,7 +20,7 @@
             <div class="card-header" id="headingOne<?php echo $process['id'] ?>">
               <h5 class="ma-0 collapse_heading" data-toggle="collapse" data-target="#collapseOne<?php echo $process['id'] ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $process['id'] ?>">
                 <a>
-                  <?php echo $process['process_name'] ?>
+                  <?php echo $process['process_description'] ?>
                 </a>
               </h5>
             </div>
@@ -32,7 +32,7 @@
                   foreach ($subprocess as $sbprocess) {
                 ?>
                     <div class="">
-                      <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<label><?php echo $sbprocess['sub_process_name']; ?></label>
+                      <input type="checkbox" name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<label><?php echo $sbprocess['sub_process_description']; ?></label>
                     </div>
 
                 <?php }

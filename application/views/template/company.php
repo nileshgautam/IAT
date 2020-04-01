@@ -137,9 +137,9 @@
                                     let sub_process_html = '';
                                     let p_name = '';
                                     for (let spkey in processes[key][pkey]) {
-                                        p_name = processes[key][pkey][spkey]['process_name'];
+                                        p_name = processes[key][pkey][spkey]['process_description'];
 
-                                        sub_process_html += `<p>${processes[key][pkey][spkey]['sub_process_name']}</p>`
+                                        sub_process_html += `<p>${processes[key][pkey][spkey]['sub_process_description']}</p>`
                                     }
                                     process_html += `<div >
                                     <div class="card-body" id="child1">

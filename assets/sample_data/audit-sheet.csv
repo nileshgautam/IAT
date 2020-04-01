@@ -1,4 +1,4 @@
-process_id,process_name,sub_process_id,sub_process_name,work_steps_id,steps_name,mandatory_status,risk_id,risk_name
+process_id,process_name,sub_process_id,sub_process_description,work_steps_id,steps_name,mandatory_status,risk_id,risk_name
 1,Procurement,1,"Vendor master maintenance",4,"Obtain an overview of process for updating and maintenance of the vendors ",NM,1,"Duplicate Vendors exist in VMF
 "
 1,Procurement,1,"Vendor master maintenance",5,"Review compliance with procedures for updating amendments to vendor master",NM,1,"Duplicate Vendors exist in VMF

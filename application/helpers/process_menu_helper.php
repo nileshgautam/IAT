@@ -18,9 +18,9 @@ function process_menu($companyid, $method = null)
           $ids = json_encode(array('p_id' => $process['process_id'], 'sp_id' => "'" . join("','", $sub_process) . "'"));
           // print_r($method);die;
           if($method != 'manager'){
-            $html .= '<li class="active"> <a class="collapse-item" href="' . base_url('Auditapp/sub_process/') . base64_encode($ids) . '">' . $process['process_name'] . '</a></li>';
+            $html .= '<li class="active"> <a class="collapse-item" href="' . base_url('Auditapp/sub_process/') . base64_encode($ids) . '">' . $process['process_description'] . '</a></li>';
           }else{
-            $html .= '<li class="active"> <a class="collapse-item" href="' . base_url('Auditapp/manager_process/') . base64_encode($ids) . '">' . $process['process_name'] . '</a></li>';
+            $html .= '<li class="active"> <a class="collapse-item" href="' . base_url('Auditapp/manager_process/') . base64_encode($ids) . '">' . $process['process_description'] . '</a></li>';
           }
           
         }

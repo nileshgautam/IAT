@@ -18,7 +18,7 @@
                                 // print_r($risk);
                                 if (isset($risk)) {
                                     foreach ($risk as $iter_risk) { ?>
-                                        <li><?php echo $iter_risk['risk_name'] ?></li>
+                                        <li><?php echo $iter_risk['risk_description'] ?></li>
                                 <?php }
                                 } ?>
                             </ul>
@@ -47,7 +47,7 @@
                                 // print_r($risk);
                                 if (isset($work_steps)) {
                                     foreach ($work_steps as $iter_work) { ?>
-                                        <li><?php echo $iter_work['steps_name'] ?></li>
+                                        <li><?php echo $iter_work['step_description'] ?></li>
                                 <?php }
                                 } ?>
                             </ul>

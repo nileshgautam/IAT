@@ -116,47 +116,55 @@ $('#role').change(function () {
 
 });
 
+
+// updating subprocess risk
+
+$('.set-risk-level').on('change', function () {
+    let selectedLevelsubprocessId = $(this).attr('data-risk-subprocess-id');
+    let selectedData = $(this).val();
+    let riskId = $(this).attr('data-risk-id');
+    console.log(selectedData);
+    let subid = $(`[data-sub-id=${selectedLevelsubprocessId}]`).attr('data-risk-id');
+    // console.log(JSON.parse(subid));
+    let risk_data = JSON.parse(subid);
+    risk_data = changeRiskLevel(riskId, selectedData, risk_data);
+    $(`[data-sub-id=${selectedLevelsubprocessId}]`).attr('data-risk-id', JSON.stringify(risk_data));
+
+});
+
+function changeRiskLevel(id, risk_level, risk_data) {
+    for (var i in risk_data) {
+        if (risk_data[i].risk_id == id) {
+            risk_data[i].risk_level = risk_level;
+            break; //Stop this loop, we found it!
+        }
+    }
+    return risk_data;
+}
+
 // function to submit all the process
 $('.submit-services').on('click', function () {
-
+    // let proceesId = [];
     let process = {};
-    // let subprocess={};
-   // let a=0;
-    // $('input[name="subprocess"]:checked').each(function () {
-    //     for(let i=0;i<5;i++){
-    //     if (process[$(this).attr('data-process-id')] === undefined) {
-    //         subprocess ={
-    //             [$(this).attr('data-sub-id')]: [i],
-    //             ...subprocess
-    //         }
-    //         process = {
-    //             [$(this).attr('data-process-id')]: subprocess,
-    //             ...process
-    //         };
-    //     } else { 
-    //         subprocess[$(this).attr('data-sub-id')] =[...subprocess [$(this).attr('data-sub-id')],i];
-    //         process[$(this).attr('data-process-id')] = [...process[$(this).attr('data-process-id')], subprocess];
-    //     }
-    // }
-    //     // $('#process').val(JSON.stringify(process))
-
-    // });
-      $('input[name="subprocess"]:checked').each(function () {
+    $('input[name="subprocess"]:checked').each(function () {
+        let riskData=JSON.parse($(this).attr('data-risk-id'));
         if (process[$(this).attr('data-process-id')] === undefined) {
             process = {
-                [$(this).attr('data-process-id')]: [$(this).attr('data-sub-id')],
+                    [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
                 ...process
             };
         } else {
-            process[$(this).attr('data-process-id')] = [...process[$(this).attr('data-process-id')], $(this).attr('data-sub-id')];
+
+            // console.log(process);
+
+            process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
         }
-        // $('#process').val(JSON.stringify(process))
+     
+    });
 
-    })
+console.log(process);
 
 
-
-   
     let message = "Required";
 
     // console.log($("[type='text']"))
@@ -192,11 +200,13 @@ $('.submit-services').on('click', function () {
         error = true;
     }
 
-    console.log(process);
+
+
+    // console.log(process);
 
     let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
     if (!error) {
-        // console.log(error);
+        console.log(error);
         $.ajax({
             type: 'POST',
             url: baseUrl + '/Auditapp/create_work_order',
@@ -213,21 +223,7 @@ $('.submit-services').on('click', function () {
     }
 });
 
-// set required data to the model
-$('.set-data').click(function () {
 
-    let WorkOrderId = $(this).attr('data-work-order-id');
-    let ProcessId = $(this).attr('data-process-id');
-    let WorkStepId = $(this).attr('data-work-step-id');
-    let WorkStepsType = $(this).attr('data-work-steps-type');
-    let subProcessId = $(this).attr('data-sub-process-id');
-    $('#workorder-id').val(WorkOrderId);
-    $('#process-id').val(ProcessId);
-    $('#subprocess-id').val(subProcessId);
-    $('#worksteps-id').val(WorkStepId);
-    $('#filetyple').val(WorkStepsType);
-
-});
 
 // Date formate function YYMMDD to DDMMYY
 dateFormatDDMMYY = (date) => {
@@ -663,7 +659,6 @@ $('#save_wSteps').click(() => {
             setTimeout(() => {
                 location.reload();
             }, 1000);
-
         });
     }
     // console.log(check_steps_data)

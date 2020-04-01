@@ -28,47 +28,97 @@
         </div>
 
         <div class="card">
-            <!-- <?php echo '<pre>';
-                    print_r($p_data); ?> -->
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Process</th>
-                        <th scope="col">subprocess</th>
-                        <!-- <th scope="col">Handle</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($p_data)) {
-                        $processCount=1;
-                        foreach ($p_data as $process) { ?>
-                            <tr>
-                                <th scope="row"><?php echo $processCount++?></th>
-                                <td><?php echo $process['process_name'] ?></td>
-                                <td>
-                                    <table>
-                                       <?php
-                                       $subprocessCount=1;
-                                        // echo '<pre>';
-                                        // print_r($process['sub_process_data']);
-                                        foreach ($process['sub_process_data'] as $subProcess) {
-                                            // print_r($subProcess);
-                                        ?>
-                                            <tr>
-                                               <td><a href="<?php echo base_url('Auditapp/workSteps/') . base64_encode($subProcess['sub_process_id']) . '/' . base64_encode($work_order) . '/' . base64_encode($subProcess['process_id']) ?>"><?php echo $subprocessCount++. ' : '. $subProcess['sub_process_name'] ?></a></td> 
-                                            </tr>
-                                        <?php }
-                                        ?>
-                                    </table>
-                                </td>
-                                <!-- <td>@mdo</td> -->
-                            </tr>
-                    <?php }
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th scope="col">#</th>
+                            <th scope="col">Process</th>
+                            <th scope="col">Subprocess</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php if (!empty($p_data)) {
+                            $processCount = 1;
+                            foreach ($p_data as $process) { ?>
+                                <tr class="border-0">
+                                    <th scope="row"><?php echo $processCount++ ?></th>
+                                    <td><?php echo $process['process_description'] ?></td>
+                                    <td>
+                                        <table class="table">
+                                            <?php
+                                            $subprocessCount = 1;
+
+                                            foreach ($process['sub_process_data'] as $key => $subProcess) {
+
+                                            ?>
+                                                <tr>
+                                                    <td><a href="#"><?php echo $subprocessCount++ . ' : ' . $subProcess['sub_process_description'] ?></a></td>
+
+                                                    <td>
+                                                        <?php if ($subProcess['risk_data']) {
+                                                            $riskCounter = 1;
+
+                                                            foreach ($subProcess['risk_data'] as $risk) {
+                                                                if (!empty($risk)) {
+                                                                    // print_r($risk);
+
+                                                                    $control = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
+
+                                                                    echo '<tr>
+                                                    <td class="text-danger"> Risk ' . $riskCounter++ . ': ' . $risk['risk_description'] . '</td>
+                                                    <td> Level: <div>' . $risk['risk_level'] . '
+                                                    </div></td>';
+
+                                                                    // echo '<pre>';
+                                                                    // print_r($control);
+                                                                    if (!empty($control)) {
+                                                                        $ctrlCount = 1;
+                                                                        foreach ($control as $ctrl) {
+                                                                            echo '<tr>';
+                                                                            echo '<td> Control ' . $ctrlCount++ . ' : <a  class="text-info" href=' . base_url('Auditapp/workSteps/') .
+
+
+
+                                                                                base64_encode($ctrl['risk_id']) .
+                                                                                '/' . base64_encode($ctrl['control_id']) . '/' .
+                                                                                base64_encode($subProcess['process_id']) . '/' . base64_encode($work_order) . '/'. base64_encode($subProcess['sub_process_id']) . '>'
+
+
+                                                                                . $ctrl['control_description'] . '</a></td>';
+                                                                            echo '<td> Objective: ' . $ctrl['control_objectives'] . '</td>';
+
+                                                                            echo '<tr>';
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        } else {
+                                                            echo '<tr><td>No risk found</td></tr>.';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+
+
+                                            <?php
+
+                                            }
+                                            ?>
+                                        </table>
+                                    </td>
+
+
+                                    <!-- <td>@mdo</td> -->
+                                </tr>
+                        <?php }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+
+            </div>
             <div>
 
 
@@ -92,7 +142,7 @@
                                     <div class="card-header" id="heading<?php echo $process['process_id'] ?>" data-toggle="collapse" title="Click here, view all the subprocess." data-target="#collapse<?php echo $process['process_id'] ?>" aria-expanded="true" aria-controls="collapse<?php echo $process['process_id'] ?>">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link">
-                                                <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_name'] ?>
+                                                <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_description'] ?>
                                             </button>
                                             <i class="fa fa-info-circle float-right text-primary" style="font-size:18px; font-weight:600" title="Click over the process view all the subprocess respectively." aria-hidden="true"></i>
                                         </h5>
@@ -109,7 +159,7 @@
                                                                 // print_r($subprocess);
                                                         ?>
                                                                 <a href="<?php echo base_url('Auditapp/workSteps/') . base64_encode($subprocess['sub_process_id']) . '/' . base64_encode($work_order) . '/' . base64_encode($process['process_id']) ?>" title="Click here for uploading files and completing work steps." class="list-group-item  work_order_id">
-                                                                    <?php echo  $count++ . ' : ' . $subprocess['sub_process_name'] ?></a>
+                                                                    <?php echo  $count++ . ' : ' . $subprocess['sub_process_description'] ?></a>
 
                                                                 <div class="list-group-item">
                                                                     <b>Risks</b>
@@ -120,7 +170,7 @@
                                                                             if (!empty($risk)) {
                                                                                 foreach ($risk as $subprocessRisk) { ?>
 
-                                                                                    <li><?php echo $subprocessRisk['risk_name'] ?></li>
+                                                                                    <li><?php echo $subprocessRisk['risk_description'] ?></li>
                                                                         <?php }
                                                                             }
                                                                         }

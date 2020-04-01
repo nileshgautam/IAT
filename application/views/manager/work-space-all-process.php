@@ -48,7 +48,7 @@
                                     <div class="card-header" id="heading<?php echo $process['process_id']; ?>">
                                     <h5 class="mb-0 ">
                                                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $process['process_id']; ?>" aria-expanded="true" aria-controls="collapse<?php echo $process['process_id']; ?>">
-                                                            <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_name']; ?>
+                                                            <span class="fas fa-angle-down mr-3"></span><?php echo $process['process_description']; ?>
                                                         </button>
                                                     </h5>    
                                     <table class="table">
@@ -93,7 +93,7 @@
                                                     ?>
                                                             <tr>
                                                                 <th scope="row"><?php echo $subCount++ ?></th>
-                                                                <td><?php echo $subprocess['sub_process_name'] ?></td>
+                                                                <td><?php echo $subprocess['sub_process_description'] ?></td>
                                                                 <td><?php $totalworkstep += $result[0]['totalSteps'];
                                                                     echo $result[0]['totalSteps'] ?></td>
                                                                 <td><?php $totalCompleteWorkstep += $result[1]['completeSteps'];

@@ -24,7 +24,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
                     <h3 class="mb-2">Clients</h3> <a style="margin: -45px 20px;
-"               class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard')?>" >Exit</a>
+" class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard') ?>">Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="inputUserName">Country</label>
+                                        <label for="country">Country</label>
                                         <select name="country" id="country" placeholder="Select state" autocomplete="off" class="form-control">
 
                                             <?php if (!empty($country)) {
@@ -105,27 +105,24 @@
 
 
                                         </select>
-                                        <!-- <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="Enter user name" autocomplete="off" class="form-control"> -->
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="inputEmail">State</label>
+                                        <label for="state">State</label>
                                         <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control">
                                             <option value="<?php echo isset($client) ? $client[0]['state'] : '' ?>"><?php echo isset($client) ? $client[0]['state'] : '' ?></option>
                                         </select>
-                                        <!-- <option value="Haryana"> Haryana</option> -->
-                                        </select>
-                                        <!-- <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="Enter email" autocomplete="off" class="form-control"> -->
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="inputEmail">City</label>
+                                        <label for="city">City</label>
                                         <select name="city" id="city" autocomplete="off" class="form-control">
                                             <option value="Gurgaon"><?php echo (isset($client['city'])) ? $client[0]['city'] : 'Gurgaon' ?></option>
                                         </select>
-                                        <!-- <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="Enter email" autocomplete="off" class="form-control"> -->
+
                                     </div>
                                 </div>
                             </div>

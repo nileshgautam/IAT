@@ -65,10 +65,10 @@ class MainWebsite extends CI_Controller
 				$arr_data[$key][$row][$column] = $data_value;
 			}
 		}
-		if (($arr_data[0][1]['A'] == 'process_id') && ($arr_data[0][1]['B'] == 'process_name') && ($arr_data[0][1]['C'] == 'sub_process_id') && ($arr_data[0][1]['D'] == 'sub_process_name') && ($arr_data[0][1]['E'] == 'work_steps_id') && ($arr_data[0][1]['F'] == 'steps_name') && ($arr_data[0][1]['G'] == 'mandatory_status') && ($arr_data[0][1]['H'] == 'risk_id') && ($arr_data[0][1]['I'] == 'risk_name')) {
+		if (($arr_data[0][1]['A'] == 'process_id') && ($arr_data[0][1]['B'] == 'process_description') && ($arr_data[0][1]['C'] == 'sub_process_id') && ($arr_data[0][1]['D'] == 'sub_process_description') && ($arr_data[0][1]['E'] == 'work_steps_id') && ($arr_data[0][1]['F'] == 'step_description') && ($arr_data[0][1]['G'] == 'mandatory_status') && ($arr_data[0][1]['H'] == 'risk_id') && ($arr_data[0][1]['I'] == 'risk_name')) {
 			$data = $this->excel_data($arr_data);
 			// get all unique processes
-			$processes = $this->get_all_unique($data[0], 'process_name');
+			$processes = $this->get_all_unique($data[0], 'process_description');
 			$empty_cell=[];
 			$empty_cell_counter=0;
 			$counter = 0;
@@ -79,7 +79,7 @@ class MainWebsite extends CI_Controller
 			foreach ($processes as $key => $process_name) {
 				if (!empty($process_name)) {
 					// find process by process name
-					$res_based_name = $this->Audit_model->find_process_id('process_master', 'process_name', $process_name);
+					$res_based_name = $this->Audit_model->find_process_id('process_master', 'process_description', $process_name);
 					$next_id = 0;
 					if ($res_based_name) {
 					    // keep process id to check sub processes	 
@@ -96,25 +96,25 @@ class MainWebsite extends CI_Controller
 						} else {
 							// if process not found then enter new process
 							$next_id = $this->Audit_model->getNewIDorNo('p', 'process_master');
-							$tbl_data = array('process_name' => $process_name, 'status' => 0, 'process_id' => $next_id);
+							$tbl_data = array('process_description' => $process_name, 'status' => 0, 'process_id' => $next_id);
 							$this->Audit_model->insertData('process_master', $tbl_data);
 						}
 					}
 				} else {
 					$empty_cell_counter++;
-					array_push($empty_cell,'process_name');
+					array_push($empty_cell,'process_description');
 					$error=1;
 				}
 				//find sub_processs for each process
-				$sub_process_data = $this->get_data_by_filter($data['0'], $process_name, 'process_name');
+				$sub_process_data = $this->get_data_by_filter($data['0'], $process_name, 'process_description');
 				// find unique sub_process
-				$unique_sub_process_name = $this->get_all_unique($sub_process_data, 'sub_process_name');
+				$unique_sub_process_name = $this->get_all_unique($sub_process_data, 'sub_process_description');
   
 				
 				foreach ($unique_sub_process_name as $sp_key => $sub_process_name) {
 					if (!empty($sub_process_name)) {
 						
-						$condition = array('sub_process_name' => $sub_process_name, 'process_id' => $next_id);
+						$condition = array('sub_process_description' => $sub_process_name, 'process_id' => $next_id);
 						$next_sub_process_id = 0;
 						// check sub processes by process id and sub_process name  
 						$res_based_sub_process_name = $this->Audit_model->select_table_Where_data('sub_process_master', $condition);
@@ -132,24 +132,24 @@ class MainWebsite extends CI_Controller
 								$this->Audit_model->update_table('sub_process_master', $condition, $data_sub);
 							} else {
 								$next_sub_process_id = $this->Audit_model->getNewIDorNo('sp', 'sub_process_master');
-								$tbl_data = array('sub_process_name' => $sub_process_name, 'status' => 0, 'process_id' => $next_id, 'sub_process_id' => $next_sub_process_id);
+								$tbl_data = array('sub_process_description' => $sub_process_name, 'status' => 0, 'process_id' => $next_id, 'sub_process_id' => $next_sub_process_id);
 								$this->Audit_model->insertData('sub_process_master', $tbl_data);
 							}
 						}
 					} else {
 						$empty_cell_counter++;
-						array_push($empty_cell,'sub_process_name');
+						array_push($empty_cell,'sub_process_description');
 						$error=1;
 					}
 					// filter data by sub process name and process name
-					$work_steps_data = $this->get_data_by_multiple_column_filter($data['0'], [$process_name, $sub_process_name], ['process_name', 'sub_process_name']);
+					$work_steps_data = $this->get_data_by_multiple_column_filter($data['0'], [$process_name, $sub_process_name], ['process_description', 'sub_process_description']);
 					// find unique records of work steps	
-					$unique_work_steps = $this->get_all_unique($work_steps_data, 'steps_name');
+					$unique_work_steps = $this->get_all_unique($work_steps_data, 'step_description');
 					
 					foreach ($unique_work_steps as $key => $work_steps_name) {
 						if (!empty($work_steps_name)) {
 							
-							$condition = array('steps_name' => $work_steps_name, 'sub_process_id' => $next_sub_process_id);
+							$condition = array('step_description' => $work_steps_name, 'sub_process_id' => $next_sub_process_id);
 							// check the work steps by step name and sub process id  
 							$res_based_work_steps_name = $this->Audit_model->select_table_Where_data('work_steps', $condition);
 
@@ -170,7 +170,7 @@ class MainWebsite extends CI_Controller
 								} else {
 								
 									$next_work_steps_id = $this->Audit_model->getNewIDorNo('ws', 'work_steps');
-									$tbl_data = array('steps_name' => $work_steps_name, 'status' => 0, 'work_steps_id' => $next_work_steps_id, 'sub_process_id' => $next_sub_process_id, "mandatory_status" =>  !empty($work_steps_data[$counter]['mandatory_status'])? $work_steps_data[$counter]['mandatory_status']:'NM');
+									$tbl_data = array('step_description' => $work_steps_name, 'status' => 0, 'work_steps_id' => $next_work_steps_id, 'sub_process_id' => $next_sub_process_id, "mandatory_status" =>  !empty($work_steps_data[$counter]['mandatory_status'])? $work_steps_data[$counter]['mandatory_status']:'NM');
 									$this->Audit_model->insertData('work_steps', $tbl_data);
 								}
 							}

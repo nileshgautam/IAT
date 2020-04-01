@@ -141,7 +141,7 @@
                                     <div class="card-header" id="headingOne<?php echo $process['id'] ?>">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne<?php echo $process['id'] ?>" aria-expanded="true" aria-controls="collapseOne<?php echo $process['id'] ?>">
-                                                <!-- <input type="checkbox" data-id="<?php echo $process['process_id'] ?>" class="">--> <?php echo $process['process_name'] ?> 
+                                                <!-- <input type="checkbox" data-id="<?php echo $process['process_id'] ?>" class="">--> <?php echo $process['process_description'] ?> 
                                             </button>
                                         </h5>
                                     </div>
@@ -163,7 +163,7 @@
                                                     <ul>
                                                         <li><input type="checkbox" <?php if ($spIndex == 1) {
                                                                                         echo 'checked';
-                                                                                    } ?> name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class=""><label><?php echo $sbprocess['sub_process_name']; ?></label> </li>
+                                                                                    } ?> name="subprocess" data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class=""><label><?php echo $sbprocess['sub_process_description']; ?></label> </li>
                                                     </ul>
 
                                             <?php }
