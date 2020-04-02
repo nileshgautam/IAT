@@ -147,16 +147,16 @@ $('.submit-services').on('click', function () {
     // let proceesId = [];
     let process = {};
     $('input[name="subprocess"]:checked').each(function () {
+
         let riskData=JSON.parse($(this).attr('data-risk-id'));
+
         if (process[$(this).attr('data-process-id')] === undefined) {
             process = {
                     [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
                 ...process
             };
         } else {
-
             // console.log(process);
-
             process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
         }
      

@@ -312,6 +312,23 @@ $(function () {
 });
 
 $(function(){
-   let riskLevel= $('.risk-level').text();
-   console.log(riskLevel);
+$('.filter-risk-data').on('click',function(e){
+e.preventDefault();
+let riskData=atob($(this).attr('data-risk'));
+let risk=JSON.parse(riskData);
+
+if(riskData!=''){
+    $.ajax({
+        type: 'POST',
+        url: baseUrl+'Auditapp/riskData/'+JSON.stringify(risk),
+        success: function (responce) {
+        }
+    });
+}
+
+// alert('You clicked on Sub process')
+});
 })
+
+
+

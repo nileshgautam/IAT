@@ -394,6 +394,27 @@ class Auditapp extends CI_Controller
         echo $uploads_file = json_encode($data, true);
     }
 
+
+    // public function workprocess($id = null)
+    // {
+    //     $id = base64_decode($id);
+    //     $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
+    //     $process = json_decode($data[0]['processes'], true);
+    //     echo '<pre>';
+    //     print_r($process);
+
+
+    // }
+
+
+
+
+
+
+
+
+
+
     // function to show list of all the selected process by the
     public function workprocess($id = null)
     {
@@ -406,6 +427,7 @@ class Auditapp extends CI_Controller
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
+
             foreach ($sub_proceses as $key => $sub_procese) {
                 // print_r($sub_procese);die;
                 $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
@@ -417,8 +439,24 @@ class Auditapp extends CI_Controller
 
                 // print_r($sprocess_data);
             }
+
             $p_data[$process_id]['sub_process_data'] = $sp_data;
         }
+
+        // echo '<pre>';
+        // print_r($p_data);die;
+
+        $processArr = array();
+        foreach ($p_data  as $proce['sub_process_data']) {
+            array_push($processArr, $key);
+        }
+
+        // print_r($processArr);die;
+
+
+
+
+
         $p_data['p_data'] = $p_data;
         $p_data['work_order'] = $id;
         $p_data['work_order_name'] = $data[0]['work_order_name'];
@@ -427,7 +465,19 @@ class Auditapp extends CI_Controller
         $this->load->view('pages/work-space', $p_data);
         $this->load->view('layout/footer');
     }
-
+    public function riskData($data)
+    {
+        // echo '<pre>';
+        $a = base64_decode($data);
+        // print_r($a);
+        $data1 =  json_decode($a, true);
+        //  print_r($data1);
+        $data2['risk1'] = $data1;
+        
+        $this->load->view('team/team-sidebar');
+        $this->load->view('pages/risks-data-table', $data2);
+        $this->load->view('layout/footer');
+    }
     // popualte  worksteps from database
     public function workSteps($riskId = null, $controlId = null, $processId = null, $workOrderId = null, $sub_proceseid = null)
     {
@@ -630,13 +680,12 @@ class Auditapp extends CI_Controller
                 'risk_id' => $this->input->post('risk-id'),
                 'control_id' => $this->input->post('control-id'),
                 'work_step_id' => $this->input->post('worksteps-id'),
-                'saved_data' => json_encode($savedData,true)
+                'saved_data' => json_encode($savedData, true)
             );
             $res = $this->MainModel->insertInto('complete_work_steps', $data);
             if (!empty($res)) {
                 echo $responce = json_encode(array('message' => 'successfuly save...', 'type' => 'success'), true);
-            }
-            else{
+            } else {
                 echo $responce = json_encode(array('message' => 'somthing went worng!', 'type' => 'error'), true);
             }
         }

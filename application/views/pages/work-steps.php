@@ -27,16 +27,20 @@
 
         <div class="card">
             <!-- <?php echo $riskId; ?> -->
-            <div class="table-responsive">
-                <table class="table">
+        
+                <table class="display table-responsive" id="table-work-steps">
                     <thead class="bg-light">
                         <tr class="botder-0">
-                            <th>
-                                Work Steps
-                            </th>
-                            <th>
-                                Action
-                            </th>
+                            <th>Work Steps</th>
+                            <th>Observations</th>
+                            <th>Root cause</th>
+                            <th>Recommendation</th>
+                            <th>Management Action plan</th>
+                            <th>Timeline for action plan</th>
+                            <th>Responsibility for implementation</th>
+                            <th>Action</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +53,13 @@
 
                             echo '<tr>';
                             echo ' <td>' . $workstepscount++ . ' : ' . $worksteps['step_description'] . '</td>';
+                            echo '<td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>';
+
                             echo ' <td><div>
                            <button  class="btn btn-sm btn-outline-light set-data " data-toggle="modal" data-target="#uploadModalCenter" data-work-step-id=' . $worksteps['work_steps_id'] . ' data-control-id=' . $worksteps['control_id'] . '>
                             <i class="fa fa-tasks"></i>
@@ -60,14 +71,11 @@
                         }
                         ?>
 
-<!-- .($files[0]['work_step_id'] == $worksteps['work_steps_id'] && $files[0]['work_order_id'] == $workorder_id)? 'style="display:block"' : 'style="display:none"'.sss -->
-                        <!-- <button class="btn btn-sm btn-outline-light set-data " data-toggle="modal" data-target="#uploadModalCenter" data-work-step-id=' . $worksteps['work_steps_id'] . ' data-control-id=' . $worksteps['control_id'] . '>
-                            <i class="fa fa-edit"></i>
-                        </button> -->
+
 
                     </tbody>
                 </table>
-            </div>
+            <!-- </div> -->
         </div>
 
 
@@ -205,3 +213,9 @@
                 opacity: 0;
             }
         </style> -->
+
+    <script>
+        $(document).ready(function() {
+            $('#table-work-steps').DataTable();
+        });
+    </script>

@@ -116,7 +116,6 @@
                                 $processes = $this->MainModel->selectAll('process_master', 'process_description');
                                 foreach ($processes as $process) {
                                 ?>
-
                                     <div class="card" style="margin-bottom: 1px;">
                                         <div class="card-header" style="padding: 0.0rem 1.25rem;" id="heading<?php echo $process['id'] ?>">
                                             <h5 class="mb-0">

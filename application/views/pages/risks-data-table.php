@@ -1,12 +1,17 @@
+<?php
+                    echo '<pre>';
+
+                    // echo ;
+                    print_r($risk1); 
+                    
+                    die;?>
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
 
         <div class="card">
-            <?php
-                    echo '<pre>';
-                    print_r($risks); ?>
+        
 
-            <table class="table">
+            <!-- <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -34,14 +39,14 @@
                                 <td><?php echo $risk['control_name']; ?></td>
                                 <td><?php echo $risk['ctrl_obj_name']; ?></td>
                                 <td><?php echo $risk['step_description']; ?></td>
-                                <!-- <td><?php echo $risk['sub_process_description']; ?></td> -->
+                                <td><?php echo $risk['sub_process_description']; ?></td> 
                               
                             </tr>
                     <?php }
                     }
                     ?>
                 </tbody>
-            </table>
+            </table> -->
         </div>
 
     </div>
