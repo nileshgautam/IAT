@@ -469,11 +469,42 @@ class Auditapp extends CI_Controller
     {
         // echo '<pre>';
         $a = base64_decode($data);
-        // print_r($a);
         $data1 =  json_decode($a, true);
         //  print_r($data1);
-        $data2['risk1'] = $data1;
+        // foreach ($data1['risk_data'] as $key=>$risk_data) {
+        //     $ctrl = $this->MainModel->getControlWorkstepByid($risk_data['risk_id']);
+        //     $ctrl[0]= $ctrl;
+        //     $data1['risk_data']['control'][$key]=$ctrl[0];
+        // }
+
+        // print_r($data1);die;
         
+        $data2['risk'] = $data1;
+
+
+        // $p_data = [];
+        // foreach ($process as $process_id => $sub_proceses) {
+        //     // echo $process_id;
+        //     $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
+        //     $p_data[$process_id] = $process_data[0];
+        //     $sp_data = [];
+
+        //     foreach ($sub_proceses as $key => $sub_procese) {
+        //         // print_r($sub_procese);die;
+        //         $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
+
+        //         // print_r($sprocess_data);
+        //         // die;
+        //         $sprocess_data[0]['risk_data'] = $sub_procese;
+        //         $sp_data[$key] = $sprocess_data[0];
+
+        //         // print_r($sprocess_data);
+        //     }
+
+
+
+
+
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/risks-data-table', $data2);
         $this->load->view('layout/footer');

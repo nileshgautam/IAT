@@ -278,4 +278,14 @@ function getRiskbyId($subprocessId=null){
     $result = $this->db->query($query)->result_array();
     return $this->db->affected_rows() ? $result : false;
 }
+
+// function to find all control and work steps by risk id
+
+public function getControlWorkstepByid($risk_id=null)
+{
+    $query="SELECT control_master.risk_id, control_master.control_id, control_master.control_description, control_master.control_objectives, work_steps.work_steps_id, work_steps.step_description from control_master LEFT JOIN work_steps on control_master.control_id=work_steps.control_id WHERE control_master.risk_id='$risk_id'";
+    ;
+    $result = $this->db->query($query)->result_array();
+    return $this->db->affected_rows() ? $result : false;
+}
 }
