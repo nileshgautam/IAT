@@ -330,5 +330,10 @@ if(riskData!=''){
 });
 })
 
-
+// updating worksteps data
+$(function(){
+$('#workstep-data').on('blur','.save-work-step-data',function(){
+alert('hi dude');
+});
+});
 

@@ -421,71 +421,89 @@ class Auditapp extends CI_Controller
         $id = base64_decode($id);
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
         $process = json_decode($data[0]['processes'], true);
+        // echo '<pre>';
+        // print_r($process);die;
         $p_data = [];
-        foreach ($process as $process_id => $sub_proceses) {
-            // echo $process_id;
+        // echo '<pre>';
+        foreach ($process as $process_id => $sub_processes) {
+            // echo $process_id;die;
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
-
-            foreach ($sub_proceses as $key => $sub_procese) {
-                // print_r($sub_procese);die;
+            // print_r($sub_processes);die;
+            foreach ($sub_processes as $key => $subprocess_risk) {
+                // print_r($subprocess_risk);die;
                 $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
+                $riskData = [];
+                $sprocess_data[0]['risk_data'] = $subprocess_risk;
+                if (!empty($subprocess_risk)) {
+                    foreach ($subprocess_risk as $key => $risk) {
 
-                // print_r($sprocess_data);
-                // die;
-                $sprocess_data[0]['risk_data'] = $sub_procese;
+
+                        // print_r($risk);
+                        $controls = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
+                        // $riskData[$key] = $controls; 
+                        // print_r($controls);
+                        $sprocess_data[0]['risk_data'][$key]['control_data'] = $controls;
+
+                        foreach ($controls as $key1 => $workstep) {
+                            // print_r($workstep['control_id']);
+                            $worksteps = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $workstep['control_id']));
+
+                            //    print_r($worksteps);
+
+                            $sprocess_data[0]['risk_data'][$key]['control_data'][$key1]['work_step'] = $worksteps;
+                        }
+                    }
+                }
+                // $riskData = [];
                 $sp_data[$key] = $sprocess_data[0];
-
-                // print_r($sprocess_data);
             }
-
             $p_data[$process_id]['sub_process_data'] = $sp_data;
         }
-
-        // echo '<pre>';
-        // print_r($p_data);die;
-
-        $processArr = array();
-        foreach ($p_data  as $proce['sub_process_data']) {
-            array_push($processArr, $key);
-        }
-
-        // print_r($processArr);die;
-
-
-
-
 
         $p_data['p_data'] = $p_data;
         $p_data['work_order'] = $id;
         $p_data['work_order_name'] = $data[0]['work_order_name'];
         $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
-        $this->load->view('pages/work-space', $p_data);
+        // $this->load->view('pages/work-space', $p_data);
+        $this->load->view('pages/work-demo', $p_data);
+
         $this->load->view('layout/footer');
     }
-    public function riskData($data)
+    public function riskData($data = null, $workOrder = null)
     {
         // echo '<pre>';
         $a = base64_decode($data);
+        $w = base64_decode($workOrder);
+        $workOrderDetails = json_decode($w);
+
         // print_r($a);
         $data1 =  json_decode($a, true);
-        //  print_r($data1);
-        $data2['risk1'] = $data1;
-        
+        //  print_r($data1);die;
+        $process = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $data1['process_id']));
+
+        $data2['risks'] = $data1;
+        $data2['processName'] = $process[0]['process_description'];
+        $data2['workorderDetails'] = $workOrderDetails;
+
+        // print_r( $data2['risks']);die;
+
+
+        $this->load->view('layout/header');
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/risks-data-table', $data2);
         $this->load->view('layout/footer');
     }
     // popualte  worksteps from database
-    public function workSteps($riskId = null, $controlId = null, $processId = null, $workOrderId = null, $sub_proceseid = null)
+    public function workSteps($riskId = null, $controlId = null, $processId = null, $workOrderId = null, $sub_processeid = null)
     {
         $controlId = base64_decode($controlId);
         $data['riskId'] = base64_decode($riskId);
         $data['processid'] = base64_decode($processId);
         $data['workorderId'] = base64_decode($workOrderId);
-        $data['subProceseid'] = base64_decode($sub_proceseid);
+        $data['subProceseid'] = base64_decode($sub_processeid);
         $data['workSteps'] = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $controlId));
 
         $this->load->view('layout/header');
@@ -559,16 +577,16 @@ class Auditapp extends CI_Controller
         // print_r($process);
         // die;
         $p_data = [];
-        foreach ($process as $process_id => $sub_proceses) {
+        foreach ($process as $process_id => $sub_processes) {
             //echo $process_id;
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
-            foreach ($sub_proceses as $sub_procese) {
-                // print_r($sub_procese);die;
-                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_procese, 'process_id' => $process_id));
-                $sp_data[$sub_procese] = $sprocess_data[0];
-                // echo $sub_procese;
+            foreach ($sub_processes as $sub_processe) {
+                // print_r($sub_processe);die;
+                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_processe, 'process_id' => $process_id));
+                $sp_data[$sub_processe] = $sprocess_data[0];
+                // echo $sub_processe;
             }
             $p_data[$process_id]['sub_process_data'] = $sp_data;
         }

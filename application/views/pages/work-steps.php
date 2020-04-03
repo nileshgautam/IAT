@@ -25,56 +25,56 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card p-2" >
             <!-- <?php echo $riskId; ?> -->
-        
-                <table class="display table-responsive" id="table-work-steps">
-                    <thead class="bg-light">
-                        <tr class="botder-0">
-                            <th>Work Steps</th>
-                            <th>Observations</th>
-                            <th>Root cause</th>
-                            <th>Recommendation</th>
-                            <th>Management Action plan</th>
-                            <th>Timeline for action plan</th>
-                            <th>Responsibility for implementation</th>
-                            <th>Action</th>
+
+            <table class="display table-responsive" id="table-work-steps">
+                <thead class="bg-light">
+                    <tr class="botder-0">
+                        <th style="width:300px">Work Steps</th>
+                        <th>Observations</th>
+                        <th>Root cause</th>
+                        <th>Recommendation</th>
+                        <th>Management Action plan</th>
+                        <th>Timeline for action plan</th>
+                        <th>Responsibility for implementation</th>
+                        <th>Action</th>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $workstepscount = 1;
-                        foreach ($workSteps as $worksteps) {
+                    </tr>
+                </thead>
+                <tbody id="workstep-data">
+                    <?php
+                    $workstepscount = 1;
+                    foreach ($workSteps as $worksteps) {
 
-                            $files = $this->MainModel->selectAllFromWhere('complete_work_steps', array('work_step_id' => $worksteps['work_steps_id'], 'work_order_id' => $workorderId));
+                        $files = $this->MainModel->selectAllFromWhere('complete_work_steps', array('work_step_id' => $worksteps['work_steps_id'], 'work_order_id' => $workorderId));
 
 
-                            echo '<tr>';
-                            echo ' <td>' . $workstepscount++ . ' : ' . $worksteps['step_description'] . '</td>';
-                            echo '<td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>';
+                        echo '<tr>';
+                        echo ' <td style="width:300px">' . $workstepscount++ . ' : ' . $worksteps['step_description'] . '</td>';
+                        echo '<td contenteditable="true" class="save-work-step-data" data-workorder-id='.$workorderId.' data-work-step-id='.$worksteps['work_steps_id'].'></td>
+                            <td contenteditable="true" ></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"><input type="date" id="date"></td>
+                            <td contenteditable="true"></td>';
 
-                            echo ' <td><div>
+                        echo ' <td><div>
                            <button  class="btn btn-sm btn-outline-light set-data " data-toggle="modal" data-target="#uploadModalCenter" data-work-step-id=' . $worksteps['work_steps_id'] . ' data-control-id=' . $worksteps['control_id'] . '>
                             <i class="fa fa-tasks"></i>
                         </button>
                         </div>
                             </td>';
 
-                            echo  '</tr>';
-                        }
-                        ?>
+                        echo  '</tr>';
+                    }
+                    ?>
 
 
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
             <!-- </div> -->
         </div>
 
@@ -216,6 +216,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table-work-steps').DataTable();
+          let myTable=  $('#table-work-steps').DataTable();
+           
         });
     </script>

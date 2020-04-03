@@ -40,6 +40,11 @@
                 <tbody>
 
                     <?php if (!empty($p_data)) {
+                        $workOrderarr=array(
+                            'id'=>$work_order,
+                            'workOrderName'=>$work_order_name
+                        );
+
                         // echo '<pre>';
                         // print_r($p_data);die;
                         $processCount = 1;
@@ -55,7 +60,8 @@
                                         // echo '<pre>';
                                         $a=json_encode($subProcess, true);
                                         $data=base64_encode($a);
-                                        echo '<li><a href='.base_url('Auditapp/riskData/').$data.'>' . $subProcess['sub_process_description'] . '</a></li>';
+                                        $work=json_encode($workOrderarr,true);
+                                        echo '<li><a href='.base_url('Auditapp/riskData/').$data.'/'.base64_encode($work).'>' . $subProcess['sub_process_description'] . '</a></li>';
                                     }
                                     echo '<ol>'
                                     ?>
