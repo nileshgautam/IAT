@@ -470,7 +470,7 @@ class Auditapp extends CI_Controller
         // echo '<pre>';
         $a = base64_decode($data);
         $data1 =  json_decode($a, true);
-        //  print_r($data1);
+              //  print_r($data1);
         // foreach ($data1['risk_data'] as $key=>$risk_data) {
         //     $ctrl = $this->MainModel->getControlWorkstepByid($risk_data['risk_id']);
         //     $ctrl[0]= $ctrl;
