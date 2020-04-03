@@ -503,7 +503,7 @@ class Auditapp extends CI_Controller
 
 
 
-
+        $this->load->view('layout/header');
 
         $this->load->view('team/team-sidebar');
         $this->load->view('pages/risks-data-table', $data2);
