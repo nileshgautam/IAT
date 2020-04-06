@@ -33,27 +33,37 @@
                 </thead>
                 <tbody>
                     <?php if (!empty($risks)) {
-                        print_r($risks);
+                        // echo '<pre>';
+                        // print_r($risks); die;
                         $countRisks = 1;
                         if(!empty($risks['risk_data'])){
-
-                        
                         foreach ($risks['risk_data'] as $risk) {
                             $control = $this->MainModel->getControlWorkstepByid($risk['risk_id']); ?>
                             <tr class="border-1">
                                 <td><?php echo $countRisks++ ?></td>
                                 <td><?php echo $risk['risk_description'] ?></td>
-
                                 <td><?php echo $risk['risk_level'] ?></td>
                                 <td><?php
                                     //  echo '<pre>';
-                                    echo '<ol>';
+                                    // echo '<ol>';
                                     foreach ($control as $ctrl) {
                                         //    print_r($ctrl);
                                         echo '
                             
                             <div class="row" >
-    <div class="col-md-6"> <li><a href=' . base_url('Auditapp/workSteps/') . base64_encode($ctrl['risk_id']) . '/' . base64_encode($ctrl['control_id']) . '/' . base64_encode($risks['sub_process_id']) . '/'.base64_encode( json_encode($workorderDetails, true)).' >' . $ctrl['control_description'] . '</a> </li></div>
+    <div class="col-md-6"> <li>
+
+    <a href=' . 
+    base_url('Auditapp/workSteps/') . 
+    base64_encode($ctrl['risk_id']) . '/' . 
+    base64_encode($ctrl['control_id']) . '/' . 
+    base64_encode($risks['sub_process_id']) . '/'.
+    base64_encode($risks['process_id']) . '/'.
+    base64_encode( json_encode($workorderDetails, true)).' >' . 
+    
+    $ctrl['control_description'] . '</a>
+    
+    </li></div>
     <div class="col-md-6">
     <strong>  Objective:</strong> ' . $ctrl['control_objectives'] . '
     </div> </div>';

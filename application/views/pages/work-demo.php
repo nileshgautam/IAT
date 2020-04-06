@@ -27,18 +27,18 @@
             </div>
         </div>
 
-        <div class="card ">
-            <table class="table display table-responsive" id="table-process">
+        <div class="card table-responsive">
+            <table class="table display " id="table-process">
                 <thead class="bg-light">
                     <tr class="border-0">
                         <!-- <th scope="col">#</th> -->
-                        <th >Process</th>
-                        <th >Subprocess</th>
-                        <th >Risk</th>
-                        <th >Risk level</th>
-                        <th >Controls</th>
-                        <th >Objective</th>
-                        <th >Work Steps</th>
+                        <th>Process</th>
+                        <th>Subprocess</th>
+                        <th>Risk</th>
+                        <th>Risk level</th>
+                        <th>Controls</th>
+                        <th>Objective</th>
+                        <th>Work Steps</th>
                         <th>Observations</th>
                         <th>Root cause</th>
                         <th>Recommendation</th>

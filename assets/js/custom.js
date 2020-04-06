@@ -209,131 +209,125 @@ $(function () {
 
 });
 
-// loading workorder by company id
 
-// $(function(){
-//     $('.choose-process').on('click',function(e){
-//         e.preventDefault();
-//         alert('clicked on next');
+// $(function () {
+
+//     // set required data to the model
+//     $('.set-data').click(function () {
+//         let WorkStepsid = $(this).attr('data-work-step-id');
+//         let controlid = $(this).attr('data-control-id');
+//         $('#control-id').val(controlid);
+//         $('#worksteps-id').val(WorkStepsid);
 //     });
+
+    // saveing worksteps
+    // $('#save-worksteps-data').submit(function (e) {
+    //     e.preventDefault();
+    //     let error = false;
+    //     let form_data = $(this).serialize();
+    //     let url = baseUrl + "Auditapp/commitWorkSteps";
+    //     let observations = $('#observations').val();
+    //     if (observations == '') {
+    //         error = true;
+    //         showAlert('Please required required', 'danger');
+    //     }
+    //     if (error != true) {
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: url,
+    //             data: form_data,
+    //             success: function (responce) {
+    //                 let data = JSON.parse(responce);
+    //                 console.log(data);
+    //                 showAlert(data.message, data.type);
+    //                 setTimeout(() => {
+    //                     location.reload();
+    //                 }, 1000);
+
+    //             }
+    //         });
+    //     }
+    // });
 // });
 
-
-
-
-
-
 $(function () {
-
-    // set required data to the model
-    $('.set-data').click(function () {
-        let WorkStepsid = $(this).attr('data-work-step-id');
-        let controlid = $(this).attr('data-control-id');
-        $('#control-id').val(controlid);
-        $('#worksteps-id').val(WorkStepsid);
-    });
-
-
-    $('#uploadfiles').submit(function (e) {
+    $('.filter-risk-data').on('click', function (e) {
         e.preventDefault();
-        
+        let riskData = atob($(this).attr('data-risk'));
+        let risk = JSON.parse(riskData);
 
-        let error = false;
-
-        let files = $('#files').val();
-        if (files =='') {
-            error = true;
-            showAlert('Please select file', 'danger');
-        }
-        // alert(files);
-        if (error!=true) {
-            let form_data = new FormData(this);
-            let workOrderId = $('#workorder-id').val();
-            let workstepId = $('#worksteps-id').val();
-            form_data.append("workOrderId", workOrderId);
-            form_data.append("workstepId", workstepId);
-            $.ajax({
-                method: "POST",
-                url: baseUrl + "Upload_files/Upload_file",
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    // console.log(data);
-                    let message = JSON.parse(data);
-                    if(message['files']!=''){
-                        let filesData= message['files'];
-                        console.log(filesData[0]['file_name']);
-
-
-                       let path = `<div><a href="${baseUrl+'upload/files/'+filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
-                        $('#uploaded_files').append(path);
-
-
-                        showAlert(message['msg'], message['type']);
-                    }
-                  
-                    
-
-                }
-            });
-        }
-
-    });
-    // saveing worksteps
-    $('#save-worksteps-data').submit(function (e) {
-        e.preventDefault();
-        let error = false;
-        let form_data = $(this).serialize();
-        let url = baseUrl + "Auditapp/commitWorkSteps";
-        let observations = $('#observations').val();
-        if (observations == '') {
-            error = true;
-            showAlert('Please required required', 'danger');
-        }
-        if (error != true) {
+        if (riskData != '') {
             $.ajax({
                 type: 'POST',
-                url: url,
-                data: form_data,
+                url: baseUrl + 'Auditapp/riskData/' + JSON.stringify(risk),
                 success: function (responce) {
-                    let data = JSON.parse(responce);
-                    console.log(data);
-                    showAlert(data.message, data.type);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-
                 }
             });
         }
+
+        // alert('You clicked on Sub process')
     });
-});
-
-$(function(){
-$('.filter-risk-data').on('click',function(e){
-e.preventDefault();
-let riskData=atob($(this).attr('data-risk'));
-let risk=JSON.parse(riskData);
-
-if(riskData!=''){
-    $.ajax({
-        type: 'POST',
-        url: baseUrl+'Auditapp/riskData/'+JSON.stringify(risk),
-        success: function (responce) {
-        }
-    });
-}
-
-// alert('You clicked on Sub process')
-});
 })
 
 // updating worksteps data
-$(function(){
-$('#workstep-data').on('blur','.save-work-step-data',function(){
-alert('hi dude');
+$(function () {
+// $('#table-work-steps').load(function(){
+//     console.log('hi i am in');
+// });
+
+
+// workstepId
+
+// workstepTable.load(function(){
+//     CountRows(workstepTable);
+// });
+    // $('#workstep-data').on('blur', '.save-work-step-data', function () {
+    //     let workOrderId = JSON.parse($(this).attr('data-workorder-id'));
+    //     let workstepId = $(this).attr('data-work-step-id');
+    //     let content = $(this).text();
+    //     let data = {workOrderId: workOrderId, workstepId: workstepId, content: content }
+    //     if (content != '') {
+    //         $.ajax({
+    //             type: 'POST',
+    //             data: data,
+    //             url: baseUrl + 'Auditapp/updateWorkSteps',
+    //             success: function (responce) {
+    //             }
+    //         });
+
+    //     }
+
+    // });
+
+    $('.restore-work-steps').click(function(){
+confirm('Warning! Are you sure want to exit, will remove your filled data');
+        if(hasData('rowData')){
+            removeData('rowData');
+        }
+        window.location.href=baseUrl+'ControlUnit/teamDashboard';
+    })
+
+   
 });
-});
+
+
+// Local storage function
+function retriveData(FILE_KEY) {
+    return localStorage.getItem(FILE_KEY);
+}
+function saveData(FILE_KEY, data) {
+    localStorage.setItem(FILE_KEY, JSON.stringify(data));
+}
+function hasData(FILE_KEY) {
+    return localStorage.hasOwnProperty(FILE_KEY) ? true : false;
+    // localStorage 
+}
+
+function removeData(FILE_KEY) {
+    localStorage.removeItem(FILE_KEY);
+    // localStorage 
+}
+
+
+
 
