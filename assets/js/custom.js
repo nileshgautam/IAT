@@ -1,7 +1,61 @@
 // reload windows after uploaded file
-
 $('#reload').click(function () {
     location.reload(true);
+});
+
+
+// login function
+$(function () {
+    // setting userdata into the login form
+    if (hasData("remember_me")) {
+        var data = JSON.parse(localStorage.getItem("remember_me"));
+        $('#username').val(data.username);
+        $('#password').val(data.password);
+        $('#remember_me').prop('checked', true);
+    }
+
+    //login function
+    $('.login-from').submit(function (e) {
+        e.preventDefault();
+
+        console.log('hi');
+        let form_data = $(this).serialize();
+        let username = $('#username').val();
+        let password = $('#password').val();
+        // let message;
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Login/auth',
+            data: form_data,
+            success: function (responce) {
+                let data = JSON.parse(responce);
+                // console.log(data.msg);
+                if (data.msg == 'true') {
+                    if (data.remember_me == 1) {
+                        var arr = { "username": username, "password": password };
+                        saveData("remember_me", arr);
+                    }
+                    else if (data.remember_me == 0) {
+                        removeData('remember_me');
+                    }
+                }
+                if (data.role == 'Admin') {
+                    window.location.href = baseUrl + 'admin';
+                }
+                else if (data.role == 'Team member') {
+                    window.location.href = baseUrl + 'member';
+                }
+                else if (data.role == 'Manager') {
+                    window.location.href = baseUrl + 'manager';
+                }
+
+
+                else {
+                    showAlert(data.msg, data.type);
+                }
+            }
+        });
+    });
 });
 
 // 
@@ -133,8 +187,6 @@ $(function () {
         }
     });
 });
-
-
 //funtion for users
 
 $(function () {
@@ -209,126 +261,54 @@ $(function () {
 
 });
 
-// loading workorder by company id
-
-// $(function(){
-//     $('.choose-process').on('click',function(e){
-//         e.preventDefault();
-//         alert('clicked on next');
-//     });
-// });
-
-
-
-
-
-
 $(function () {
-
-    // set required data to the model
-    $('.set-data').click(function () {
-        let WorkStepsid = $(this).attr('data-work-step-id');
-        let controlid = $(this).attr('data-control-id');
-        $('#control-id').val(controlid);
-        $('#worksteps-id').val(WorkStepsid);
-    });
-
-
-    $('#uploadfiles').submit(function (e) {
+    $('.filter-risk-data').on('click', function (e) {
         e.preventDefault();
-        
+        let riskData = atob($(this).attr('data-risk'));
+        let risk = JSON.parse(riskData);
 
-        let error = false;
-
-        let files = $('#files').val();
-        if (files =='') {
-            error = true;
-            showAlert('Please select file', 'danger');
-        }
-        // alert(files);
-        if (error!=true) {
-            let form_data = new FormData(this);
-            let workOrderId = $('#workorder-id').val();
-            let workstepId = $('#worksteps-id').val();
-            form_data.append("workOrderId", workOrderId);
-            form_data.append("workstepId", workstepId);
-            $.ajax({
-                method: "POST",
-                url: baseUrl + "Upload_files/Upload_file",
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    // console.log(data);
-                    let message = JSON.parse(data);
-                    if(message['files']!=''){
-                        let filesData= message['files'];
-                        console.log(filesData[0]['file_name']);
-
-
-                       let path = `<div><a href="${baseUrl+'upload/files/'+filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
-                        $('#uploaded_files').append(path);
-
-
-                        showAlert(message['msg'], message['type']);
-                    }
-                  
-                    
-
-                }
-            });
-        }
-
-    });
-    // saveing worksteps
-    $('#save-worksteps-data').submit(function (e) {
-        e.preventDefault();
-        let error = false;
-        let form_data = $(this).serialize();
-        let url = baseUrl + "Auditapp/commitWorkSteps";
-        let observations = $('#observations').val();
-        if (observations == '') {
-            error = true;
-            showAlert('Please required required', 'danger');
-        }
-        if (error != true) {
+        if (riskData != '') {
             $.ajax({
                 type: 'POST',
-                url: url,
-                data: form_data,
+                url: baseUrl + 'Auditapp/riskData/' + JSON.stringify(risk),
                 success: function (responce) {
-                    let data = JSON.parse(responce);
-                    console.log(data);
-                    showAlert(data.message, data.type);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-
                 }
             });
         }
+
+        // alert('You clicked on Sub process')
     });
-});
+})
 
-$(function(){
-$('.filter-risk-data').on('click',function(e){
-e.preventDefault();
-let riskData=atob($(this).attr('data-risk'));
-let risk=JSON.parse(riskData);
-
-if(riskData!=''){
-    $.ajax({
-        type: 'POST',
-        url: baseUrl+'Auditapp/riskData/'+JSON.stringify(risk),
-        success: function (responce) {
+// function for Exit button to remove local storage data 
+$(function () {
+    $('.restore-work-steps').click(function () {
+        confirm('Warning! Are you sure want to exit, will remove your filled data');
+        if (hasData('rowData')) {
+            removeData('rowData');
         }
-    });
+        window.location.href = baseUrl + 'ControlUnit/teamDashboard';
+    })
+})
+
+// function for local Storage
+
+// Local storage function
+function retriveData(FILE_KEY) {
+    return localStorage.getItem(FILE_KEY);
+}
+function saveData(FILE_KEY, data) {
+    localStorage.setItem(FILE_KEY, JSON.stringify(data));
+}
+function hasData(FILE_KEY) {
+    return localStorage.hasOwnProperty(FILE_KEY) ? true : false;
+    // localStorage 
 }
 
-// alert('You clicked on Sub process')
-});
-})
+function removeData(FILE_KEY) {
+    localStorage.removeItem(FILE_KEY);
+    // localStorage 
+}
 
 
 

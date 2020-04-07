@@ -114,8 +114,6 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // echo '<pre>';
-                                        // print_r($workOrder);
                                         $count = 1;
                                         if (!empty($workOrder)) {
                                             foreach ($workOrder  as $works) { ?>

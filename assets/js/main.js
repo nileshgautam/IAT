@@ -3,9 +3,7 @@
 $("#country").change(function () {
     let ustate = $(this).attr('data-state');
     let state = $(this).attr('data-state');
-
     let id = $(this).children("option:selected").attr('id');
-
 
     country_id = {
         c_id: id
@@ -116,16 +114,19 @@ $('#role').change(function () {
 
 });
 
-
 // updating subprocess risk
 
 $('.set-risk-level').on('change', function () {
     let selectedLevelsubprocessId = $(this).attr('data-risk-subprocess-id');
     let selectedData = $(this).val();
     let riskId = $(this).attr('data-risk-id');
-    console.log(selectedData);
-    let subid = $(`[data-sub-id=${selectedLevelsubprocessId}]`).attr('data-risk-id');
-    // console.log(JSON.parse(subid));
+
+    // console.log(subid);
+
+    let subid = $(`[data-sub-id='${selectedLevelsubprocessId}']`).attr('data-risk-id')
+    
+    // console.log(subid);
+
     let risk_data = JSON.parse(subid);
     risk_data = changeRiskLevel(riskId, selectedData, risk_data);
     $(`[data-sub-id=${selectedLevelsubprocessId}]`).attr('data-risk-id', JSON.stringify(risk_data));
@@ -150,6 +151,8 @@ $('.submit-services').on('click', function () {
 
         let riskData=JSON.parse($(this).attr('data-risk-id'));
 
+        // console.log(riskData);
+
         if (process[$(this).attr('data-process-id')] === undefined) {
             process = {
                     [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
@@ -159,10 +162,10 @@ $('.submit-services').on('click', function () {
             // console.log(process);
             process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
         }
-     
+
     });
 
-console.log(process);
+// console.log(process);
 
 
     let message = "Required";
@@ -184,23 +187,12 @@ console.log(process);
         error = true;
     } if (workOrderName == "") {
         $('#messageworkorder').html(message)
-    } if (startDate == "") {
-
-        $('#error-start-date').html(message)
-    } if (endDate == '') {
-        $('#error-end-date').html(message)
-        error = true;
-    }
-    if (ValidateDate()) {
-        $('#error-end-date').html('End date should be greater from start date');
-        error = true;
-    }
+    } 
+    
     if (Object.keys(process).length == 0) {
         showAlert('Please choose process first', "warning");
         error = true;
     }
-
-
 
     // console.log(process);
 
@@ -209,7 +201,7 @@ console.log(process);
         console.log(error);
         $.ajax({
             type: 'POST',
-            url: baseUrl + '/Auditapp/create_work_order',
+            url: baseUrl + 'Auditapp/create_work_order',
             data: formData,
             success: function (data, success) {
                 let resonce = JSON.parse(data);
@@ -425,11 +417,12 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
 
 // show all the workorder by client
 function workOrderData(obj) {
+
     let html = '';
     if (obj != '') {
-        // console.log(obj)
+        console.log(obj)
         for (let i = 0; i < obj.length; i++) {
-            html += `<option value="${obj[i]['work_order_id']}" >${obj[i]['work_order_name']}</option>`;
+            html += `<option value="${obj[i]['work_order_id']}">${obj[i]['work_order_name']}</option>`;
         }
         return html;
     }
@@ -438,6 +431,7 @@ function workOrderData(obj) {
         return html;
     }
 }
+
 
 // $(function () {
 

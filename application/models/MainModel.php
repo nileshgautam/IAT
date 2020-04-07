@@ -278,7 +278,6 @@ function getRiskbyId($subprocessId=null){
     $result = $this->db->query($query)->result_array();
     return $this->db->affected_rows() ? $result : false;
 }
-
 // function to find all control and work steps by risk id
 
 public function getControlWorkstepByid($risk_id=null)
