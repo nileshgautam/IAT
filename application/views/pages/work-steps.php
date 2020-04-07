@@ -1,3 +1,13 @@
+<?php  $data= array(
+            'workOrderId' =>  $workorderId,
+            'subprocessid' => $subProceseid,
+            'processid' => $processid,
+            'controlid' =>  $controlId,
+            'riskid' => $riskId,
+            'serverResponce' => json_encode($workSteps)
+        );
+        ?>
+
 <!-- ============================================================== -->
 <!-- wrapper  -->
 <!-- ============================================================== -->
@@ -10,7 +20,6 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
                     <h3 class="mb-2">Work Steps</h3>
-
                     <button style="margin: -43px 7px;
 " class="btn btn-danger float-right restore-work-steps">Exit</button>
                     <button class="float-right btn btn-success save-work-step" style="margin: -43px 62px;
@@ -29,6 +38,10 @@
         </div>
 
         <div class="card p-2">
+
+        <input type="hidden" id="control-data" value="
+        <?php json_encode($data) ?> ">
+
             <table class="display table-responsive" id="table-work-steps">
                 <thead class="bg-light">
                     <tr class="botder-0">
@@ -70,7 +83,6 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

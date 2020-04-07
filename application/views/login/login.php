@@ -11,8 +11,8 @@
     <link href="<?php echo base_url(); ?>assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/libs/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <!-- jQuery 3 -->
-    <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js') ?>"></script>
+   <!-- jQuery 3 -->
+   <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js') ?>"></script>
     <!-- Alert Box -->
     <script src="  <?php echo base_url('assets/js/bootstrap-notify.min.js') ?>"></script>
     <script src="  <?php echo base_url('assets/js/MyScriptLibrary.js') ?>"></script>
@@ -31,6 +31,10 @@
             padding-bottom: 40px;
         }
     </style>
+    <script>
+        let baseUrl="<?php echo base_url(); ?>"
+        
+    </script>
 </head>
 
 <body>
@@ -41,29 +45,27 @@
         <div class="card ">
             <div class="card-header text-center"><a href="../index.html"><img class="logo-img" src="<?php echo base_url(); ?>assets/images/icons/audit.svg" alt="logo" width="32"></a><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
-                <form action="<?php echo base_url('Login/auth') ?>" method="post">
+            <!-- action="<?php echo base_url('Login/auth') ?>"  -->
+                <form class="login-from" method="post">
                     <div class="form-group">
                         <input class="form-control form-control-lg" id="username" type="email" name="email" placeholder="Username" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control form-control-lg" id="password" type="password" name="password" placeholder="Password" required autocomplete="off">
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
+                            <input class="custom-control-input" type="checkbox" id="remember_me" name="remember_me"><span class="custom-control-label">Remember Me</span>
                         </label>
-                    </div> -->
+                    </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
                 </form>
             </div>
-            <div class="card-footer bg-white p-0 ">
-                <!-- <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Create An Account</a>
-                </div> -->
-                <!-- <div class="card-footer-item card-footer-item-bordered float-right">
+            <!-- <div class="card-footer bg-white p-0 ">
+                <div class="card-footer-item card-footer-item-bordered float-right">
                     <a href="#" class="footer-link">Forgot Password</a>
-                </div> -->
-            </div>
+                </div>
+            </div> -->
         </div>
     </div>
 
@@ -72,6 +74,8 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+
     <?php
     if ($this->session->flashdata('success')) {
     ?><script>

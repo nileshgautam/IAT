@@ -11,53 +11,52 @@ class Login extends CI_Controller
     function auth()
     {
         // print_r($_POST);die;
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('email', 'e-mail', 'Required');
-        $this->form_validation->set_rules('password', 'Password', 'Required');
-        if ($this->form_validation->run() === false) {
-            redirect(__CLASS__ . '/index');
+        $username = $this->input->post('email');
+        $password = $this->input->post('password');
+        $remember_me = $this->input->post('remember_me');
+        if (isset($remember_me)) {
+            $remember_me = 1;
         } else {
-            $email    = $this->input->post('email');
-            $password = $this->input->post('password');
-            if (isset($email) && isset($password)) {
-                $validate = $this->MainModel->selectAllFromWhere('users', array('email' => $email, 'password' => $password));
-                // echo '<pre>';
-                // print_r($validate) ;die;
-                if (!empty($validate)) {
-                    $data  = $validate;
-                    $id    = $data[0]['user_id'];
-                    $name  = $data[0]['first_name'] . " " . $data[0]['last_name'];
-                    $email = $data[0]['email'];
-                    // $company_id = $data[0]['user_client_id'];
-                    $user_role = $data[0]['role'];
-                    $sesdata = array(
-                        'id'       =>  $id,
-                        // 'company' => $company_id,
-                        'username'  => $name,
-                        'email'     => $email,
-                        'user_role' => $user_role,
-                        'logged_in' => TRUE
-                    );
+            $remember_me = 0;
+        }
+        if ($username == "" &&  $password == "") {
+            $message = json_encode(array('msg' => 'Warning! username and password are required', 'type' => 'danger'), true);
+            echo $message;
+        } elseif ($username == "") {
+            $message = json_encode(array('msg' => 'Warning! username required', 'type' => 'danger'), true);
+            echo $message;
+        } elseif ($password == '') {
+            $message = json_encode(array('msg' => 'Warning! password required', 'type' => 'danger'), true);
+            echo $message;
+        } else {
+            $this->load->model('MainModel');
+            $tableName = 'users';
+            $condition = array('email' => $username, 'password' => $password);
+            $result = $this->MainModel->selectAllFromWhere($tableName, $condition);
+            if ($result == 0) {
+                $message = json_encode(array('msg' => 'Warning! username and password invalid', 'type' => 'danger'), true);
+                echo $message;
+            } elseif ($result != 0) {
+                $data  = $result;
+                $id    = $data[0]['user_id'];
+                $name  = $data[0]['first_name'] . " " . $data[0]['last_name'];
+                $email = $data[0]['email'];
+                $user_role = $data[0]['role'];
+                $sesdata = array(
+                    'id'       =>  $id,
+                    // 'company' => $company_id,
+                    'username'  => $name,
+                    'email'     => $email,
+                    'user_role' => $user_role,
+                    'logged_in' => TRUE
+                );
+                $this->session->set_userdata("userInfo", $sesdata);
 
-                    $this->session->set_userdata("userInfo", $sesdata);
-
-                    // print_r($_SESSION['userInfo']);die;
-                    // access login for admin
-                    if ($user_role == SuperAdmin) {
-                        redirect('admin');
-                    } elseif ($user_role == TeamMember) {
-                        redirect('member');
-                    } elseif ($user_role == Manager) {
-                        redirect('manager');
-                    }
-                } else {
-                    echo $this->session->set_flashdata('error', "Username and password is not match");
-                    redirect('login');
-                }
-            } else {
-                redirect('login');
+                $result = json_encode(array('msg' => 'true', 'type' => 'success', 'role'=>$user_role, 'remember_me' => $remember_me), true);
+                echo $result;
             }
         }
+                   
     }
 
     function logout()

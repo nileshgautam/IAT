@@ -29,16 +29,16 @@
 
 
 <!-- jvactormap js-->
-<script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-world-mill-en.js"></script> -->
 <!-- sparkline js-->
-<script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/spark-js.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/charts/sparkline/spark-js.js"></script> -->
 <!-- dashboard sales js-->
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
 <!-- main js-->
-<script src="<?php echo base_url(); ?>assets/libs/js/main-js.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/libs/js/main-js.js"></script> -->
 <!-- Optional JavaScript -->
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 

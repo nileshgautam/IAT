@@ -428,8 +428,12 @@ class Auditapp extends CI_Controller
     //     $id = base64_decode($id);
     //     $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
     //     $process = json_decode($data[0]['processes'], true);
-    //     // echo '<pre>';
-    //     // print_r($process);die;
+    //     $countSubprocess = 0;
+
+
+
+    //     $subProcessCount = [];
+
     //     $p_data = [];
     //     // echo '<pre>';
     //     foreach ($process as $process_id => $sub_processes) {
@@ -440,39 +444,53 @@ class Auditapp extends CI_Controller
     //         // print_r($sub_processes);die;
     //         foreach ($sub_processes as $key => $subprocess_risk) {
     //             // print_r($subprocess_risk);die;
+
+    //             $countSP = 0;
+
     //             $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
     //             $riskData = [];
     //             $sprocess_data[0]['risk_data'] = $subprocess_risk;
     //             if (!empty($subprocess_risk)) {
     //                 foreach ($subprocess_risk as $key => $risk) {
-
-
     //                     // print_r($risk);
     //                     $controls = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
-    //                     // $riskData[$key] = $controls; 
+    //                     // $riskData[$key] = $con4trols; 
     //                     // print_r($controls);
     //                     $sprocess_data[0]['risk_data'][$key]['control_data'] = $controls;
 
     //                     foreach ($controls as $key1 => $workstep) {
     //                         // print_r($workstep['control_id']);
     //                         $worksteps = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $workstep['control_id']));
-
-    //                         //    print_r($worksteps);
+    //                         // echo '<pre>';
+    //                         //    print_r(count($worksteps));
+    //                         $countSubprocess += count($worksteps);
+    //                         $countSP += count($worksteps);
 
     //                         $sprocess_data[0]['risk_data'][$key]['control_data'][$key1]['work_step'] = $worksteps;
     //                     }
+    //                     //  $countSubprocess++;
     //                 }
+
+    //                 array_push($subProcessCount, $countSP);
+    //                 // echo $countSP.'<br>' ;
     //             }
     //             // $riskData = [];
+    //             //  $countSubprocess++;
+    //             // echo $countSP;
     //             $sp_data[$key] = $sprocess_data[0];
     //         }
     //         $p_data[$process_id]['sub_process_data'] = $sp_data;
     //     }
 
+    //     //    echo $countSP;
+    //     //    die;
+
     //     $p_data['p_data'] = $p_data;
+    //     $p_data['totalrows'] = $countSubprocess;
+    //     $p_data['subCount'] = $subProcessCount;
+
     //     $p_data['work_order'] = $id;
     //     $p_data['work_order_name'] = $data[0]['work_order_name'];
-
     //     $this->load->view('layout/header');
     //     $this->load->view('team/team-sidebar');
     //     $this->load->view('pages/work-demo', $p_data);
@@ -727,12 +745,12 @@ class Auditapp extends CI_Controller
             'control_id' => $controlId
         );
         $dbresult = $this->MainModel->selectAllFromWhere('complete_work_steps', $condition);
-        if(!empty($dbresult)){
+        if (!empty($dbresult)) {
             echo json_encode($dbresult[0]);
-        }else{
-            echo json_encode(array('empty'=>'false'));
+        } else {
+            echo json_encode(array('empty' => 'false'));
         }
-       
+
         // die;
     }
 }

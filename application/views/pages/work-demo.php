@@ -56,38 +56,38 @@
                             'id' => $work_order,
                             'workOrderName' => $work_order_name
                         );
-
                         // echo '<pre>';
                         // print_r($p_data);
+                        // die;
+                        print_r($subCount);
+
                         $processCount = 1;
                         foreach ($p_data as $process) {
                             $processName = '';
+                            $subprocessName = '';
+
                             foreach ($process['sub_process_data'] as $key => $subProcess) {
+                                echo $key;
                                 // foreach($subProcess['risk_data'] as $key=>$riskData){
                     ?>
                                 <tr class="border-0">
                                     <?php if ($processName != $process['process_description']) {
                                     ?>
-                                        <td rowspan="<?php echo count($process['sub_process_data']);?>"><?php echo
-                                                            $processName = $process['process_description'];
-                                                        ?></td>
+                                        <td rowspan="<?php echo $totalrows ?>">
+                                        <?php
+                                        $processName = $process['process_description'];
+                                        echo $processName;
+                                        ?></td>
                                     <?php } ?>
-                                    <td><?php echo $subProcess['sub_process_description'] ?></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <?php if ($subprocessName != $subProcess['sub_process_description']) {
+                                    ?>
+                                    <td rowspan="<?php echo $subCount[$key] ?>"><?php echo $subProcess['sub_process_description'] ?></td>
+                                    <?php } ?>
+                                    <td><?php echo $subProcess['risk_data'][0]['risk_description'] ?></td>
+                                    <td><?php echo $subProcess['risk_data'][0]['risk_level'] ?></td>
                                 </tr>
                             <?php  }
+
 
                             ?>
                     <?php }
@@ -105,14 +105,13 @@
 
     <script>
         $(function() {
-            $('#table-process').DataTable({"scrollX": true}
-                
+            $('#table-process').DataTable({
+                    "scrollX": true
+                }
+
             );
 
         });
     </script>
     <!-- <table class="table">
    
-
-
-

@@ -107,9 +107,7 @@
                     <hr>
                     <div class="row my-2">
                         <h5 style="margin-left: 15px">Select Processes</h5>
-                        <!-- 
-                        
-                        Processes Section -->
+                        <!-- Processes Section -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div id="accordion3">
                                 <?php
@@ -142,56 +140,59 @@
 
 
                                                         <!-- <div class="card"> -->
-                                                            <!-- <h5 class="card-header"> -->
-                                                                <div class="">
-                                                                    <label> <input type="checkbox" name="subprocess" data-risk-id=<?php echo json_encode($risks)?> data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;<?php echo $sbprocess['sub_process_description']; ?></label>
-                                                                </div>
-                                                            </h5>
-                                                            <div class="card-body">
+                                                        <!-- <h5 class="card-header"> -->
+                                                        <div class="">
+                                                            <label> 
+                                                                
+                                                            <input type="checkbox" name="subprocess" 
+                                                            data-risk-id='<?php echo json_encode($risks)?>' 
 
+                                                            data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" 
+                                                            data-process-id="<?php echo $sbprocess['process_id'] ?>" 
+                                                            class="sub_process">&nbsp;&nbsp;&nbsp;
+                                                            <?php echo $sbprocess['sub_process_description']; ?></label>
+                                                        </div>
+                                                        </h5>
+                                                        <div class="card-body">
+                                                            <?php if (!empty($risks)) {
+                                                                // echo '<pre>';
+                                                                // print_r($risks);
+                                                                // // die;
+                                                            ?>
+                                                                <table class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <!-- <th scope="col">#</th> -->
+                                                                            <th scope="col">Risk</th>
+                                                                            <th scope="col">Risk level</th>
 
-                                                                <?php if (!empty($risks)) {
-                                                                    // echo '<pre>';
-                                                                    // print_r($risks);
-                                                                    // die;
-                                                                ?>
-                                                                    <table class="table table-bordered">
-                                                                        <thead>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $risk_count = 1;
+                                                                        foreach ($risks as $risk) {
+                                                                        ?>
                                                                             <tr>
-                                                                                <!-- <th scope="col">#</th> -->
-                                                                                <th scope="col">Risk</th>
-                                                                                <th scope="col">Risk level</th>
-                                                                             
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <?php 
-                                                                            $risk_count=1;
-                                                                            foreach ($risks as $risk) {
-                                                                            ?>
-                                                                                <tr>
-                                                                                   
-                                                                                    <td><?php echo $risk_count++. ' : ' .$risk['risk_description'] ?></td>
-                                                                                  
+                                                                                <td><?php echo $risk_count++ . ' : ' . $risk['risk_description'] ?></td>
+                                                                                <td>
+                                                                                    <select data-risk-id='<?php echo $risk['risk_id'] ?>'
+                                                                                    class="set-risk-level" data-risk-subprocess-id="<?php echo $sbprocess['sub_process_id'] ?>" 
 
-
-                                                                                    <td>
+                                                                                    <?php foreach ($risks_level as $rl) { ?>>
                                                                                         
-                                                                                    <!-- <select data-process-id="<?php echo $sbprocess['process_id'] ?>" data-sub-proecss-id="<?php echo $risk['sub_process_id']; ?>" data-risk-id="<?php echo $risk['risk_id'] ?>" name="risk-level"> -->
+                                                                                        <option value="<?php echo $rl['status'] ?>" 
+                                                                                        <?php echo ($risk['risk_level'] == $rl['status']) ? 'selected' : '' ?>>
+                                                                                        <?php echo $rl['status']; ?></option>
+                                                                                    <?php } ?>
+                                                                                    </select></td>
 
-                                                                                    <select data-risk-id="<?php echo $risk['risk_id']?>"
-                                                                                    class="set-risk-level" data-risk-subprocess-id=<?php echo $sbprocess['sub_process_id']?>
-                                                                                        <?php foreach($risks_level as $rl){?>>
-                                                                                            <option value="<?php echo $rl['status']?>" <?php echo ($risk['risk_level'] == $rl['status'])?'selected':''?>><?php echo $rl['status'];?></option>
-                                                                                        <?php }?>
-                                                                                        </select></td>
-                                                            
-                                                                                </tr>
-                                                                        <?php }
-                                                                        } else echo "<div class='' style='margin:%'>No risk.</div>"; ?>
-                                                                        </tbody>
-                                                                    </table>
-                                                            </div>
+                                                                            </tr>
+                                                                    <?php }
+                                                                    } else echo "<div class='' style='margin:%'>No risk.</div>"; ?>
+                                                                    </tbody>
+                                                                </table>
+                                                        </div>
                                                         <!-- </div> -->
 
 
