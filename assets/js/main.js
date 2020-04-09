@@ -181,14 +181,16 @@ $('.submit-services').on('click', function () {
 
     if (clientId == "") {
         $('#messageclient').html(message)
+        $('#client').focus();
         error = true;
     } if (workorderId == "") {
         $('#messageworkorderid').html(message)
         error = true;
     } if (workOrderName == "") {
         $('#messageworkorder').html(message)
+        $('#textWork-Order-Name').focus();
+        error = true;
     } 
-    
     if (Object.keys(process).length == 0) {
         showAlert('Please choose process first', "warning");
         error = true;
@@ -196,9 +198,14 @@ $('.submit-services').on('click', function () {
 
     // console.log(process);
 
-    let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
-    if (!error) {
-        console.log(error);
+   
+
+
+    if (error!=true) {
+
+        let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
+        // console.log(error);
+
         $.ajax({
             type: 'POST',
             url: baseUrl + 'Auditapp/create_work_order',
@@ -419,6 +426,7 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
 function workOrderData(obj) {
 
     let html = '';
+    console.log(obj)
     if (obj != '') {
         console.log(obj)
         for (let i = 0; i < obj.length; i++) {
@@ -426,10 +434,10 @@ function workOrderData(obj) {
         }
         return html;
     }
-    else {
-        html += `<option value="">NA</option>`;
-        return html;
-    }
+    // else {
+    //     html += `<option value="">NA</option>`;
+    //     return html;
+    // }
 }
 
 

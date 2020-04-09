@@ -62,7 +62,7 @@
                                         <th class="border-0">Name</th>
                                         <th class="border-0">Assigned Date</th>
                                         <th class="border-0">Target Date</th>
-                                        <th class="border-0">Status</th>
+                                        <!-- <th class="border-0">Status</th> -->
                                         <th class="border-0">Action</th>
                                     </tr>
                                 </thead>
@@ -93,10 +93,18 @@
                                                     echo ddmmyy($assignedTask['target_date']);
                                                     ?>
                                                 </td>
+                                                <!-- <td>
+                                                    <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id'] ? '<span class="badge badge-info">Under Process</span>' : '<span class="badge badge-warning">New</span>' ?></td>-->
                                                 <td>
-                                                    <?php echo $assignedTask['work_order_id'] ==  $uploadedData[0]['work_order_id'] ? '<span class="badge badge-info">Under Process</span>' : '<span class="badge badge-warning">New</span>' ?></td>
-                                                <td>
-                                                    <a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" title="Click to show selected processes" class="btn btn-outline-primary btn-xs"><?php echo $assignedTask['work_status'] == 0 ? '<i class="fa fa-tasks" title="Click to complete steps"></i>' : '' ?></td>
+                                                    <a href="<?php echo base_url('Auditapp/workprocess/') . base64_encode($assignedTask['work_order_id']) ?>" title="Click to show selected processes" class="btn btn-outline-primary btn-xs">
+                                                    
+                                                    <?php echo $assignedTask['work_status'] == 0 ? '<i class="fa fa-tasks" title="Click to complete steps"></i>' : '' ?>
+
+                                                </a>
+
+                                           
+                                                
+                                                </td>
 
 
                                             </tr>
