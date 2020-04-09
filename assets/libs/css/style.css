@@ -1943,7 +1943,7 @@ Container / Wrapper
 .dashboard-wrapper {
     position: relative;
     left: 0;
-    margin-left: 264px;
+    margin-left: 16px;
     min-height: 870px !important;
 }
 
@@ -1998,6 +1998,7 @@ Pageheader
 .page-header {
     margin-bottom: 10px;
 }
+
 
 .page-breadcrumb {}
 

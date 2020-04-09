@@ -384,118 +384,140 @@ class Auditapp extends CI_Controller
         echo $uploads_file = json_encode($data, true);
     }
 
-    public function workprocess($id = null)
-    {
-        $id = base64_decode($id);
-        $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
-        $process = json_decode($data[0]['processes'], true);
-        $p_data = [];
-        foreach ($process as $process_id => $sub_proceses) {
-            // echo $process_id;
-            $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
-            $p_data[$process_id] = $process_data[0];
-            $sp_data = [];
 
-            foreach ($sub_proceses as $key => $sub_procese) {
-                // print_r($sub_procese);die;
-                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
-
-                // print_r($sprocess_data);
-                // die;
-                $sprocess_data[0]['risk_data'] = $sub_procese;
-                $sp_data[$key] = $sprocess_data[0];
-
-                // print_r($sprocess_data);
-            }
-
-            $p_data[$process_id]['sub_process_data'] = $sp_data;
-        }
-        // print_r($processArr);die;
-        $p_data['p_data'] = $p_data;
-        $p_data['work_order'] = $id;
-        $p_data['work_order_name'] = $data[0]['work_order_name'];
-        $this->load->view('layout/header');
-        $this->load->view('team/team-sidebar');
-        $this->load->view('pages/work-space', $p_data);
-        $this->load->view('layout/footer');
-    }
-
-    // do new process array
-    // function to show list of all the selected process by the
 
     // public function workprocess($id = null)
     // {
     //     $id = base64_decode($id);
     //     $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
     //     $process = json_decode($data[0]['processes'], true);
-    //     $countSubprocess = 0;
-
-
-
-    //     $subProcessCount = [];
-
     //     $p_data = [];
-    //     // echo '<pre>';
-    //     foreach ($process as $process_id => $sub_processes) {
-    //         // echo $process_id;die;
+    //     foreach ($process as $process_id => $sub_proceses) {
+    //         // echo $process_id;
     //         $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
     //         $p_data[$process_id] = $process_data[0];
     //         $sp_data = [];
-    //         // print_r($sub_processes);die;
-    //         foreach ($sub_processes as $key => $subprocess_risk) {
-    //             // print_r($subprocess_risk);die;
 
-    //             $countSP = 0;
-
+    //         foreach ($sub_proceses as $key => $sub_procese) {
+    //             // print_r($sub_procese);die;
     //             $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
-    //             $riskData = [];
-    //             $sprocess_data[0]['risk_data'] = $subprocess_risk;
-    //             if (!empty($subprocess_risk)) {
-    //                 foreach ($subprocess_risk as $key => $risk) {
-    //                     // print_r($risk);
-    //                     $controls = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
-    //                     // $riskData[$key] = $con4trols; 
-    //                     // print_r($controls);
-    //                     $sprocess_data[0]['risk_data'][$key]['control_data'] = $controls;
 
-    //                     foreach ($controls as $key1 => $workstep) {
-    //                         // print_r($workstep['control_id']);
-    //                         $worksteps = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $workstep['control_id']));
-    //                         // echo '<pre>';
-    //                         //    print_r(count($worksteps));
-    //                         $countSubprocess += count($worksteps);
-    //                         $countSP += count($worksteps);
-
-    //                         $sprocess_data[0]['risk_data'][$key]['control_data'][$key1]['work_step'] = $worksteps;
-    //                     }
-    //                     //  $countSubprocess++;
-    //                 }
-
-    //                 array_push($subProcessCount, $countSP);
-    //                 // echo $countSP.'<br>' ;
-    //             }
-    //             // $riskData = [];
-    //             //  $countSubprocess++;
-    //             // echo $countSP;
+    //             // print_r($sprocess_data);
+    //             // die;
+    //             $sprocess_data[0]['risk_data'] = $sub_procese;
     //             $sp_data[$key] = $sprocess_data[0];
+
+    //             // print_r($sprocess_data);
     //         }
+
     //         $p_data[$process_id]['sub_process_data'] = $sp_data;
     //     }
-
-    //     //    echo $countSP;
-    //     //    die;
-
+    //     // print_r($processArr);die;
     //     $p_data['p_data'] = $p_data;
-    //     $p_data['totalrows'] = $countSubprocess;
-    //     $p_data['subCount'] = $subProcessCount;
-
     //     $p_data['work_order'] = $id;
     //     $p_data['work_order_name'] = $data[0]['work_order_name'];
     //     $this->load->view('layout/header');
     //     $this->load->view('team/team-sidebar');
-    //     $this->load->view('pages/work-demo', $p_data);
+    //     $this->load->view('pages/work-space', $p_data);
     //     $this->load->view('layout/footer');
     // }
+
+
+
+    // do new process array
+    // function to show list of all the selected process by the
+    public function workprocess($id = null)
+    {
+
+        $id = base64_decode($id);
+        // print_r($id);die;
+        $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
+        $process = json_decode($data[0]['processes'], true);
+        $countSubprocess = 0;
+
+
+
+        $subProcessCount = [];
+
+        $p_data = [];
+        // echo '<pre>';
+        foreach ($process as $process_id => $sub_processes) {
+            // echo $process_id;die;
+            $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
+            $p_data[$process_id] = $process_data[0];
+            $sp_data = [];
+            $totalWorkStep = 0;
+            // print_r($sub_processes);die;
+            foreach ($sub_processes as $key => $subprocess_risk) {
+                // print_r($subprocess_risk);die;
+
+                $countSP = 0;
+
+                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
+                $riskData = [];
+                $sprocess_data[0]['risk_data'] = $subprocess_risk;
+                if (!empty($subprocess_risk)) {
+                    foreach ($subprocess_risk as $key => $risk) {
+                        // print_r($risk);
+                        $controls = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
+                        // $riskData[$key] = $con4trols; 
+                        // print_r($controls);
+                        $sprocess_data[0]['risk_data'][$key]['control_data'] = $controls;
+
+                        foreach ($controls as $key1 => $workstep) {
+                            // print_r($workstep['control_id']);
+                            $worksteps = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $workstep['control_id']));
+                            // echo '<pre>';
+                            //    print_r(count($worksteps));
+                            $countSubprocess += count($worksteps);
+                            $countSP += count($worksteps);
+
+                            $sprocess_data[0]['risk_data'][$key]['control_data'][$key1]['work_step'] = $worksteps;
+                        }
+                        //  $countSubprocess++;
+                    }
+
+                    array_push($subProcessCount, $countSP);
+                    $totalWorkStep += $countSP;
+                    // echo $countSP.'<br>' ;
+                }
+                // $riskData = [];
+                //  $countSubprocess++;
+                // echo $countSP;
+                $sp_data[$key] = $sprocess_data[0];
+            }
+            $p_data[$process_id]['sub_process_data'] = $sp_data;
+        }
+
+        //    echo $totalWorkStep;
+        //    die;
+
+        $p_data['p_data'] = $p_data;
+        $p_data['totalrows'] = $countSubprocess;
+        $p_data['totalWorkStep'] = $totalWorkStep;
+        $p_data['countRow'] = $subProcessCount;
+
+
+        $p_data['work_order'] = $id;
+        $p_data['work_order_name'] = $data[0]['work_order_name'];
+
+        // echo json_encode($p_data);die;
+        $this->load->view('layout/header');
+        $this->load->view('team/team-sidebar');
+        // $this->load->view('pages/work-demo', $p_data);
+        $this->load->view('pages/work-order-process-demo', $p_data);
+        // work-order-process-demo
+        $this->load->view('layout/footer');
+    }
+
+    // public function process()
+    // {
+    //     $this->load->view('layout/header');
+    //     $this->load->view('team/team-sidebar');
+    //     $this->load->view('pages/work-order-process-demo');
+    //     $this->load->view('layout/footer');
+    // }
+
 
 
     public function riskData($data = null, $workOrder = null)
@@ -509,7 +531,6 @@ class Auditapp extends CI_Controller
         $data1 =  json_decode($a, true);
         //  print_r($data1);die;
         $process = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $data1['process_id']));
-
         $data2['risks'] = $data1;
         $data2['processName'] = $process[0]['process_description'];
         $data2['workorderDetails'] = $workOrderDetails;
@@ -520,6 +541,7 @@ class Auditapp extends CI_Controller
         $this->load->view('pages/risks-data-table', $data2);
         $this->load->view('layout/footer');
     }
+
     // popualte  worksteps from database
     public function workSteps($riskId = null, $controlId = null, $sub_processeid = null, $processId = null, $workOrderId = null)
     {
@@ -545,7 +567,8 @@ class Auditapp extends CI_Controller
     public function workorders()
     {
         //    print_r($_POST);die;
-        $data = $this->MainModel->selectAllFromWhere('work_order', array('client_id' => $_POST['id']));
+           $id=base64_decode($_POST['id']);
+        $data = $this->MainModel->selectAllFromWhere('work_order', array('client_id' => $id));
         // print_r($data);die;
         $data = json_encode($data, true);
         echo $data;
@@ -590,46 +613,130 @@ class Auditapp extends CI_Controller
     }
 
     // function to show all the process to manager
+    // public function workOrderprocess($id = null)
+    // {
+    //     $id = base64_decode($id);
+    //     // print_r($id);die;
+    //     $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
+    //     $clientID = $this->MainModel->selectAllFromWhere('client_details', array('client_id' => $data[0]['client_id']));
+    //     // echo '<pre>';
+    //     // print_r($data);
+    //     // die;
+    //     $process = json_decode($data[0]['processes'], true);
+
+    //     // print_r($process);
+    //     // die;
+    //     $p_data = [];
+    //     foreach ($process as $process_id => $sub_processes) {
+    //         //echo $process_id;
+    //         $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
+    //         $p_data[$process_id] = $process_data[0];
+    //         $sp_data = [];
+    //         foreach ($sub_processes as $sub_processe) {
+    //             // print_r($sub_processe);die;
+    //             $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_processe, 'process_id' => $process_id));
+    //             $sp_data[$sub_processe] = $sprocess_data[0];
+    //             // echo $sub_processe;
+    //         }
+    //         $p_data[$process_id]['sub_process_data'] = $sp_data;
+    //     }
+    //     // echo '<pre>';
+    //     // print_r($p_data);die;
+    //     // $upload_files = json_encode($p_data, true);
+    //     $p_data['p_data'] = $p_data;
+    //     $p_data['work_order'] = $id;
+    //     $p_data['clientName'] = $clientID[0]['client_name'];
+    //     $p_data['workOrdername'] = $data[0]['work_order_name'];
+    //     // echo $data = json_encode($p_data, true);
+    //     $this->load->view('layout/header');
+    //     $this->load->view('manager/manager-sidebar');
+    //     $this->load->view('manager/work-space-all-process', $p_data);
+    //     $this->load->view('layout/footer');
+    // }
+
+    // function to show all the process to manager
     public function workOrderprocess($id = null)
     {
         $id = base64_decode($id);
         // print_r($id);die;
-        $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
-        $clientID = $this->MainModel->selectAllFromWhere('client_details', array('client_id' => $data[0]['client_id']));
+        $data = $this->MainModel->getSelectedWorkorder($id);
+        $process = json_decode($data[0]['processes'], true);
+        $countSubprocess = 0;
+        $subProcessCount = [];
+        $totalWorkStep = 0;
+        $p_data = [];
         // echo '<pre>';
         // print_r($data);
-        // die;
-        $process = json_decode($data[0]['processes'], true);
-
-        // print_r($process);
-        // die;
-        $p_data = [];
         foreach ($process as $process_id => $sub_processes) {
-            //echo $process_id;
+            // echo $process_id;die;
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
             $p_data[$process_id] = $process_data[0];
             $sp_data = [];
-            foreach ($sub_processes as $sub_processe) {
-                // print_r($sub_processe);die;
-                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $sub_processe, 'process_id' => $process_id));
-                $sp_data[$sub_processe] = $sprocess_data[0];
-                // echo $sub_processe;
+            // print_r($sub_processes);die;
+            foreach ($sub_processes as $key => $subprocess_risk) {
+                // print_r($subprocess_risk);die;
+
+                $countSP = 0;
+
+                $sprocess_data = $this->MainModel->selectAllFromWhere('sub_process_master', array('sub_process_id' => $key, 'process_id' => $process_id));
+                $riskData = [];
+                $sprocess_data[0]['risk_data'] = $subprocess_risk;
+                if (!empty($subprocess_risk)) {
+                    foreach ($subprocess_risk as $key => $risk) {
+                        // print_r($risk);
+                        $controls = $this->MainModel->selectAllFromWhere('control_master', array('risk_id' => $risk['risk_id']));
+                        // $riskData[$key] = $con4trols; 
+                        // print_r($controls);
+                        $sprocess_data[0]['risk_data'][$key]['control_data'] = $controls;
+
+                        foreach ($controls as $key1 => $workstep) {
+                            // print_r($workstep['control_id']);
+                            $worksteps = $this->MainModel->selectAllFromWhere('work_steps', array('control_id' => $workstep['control_id']));
+                            // echo '<pre>';
+                            //    print_r(count($worksteps));
+                            $countSubprocess += count($worksteps);
+                            $countSP += count($worksteps);
+
+                            $sprocess_data[0]['risk_data'][$key]['control_data'][$key1]['work_step'] = $worksteps;
+                        }
+                        //  $countSubprocess++;
+                    }
+
+                    // array_push($subProcessCount, $countSP);
+                    // echo $countSP.'<br>' ;
+                    $totalWorkStep += $countSP;
+                }
+                // $riskData = [];
+                //  $countSubprocess++;
+                // echo $countSP;
+                $sp_data[$key] = $sprocess_data[0];
             }
             $p_data[$process_id]['sub_process_data'] = $sp_data;
         }
-        // echo '<pre>';
-        // print_r($p_data);die;
+
+
+
         // $upload_files = json_encode($p_data, true);
-        $p_data['p_data'] = $p_data;
-        $p_data['work_order'] = $id;
-        $p_data['clientName'] = $clientID[0]['client_name'];
+
+        $p_data['work_order'] = $data[0]['work_order_id'];
         $p_data['workOrdername'] = $data[0]['work_order_name'];
+        $p_data['clientName'] = $data[0]['client_name'];
+        $p_data['p_data'] = $p_data;
+        $p_data['totalWorkStep'] = $totalWorkStep;
+
+        // echo '<pre>';
+        // print_r($p_data); die;
         // echo $data = json_encode($p_data, true);
         $this->load->view('layout/header');
         $this->load->view('manager/manager-sidebar');
-        $this->load->view('manager/work-space-all-process', $p_data);
+        $this->load->view('manager/work-space-all-process-demo', $p_data);
         $this->load->view('layout/footer');
     }
+
+
+
+
+
 
     public function updateWorkSteps($var = null)
     {
@@ -737,12 +844,12 @@ class Auditapp extends CI_Controller
 
     public function getSavedWorkSteps()
     {
-        $workOrderId = $_GET['workOrderId']['id'];
-        $controlId = $_GET['controlid'];
+        $workOrderId = $_GET['workOrderId'];
+        // $controlId = $_GET['controlid'];
 
         $condition = array(
             'work_order_id' => $workOrderId,
-            'control_id' => $controlId
+            // 'control_id' => $controlId
         );
         $dbresult = $this->MainModel->selectAllFromWhere('complete_work_steps', $condition);
         if (!empty($dbresult)) {

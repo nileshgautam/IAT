@@ -65,7 +65,6 @@ print_r($completeSteps)?> -->
                                         <th class="border-0">Clinets</th>
                                         <th class="border-0">Work orders</th>
                                         <th class="border-0">Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
