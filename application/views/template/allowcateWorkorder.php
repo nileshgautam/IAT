@@ -27,10 +27,11 @@
                 <div class="form-group col-md-6">
                     <label for="select-client"> Select Client</label> &nbsp;<label for="message" id=message></label>
                     <select id="select-client" class="form-control">
-                        <option value="">Select client</option>
+                        <!-- <option>Select client</option> -->
                         <?php if (!empty($client)) {
                             foreach ($client as $clients) { ?>
-                                <option value="<?php echo (isset($clientid)) ? $clientid :  $clients['client_id']; ?>"
+                                <option value="<?php echo (isset($clientid)) ?   $clientid :  $clients['client_id']; ?>"
+
 <?php if (!empty($clientid)) {
 echo ($clientid ==  $clients['client_id']) ? ' selected="selected"' : ''; } ?>>
 <?php echo $clients['client_name'] ?>

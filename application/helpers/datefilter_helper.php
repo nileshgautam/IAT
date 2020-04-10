@@ -27,7 +27,7 @@ function ddmmyy($date)
 //  change date format MMDDYY to YYMMDD
 function yymmdd($date)
 {
-    $date = explode("-", $date);
+    $date = explode("/", $date);
     // print_r($date);die;
     $dd = $date[0];
     $mm = $date[1];

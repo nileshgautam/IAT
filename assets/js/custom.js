@@ -297,10 +297,9 @@ $(function () {
 
 
 // function to move assignment page
-
-
-
 $(function () {
+
+
     let data = $('#table-process').attr('process-data');
     let workstepTablebody = $('#process-body');
     let workorderId = $('#table-process').attr('work-order-id');
@@ -320,10 +319,11 @@ $(function () {
                 url: baseUrl + 'Auditapp/getSavedWorkSteps',
                 success: function (response) {
                     let rows = JSON.parse(response);
-                    if (rows.empty != 'false') {
+                    // console.log(rows);
+                    if (rows.responase != 'false') {
+                        totalRows =  JSON.parse(rows.saved_data);
 
-                        totalRows = JSON.parse(rows.saved_data);
-                        // console.log(totalRows);
+                        console.log(totalRows);
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
                         loadTable(totalRows);
                     } else {
@@ -336,8 +336,6 @@ $(function () {
             });
         }
         else {
-            removeData('rowData');
-            localStorage.setItem('rowData', JSON.stringify(serverResponce));
             totalRows = JSON.parse(localStorage.getItem('rowData'));
             loadTable(totalRows);
         }
@@ -346,30 +344,27 @@ $(function () {
     function loadTable(list) {
         let len = list.length;
         // let Sr = 1;
-
-        console.log(list);
-
-
+        // console.log(list);
         workstepTablebody.empty();
         for (let i = 0; i < len; i++) {
             let row = $(` <tr>
                     <td class="content">${list[i].count}</td>
-                    <td>${list[i].processName}</td>
-                    <td>${list[i].subprocess_name}</td>
-                    <td>${list[i].riskName}</td>
+                    <td style="width:100px">${list[i].processName}</td>
+                    <td style="width:376px">${list[i].subprocess_name}</td>
+                    <td style="width:414px">${list[i].riskName}</td>
                     <td>${list[i].risklevel}</td>
-                    <td>${list[i].controlName}</td>
+                    <td  style="width:363px">${list[i].controlName}</td>
                     <td>${list[i].controlobject}</td>
                     <td class="content">${list[i].workstep_name}</td>
                     <td contenteditable="true" class="observations">${list[i].observations}</td>
                     <td contenteditable="true" class="root-cause">${list[i].root_cause}</td>
                     <td contenteditable="true" class="recommendation">${list[i].recommendation}</td>
                     <td contenteditable="true" class="management-action-plan">${list[i].management_action_plan}</td>
-                    <td>     <input id="datepicker" class="timeline-for-action-plan" width="276" value="${list[i].timeline_for_action_plan}"/> </td>
+                    <td class="date" style="width:181px"> <input class="timeline-for-action-plan"  value="${list[i].timeline_for_action_plan}"/> </td>
                     <td contenteditable="true" class="responsibility-for-implementation">${list[i].responsibility_for_implementation}</td>
                     <td class="files">${list[i].files}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-light uploadfile" data-toggle="modal" data-target="#viewModalCenter" data-control-id='${list[i].count}'> 
+                    <td style="width:38px">
+                        <button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].count}'> 
                         <i class="fa fa-upload"></i>
                         </button>
                     </td>
@@ -377,40 +372,43 @@ $(function () {
 
 
 
+
             // appending rows 
             workstepTablebody.append(row);
             let uploadFile = row.find('.uploadfile');
-            uploadFile.data("id", list[i].row_id);
+            uploadFile.data("id", list[i].count);
             uploadFile.click(uploadFileKey);
 
 
             let observationsText = row.find('.observations');
-            observationsText.data("id", list[i].row_id);
+            observationsText.data("id", list[i].count);
             observationsText.data("item_key", 'observations');
             observationsText.keyup(cellKeyUP);
 
             let rootCause = row.find('.root-cause');
-            rootCause.data("id", list[i].row_id);
+            rootCause.data("id", list[i].count);
             rootCause.data("item_key", 'root_cause');
             rootCause.keyup(cellKeyUP);
 
             let recommendation = row.find('.recommendation');
-            recommendation.data("id", list[i].row_id);
+            recommendation.data("id", list[i].count);
             recommendation.data("item_key", 'recommendation');
             recommendation.keyup(cellKeyUP);
 
             let managementActionPlan = row.find('.management-action-plan');
-            managementActionPlan.data("id", list[i].row_id);
+            managementActionPlan.data("id", list[i].count);
             managementActionPlan.data("item_key", 'management_action_plan');
             managementActionPlan.keyup(cellKeyUP);
 
             let timelineForactionplan = row.find('.timeline-for-action-plan');
-            timelineForactionplan.data("id", list[i].row_id);
+            timelineForactionplan.data("id", list[i].count);
             timelineForactionplan.data("item_key", 'timeline_for_action_plan');
             timelineForactionplan.blur(onChange);
+            timelineForactionplan.datepicker({format: 'dd/mm/yyyy'
+            });
 
             let responsibilityForImplementation = row.find('.responsibility-for-implementation');
-            responsibilityForImplementation.data("id", list[i].row_id);
+            responsibilityForImplementation.data("id", list[i].count);
             responsibilityForImplementation.data("item_key", 'responsibility_for_implementation');
             responsibilityForImplementation.keyup(cellKeyUP);
 
@@ -418,11 +416,13 @@ $(function () {
     }
 
 
+
+
     function cellKeyUP() {
         let cellData = $(this);
         let Id = cellData.data('id');
         let item_key = cellData.data('item_key');
-        let item = totalRows.find((item) => item.row_id == Id);
+        let item = totalRows.find((item) => item.count == Id);
         // console.log(totalRows);
         // console.log(Id);
         // console.log(item_key);
@@ -434,7 +434,7 @@ $(function () {
         let cellData = $(this);
         let item_key = cellData.data('item_key');
         let cellData_id = cellData.data('id');
-        let item = totalRows.find((item) => item.row_id == cellData_id);
+        let item = totalRows.find((item) => item.count == cellData_id);
         item[item_key] = cellData.val();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
@@ -446,134 +446,94 @@ $(function () {
     }
 
 
+    $('.setdata').click(function () {
+        let rowsNo = $(this).attr('data-row-id');
+        $('#row-id').val(rowsNo);
+    })
 
-
-});
-
-
-
-
-
-
-
-
-
-
-// function to save data into the database
-$('.save-work-step').on('click', function () {
-
-    // console.log(totalRows);
-
-
-    let Check = hasData('rowData');
-    if (Check == true) {
-        tableData = retriveData('rowData');
-
-        let workstepData = JSON.parse(tableData);
-        console.log(workstepData[0].observations);
-
-        let data = {
-            workOrderId: workOrderId,
-            processid: processid,
-            subprocessid: subprocessid,
-            riskid: riskid,
-            controlid: controlid,
-            workstepData: workstepData
+    // uploadfile
+    $('#uploadfiles').submit(function (e) {
+        e.preventDefault();
+        let error = false;
+        let files = $('#files').val();
+        if (files == '') {
+            error = true;
+            showAlert('Please select file', 'danger');
         }
-
-        if (workstepData[0].observations) {
+        // alert(files);
+        if (error != true) {
+            let form_data = new FormData(this);
+            let workOrderId = $('#workorder-id').val();
+            let workstepId = $('#worksteps-id').val();
+            form_data.append("workOrderId", workOrderId);
+            form_data.append("workstepId", workstepId);
             $.ajax({
-                type: 'POST',
-                data: data,
-                url: baseUrl + 'Auditapp/commitWorkSteps',
-                success: function (response) {
-                    let message = JSON.parse(response);
-                    showAlert(message['message'], message['type']);
-                    removeData('rowData');
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+                method: "POST",
+                url: baseUrl + "Upload_files/Upload_file",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    // console.log(data);
+                    let message = JSON.parse(data);
+                    if (message['files'] != '') {
+                        let filesData = message['files'];
+                        let rowID = $('#row-id').val();
+                        // console.log()
+                        let items = totalRows.find((item) => item.count == rowID);
+                        items['files'] = filesData[0]['file_name'];
+                        localStorage.setItem('rowData', JSON.stringify(totalRows));
+
+                        let path = `<div><a href="${baseUrl + 'upload/files/' + filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
+                        $('#uploaded_files').append(path);
+                        showAlert(message['msg'], message['type']);
+                    }
+
                 }
             });
-
-        } else {
-            showAlert('Please Fill data First', 'warning');
         }
-    }
-});
 
-// uploadfile
-$('#uploadfiles').submit(function (e) {
-    e.preventDefault();
-    let error = false;
-    let files = $('#files').val();
+    });
 
-    if (files == '') {
-        error = true;
-        showAlert('Please select file', 'danger');
-    }
-    // alert(files);
-    if (error != true) {
-        let form_data = new FormData(this);
-        let workOrderId = $('#workorder-id').val();
-        let workstepId = $('#worksteps-id').val();
-        form_data.append("workOrderId", workOrderId);
-        form_data.append("workstepId", workstepId);
-        $.ajax({
-            method: "POST",
-            url: baseUrl + "Upload_files/Upload_file",
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                // console.log(data);
-                let message = JSON.parse(data);
-                if (message['files'] != '') {
-                    let filesData = message['files'];
-                    let rowID = $('#row-id').val();
-                    // console.log()
 
-                    let items = totalRows.find((item) => item.row_id == rowID);
-                    items['files'] = filesData[0]['file_name'];
-                    localStorage.setItem('rowData', JSON.stringify(totalRows));
-                    let path = `<div><a href="${baseUrl + 'upload/files/' + filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
-                    $('#uploaded_files').append(path);
-                    showAlert(message['msg'], message['type']);
-                }
+    // function to save data into the database
+    $('.save-work-step').on('click', function () {
+        // console.log(totalRows);
+        let Check = hasData('rowData');
+        if (Check == true) {
+            tableData = retriveData('rowData');
 
+            let workstepData = JSON.parse(tableData);
+            console.log(workstepData);
+
+            let data = {
+                workOrderId: workorderId,
+                workstepData:workstepData
             }
-        });
-    }
+
+            if (workstepData[0].observations!='') {
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: baseUrl + 'Auditapp/commitWorkSteps',
+                    success: function (response) {
+                        let message = JSON.parse(response);
+                        showAlert(message['message'], message['type']);
+                        removeData('rowData');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    }
+                });
+
+            } else {
+                showAlert('Please Fill data First', 'warning');
+            }
+        }
+    });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function for local Storage
 
 // Local storage function
 function retriveData(FILE_KEY) {
@@ -586,7 +546,6 @@ function hasData(FILE_KEY) {
     return localStorage.hasOwnProperty(FILE_KEY) ? true : false;
     // localStorage 
 }
-
 function removeData(FILE_KEY) {
     localStorage.removeItem(FILE_KEY);
     // localStorage 

@@ -25,7 +25,7 @@
                              <li class="connection-list">
                                  <div class="row">
                                      <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12 ">
-                                         <a  title="Assigned task" href="<?php echo base_url('Auditapp/assignedTask') ?>"" class=" connection-item">
+                                         <a  title="Assigned task" href="<?php echo base_url('Auditapp/assignedTask') ?>" class=" connection-item">
                                              <i class="fa fa-fw fa-tasks"></i> <span>Assigned task</span></a>
                                      </div>
 
@@ -44,7 +44,7 @@
                              </div>
                              <!-- <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a> -->
-                             <a class="dropdown-item" href="<?php echo base_url('Login/logout') ?>"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                             <a class="dropdown-item" href="<?php echo base_url('Login/logout') ?>"><i class="fas fa-power-off mr-2 restore-work-steps"></i>Logout</a>
                          </div>
                      </li>
                  </ul>

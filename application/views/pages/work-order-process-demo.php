@@ -72,26 +72,30 @@ if (!empty($p_data)) {
         <!-- <?php
                 echo '<pre>';
                 print_r($p_data); ?> -->
-        <div class="card p-2">
-            <table class="table table-bordered display " id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
+
+
+
+<!-- <div> <input type="text" class="datepicker"></div> -->
+        <div class="card table-responsive">
+            <table class="table table-bordered  " id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
                 <thead class="bg-light">
                     <tr>
                         <th>#</th>
-                        <th>Process</th>
-                        <th >Subprocess</th>
-                        <th style="width:360px">Risk</th>
-                        <th>Risk level</th>
-                        <th style="width:360px">Controls</th>
-                        <th style="width:360px">Objective</th>
-                        <th style="width:360px">Work Steps</th>
-                        <th style="width:360px">Observations</th>
-                        <th style="width:360px">Root cause</th>
-                        <th style="width:360px">Recommendation</th>
-                        <th style="width:360px">Management Action plan</th>
-                        <th>Timeline for action plan</th>
-                        <th>Responsibility for implementation</th>
-                        <th>Files</th>
-                        <th>Action</th>
+                        <th style="width:100px">Process</th>
+                        <th style="width:376px">Subprocess</th>
+                        <th style="width:376px">Risk</th>
+                        <th style="width:100px">Risk level</th>
+                        <th style="width:350px">Controls</th>
+                        <th style="width:350px" >Objective</th>
+                        <th style="width:350px">Work Steps</th>
+                        <th style="width:350px">Observations</th>
+                        <th style="width:350px">Root cause</th>
+                        <th style="width:350px">Recommendation</th>
+                        <th style="width:350px">Management Action plan</th>
+                        <th style="width:181px">Timeline for action plan</th>
+                        <th style="width:100px">Responsibility for implementation</th>
+                        <th style="width:100px">Files</th>
+                        <th style="width:38px">Action</th>
                     </tr>
                 </thead>
 
@@ -104,19 +108,41 @@ if (!empty($p_data)) {
     </div>
 </div>
 
+<!-- upload file model -->
+
+<div class="modal fade" id="viewModalCenter" tabindex="-1" role="dialog" aria-labelledby="viewModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body bg-gray">
+                    <form method="POST" id="uploadfiles" enctype="multipart/form-data">
+                        <div class="from-group">
+                            <label for="files">Choose a file:</label>
+                            <input type="file" id="files" name="files" class="form-control">
+                            <input type="hidden" id="row-id" name="row-id">
+                        </div>
+                        <div id="">
+                        </div>uploaded_files
+                        <div class="form-group float-right">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
 
 $(function () {
     $('#table-process').DataTable({
         "scrollX": true,
-        "scrollY": true,
         scrollY: '50vh',
         scrollCollapse: true,
         paging: false
     });
 
-    $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
+
+
 });
 </script>

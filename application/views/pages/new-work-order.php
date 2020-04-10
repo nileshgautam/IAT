@@ -5,17 +5,8 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="">
                     <h3 class="mb-2">New work order</h3> <a style="margin: -45px 20px;
-" class="btn btn-rounded btn-danger float-right" href="<?php echo base_url('dashboard') ?>">Exit</a>
-                    <!-- <a href="#" class="btn btn-rounded btn-danger">Danger</a> -->
-                    <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
-                    <div class="page-breadcrumb float-right">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Work order</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">New</a></li>
-                            </ol>
-                        </nav>
-                    </div>
+" class="btn btn-danger float-right" href="<?php echo base_url('dashboard') ?>">Exit</a>
+                   <hr class="divider"> 
                 </div>
             </div>
         </div>
@@ -74,8 +65,19 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
+                    <div class="form-group col-md-8">
+                    <label for="">Date (start and end date)</label>
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" id="start-date" placeholder="Start date" set-date-format="dd/mm/yyyy" class="input-sm form-control" name="start" />
+                           
+                            <input type="text" id="end-date" placeholder="End date" class="input-sm form-control" name="end" />
+                        </div>
+                    </div>
+                    </div>
+                   
+
+                    <!-- <div class="row">
                         <div class="col-md-4">
                             <label for="date"> Set Date</label>
 
@@ -95,14 +97,14 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label for="">Target Date</label>
+                           <label for="">Target Date</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id='end-date' name="end-date" readonly />
                             </div>
                         </div>
 
 
-                    </div>
+                    </div> -->
 
                     <hr>
                     <div class="row my-2">
@@ -142,15 +144,10 @@
                                                         <!-- <div class="card"> -->
                                                         <!-- <h5 class="card-header"> -->
                                                         <div class="">
-                                                            <label> 
-                                                                
-                                                            <input type="checkbox" name="subprocess" 
-                                                            data-risk-id='<?php echo json_encode($risks)?>' 
+                                                            <label>
 
-                                                            data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" 
-                                                            data-process-id="<?php echo $sbprocess['process_id'] ?>" 
-                                                            class="sub_process">&nbsp;&nbsp;&nbsp;
-                                                            <?php echo $sbprocess['sub_process_description']; ?></label>
+                                                                <input type="checkbox" name="subprocess" data-risk-id='<?php echo json_encode($risks) ?>' data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;
+                                                                <?php echo $sbprocess['sub_process_description']; ?></label>
                                                         </div>
                                                         </h5>
                                                         <div class="card-body">
@@ -176,14 +173,10 @@
                                                                             <tr>
                                                                                 <td><?php echo $risk_count++ . ' : ' . $risk['risk_description'] ?></td>
                                                                                 <td>
-                                                                                    <select data-risk-id='<?php echo $risk['risk_id'] ?>'
-                                                                                    class="set-risk-level" data-risk-subprocess-id="<?php echo $sbprocess['sub_process_id'] ?>" 
+                                                                                    <select data-risk-id='<?php echo $risk['risk_id'] ?>' class="set-risk-level" data-risk-subprocess-id="<?php echo $sbprocess['sub_process_id'] ?>" <?php foreach ($risks_level as $rl) { ?>>
 
-                                                                                    <?php foreach ($risks_level as $rl) { ?>>
-                                                                                        
-                                                                                        <option value="<?php echo $rl['status'] ?>" 
-                                                                                        <?php echo ($risk['risk_level'] == $rl['status']) ? 'selected' : '' ?>>
-                                                                                        <?php echo $rl['status']; ?></option>
+                                                                                        <option value="<?php echo $rl['status'] ?>" <?php echo ($risk['risk_level'] == $rl['status']) ? 'selected' : '' ?>>
+                                                                                            <?php echo $rl['status']; ?></option>
                                                                                     <?php } ?>
                                                                                     </select></td>
 
@@ -211,7 +204,7 @@
                     </div>
 
                     <div style="display:flex; justify-content: center; padding:5px 5px;">
-                        <button class="btn btn-rounded btn-primary submit-services">Apply</button>
+                        <button class="btn  btn-success submit-services">Apply</button>
                     </div>
 
                 </div>
@@ -235,21 +228,25 @@
         return today;
     }
 
-
-
-    $(function() {
-        $('#start-date').val(today);
-        $('#end-date').val(today);
-        $('#date').daterangepicker({
-            opens: 'left'
-        }, function(start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-            const start_date = start.format('DD-MM-YYYY');
-            const end_date = end.format('DD-MM-YYYY');
-            $('#start-date').val(start_date);
-            $('#end-date').val(end_date);
-        });
-
+    $('.input-daterange').datepicker({
+        format: 'dd/mm/yyyy'
     });
+
+
+    
+    // $(function() {
+    //     $('#start-date').val(today);
+    //     $('#end-date').val(today);
+    //     $('#date').daterangepicker({
+    //         opens: 'left'
+    //     }, function(start, end, label) {
+    //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    //         const start_date = start.format('DD-MM-YYYY');
+    //         const end_date = end.format('DD-MM-YYYY');
+    //         $('#start-date').val(start_date);
+    //         $('#end-date').val(end_date);
+    //     });
+
+    // });
 </script>
 <!-- ============================================================== -->

@@ -178,6 +178,7 @@ $('.submit-services').on('click', function () {
     let startDate = $('#start-date').val().trim();
     let endDate = $('#end-date').val().trim();
     let error = false;
+    console.log(`start date ${startDate} nd date ${endDate}`);
 
     if (clientId == "") {
         $('#messageclient').html(message)
@@ -191,6 +192,10 @@ $('.submit-services').on('click', function () {
         $('#textWork-Order-Name').focus();
         error = true;
     } 
+    if(startDate==''){
+        $('#start-date').focus();
+        error =true;
+    }
     if (Object.keys(process).length == 0) {
         showAlert('Please choose process first', "warning");
         error = true;
@@ -214,7 +219,7 @@ $('.submit-services').on('click', function () {
                 let resonce = JSON.parse(data);
                 showAlert(resonce.msg, "success");
                 setTimeout(() => {
-                    window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + resonce.client_id;
+                    window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id);
                 }, 1000);
             }
 
@@ -338,9 +343,7 @@ $('.work-orders').on('click', function (e) {
                 // document.write(process.id + "<br >");
             }
             $('#process').html(html);
-
         }
-
     });
 
 });
@@ -450,7 +453,7 @@ $('#select-client').on('change', function () {
     let error = false;
     let clientId = $(this).val();
 
-    // console.log(clientId);
+    console.log(clientId);
 
     if (clientId == "") {
         $('#message').html('Client Required');
@@ -459,6 +462,7 @@ $('#select-client').on('change', function () {
     else {
         $('#message').empty();
     }
+    // let id=(clientId)
     let form_data = { id: clientId };
 
     if (!error) {
@@ -573,6 +577,7 @@ $(document).ready(() => {
                         showAlert(responce['msg'], responce['type']);
                     }
                     else if (responce.status == 'Y') {
+                        showAlert(responce['msg'], responce['type']);
                         $('#assigned-users').css('display', 'block');
                         $('#assigned_user').append(html);
                         $(this).parent().parent().remove();
@@ -585,21 +590,21 @@ $(document).ready(() => {
         }
     });
 
-    // save  worksteps 
-    $('.save-work-steps').click(function () {
-        let workstepsStatus = $(this).attr('data-checkbox-name');
-        let workstepsid = $(this).attr('data-work-step-id');
-        let workOrderId = $(this).attr('data-workorder-id');
-        let checkValue = $(`input[name=${workstepsStatus}]:checked`).val();
-        if (checkValue == undefined) {
-            alert('Tick box is required to check');
-        } else {
-            checkValue = 1;
-            $.post(baseUrl + "Auditapp/updateWorkSteps", { workstepsid: workstepsid, workOrderId: workOrderId, checkValue: checkValue }, function (data, status) {
-                // console.log(data);
-            });
-        }
-    });
+    // // save  worksteps 
+    // $('.save-work-steps').click(function () {
+    //     let workstepsStatus = $(this).attr('data-checkbox-name');
+    //     let workstepsid = $(this).attr('data-work-step-id');
+    //     let workOrderId = $(this).attr('data-workorder-id');
+    //     let checkValue = $(`input[name=${workstepsStatus}]:checked`).val();
+    //     if (checkValue == undefined) {
+    //         alert('Tick box is required to check');
+    //     } else {
+    //         checkValue = 1;
+    //         $.post(baseUrl + "Auditapp/updateWorkSteps", { workstepsid: workstepsid, workOrderId: workOrderId, checkValue: checkValue }, function (data, status) {
+    //             // console.log(data);
+    //         });
+    //     }
+    // });
 
 });
 

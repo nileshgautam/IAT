@@ -567,7 +567,7 @@ class Auditapp extends CI_Controller
     public function workorders()
     {
         //    print_r($_POST);die;
-           $id=base64_decode($_POST['id']);
+        $id = base64_decode($_POST['id']);
         $data = $this->MainModel->selectAllFromWhere('work_order', array('client_id' => $id));
         // print_r($data);die;
         $data = json_encode($data, true);
@@ -803,27 +803,28 @@ class Auditapp extends CI_Controller
     public function commitWorkSteps()
     {
         //    echo '<pre>';
-        //     // print_r($_POST);die;
+        //     print_r($_POST);die;
         if (!empty($_POST)) {
-            $workOrderId = $_POST['workOrderId']['id'];
+            $workOrderId = $_POST['workOrderId'];
             $saveData = $_POST['workstepData'];
             $data = array(
-                'complete_work_steps_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
+                'complete_workorder_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
                 'work_order_id' => $workOrderId,
-                'process_id' => $this->input->post('processid'),
-                'sub_process_id' => $this->input->post('subprocessid'),
-                'risk_id' => $this->input->post('riskid'),
-                'control_id' => $this->input->post('controlid'),
                 'saved_data' => json_encode($saveData, true)
             );
 
             // print_r($data);die;
-            $response = $this->MainModel->selectAllFromWhere('complete_work_steps', array('work_order_id' => $_POST['workOrderId']['id'], 'control_id' => $this->input->post('controlid')));
+            $response = $this->MainModel->selectAllFromWhere('complete_work_steps', array('work_order_id' => $workOrderId,));
             if (!empty($response)) {
                 $data = array(
                     'saved_data' => json_encode($saveData, true)
                 );
-                $result = $this->MainModel->update_table('complete_work_steps', array('work_order_id' => $_POST['workOrderId']['id'], 'control_id' => $this->input->post('controlid')), $data);
+                $result = $this->MainModel->update_table(
+                    'complete_work_steps',
+                    array('work_order_id' => $workOrderId),
+                    $data
+                );
+
                 if (!empty($result)) {
                     echo $responce = json_encode(array('message' => 'successfuly updated...', 'type' => 'success'), true);
                 } else {
@@ -845,19 +846,19 @@ class Auditapp extends CI_Controller
     public function getSavedWorkSteps()
     {
         $workOrderId = $_GET['workOrderId'];
-        // $controlId = $_GET['controlid'];
 
+        // print_r($_GET['workOrderId']);
+        // die;
         $condition = array(
             'work_order_id' => $workOrderId,
-            // 'control_id' => $controlId
         );
         $dbresult = $this->MainModel->selectAllFromWhere('complete_work_steps', $condition);
+        // print_r($dbresult);
+        // die;
         if (!empty($dbresult)) {
             echo json_encode($dbresult[0]);
         } else {
-            echo json_encode(array('empty' => 'false'));
+            echo json_encode(array('responase' => 'false'));
         }
-
-        // die;
     }
 }
