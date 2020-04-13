@@ -3205,6 +3205,7 @@ btn-link
 
 .card {
     margin-bottom: 30px;
+    margin-top: 26px;
     border: none;
     -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);

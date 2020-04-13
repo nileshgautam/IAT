@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Total Clients</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo  !empty($clients[0]['total'])?$clients[0]['total']:'0' ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo  !empty($allclients)? count($allclients):'0' ?></h1>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Total Work Orders</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo !empty($workorders[0]['total'])?$workorders[0]['total']:'0' ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo !empty($workOrder)? count($workOrder):'0' ?></h1>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <h5 class="text-muted">Users</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1 text-primary"><?php echo (!empty($users[0]['total']))?$users[0]['total']:'0' ?></h1>
+                                <h1 class="mb-1 text-primary"><?php echo (!empty($Users))?count($Users):'0'?></h1>
                             </div>
                         </div>
                     </div>

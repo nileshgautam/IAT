@@ -13,14 +13,14 @@
              </button>
              <div class="collapse navbar-collapse " id="navbarSupportedContent">
                  <ul class="navbar-nav ml-auto navbar-right-top">
-                 <li class="nav-item active">
+                     <li class="nav-item active">
                          <a class="nav-link" title="dashboard" href="<?php echo base_url('dashboard') ?>">
                              <i class="fa fa-fw fa-home text-white"></i><span class="text-white"> Dashboard</span></a>
                      </li>
                      <li class="nav-item dropdown connection">
-                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th text-white"></i> 
-                         <span class="text-white">Menus</span> 
-                        </a>
+                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th text-white"></i>
+                             <span class="text-white">Menus</span>
+                         </a>
                          <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
                              <li class="connection-list">
                                  <span>Clients</span>
@@ -91,6 +91,7 @@
              </div>
          </nav>
      </div>
+ </div>
      <!-- ============================================================== -->
      <!-- end navbar -->
      <!-- ============================================================== -->

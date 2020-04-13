@@ -13,26 +13,12 @@ class ControlUnit extends CI_Controller
 			redirect('Login/index');
 		}
 	}
-
-	// public function index()
-	// {
-	// 	//$this->load->view('pages/login');
-
-	// 	$this->load->view('layout/header');
-	// 	$this->load->view('layout/sidebar');
-	// 	$this->load->view('dashboard');
-	// 	$this->load->view('layout/footer');
-	// }
-
 	// admin dashboard
 	public function dashboard()
 	{
-		$data['clients'] = $this->MainModel->count('client_details');
-		$data['users'] = $this->MainModel->count('users');
-		$data['workorders'] = $this->MainModel->count('work_order');
 		$data['allclients'] = $this->MainModel->selectAll('client_details');
 		$data['workOrder'] = $this->MainModel->selectAllworkOrder();
-		$data['Users'] = $this->MainModel->selectAll('users');
+		$data['Users'] = $this->MainModel->getallusers();
 		// print_r($data);die;
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
@@ -93,23 +79,23 @@ class ControlUnit extends CI_Controller
 	public function manager()
 	{
 
-		$data['workOrder'] = $this->MainModel->CompleteWorkorder();
+		// $data['workOrder'] = $this->MainModel->CompleteWorkorder();
 		$data['workOrders'] = $this->MainModel->selectAllworkOrder();
-		$data['completeSteps'] = $this->MainModel->CompleteWorkstepsByworkorders();
+		// $data['completeSteps'] = $this->MainModel->CompleteWorkstepsByworkorders();
 		$this->load->view('layout/header');
 		$this->load->view('manager/manager-sidebar');
 		$this->load->view('manager/manager-dashboard', $data);
 		$this->load->view('layout/footer');
 	}
 	// function to show list of all the existing clients from database to the manager menus
-	public function managerallClients()
-	{
-		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
-		$this->load->view('layout/header');
-		$this->load->view('manager/manager-sidebar');
-		$this->load->view('pages/all-clients-manager', $data);
-		$this->load->view('layout/footer');
-	}
+	// public function managerallClients()
+	// {
+	// 	$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
+	// 	$this->load->view('layout/header');
+	// 	$this->load->view('manager/manager-sidebar');
+	// 	$this->load->view('pages/all-clients-manager', $data);
+	// 	$this->load->view('layout/footer');
+	// }
 	// function to show list of all the workorders, on manager screen
 	public function managerAllWorkOrder()
 	{

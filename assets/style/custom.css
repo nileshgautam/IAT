@@ -11,4 +11,6 @@ tr.shown td.details-control {
     background: url('../images/details_close.png') no-repeat center center;
 }
 
-
+.chart{
+width: 100vw;
+}

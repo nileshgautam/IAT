@@ -1,5 +1,5 @@
 
-// start country
+// select all the  country
 $("#country").change(function () {
     let ustate = $(this).attr('data-state');
     let state = $(this).attr('data-state');
@@ -41,9 +41,7 @@ $("#country").change(function () {
     });
     // alert(id);
 });
-
-// 
-
+// select all the  state
 $("#state").change(function () {
     let state = $(this).attr('data-state');
     let id = $(this).children("option:selected").attr('id');
@@ -74,7 +72,7 @@ $("#state").change(function () {
     });
     // alert(id);
 });
-
+// for auto triger
 $("#country").change();
 $("#state").change();
 
@@ -102,7 +100,6 @@ function populate_cities(obj) {
 
 // end coutnry data
 $('#client').change(function () {
-
     let client = $(this).children("option:selected").attr('data');
     $('#company-id').val(client);
 });
@@ -226,9 +223,6 @@ $('.submit-services').on('click', function () {
         });
     }
 });
-
-
-
 // Date formate function YYMMDD to DDMMYY
 dateFormatDDMMYY = (date) => {
     let year = date.slice(0, 4);
@@ -239,67 +233,67 @@ dateFormatDDMMYY = (date) => {
 }
 
 // function to show uploaded files in mandatory
-$('.view-file').click(function () {
-    // e.preventDefault();
-    let workid = $(this).attr('data-work-order-id');
-    let workstepsid = $(this).attr('data-work-step-id');
-    let form_data = new FormData();
-    let html = '';
+// $('.view-file').click(function () {
+//     // e.preventDefault();
+//     let workid = $(this).attr('data-work-order-id');
+//     let workstepsid = $(this).attr('data-work-step-id');
+//     let form_data = new FormData();
+//     let html = '';
 
-    form_data.append('workid', workid);
-    form_data.append('workstepsid', workstepsid);
-    $('#view-file-data').append('');
+//     form_data.append('workid', workid);
+//     form_data.append('workstepsid', workstepsid);
+//     $('#view-file-data').append('');
 
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + '/Auditapp/viewFiles',
-        data: form_data,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data, success) {
-            $('#view-file-data').empty();
-            let fileData = JSON.parse(data);
-            // console.log(fileData);
-            html += `<table class="table">
-                <thead>
-                    <tr>
-                        <th>File Name</th>
+//     $.ajax({
+//         type: 'POST',
+//         url: baseUrl + '/Auditapp/viewFiles',
+//         data: form_data,
+//         contentType: false,
+//         cache: false,
+//         processData: false,
+//         success: function (data, success) {
+//             $('#view-file-data').empty();
+//             let fileData = JSON.parse(data);
+//             // console.log(fileData);
+//             html += `<table class="table">
+//                 <thead>
+//                     <tr>
+//                         <th>File Name</th>
                
-                        <th>Remarks</th>
-                        <th>Updated On</th>
-                    </tr>
-                </thead>
-                <tbody>`
-            for (const uploadfile of fileData) {
-                //    console.log(uploadfile.upload_time);
-                // let date = uploadfile.upload_time;
+//                         <th>Remarks</th>
+//                         <th>Updated On</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>`
+//             for (const uploadfile of fileData) {
+//                 //    console.log(uploadfile.upload_time);
+//                 // let date = uploadfile.upload_time;
 
-                // console.log(newdate);
-                //  console.log(month);
-                //  console.log(day);
+//                 // console.log(newdate);
+//                 //  console.log(month);
+//                 //  console.log(day);
 
 
-                html += `
-                <tr>
-            <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title == "" ? uploadfile.file_name : uploadfile.title} </a></td>
+//                 html += `
+//                 <tr>
+//             <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title == "" ? uploadfile.file_name : uploadfile.title} </a></td>
           
-            <td>${uploadfile.remarks}</td> 
+//             <td>${uploadfile.remarks}</td> 
 
-            <td>${dateFormatDDMMYY(uploadfile.upload_time)}</td>`
-            }
+//             <td>${dateFormatDDMMYY(uploadfile.upload_time)}</td>`
+//             }
 
-            html += `  
-             </tr>
-    </tbody></table>
-`
-            $('#view-file-data').html(html);
+//             html += `  
+//              </tr>
+//     </tbody></table>
+// `
+//             $('#view-file-data').html(html);
 
-        }
+//         }
 
-    });
-    // console.log(companyid);
-});
+//     });
+//     // console.log(companyid);
+// });
 
 // work-orders
 $('.work-orders').on('click', function (e) {
@@ -427,33 +421,23 @@ $('#upload-multiple-file').on('click', '.upload-data', function () {
 
 // show all the workorder by client
 function workOrderData(obj) {
-
     let html = '';
-    console.log(obj)
+    // console.log(obj)
     if (obj != '') {
-        console.log(obj)
+        // console.log(obj)
         for (let i = 0; i < obj.length; i++) {
             html += `<option value="${obj[i]['work_order_id']}">${obj[i]['work_order_name']}</option>`;
         }
         return html;
     }
-    // else {
-    //     html += `<option value="">NA</option>`;
-    //     return html;
-    // }
 }
 
-
-// $(function () {
-
-//     $('#work-order').html(`<option value="">Select client first</option>`);
-// });
 // loading all the workorder by selected client
 $('#select-client').on('change', function () {
     let error = false;
     let clientId = $(this).val();
 
-    console.log(clientId);
+    // console.log(clientId);
 
     if (clientId == "") {
         $('#message').html('Client Required');
@@ -640,8 +624,6 @@ $('.download-master').click(function () {
         window.location.href = data;
     });
 });
-
-
 
 //Save Work Steps Complete status
 $('#save_wSteps').click(() => {

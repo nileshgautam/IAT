@@ -45,11 +45,12 @@ $(function () {
                 else if (data.role == 'Team member') {
                     window.location.href = baseUrl + 'member';
                 }
+                else if (data.role == 'Team leader') {
+                    window.location.href = baseUrl + 'manager';
+                }
                 else if (data.role == 'Manager') {
                     window.location.href = baseUrl + 'manager';
                 }
-
-
                 else {
                     showAlert(data.msg, data.type);
                 }
@@ -58,53 +59,53 @@ $(function () {
     });
 });
 
-// 
-$(document).ready(() => {
-    let process = $('#progressVal').val();
-    let totalsteps = $('#totalsteps').val();
-    let completeSteps = $('#completeSteps').val();
-    let value;
+// $(document).ready(() => {
+//     let process = $('#progressVal').val();
+//     let totalsteps = $('#totalsteps').val();
+//     let completeSteps = $('#completeSteps').val();
+//     let value;
 
-    if (process != undefined || completeSteps != "" || + totalsteps != "") {
-        // console.log(process);
-        if (process != undefined) {
+//     if (process != undefined || completeSteps != "" || + totalsteps != "") {
+//         // console.log(process);
+//         if (process != undefined) {
 
 
-            let value = JSON.parse(process);
-            let totalSteps = JSON.parse(totalsteps);
-            let compSteps = JSON.parse(completeSteps);
+//             let value = JSON.parse(process);
+//             let totalSteps = JSON.parse(totalsteps);
+//             let compSteps = JSON.parse(completeSteps);
 
-            for (let i = 0; i < value.length; i++) {
-                $(`#process-progress${i}`).css('width', `${value[i]}%`);
-                $(`#complete-progress${i}`).text(`${value[i]}%`);
-            }
-            for (let j = 0; j < totalSteps.length; j++) {
-                $(`#total-steps${j}`).text(`${totalSteps[j]}`);
-            }
-            for (let k = 0; k < compSteps.length; k++) {
-                $(`#complete-steps${k}`).text(`${compSteps[k]}`);
-            }
-        }
-    }
-    // To calculate all the complete work steps
-    const totlaCard = $('.total-card').length;
-    const workOrderId = $('#work-orderid').val();
-    if (value != undefined) {
-        let completWorkorders = 0;
-        for (let progress = 0; progress < value.length; progress++) {
-            completWorkorders += parseInt(value[progress]);
-        }
-        // calculating values
-        let completeWorkOrder = completWorkorders / totlaCard;
-        $.post(baseUrl + "Auditapp/updateWorkorder", { workOrderId: workOrderId, completeWorkOrder: completeWorkOrder }, function (data, status) {
-        });
-        // console.log(completeWorkOrder);
-        // console.log(workOrderId);
-    }
-    // }
+//             for (let i = 0; i < value.length; i++) {
+//                 $(`#process-progress${i}`).css('width', `${value[i]}%`);
+//                 $(`#complete-progress${i}`).text(`${value[i]}%`);
+//             }
+//             for (let j = 0; j < totalSteps.length; j++) {
+//                 $(`#total-steps${j}`).text(`${totalSteps[j]}`);
+//             }
+//             for (let k = 0; k < compSteps.length; k++) {
+//                 $(`#complete-steps${k}`).text(`${compSteps[k]}`);
+//             }
+//         }
+//     }
+//     // To calculate all the complete work steps
+//     const totlaCard = $('.total-card').length;
+//     const workOrderId = $('#work-orderid').val();
+//     if (value != undefined) {
+//         let completWorkorders = 0;
+//         for (let progress = 0; progress < value.length; progress++) {
+//             completWorkorders += parseInt(value[progress]);
+//         }
+//         // calculating values
+//         let completeWorkOrder = completWorkorders / totlaCard;
+//         $.post(baseUrl + "Auditapp/updateWorkorder", { workOrderId: workOrderId, completeWorkOrder: completeWorkOrder }, function (data, status) {
+//         });
+//         // console.log(completeWorkOrder);
+//         // console.log(workOrderId);
+//     }
+//     // }
 
-});
-// function for client form
+// });
+
+// function for client form validation
 $(function () {
     var error = false;
     // function to validate mobile number
@@ -115,7 +116,7 @@ $(function () {
         let validate = validateMobileNumber(MOBILENUMBER);
         // console.log(validate);
         if (validate == false) {
-            $('#errormobile').text('Number should be 10 digits only.');
+            $('#errormobile').text('Enter valid mobile number, i.e.: 9999999999, It should be 10 digits only.');
             error = true;
         }
     });
@@ -140,8 +141,12 @@ $(function () {
         const EMAIL = $(this).val();
         let validate = validateEmail(EMAIL);
         if (validate == false) {
-            $('#errorEmail').text('invalid! email');
+            $('#errorEmail').text('Enter valid email id, i.e. example@example.example.');
             error = true;
+        }
+        else {
+            $('errorEmail').empty();
+            error = false;
         }
     });
 
@@ -177,7 +182,6 @@ $(function () {
                         setTimeout(() => {
                             window.location.href = baseUrl + data.path
                         }, 1000);
-
                 }
             });
         }
@@ -188,7 +192,8 @@ $(function () {
         }
     });
 });
-//funtion for users
+
+//funtion for user form validation
 
 $(function () {
     let error = false;
@@ -296,10 +301,8 @@ $(function () {
 
 
 
-// function to move assignment page
+// function to load workorder and list of all the selected process created admindata into  page
 $(function () {
-
-
     let data = $('#table-process').attr('process-data');
     let workstepTablebody = $('#process-body');
     let workorderId = $('#table-process').attr('work-order-id');
@@ -341,6 +344,7 @@ $(function () {
         }
 
     }
+    // function to generate table rows 
     function loadTable(list) {
         let len = list.length;
         // let Sr = 1;
@@ -414,9 +418,6 @@ $(function () {
 
         }
     }
-
-
-
 
     function cellKeyUP() {
         let cellData = $(this);
