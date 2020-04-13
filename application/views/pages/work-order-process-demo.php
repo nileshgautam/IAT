@@ -136,7 +136,6 @@ if (!empty($p_data)) {
 
 $(function () {
     $('#table-process').DataTable({
-        "scrollX": true,
         scrollY: '50vh',
         scrollCollapse: true,
         paging: false

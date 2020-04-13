@@ -543,7 +543,7 @@ $(document).ready(() => {
             error = true;
         }
         // let form_data = new FormData();
-        let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: clientId, workorderId: workorderId }
+        let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: atob(clientId), workorderId: workorderId }
 
 
 

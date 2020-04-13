@@ -14,7 +14,7 @@
                          <a class="nav-link" title="dashboard" href="<?php echo base_url('manager') ?>">
                              <i class="fa fa-fw fa-home text-white"></i><span class="text-white"> Dashboard</span></a>
                      </li>
-                     <li class="nav-item dropdown connection">
+                     <!-- <li class="nav-item dropdown connection">
                          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th text-white"></i>
                              <span class="text-white">Menus</span>
                          </a>
@@ -35,7 +35,7 @@
 
                              </li>
                          </ul>
-                     </li>
+                     </li> -->
 
                      <li class="nav-item dropdown nav-user">
                          <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>assets/images/icons/user.svg" alt="" class="user-avatar-md rounded-circle" width="25"></a>

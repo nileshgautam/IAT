@@ -20,9 +20,9 @@
         <!-- ============================================================== -->
         <!-- pagehader  -->
         <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="page-header">
+        <!-- <div class="row"> -->
+            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"> -->
+                <!-- <div class="page-header">
                     <h3 class="mb-2">User</h3> <a style="margin: -45px 20px;
 " class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard') ?>">Exit</a>
                     <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
@@ -34,9 +34,9 @@
                             </ol>
                         </nav>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
         <div class="row">
             <!-- ============================================================== -->
             <!-- basic form -->
@@ -45,11 +45,13 @@
                 <div class="card">
                     <h5 class="card-header">
                         <?php echo (isset($user)) ? 'Edit User' : ' New User' ?>
+                        <a style="margin: -9px 15px;
+" class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard') ?>">Exit</a>
                     </h5>
 
                     <div class="card-body">
                         <form id="user-form" method="post">
-                            <input type="hidden" id ="user-id" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
+                            <input type="hidden" id="user-id" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -85,9 +87,9 @@
                                                                                                     echo ($countries['name'] ==  $user[0]['country']) ? ' selected="selected"' : '';
                                                                                                 } elseif ($countries['name'] == "India") {
                                                                                                     echo "selected";
-                                                                                                } 
-                                                                                                
-                                                                                                
+                                                                                                }
+
+
                                                                                                 ?>>
 
                                                         <?php echo $countries['name']; ?> </option>

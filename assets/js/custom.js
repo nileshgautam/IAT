@@ -119,6 +119,10 @@ $(function () {
             $('#errormobile').text('Enter valid mobile number, i.e.: 9999999999, It should be 10 digits only.');
             error = true;
         }
+        else {
+            $('errormobile').empty();
+            error = false;
+        }
     });
 
     // function to validate GST number should be 10 digit only.
