@@ -796,7 +796,7 @@ class Auditapp extends CI_Controller
             $workOrderId = $_POST['workOrderId'];
             $saveData = $_POST['workstepData'];
             $data = array(
-                'complete_workorder_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
+                // 'complete_workorder_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
                 'work_order_id' => $workOrderId,
                 'saved_data' => json_encode($saveData, true)
             );
@@ -856,5 +856,11 @@ class Auditapp extends CI_Controller
     {
         $workorders = $this->MainModel->selectAllworkOrder();
         echo json_encode($workorders);
+    }
+
+    public function getCompleteWorkorders()
+    {
+        $completeworkorders = $this->MainModel->selectAll('complete_work_steps');
+        echo json_encode($completeworkorders);
     }
 }

@@ -309,6 +309,9 @@ $(function () {
 $(function () {
     let data = $('#table-process').attr('process-data');
     let workstepTablebody = $('#process-body');
+    // let myTable=$('#table-process');
+    let TOTALROWS = [];
+
     let workorderId = $('#table-process').attr('work-order-id');
     let totalRows = [];
     if (data != undefined) {
@@ -328,7 +331,7 @@ $(function () {
                     let rows = JSON.parse(response);
                     // console.log(rows);
                     if (rows.responase != 'false') {
-                        totalRows =  JSON.parse(rows.saved_data);
+                        totalRows = JSON.parse(rows.saved_data);
 
                         console.log(totalRows);
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
@@ -354,25 +357,58 @@ $(function () {
         // let Sr = 1;
         // console.log(list);
         workstepTablebody.empty();
+
+        // let rows = list.map((ob, index) => {
+        //     let action= `<button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${ob.workstep_id}' data-row-id='${ob.row_id}'> <i class="fa fa-upload"></i>
+        //                </button>`
+        //     // console.log(ob);
+        //     let row = [
+        //         (index + 1),
+        //         ob.process_description,
+        //         ob.sub_process_description,
+        //         ob.risk_description,
+        //         ob.risklevel, 
+        //         ob.control_description, 
+        //         ob.control_objectives,
+        //         ob.step_description,
+        //         ob.observations,
+        //         ob.root_cause,
+        //         ob.recommendation,
+        //         ob.management_action_plan,
+        //         ob.timeline_for_action_plan,
+        //         ob.responsibility_for_implementation,
+        //         ob.files,
+        //         action];
+        //     return row;
+        // });
+
+        //    myTable.DataTable({
+        //         data: rows,
+        //          scrollY: '50vh',
+        //         scrollX: true
+
+        //       });
+
+
         for (let i = 0; i < len; i++) {
             let row = $(` <tr>
-                    <td class="content">${list[i].count}</td>
-                    <td style="width:100px">${list[i].processName}</td>
-                    <td style="width:376px">${list[i].subprocess_name}</td>
-                    <td style="width:414px">${list[i].riskName}</td>
+                    <td class="content">${list[i].row_id}</td>
+                    <td style="width:100px ">${list[i].process_description}</td>
+                    <td style="width:376px !important;">${list[i].sub_process_description}</td>
+                    <td style="width:414px">${list[i].risk_description}</td>
                     <td>${list[i].risklevel}</td>
-                    <td  style="width:363px">${list[i].controlName}</td>
-                    <td>${list[i].controlobject}</td>
-                    <td class="content">${list[i].workstep_name}</td>
+                    <td  style="width:363px">${list[i].control_description}</td>
+                    <td>${list[i].control_objectives}</td>
+                    <td class="content">${list[i].step_description}</td>
                     <td contenteditable="true" class="observations">${list[i].observations}</td>
                     <td contenteditable="true" class="root-cause">${list[i].root_cause}</td>
                     <td contenteditable="true" class="recommendation">${list[i].recommendation}</td>
                     <td contenteditable="true" class="management-action-plan">${list[i].management_action_plan}</td>
-                    <td class="date" style="width:181px"> <input class="timeline-for-action-plan"  value="${list[i].timeline_for_action_plan}"/> </td>
+                    <td class="date" style="width:100px"> <input class="timeline-for-action-plan"  value="${list[i].timeline_for_action_plan}"/> </td>
                     <td contenteditable="true" class="responsibility-for-implementation">${list[i].responsibility_for_implementation}</td>
                     <td class="files">${list[i].files}</td>
                     <td style="width:38px">
-                        <button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].count}'> 
+                        <button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].row_id}'> 
                         <i class="fa fa-upload"></i>
                         </button>
                     </td>
@@ -382,52 +418,63 @@ $(function () {
 
 
             // appending rows 
+            // TOTALROWS=row;
             workstepTablebody.append(row);
+
             let uploadFile = row.find('.uploadfile');
-            uploadFile.data("id", list[i].count);
+            uploadFile.data("id", list[i].row_id);
             uploadFile.click(uploadFileKey);
 
 
             let observationsText = row.find('.observations');
-            observationsText.data("id", list[i].count);
+            observationsText.data("id", list[i].row_id);
             observationsText.data("item_key", 'observations');
             observationsText.keyup(cellKeyUP);
 
             let rootCause = row.find('.root-cause');
-            rootCause.data("id", list[i].count);
+            rootCause.data("id", list[i].row_id);
             rootCause.data("item_key", 'root_cause');
             rootCause.keyup(cellKeyUP);
 
             let recommendation = row.find('.recommendation');
-            recommendation.data("id", list[i].count);
+            recommendation.data("id", list[i].row_id);
             recommendation.data("item_key", 'recommendation');
             recommendation.keyup(cellKeyUP);
 
             let managementActionPlan = row.find('.management-action-plan');
-            managementActionPlan.data("id", list[i].count);
+            managementActionPlan.data("id", list[i].row_id);
             managementActionPlan.data("item_key", 'management_action_plan');
             managementActionPlan.keyup(cellKeyUP);
 
             let timelineForactionplan = row.find('.timeline-for-action-plan');
-            timelineForactionplan.data("id", list[i].count);
+            timelineForactionplan.data("id", list[i].row_id);
             timelineForactionplan.data("item_key", 'timeline_for_action_plan');
             timelineForactionplan.blur(onChange);
-            timelineForactionplan.datepicker({format: 'dd/mm/yyyy'
+            timelineForactionplan.datepicker({
+                format: 'dd/mm/yyyy'
             });
 
             let responsibilityForImplementation = row.find('.responsibility-for-implementation');
-            responsibilityForImplementation.data("id", list[i].count);
+            responsibilityForImplementation.data("id", list[i].row_id);
             responsibilityForImplementation.data("item_key", 'responsibility_for_implementation');
             responsibilityForImplementation.keyup(cellKeyUP);
 
         }
+
+
+
+
+        // myTable.on( 'click', 'tbody td', function () {
+        //     myTable.cell( this ).edit( {
+        //         blur: 'submit'
+        //     } );});
     }
 
     function cellKeyUP() {
         let cellData = $(this);
         let Id = cellData.data('id');
         let item_key = cellData.data('item_key');
-        let item = totalRows.find((item) => item.count == Id);
+        let item = totalRows.find((item) => item.row_id == Id);
         // console.log(totalRows);
         // console.log(Id);
         // console.log(item_key);
@@ -439,7 +486,7 @@ $(function () {
         let cellData = $(this);
         let item_key = cellData.data('item_key');
         let cellData_id = cellData.data('id');
-        let item = totalRows.find((item) => item.count == cellData_id);
+        let item = totalRows.find((item) => item.row_id == cellData_id);
         item[item_key] = cellData.val();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
@@ -450,6 +497,15 @@ $(function () {
         $('#row-id').val(cellData_id);
     }
 
+    // console.log(workstepTablebody);
+
+
+    // $('#table-process').DataTable({
+
+    //  data:TOTALROWS,
+    //  scrollX: true,
+    //  scrollY: '50vh'
+    // });
 
     $('.setdata').click(function () {
         let rowsNo = $(this).attr('data-row-id');
@@ -486,7 +542,7 @@ $(function () {
                         let filesData = message['files'];
                         let rowID = $('#row-id').val();
                         // console.log()
-                        let items = totalRows.find((item) => item.count == rowID);
+                        let items = totalRows.find((item) => item.row_id == rowID);
                         items['files'] = filesData[0]['file_name'];
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
 
@@ -500,8 +556,6 @@ $(function () {
         }
 
     });
-
-
     // function to save data into the database
     $('.save-work-step').on('click', function () {
         // console.log(totalRows);
@@ -510,14 +564,17 @@ $(function () {
             tableData = retriveData('rowData');
 
             let workstepData = JSON.parse(tableData);
-            console.log(workstepData);
+            // console.log(workstepData);
+
+
 
             let data = {
-                workOrderId: workorderId,
-                workstepData:workstepData
+                workOrderId:
+                workorderId,
+                workstepData: workstepData
             }
 
-            if (workstepData[0].observations!='') {
+            if (confirm('Are you sure, you filled all field?')) {
                 $.ajax({
                     type: 'POST',
                     data: data,
@@ -555,6 +612,7 @@ function removeData(FILE_KEY) {
     localStorage.removeItem(FILE_KEY);
     // localStorage 
 }
+
 
 
 

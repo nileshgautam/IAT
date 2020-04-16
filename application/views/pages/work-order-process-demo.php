@@ -9,19 +9,19 @@ if (!empty($p_data)) {
                     foreach ($controls['work_step'] as $ws_key => $workSteps) {
 
                         $row = array(
-                            'count'=>$count++,
+                            'row_id'=>$count++,
                             'process_id' => $process['process_id'],
-                            'processName' => $process['process_description'],
+                            'process_description' => $process['process_description'],
                             'subprocess_id' => $subProcess['sub_process_id'],
-                            'subprocess_name' => $subProcess['sub_process_description'],
+                            'sub_process_description' => $subProcess['sub_process_description'],
                             'risk_id' => $risks['risk_id'],
-                            'riskName' => $risks['risk_description'],
+                            'risk_description' => $risks['risk_description'],
                             'risklevel' => $risks['risk_level'],
                             'control_id' => $controls['control_id'],
-                            'controlName' => $controls['control_description'],
-                            'controlobject' => $controls['control_objectives'],
+                            'control_description' => $controls['control_description'],
+                            'control_objectives' => $controls['control_objectives'],
                             'workstep_id' => $workSteps['work_steps_id'],
-                            'workstep_name' => $workSteps['step_description'],
+                            'step_description' => $workSteps['step_description'],
                             'observations'=> '',
                             'root_cause'=>'',
                             'recommendation'=>'',
@@ -44,7 +44,11 @@ if (!empty($p_data)) {
 
 ?>
 
-
+<style>
+    #table-process{
+        height: 70vh;
+    }
+</style>
 
 
 <!-- ============================================================== -->
@@ -76,8 +80,8 @@ if (!empty($p_data)) {
 
 
 <!-- <div> <input type="text" class="datepicker"></div> -->
-        <div class="card table-responsive">
-            <table class="table table-bordered  " id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
+        <!-- <div class="card table-responsive"> -->
+            <table class="table table-bordered table-responsive" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
                 <thead class="bg-light">
                     <tr>
                         <th>#</th>
@@ -86,19 +90,18 @@ if (!empty($p_data)) {
                         <th style="width:376px">Risk</th>
                         <th style="width:100px">Risk level</th>
                         <th style="width:350px">Controls</th>
-                        <th style="width:350px" >Objective</th>
+                        <th style="width:350px">Objective</th>
                         <th style="width:350px">Work Steps</th>
                         <th style="width:350px">Observations</th>
                         <th style="width:350px">Root cause</th>
                         <th style="width:350px">Recommendation</th>
                         <th style="width:350px">Management Action plan</th>
-                        <th style="width:181px">Timeline for action plan</th>
+                        <th style="width:100px">Timeline for action plan</th>
                         <th style="width:100px">Responsibility for implementation</th>
                         <th style="width:100px">Files</th>
                         <th style="width:38px">Action</th>
                     </tr>
                 </thead>
-
                 <tbody id="process-body">
                 </tbody>
             </table>
@@ -106,7 +109,7 @@ if (!empty($p_data)) {
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 <!-- upload file model -->
 
