@@ -42,8 +42,7 @@
 <!-- Optional JavaScript -->
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
-<!-- google chart -->
-<script src="<?php echo base_url(); ?>assets/js/chart.js"></script>
+
 
 
 

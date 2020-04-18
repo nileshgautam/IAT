@@ -431,11 +431,17 @@ class Auditapp extends CI_Controller
         $id = base64_decode($id);
         // print_r($id);die;
         $data = $this->MainModel->selectAllFromWhere('work_order', array('work_order_id' => $id));
+        $clientData =$this->MainModel->selectAllFromWhere('client_details', array('client_id' => $data[0]['client_id']));
+
         $process = json_decode($data[0]['processes'], true);
         $countSubprocess = 0;
         $subProcessCount = [];
         $p_data = [];
         // echo '<pre>';
+        // print_r($clientData);
+        // die;
+
+
         foreach ($process as $process_id => $sub_processes) {
             // echo $process_id;die;
             $process_data = $this->MainModel->selectAllFromWhere('process_master', array('process_id' => $process_id));
@@ -488,11 +494,14 @@ class Auditapp extends CI_Controller
         //    die;
 
         $p_data['p_data'] = $p_data;
-        $p_data['totalrows'] = $countSubprocess;
-        $p_data['totalWorkStep'] = $totalWorkStep;
-        $p_data['countRow'] = $subProcessCount;
+        $p_data['clientId'] = $clientData[0]['client_id'];
+        $p_data['clientName'] = $clientData[0]['client_name'];
+        // $p_data['totalrows'] = $countSubprocess;
+        // $p_data['totalWorkStep'] = $totalWorkStep;
+        // $p_data['countRow'] = $subProcessCount;
         $p_data['work_order'] = $id;
         $p_data['work_order_name'] = $data[0]['work_order_name'];
+
 
         // echo json_encode($p_data);die;
         $this->load->view('layout/header');
@@ -792,13 +801,27 @@ class Auditapp extends CI_Controller
     {
         //    echo '<pre>';
         //     print_r($_POST);die;
+
         if (!empty($_POST)) {
             $workOrderId = $_POST['workOrderId'];
+            $workOrderName = $_POST['workorderName'];
+            $clientId = $_POST['clientId'];
+
+            $clientName = $_POST['clientName'];
             $saveData = $_POST['workstepData'];
+
+            $userid = $_SESSION['userInfo']['id'];
+            $userName = $_SESSION['userInfo']['username'];
+
             $data = array(
                 // 'complete_workorder_id' => $this->Audit_model->getNewIDorNo('COW', 'complete_work_steps'),
                 'work_order_id' => $workOrderId,
-                'saved_data' => json_encode($saveData, true)
+                'workorder_name'=>$workOrderName,
+                'saved_data' => json_encode($saveData),
+                'client_id'=>$clientId,
+                'client_name'=>$clientName,
+                'user_id'=>$userid,
+                'user_name'=>$userName
             );
 
             // print_r($data);die;
