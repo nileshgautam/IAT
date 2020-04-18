@@ -558,19 +558,25 @@ $(function () {
     });
     // function to save data into the database
     $('.save-work-step').on('click', function () {
+        clientID=$(this).attr('data-client-id');
+        clientName=$(this).attr('data-client-name');
         // console.log(totalRows);
+                // console.log(clientID);
+
+                //         console.log(clientName);
+
         let Check = hasData('rowData');
+        let workorderName=$('#work-order-name').text().trim();
         if (Check == true) {
             tableData = retriveData('rowData');
-
             let workstepData = JSON.parse(tableData);
             // console.log(workstepData);
 
-
-
             let data = {
-                workOrderId:
-                workorderId,
+                workOrderId:workorderId,
+                workorderName:workorderName,
+                clientId:clientID,
+                clientName:clientName,
                 workstepData: workstepData
             }
 
@@ -589,12 +595,11 @@ $(function () {
                     }
                 });
 
-            } else {
+            // } else {
                 showAlert('Please Fill data First', 'warning');
             }
         }
     });
-
 });
 
 // Local storage function
