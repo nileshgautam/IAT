@@ -1,0 +1,200 @@
+  // *******************
+  // function to drow charts
+  // function generatedashboard(response, process) {
+  //   // console.log(process);
+  //   let completeWorkorders = []; // variable for storing finalcomplete workorders
+  //   let underprocessarr = [];
+  //   let completeWorkordercounter = 0;
+  //   let underprocessWorkorder = 0;
+  //   let workorders = [];
+
+  //   response.forEach(item => {
+  //     let saveData = JSON.parse(item.saved_data);
+  //     let obCount = 0;
+  //     let rcCount = 0;
+  //     let rCount = 0;
+  //     let mapCount = 0;
+  //     let tapCount = 0;
+  //     let riCount = 0;
+
+  //     saveData.map((ob, index) => {
+
+  //       // console.log(`observation:  ${ob}`);
+
+  //       if (ob.observations == '') {
+  //         obCount++;
+  //       }
+  //       if (ob.root_cause == '') {
+  //         rcCount++;
+  //       }
+  //       if (ob.recommendation == '') {
+  //         rCount++;
+  //       }
+  //       if (ob.management_action_plan == '') {
+  //         mapCount++;
+  //       }
+  //       if (ob.timeline_for_action_plan == '') {
+  //         tapCount++;
+  //       }
+  //       if (ob.responsibility_for_implementation == '') {
+  //         riCount++;
+  //       }
+  //     });
+  //     let emptyCell = obCount + riCount + tapCount + mapCount + rCount + rcCount;
+  //     let totalCell = saveData.length * 6;
+  //     // console.log(totalCell);
+
+  //     let temp = {
+  //       workID: item.work_order_id,
+  //       workName: item.workorder_name,
+  //       clientname: item.client_name,
+  //       processName: saveData,
+  //       // clientid: item.clientid,
+  //       // userid: item.userid,
+  //       // username: item.username,
+  //       totalcell: totalCell,
+  //       emptyCell: emptyCell,
+  //       completeCell: totalCell - emptyCell,
+  //       worksteps: saveData.length
+  //     };
+  //     // console.log(temp);
+  //     workorders.push(temp)
+  //   })
+
+  //   // console.log(workorders);
+  //   // finding complete and under process rows in workorder
+  //   workorders.map((obj, index) => {
+  //     console.log(obj);
+  //     if (obj.totalcell == obj.completeCell) {
+  //       completeWorkordercounter++;
+  //       const words = process;
+  //       words.forEach(item => {
+  //         // console.log(item.workOrdersid);
+  //         const result = words.filter(word => word.workOrdersid == obj.workID);
+  //         let tempComplete = {
+  //           workordersobj: obj,
+  //           workorders: result
+  //         };
+  //         completeWorkorders.push(tempComplete);
+  //       })
+  //       // completeWorkorders.push(obj);
+  //     } else {
+  //       underprocessWorkorder++;
+  //       underprocessarr.push(obj);
+  //     }
+  //   });
+
+  //   // console.log(underprocessarr);
+  //   // console.log(completeWorkorders);
+
+  //   // calling dricharts funtion to show chart, passing variables are declared
+  //   drowcharts(completeWorkordercounter, underprocessWorkorder);
+  //   completeWorkordersDetails(completeWorkorders, process);
+  //   underProcessWorkordersDetails(underprocessarr, process)
+
+  // }
+
+
+    // function for complete donut chart
+    const drowdonutForCompleteChart = (inputdata, key) => {
+      // console.log(inputdata);
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Completed'],
+          ['Work order', inputdata]
+        ]);
+  
+        var options = {
+          width: 500,
+          pieHole: 0.4,
+          pieSliceTextStyle: {
+            color: 'black',
+          },
+          title: 'Activities'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById(`iddonut${key}`));
+        chart.draw(data, options);
+      }
+  
+    }
+  
+    // function for show pending process donut chart
+    const drowdonutForUnderprocessChart = (complete, pending, worksteps, key) => {
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', ' Per work order'],
+          ['Completed', complete],
+          ['Pending', pending]
+  
+        ]);
+        var options = {
+          title: 'Activities',
+          pieHole: 0.5,
+          pieSliceTextStyle: {
+            color: 'white',
+          }
+          // legend: 'none'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById(`donut-underprocess${key}`));
+        chart.draw(data, options);
+  
+  
+      }
+  
+    }
+
+      // function for complete donut chart
+  const drowdonutForCompleteChart = (inputdata, key) => {
+    // console.log(inputdata);
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Completed'],
+        ['Work order', inputdata]
+      ]);
+
+      var options = {
+        width: 500,
+        pieHole: 0.4,
+        pieSliceTextStyle: {
+          color: 'black',
+        },
+        title: 'Activities'
+      };
+      var chart = new google.visualization.PieChart(document.getElementById(`iddonut${key}`));
+      chart.draw(data, options);
+    }
+
+  }
+
+  // function for show pending process donut chart
+  const drowdonutForUnderprocessChart = (complete, pending, worksteps, key) => {
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', ' Per work order'],
+        ['Completed', complete],
+        ['Pending', pending]
+
+      ]);
+      var options = {
+        title: 'Activities',
+        pieHole: 0.5,
+        pieSliceTextStyle: {
+          color: 'white',
+        }
+        // legend: 'none'
+      };
+      var chart = new google.visualization.PieChart(document.getElementById(`donut-underprocess${key}`));
+      chart.draw(data, options);
+
+
+    }
+
+  }

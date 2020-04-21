@@ -7,13 +7,18 @@
                 </div>
             </div>
         </div>
-        <div id="chart_div"></div>
+
+        <div id="chart_div" width="500"></div>
+        <div id="complete" width="300"></div>
+        <div id="underprocess" width="300"></div>
+
+
         <div class="card mb-5 complete" style="display:none">
             <div class="card-header p-2">
                 <h3 class="">Complete</h3>
             </div>
             <div class="card-body" id="client-card-body">
-                <div id="totla-complete-order" class="clients">
+                <div id="total-complete-order" class="clients">
                 </div>
                 <!-- <div id="donut"></div> -->
             </div>
@@ -23,7 +28,7 @@
                 <h3 class="">Under process</h3>
             </div>
             <!-- <div class="card-body" id="client-card-body"> -->
-            <div id="totla-underprocess-wo" class="clients">
+            <div id="total-underprocess-wo" class="clients">
             </div>
             <!-- </div> -->
         </div>

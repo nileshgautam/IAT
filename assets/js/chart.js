@@ -3,120 +3,107 @@ $(function () {
   const URL = baseUrl + 'Auditapp/getCompleteWorkorders';
   $.get(URL, function (data, success) {
     let response = JSON.parse(data);
-    // console.log(response);
-    generatedashboard(response)
+    let totalprocess = getDataProcess(response);
+    workorders(totalprocess);
   });
 
-  // function to drow charts
-  function generatedashboard(response) {
-    let savedWorkorders = [];
-    let finalrow = [];
-    for (let i = 0; i < response.length; i++) {
-      let workorders = {
-        workOrdersid: response[i].work_order_id,
-        workOrdersname: response[i].workorder_name,
-        savedData: JSON.parse(response[i].saved_data),
-        clientid: response[i].client_id,
-        clientname: response[i].client_name,
-        userid: response[i].user_id,
-        username: response[i].user_name
-      }
-      savedWorkorders.push(workorders)
-    }
-    // calling function to 
-    processwisedata(savedWorkorders);
+  function groupByProcess(arr) {
+    //Group by array using process id as key
+    let processGroup = arr.reduce((r, a) => {
+      r[a.process_id] = [...r[a.process_id] || [], a];
+      return r;
+    }, {});
+    // console.log(Object.values(processGroup));
+    return Object.values(processGroup);
+  }
 
-    // 8888888888888888888888888
-    // checking empty cell entier work orders
-    let result = [];
-    for (let j = 0; j < savedWorkorders.length; j++) {
-      // console.log(savedWorkorders[j].workOrdersid);
-      // result['wid'][j] = savedWorkorders[j].workOrdersid;
+  // function to draw charts
+  function getDataProcess(response) {
+    // let savedWorkorders = response.map(function(item){  
+    let workordersData = [];
+    response.forEach(item => {
+      let workorder = {};  //define an empty object to be returned
 
-      // console.log(savedWorkorders[j]);
-      let observationCount = 0;
-      let rootcauseCount = 0;
-      let recommendationCount = 0;
-      let management_action_planCount = 0;
-      let timeline_for_action_planCount = 0;
-      let responsibility_for_implementationCount = 0;
+      //Order saved_data using group by on process id
+      let tempData = JSON.parse(item.saved_data);
+      let numArray = groupByProcess(tempData);
+      let numProcesses = numArray.length; //count process array in workorder
+      for (let i = 0; i < numProcesses; i++) {
+        let saveData = numArray[i];
+        let process_id = saveData[0].process_id;
+        let process_description = saveData[0].process_description;
+        let obCount = saveData.filter(x => x.observations == '').length;
+        let rcCount = saveData.filter(x => x.root_cause == '').length;
+        let reCount = saveData.filter(x => x.recommendation == '').length;
+        let mapCount = saveData.filter(x => x.management_action_plan == '').length;
+        let tapCount = saveData.filter(x => x.timeline_for_action_plan == '').length;
+        let rfiCount = saveData.filter(x => x.responsibility_for_implementation == '').length;
+        let rowCount = saveData.length;
+        let totalFields = rowCount * 6;
+        let emptyFields = obCount + reCount + mapCount + tapCount + rfiCount + rcCount;
+        let percentInComplete = (totalFields > 0) ? (emptyFields * 100 / totalFields).toFixed(2) : 0;
+        let percentComplete = (Number(100).toFixed(2) - percentInComplete).toFixed(2);
 
-      savedWorkorders[j].savedData.map((ob, index) => {
-
-        // console.log(`observation:  ${ob}`);
-
-        if (ob.observations == '') {
-          observationCount++;
+        workorder = {
+          workOrdersid: item.work_order_id,
+          workOrdersname: item.workorder_name,
+          process_id: process_id,
+          process_processName: process_description,
+          //  savedData:      saveData,
+          // clientid:       item.client_id,
+          // clientname:     item.client_name,
+          // userid:         item.user_id,
+          // username:       item.user_name,
+          // obCount:        obCount,
+          // rcCount :       rcCount,
+          // reCount :       reCount,
+          // mapCount :      mapCount,
+          // tapCount :      tapCount,
+          // rfiCount :      rfiCount,
+          // rowCount :      rowCount,
+          totalFields: totalFields,
+          emptyFields: emptyFields,
+          percentComplete: percentComplete,
+          percentInComplete: percentInComplete
         }
-        if (ob.root_cause == '') {
-          rootcauseCount++;
-        }
-        if (ob.recommendation == '') {
-          recommendationCount++;
-        }
-        if (ob.management_action_plan == '') {
-          management_action_planCount++;
-        }
-        if (ob.timeline_for_action_plan == '') {
-          timeline_for_action_planCount++;
-        }
-        if (ob.responsibility_for_implementation == '') {
-          responsibility_for_implementationCount++;
-        }
-      });
-      // result[j]['observationCount'] = observationCount;
+        // console.log(workorder);
 
 
-      let emptyCell = responsibility_for_implementationCount + timeline_for_action_planCount + management_action_planCount + recommendationCount + rootcauseCount + observationCount;
-
-      let totalCell = savedWorkorders[j].savedData.length * 6;
-
-      let f = {
-        workID: savedWorkorders[j].workOrdersid,
-        workName: savedWorkorders[j].workOrdersname,
-        clientname: savedWorkorders[j].clientname,
-        clientid: savedWorkorders[j].clientid,
-        userid: savedWorkorders[j].userid,
-        username: savedWorkorders[j].username,
-        totalcell: totalCell,
-        emptyCell: emptyCell,
-        completeCell: totalCell - emptyCell,
-        worksteps: savedWorkorders[j].savedData.length
+        workordersData.push(workorder);
       };
 
-      finalrow.push(f)
-      console.log(`result:  ${result}`);
-    }
-
-
-
-    let completeWorkorders = []; // variable for storing finalcomplete workorders
-    let underprocessarr = [];
-    let completeWorkordercounter = 0;
-    let underprocessWorkorder = 0;
-
-    // finding complete and under process rows in workorder
-    finalrow.map((obj, index) => {
-      // console.log(obj);
-      if (obj.totalcell == obj.completeCell) {
-        completeWorkordercounter++;
-        completeWorkorders.push(obj);
-      } else {
-        underprocessWorkorder++;
-        // underprocessarr.push(JSON.stringify(obj));
-
-        underprocessarr.push(obj);
-
-      }
     });
-    // calling dricharts funtion to show chart, passing variables are declared
-    drowcharts(completeWorkordercounter, underprocessWorkorder);
-    completeWorkordersDetails(completeWorkorders);
-    underProcessWorkordersDetails(underprocessarr)
+    // console.log(workordersData);
+
+    return workordersData;
 
   }
 
+  const workorders = (data) => {
+    let groupdata = groupBy(data, 'workOrdersid');
+    // console.log(groupdata);
+    let completeworkorder = [];
+    let inCompleteworkorder = [];
+    for (let element in groupdata) {
+      let temp = 0;
+      for (let i = 0; i < groupdata[element].length; i++) {
+        temp += parseFloat(groupdata[element][i].percentComplete);
+      }
+      let c = temp / groupdata[element].length;
+      if (c == 100) {
+        completeworkorder.push(groupdata[element]);
+      }
+      else {
+        inCompleteworkorder.push(groupdata[element]);
+      }// console.log('temp'+ temp);
+      temp = 0;
+    }
 
+    drowcharts(completeworkorder.length, inCompleteworkorder.length);
+    completeWorkordersDetails(completeworkorder);
+    underProcessWorkordersDetails(inCompleteworkorder);
+
+  }
   // drowing bar charts on manager dashboard************
 
   function drowcharts(completeorder, underprocess) {
@@ -131,38 +118,76 @@ $(function () {
       // workorderLength=2000;
       let complete = completeorder;
       let pending = underprocess;
+      let total = pending + complete;
+      // var data = new google.visualization.DataTable();
+      // data.addColumn('string', 'lable', { role: "style" });
+      // data.addColumn('number', 'value', { role: "style" });
+
+      // data.addRows([
+      //   ["Total work order", total, "green"],
+      //   ["Under process", complete, "tomato"],
+      //   ["Under process", pending, "tomato"],
+      // ]);
+
+
       let data = google.visualization.arrayToDataTable([
 
-        ["work order", "work-order", { role: "style" }],
+        ["Complete", "Under process", { role: "style" }],
+        ["Total work order", total, "blue"],
         ["Complete", complete, "green"],
         ["Under process", pending, "tomato"]
       ]);
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-        {
-          calc: "stringify",
-          sourceColumn: 1,
-          type: "string",
-          role: "annotation"
-        },
-        2]);
 
+      var view = new google.visualization.DataView(data);
       var options = {
-        title: "Work order report",
-        width: 600,
-        height: 200,
-        bar: { groupWidth: "50%" },
-        legend: { position: "none" },
+        title: 'Work orders Staus',
+        width: 500,
+        legend: { position: 'top' },
+        chart: {
+          title: 'Work orders complete status',
+          subtitle: 'Complete and underprocess work orders'
+        },
+        bars: 'horizontal', // Required for Material Bar Charts.
+        axes: {
+          x: {
+            0: { side: 'top', label: 'Percentage' } // Top x-axis.
+          }
+        },
+        bar: { groupWidth: "50%" }
       };
 
+      // var options = {
+      //   title: "Work order report",
+      //   width: 600,
+      //   height: 200,
+      //   bar: { groupWidth: "50%" },
+      //   legend: { position: 'left'},
+      //   isStacked: true
+      // };
+
       var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      // var chart1 = new google.visualization.BarChart(document.getElementById('complete'));
 
       // The select handler. Call the chart's getSelection() method
       function selectHandler() {
         var selectedItem = chart.getSelection()[0];
         if (selectedItem) {
           var value = data.getValue(selectedItem.row, selectedItem.column);
-          showSelectedrow(selectedItem.row)
+          // showSelectedrow(selectedItem.row)
+          switch (selectedItem.row) {
+            case 1:
+              $('.complete').attr("style", "display:block");
+              $('.under-process').attr("style", "display:none");
+              break;
+            case 2:
+              $('.complete').attr("style", "display:none");
+              $('.under-process').attr("style", "display:block");
+
+              break;
+            default:
+              text = "";
+          }
           // alert('The user selected ' + selectedItem.row);
         }
       }
@@ -170,334 +195,144 @@ $(function () {
       // the user selects something on the chart.
       google.visualization.events.addListener(chart, 'select', selectHandler);
 
+
+      // google.visualization.events.addListener(chart1, 'select', selectHandler);
+
+
       chart.draw(view, options);
+      // chart1.draw(view, options);
+
     }
   }
-
-  // function to show the selected bar data
-  function showSelectedrow(id) {
-    switch (id) {
-      case 0:
-        $('.complete').attr("style", "display:block");
-        $('.under-process').attr("style", "display:none");
-        break;
-      case 1:
-        $('.complete').attr("style", "display:none");
-        $('.under-process').attr("style", "display:block");
-
-        break;
-      default:
-        text = "";
-    }
-  }
-
 
   function completeWorkordersDetails(data) {
 
-    // console.log(data.length);
-    let completeWO = $('#totla-complete-order');
-    let rows = '';
-    const objectArray = Object.entries(data);
-    // console.log(objectArray);
-    objectArray.forEach(([key, value]) => {
-      // console.log(value); // 1/\
-      let completeSteps = PERCENTAGE(value.totalcell, value.completeCell);
-      // let donut=key;
-      drowdonutForCompleteChart(completeSteps, key);
-
-      rows += `<div class="">
-     <span style="color: rgb(255, 152, 0)"> ${value.workName}</span>      
-     <span> Total work steps </span ><span class="text-success">
-     ${value.worksteps}
-     </span>
-     <span id="iddonut${key}"></span>
-     </div>`;
-    });
-    completeWO.append(rows);
+    for (let i = 0; i < data.length; i++) {
+      drowColumnChartcompleteprocess(data[i], i);
+    }
   }
 
   function underProcessWorkordersDetails(data) {
-    // console.log(data.length);
-    let underprocessWO = $('#totla-underprocess-wo');
-    let rows = '';
-    const objectArray = Object.entries(data);
-    // console.log(objectArray);
-    objectArray.forEach(([key, value]) => {
-      // console.log(value); // 1
-      let completeSteps = PERCENTAGE(value.totalcell, value.completeCell);
-      let pendingTask = PERCENTAGE(value.totalcell, value.emptyCell);
-      drowdonutForUnderprocessChart(completeSteps, pendingTask, value.worksteps, key);
-      drowColumnChart(key);
-
-      rows += `
-      <div class=" m-5 p-2">
-      <span style="color: rgb(255, 152, 0);"> ${value.workName} </span>
-      <span> Total work steps ${value.worksteps} </span> 
-      <div class="row">
-    
-    <div class="col-md-4">      
-    <span id=donut-underprocess${key}>  </span>
-    </div>
-    <div class="col-md-8">     
-   <span id=columnchart_values${key} style="width: 800px; height: 500px;"></span>
-    </div>
-</div>
-
-  </div>
-  <hr/>`;
-    });
-    underprocessWO.append(rows);
-  }
-
-
-  // function for complete donut chart
-  const drowdonutForCompleteChart = (inputdata, key) => {
-    google.charts.load("current", { packages: ["corechart"] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Task', 'Completed'],
-        ['Work order', inputdata]
-      ]);
-
-      var options = {
-        width: 500,
-        pieHole: 0.4,
-        pieSliceTextStyle: {
-          color: 'black',
-        },
-        title: 'Activities'
-      };
-      var chart = new google.visualization.PieChart(document.getElementById(`iddonut${key}`));
-      chart.draw(data, options);
+    for (let i = 0; i < data.length; i++) {
+      drowColumnChart(data[i], i);
     }
-
   }
-
-  // function for show pending process donut chart
-  const drowdonutForUnderprocessChart = (complete, pending, worksteps, key) => {
-    google.charts.load("current", { packages: ["corechart"] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Task', ' Per work order'],
-        ['Completed', complete],
-        ['Pending', pending]
-
-      ]);
-      var options = {
-        title: 'Activities',
-        pieHole: 0.5,
-        pieSliceTextStyle: {
-          color: 'white',
-        }
-        // legend: 'none'
-      };
-      var chart = new google.visualization.PieChart(document.getElementById(`donut-underprocess${key}`));
-      chart.draw(data, options);
-
-
-    }
-
-  }
-
   // column chart for process and sub process
-  const drowColumnChart = (key) => {
-    google.charts.load("current", { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['process', 'complete', 'Pending'],
-        ['p1', 5, 2],
-        ['p2', 6, 7,],
-        ['p3', 5, 1],
-        ['p4', 1, 10]
-      ]);
+  const drowColumnChartcompleteprocess = (data, rowid) => {
+    let completeWO = $('#total-complete-order');
+    let process = [];
+    let complete = [];
+    let incomplete = [];
+    let rows = '';
+    let workordersName = '';
 
-      var options = {
-        chart: {
-          title: 'Company Performance',
-          subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-        }
+    for (let i = 0; i < data.length; i++) {
+      google.charts.load("current", { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(drawChart);
+      if (workordersName != data[i]['workOrdersname']) {
+        rows += `<div class="">
+      <span style="color: rgb(255, 152, 0)">${data[i]['workOrdersname']}</span>
+      <span id="combarchart${rowid}"></span>
+      </div>`;
+      } workordersName = data[i]['workOrdersname'];
+      process.push(data[i]['process_processName']);
+      complete.push(data[i]['percentComplete']);
+      incomplete.push(data[i]['percentInComplete']);
+      // valuearr.push([data[i]['process_processName'], parseFloat(data[i]['percentComplete']), parseFloat(data[i]['percentInComplete'])],);
+      function drawChart() {
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'process');
+        data1.addColumn('number', 'complete');
+        data1.addColumn('number', 'Pending');
+        for (i = 0; i < process.length; i++)
+          data1.addRow([process[i], parseFloat(complete[i]), parseFloat(incomplete[i])]);
+        var options = {
+          chart: {
+            title: 'Incomplete Work order',
+            subtitle: 'Incomplete process',
+          }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById(`combarchart${rowid}`));
 
-
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById(`columnchart_values${key}`));
-      chart.draw(data, options);
-
+        chart.draw(data1, options);
+      }
     }
+    // console.log(valuearr);
+    completeWO.append(rows);
+    workordersName = '';
   }
 
+  // column chart for under-process 
+  const drowColumnChart = (data, rowid) => {
 
+    // console.log(data);
+    let underprocessWO = $('#total-underprocess-wo');
+    let process = [];
+    let complete = [];
+    let incomplete = [];
+    let rows = '';
+    let workordersName = '';
+
+    for (let i = 0; i < data.length; i++) {
+      google.charts.load("current", { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(drawChart);
+      if (workordersName != data[i]['workOrdersname']) {
+        rows += `<div class="">
+      <span style="color: rgb(255, 152, 0)" class="p-2">${data[i]['workOrdersname']}</span>
+      <span id="barchart${rowid}"></span>
+      </div>`;
+      } workordersName = data[i]['workOrdersname'];
+      process.push(data[i]['process_processName']);
+      complete.push(data[i]['percentComplete']);
+      incomplete.push(data[i]['percentInComplete']);
+      // valuearr.push([data[i]['process_processName'], parseFloat(data[i]['percentComplete']), parseFloat(data[i]['percentInComplete'])],);
+      function drawChart() {
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'process');
+        data1.addColumn('number', 'complete');
+        data1.addColumn('number', 'Pending');
+        for (i = 0; i < process.length; i++)
+          data1.addRow([process[i], parseFloat(complete[i]), parseFloat(incomplete[i])]);
+        var options = {
+          chart: {
+            title: 'Incomplete Work order',
+            subtitle: 'Incomplete process',
+          },
+          width:900,
+          bar: { groupWidth: "20%" }
+
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById(`barchart${rowid}`));
+
+        chart.draw(data1, options);
+      }
+    }
+    // console.log(valuearr);
+    underprocessWO.append(rows);
+    workordersName = '';
+
+
+
+  }
   // Group by function 
   const groupBy = (array, key) => {
     // Return the end result
-
-
     return array.reduce((result, currentValue) => {
       // If an array already present for key, push it to the array. Else create an array and push the object
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
         currentValue
       );
+      // console.log(currentValue);
+
       // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
       // console.log(result)
-
       return result;
-
-
     }, {}); // empty object is the initial value for result object
   };
-
-
-  const checkEmpty = (obj) => {
-    let result = [];
-    let observationCount = 0;
-    let rootcauseCount = 0;
-    let recommendationCount = 0;
-    let management_action_planCount = 0;
-    let timeline_for_action_planCount = 0;
-    let responsibility_for_implementationCount = 0;
-    let emptyCell = 0;
-    let totalCell = 0
-
-    // console.log(obj.observations);
-
-    // console.log(obj.length);
-    for (let j = 0; j < obj.length; j++) {
-      // obj[j].map((obj,index)=>{})
-      if (obj.observations == '') {
-        observationCount++
-      }
-      // console.log(observationCount);
-      if (obj.root_cause == '') {
-        rootcauseCount++
-      }
-      if (obj.recommendation == '') {
-        recommendationCount++
-      }
-      if (obj.management_action_plan == '') {
-        management_action_planCount++
-      }
-      if (obj.timeline_for_action_plan == '') {
-        timeline_for_action_planCount++
-      }
-      if (obj.responsibility_for_implementation == '') {
-        responsibility_for_implementationCount++
-      }
-      emptyCell = responsibility_for_implementationCount + timeline_for_action_planCount + management_action_planCount + recommendationCount + rootcauseCount + observationCount;
-      totalCell = obj.length * 6;
-    }
-
-    result['emptyCell'] = emptyCell;
-    result['totalCell'] = totalCell;
-    result['complete'] = totalCell - emptyCell;
-
-    console.log(result);
-
-    // }
-    // return result;
-  }
-
   // find percentages
   const PERCENTAGE = (TOTAL, PERCENTAGE) => {
     return (PERCENTAGE * 100) / TOTAL;
   }
-  // console.log()
-  const processwisedata = (dataArr) => {
-    // // console.log(dataArr[0]);
-    // dataArr.filter(function(x){
-    //   if(x.savedData[2].root_cause==''){
-    //     return true;
-    //   };
-    // })
-
-    // *************************
-    for (let index = 0; index < dataArr.length; index++) {
-      // console.log(dataArr[index]['savedData']);
-      const WorkorderGrouped = groupBy(dataArr[index]['savedData'], 'process_description');
-      // console.log(WorkorderGrouped);
-      // let procurement = WorkorderGrouped.Procurement;
-      // console.log(procurement);
-      // let count = procurement.reduce(function (a, x) {
-      // if (x['observation'] =='') {
-      // a++;
-      //         // }
-      //         return a;
-      //            });
-      //  console.log(count);
-      /// const objectArray = Object.entries(WorkorderGrouped);
-      // objectArray.forEach(([key, value]) => {
-      //   checkEmpty(value);
-      // });
-    }
-    //   const element = savedWorkorders[index];
-    //   // console.log(element);
-    //   // Group by color as key to the person array
-
-
-    //   var flags = [], output = [], l = savedWorkorders[index]['savedData'].length,
-    //     i, process = [], subprocess = [], worksteps = [];
-    //   // let data;
-    //   for (i = 0; i < l; i++) {
-
-    //     worksteps.push(savedWorkorders[index]['savedData'][i].step_description);
-    //     // count++;
-    //     // if (flags[savedWorkorders[index]['savedData'][i].sub_process_description]) continue;
-    //     // flags[savedWorkorders[index]['savedData'][i].sub_process_description] = true;
-    //     // subprocess.push(savedWorkorders[index]['savedData'][i].sub_process_description,savedWorkorders[index]['savedData'][i].process_id);
-    //     // subprocess['totalsteps']=worksteps.length;
-
-
-    //     if (flags[savedWorkorders[index]['savedData'][i].process_description]) continue;
-    //     flags[savedWorkorders[index]['savedData'][i].process_description] = true;
-
-
-
-    //     let obj = {
-    //       processid: savedWorkorders[index]['savedData'][i].process_id,
-    //       processDescription: savedWorkorders[index]['savedData'][i].process_description
-
-    //     }
-    //     process.push(obj);
-    //   }
-
-    //   const WorkorderGroupedByprocess_id = groupBy(savedWorkorders[index]['savedData'], 'process_description');
-    //   // console.log(WorkorderGroupedByprocess_id
-    //   // );
-
-    //   // let d=Object.value(WorkorderGroupedByprocess_id)
-
-    //   // console.log(d);
-
-    //   const objectArray = Object.entries(WorkorderGroupedByprocess_id);
-
-    //   objectArray.forEach(([key, value]) => {
-    //     // console.log(key); // 'one'
-    //     // console.log(value); // 1
-
-    //     value.map((ob, index) => {
-
-    //       let data = checkEmpty(ob);
-    //       // console.log(data);
-    //     })
-
-    //   });
-
-    //   // for(let j=0; j<Object.keys(WorkorderGroupedByprocess_id).length; j++){
-
-    //   //   // console.log(WorkorderGroupedByprocess_id[j])
-
-    //   // }
-
-    //   output['workorderid'] = savedWorkorders[index].workOrdersid;
-    //   output['workordername'] = savedWorkorders[index].workOrdersname;
-    //   output['process'] = process;
-    //   output['steps'] = WorkorderGroupedByprocess_id;
-    //   // console.log(output);
-    // }
-
-  }
-
 });
 
 
