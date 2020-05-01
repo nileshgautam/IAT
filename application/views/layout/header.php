@@ -12,7 +12,7 @@
     <link href="<?php echo base_url(); ?>assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/vector-map/jqvmap.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css">
+   
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/custom.css">
@@ -20,8 +20,9 @@
 
 
     <!-- jQuery 3 -->
-    <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js') ?>"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js') ?>"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- datatable -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/custom/jquery.dataTables.min.css">
     <script src="<?php echo base_url(); ?>assets/js/custom/jquery.dataTables.min.js"></script>
