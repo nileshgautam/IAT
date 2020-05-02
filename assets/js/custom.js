@@ -333,7 +333,7 @@ $(function () {
                     if (rows.responase != 'false') {
                         totalRows = JSON.parse(rows.saved_data);
 
-                        console.log(totalRows);
+                        // console.log(totalRows);
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
                         loadTable(totalRows);
                     } else {
@@ -500,12 +500,15 @@ $(function () {
     // console.log(workstepTablebody);
 
 
-    // $('#table-process').DataTable({
-
-    //  data:TOTALROWS,
-    //  scrollX: true,
-    //  scrollY: '50vh'
-    // });
+    $('#table-process').DataTable({
+        //  data:TOTALROWS,
+        scrollX: true,
+        scrollY: '50vh',
+        "ordering": false,
+        "searching": false,
+        "paging": false,
+        "info": false
+    });
 
     $('.setdata').click(function () {
         let rowsNo = $(this).attr('data-row-id');
@@ -541,13 +544,14 @@ $(function () {
                     if (message['files'] != '') {
                         let filesData = message['files'];
                         let rowID = $('#row-id').val();
-                        // console.log()
+                        // console.log(message)
                         let items = totalRows.find((item) => item.row_id == rowID);
+                        console.log(filesData[0]['file_name'])
                         items['files'] = filesData[0]['file_name'];
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
 
-                        let path = `<div><a href="${baseUrl + 'upload/files/' + filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
-                        $('#uploaded_files').append(path);
+                        // let path = `<div><a href="${baseUrl + 'upload/files/' + filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
+                        // $('#uploaded_files').append(path);
                         showAlert(message['msg'], message['type']);
                     }
 
@@ -558,25 +562,20 @@ $(function () {
     });
     // function to save data into the database
     $('.save-work-step').on('click', function () {
-        clientID=$(this).attr('data-client-id');
-        clientName=$(this).attr('data-client-name');
-        // console.log(totalRows);
-                // console.log(clientID);
-
-                //         console.log(clientName);
-
+        clientID = $(this).attr('data-client-id');
+        clientName = $(this).attr('data-client-name');
         let Check = hasData('rowData');
-        let workorderName=$('#work-order-name').text().trim();
+        let workorderName = $('#work-order-name').text().trim();
         if (Check == true) {
             tableData = retriveData('rowData');
             let workstepData = JSON.parse(tableData);
             // console.log(workstepData);
 
             let data = {
-                workOrderId:workorderId,
-                workorderName:workorderName,
-                clientId:clientID,
-                clientName:clientName,
+                workOrderId: workorderId,
+                workorderName: workorderName,
+                clientId: clientID,
+                clientName: clientName,
                 workstepData: workstepData
             }
 
@@ -595,8 +594,8 @@ $(function () {
                     }
                 });
 
-            // } else {
-                showAlert('Please Fill data First', 'warning');
+            } else {
+                showAlert('Please Fill all field First', 'warning');
             }
         }
     });

@@ -48,7 +48,8 @@ class ControlUnit extends CI_Controller
 	// function to show list of all the existing user from database
 	public function allUsers()
 	{
-		$data['users'] = $this->MainModel->selectAll('users', 'first_name');
+		// $data['users'] = $this->MainModel->selectAll('users', 'first_name');
+		$data['users'] = $this->MainModel->getallusers();
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('template/all-users', $data);

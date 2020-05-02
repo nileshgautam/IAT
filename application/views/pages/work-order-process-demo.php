@@ -73,12 +73,12 @@ if (!empty($p_data)) {
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-responsive" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
+        <table class="table table border" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
             <thead class="bg-light">
                 <tr>
                     <th>#</th>
                     <th style="width:100px">Process</th>
-                    <th style="width:376px">Subprocess</th>
+                    <th style="width:376px !important;">Subprocess</th>
                     <th style="width:376px">Risk</th>
                     <th style="width:100px">Risk level</th>
                     <th style="width:350px">Controls</th>
@@ -115,8 +115,8 @@ if (!empty($p_data)) {
                         <input type="file" id="files" name="files" class="form-control">
                         <input type="hidden" id="row-id" name="row-id">
                     </div>
-                    <div id="">
-                    </div>uploaded_files
+                    <!-- <div id="">
+                    </div>uploaded_files -->
                     <div class="form-group float-right">
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

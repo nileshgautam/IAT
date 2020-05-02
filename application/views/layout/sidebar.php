@@ -62,13 +62,13 @@
                                          <a href="<?php echo base_url() . 'all-work-orders' ?>" title="All work order" class="connection-item"><i class="fa fa-fw fa-tasks"> </i><span>All work order</span></a>
                                      </div>
                                  </div>
-                                 <hr>
+                                 <!-- <hr>
                                  <span>Manage database</span>
                                  <div class="row">
                                      <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12 ">
                                          <a title="Manage database" href="<?php echo base_url('MainWebsite/upload_excel'); ?>" class="connection-item"><i class="fa fa-fw fa-database"></i><span>Upload Master File</span></a>
                                      </div>
-                                 </div>
+                                 </div> -->
 
                              </li>
                          </ul>

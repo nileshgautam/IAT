@@ -15,9 +15,6 @@ class MainWebsite extends CI_Controller
 		}
 	}
 
-
-
-
 	public function upload_excel()
 	{
 
