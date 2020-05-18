@@ -125,7 +125,8 @@ class MainModel extends ci_model
 
     function getRiskbyId($subprocessId = null)
     {
-        $query = "SELECT risk_master.sub_process_id, risk_master.risk_id, risk_master.risk_name, risk_master.risk_level, control_master.control_id,control_master.control_name FROM `risk_master` LEFT JOIN control_master on risk_master.risk_id=control_master.risk_id WHERE risk_master.sub_process_id='$subprocessId'";
+        $query = "SELECT risk_master.sub_process_id, risk_master.risk_id, risk_master.risk_description, risk_master.risk_level, control_master.control_id,control_master.control_description, control_master.control_objectives FROM `risk_master` LEFT JOIN control_master on risk_master.risk_id=control_master.risk_id WHERE risk_master.sub_process_id
+        ='$subprocessId'";
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }

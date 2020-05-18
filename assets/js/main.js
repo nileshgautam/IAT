@@ -121,7 +121,7 @@ $('.set-risk-level').on('change', function () {
     // console.log(subid);
 
     let subid = $(`[data-sub-id='${selectedLevelsubprocessId}']`).attr('data-risk-id')
-    
+
     // console.log(subid);
 
     let risk_data = JSON.parse(subid);
@@ -141,88 +141,88 @@ function changeRiskLevel(id, risk_level, risk_data) {
 }
 
 // function to submit all the process
-$('.submit-services').on('click', function () {
-    // let proceesId = [];
-    let process = {};
-    $('input[name="subprocess"]:checked').each(function () {
+// $('.submit-services').on('click', function () {
+//     // let proceesId = [];
+//     let process = {};
+//     $('input[name="subprocess"]:checked').each(function () {
 
-        let riskData=JSON.parse($(this).attr('data-risk-id'));
+//         let riskData=JSON.parse($(this).attr('data-risk-id'));
 
-        // console.log(riskData);
+//         // console.log(riskData);
 
-        if (process[$(this).attr('data-process-id')] === undefined) {
-            process = {
-                    [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
-                ...process
-            };
-        } else {
-            // console.log(process);
-            process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
-        }
+//         if (process[$(this).attr('data-process-id')] === undefined) {
+//             process = {
+//                     [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
+//                 ...process
+//             };
+//         } else {
+//             console.log(process);
+//             process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
+//         }
 
-    });
+//     });
 
-// console.log(process);
-
-
-    let message = "Required";
-
-    // console.log($("[type='text']"))
-
-    let clientId = $('#client').val().trim();
-    let workorderId = $('#textWork-Order-id').val().trim();
-    let workOrderName = $('#textWork-Order-Name').val().trim();
-    let startDate = $('#start-date').val().trim();
-    let endDate = $('#end-date').val().trim();
-    let error = false;
-    console.log(`start date ${startDate} nd date ${endDate}`);
-
-    if (clientId == "") {
-        $('#messageclient').html(message)
-        $('#client').focus();
-        error = true;
-    } if (workorderId == "") {
-        $('#messageworkorderid').html(message)
-        error = true;
-    } if (workOrderName == "") {
-        $('#messageworkorder').html(message)
-        $('#textWork-Order-Name').focus();
-        error = true;
-    } 
-    if(startDate==''){
-        $('#start-date').focus();
-        error =true;
-    }
-    if (Object.keys(process).length == 0) {
-        showAlert('Please choose process first', "warning");
-        error = true;
-    }
-
-    // console.log(process);
-
-   
+// // console.log(process);
 
 
-    if (error!=true) {
+//     let message = "Required";
 
-        let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
-        // console.log(error);
+//     // console.log($("[type='text']"))
 
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Auditapp/create_work_order',
-            data: formData,
-            success: function (data, success) {
-                let resonce = JSON.parse(data);
-                showAlert(resonce.msg, "success");
-                setTimeout(() => {
-                    window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id);
-                }, 1000);
-            }
+//     let clientId = $('#client').val().trim();
+//     let workorderId = $('#textWork-Order-id').val().trim();
+//     let workOrderName = $('#textWork-Order-Name').val().trim();
+//     let startDate = $('#start-date').val().trim();
+//     let endDate = $('#end-date').val().trim();
+//     let error = false;
+//     console.log(`start date ${startDate} nd date ${endDate}`);
 
-        });
-    }
-});
+//     if (clientId == "") {
+//         $('#messageclient').html(message)
+//         $('#client').focus();
+//         error = true;
+//     } if (workorderId == "") {
+//         $('#messageworkorderid').html(message)
+//         error = true;
+//     } if (workOrderName == "") {
+//         $('#messageworkorder').html(message)
+//         $('#textWork-Order-Name').focus();
+//         error = true;
+//     } 
+//     if(startDate==''){
+//         $('#start-date').focus();
+//         error =true;
+//     }
+//     if (Object.keys(process).length == 0) {
+//         showAlert('Please choose process first', "warning");
+//         error = true;
+//     }
+
+//     console.log(process);
+
+
+
+
+//     // if (error!=true) {
+
+//     //     let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
+//     //     // console.log(error);
+
+//     //     $.ajax({
+//     //         type: 'POST',
+//     //         url: baseUrl + 'Auditapp/create_work_order',
+//     //         data: formData,
+//     //         success: function (data, success) {
+//     //             let resonce = JSON.parse(data);
+//     //             showAlert(resonce.msg, "success");
+//     //             setTimeout(() => {
+//     //                 window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id);
+//     //             }, 1000);
+//     //         }
+
+//     //     });
+//     // }
+// });
 // Date formate function YYMMDD to DDMMYY
 dateFormatDDMMYY = (date) => {
     let year = date.slice(0, 4);
@@ -259,7 +259,7 @@ dateFormatDDMMYY = (date) => {
 //                 <thead>
 //                     <tr>
 //                         <th>File Name</th>
-               
+
 //                         <th>Remarks</th>
 //                         <th>Updated On</th>
 //                     </tr>
@@ -277,7 +277,7 @@ dateFormatDDMMYY = (date) => {
 //                 html += `
 //                 <tr>
 //             <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title == "" ? uploadfile.file_name : uploadfile.title} </a></td>
-          
+
 //             <td>${uploadfile.remarks}</td> 
 
 //             <td>${dateFormatDDMMYY(uploadfile.upload_time)}</td>`
@@ -434,35 +434,62 @@ function workOrderData(obj) {
 
 // loading all the workorder by selected client
 $('#select-client').on('change', function () {
-    let error = false;
+    let workorderid=$('#work-order').attr('data-workorderid');
     let clientId = $(this).val();
-
-    // console.log(clientId);
+    let error = false;    
+    console.log(workorderid);
 
     if (clientId == "") {
         $('#message').html('Client Required');
         error = true;
     }
-    else {
-        $('#message').empty();
-    }
-    // let id=(clientId)
-    let form_data = { id: clientId };
 
-    if (!error) {
+    if(!workorderid){
+         if (!error) {
+        let form_data = { id: clientId };
         $.ajax({
             type: 'POST',
             url: baseUrl + '/Auditapp/workorders',
             data: form_data,
             success: function (data, success) {
+                let workorder='';
                 let obj = JSON.parse(data);
-                data = workOrderData(obj);
-                // console.log(data);
-                $('#work-order').html(data);
+                if(obj!=false){
+                    workorder = workOrderData(obj);
+                }else{
+                    workorder='<option>No-workorder</option>';
+                }
+                // console.log(workorder);
+                $('#work-order').html(workorder);
             }
-            // console.log(data);
         });
     }
+        // console.log('blnk')
+    }else{
+        let form_data = { id:clientId ,wid:workorderid};
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + '/Auditapp/getworkorder',
+            data: form_data,
+            success: function (data, success) {
+                let workorder='';
+                let obj = JSON.parse(data);
+                if(obj!=false){
+                    workorder = workOrderData(obj);
+                }else{
+                    workorder='<option>No-workorder</option>';
+                }
+                // console.log(workorder);
+                $('#work-order').html(workorder);
+            }
+        });
+        
+        console.log('filled')
+
+    }
+    // console.log(atob(clientId));
+
+   
 });
 
 $('#select-client').change();
@@ -475,9 +502,9 @@ $(document).ready(() => {
         allEmployees = JSON.parse(data);
         // console.log(obj);
     });
-
     //  Searching employees in to the array comes from database
     $('#search-users').on('change keyup', function () {
+        $('#card-users').show();
         let searchData = $(this).val().trim();
         if (searchData != '') {
             let name = allEmployees.filter(e => (e.first_name + " " + e.last_name).toLowerCase().includes(searchData.toLowerCase())); //filtering data from array comes from users table intot the database.
@@ -507,56 +534,56 @@ $(document).ready(() => {
         }
     });
 
-    var role = ''
-    $('#user-data').on('click', '.checked', function () {
-        role = $(this).val()
-        console.log(role);
-    });
+    // var role = ''
+    // $('#user-data').on('click', '.checked', function () {
+    //     role = $(this).val()
+    //     console.log(role);
+    // });
 
     $('#user-data').on('click', '.assign-task', function (e) {
-
-
+        e.preventDefault();
         let error = false;
-        // console.log(html)
-        let html = `<tr>
-        <td>${$(this).parent().parent().find('td:first').html()}</td>
-        <td>${$('#work-order option:selected').text()}</td>
-        <td>${role}</td>
-        </tr>`;
+        let username= $(this).parent().parent().find('td:first').html();
+        let selectedWorkorder= $('#work-order option:selected').text();
         let radioName = $(this).attr('data-radio-name');
         let employeesId = $(this).attr('data-employees-id');
         let radioValue = $(`input[name=${radioName}]:checked`).val();
-
         let clientId = $('#select-client').val().trim();
         let workorderId = $('#work-order').val().trim();
+        let html = `<tr>
+        <td>${username}</td>
+        <td>${selectedWorkorder}</td>
+        <td>${radioValue}</td>
+        </tr>`;
+   
+        // console.log(username);
+        // console.log(selectedWorkorder);
+        // console.log(radioName)
+        // console.log(employeesId)
+        // console.log(radioValue)
+        // console.log(clientId)
+        // console.log(workorderId)
+
         if (clientId == '') {
             error = true;
-            showAlert('Client required', 'warning');
+            showAlert('Client is required', 'warning');
         }
         if (workorderId == '') {
-            showAlert('Work order required', 'warning');
+            showAlert('Work order is required', 'warning');
             error = true;
         }
         // console.log(radioValue);
         if (radioValue == undefined) {
-            showAlert('Select Access role required', 'danger');
+            showAlert('Access role is required', 'danger');
             error = true;
         }
         // let form_data = new FormData();
         let form_data = { employeeId: employeesId, projectRole: radioValue, clientId: atob(clientId), workorderId: workorderId }
-
-
-
-
         if (!error) {
             $.post(baseUrl + "AssignWorkOrder/save_assigned_work",
                 form_data,
                 function (data, status) {
-
-                    console.log(data);
-
                     let responce = JSON.parse(data);
-
                     if (responce.status == 'A') {
                         showAlert(responce['msg'], responce['type']);
                     }
@@ -564,14 +591,15 @@ $(document).ready(() => {
                         showAlert(responce['msg'], responce['type']);
                         $('#assigned-users').css('display', 'block');
                         $('#assigned_user').append(html);
+                        $('#search-users').val('');
+                        $('#card-users').hide();
                         $(this).parent().parent().remove();
                     }
                     else if (responce.status == 'E') {
                         showAlert(responce['msg'], responce['type']);
                     }
-
                 });
-        }
+            }
     });
 
     // // save  worksteps 

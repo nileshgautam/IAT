@@ -146,7 +146,13 @@
                                                         <div class="">
                                                             <label>
 
-                                                                <input type="checkbox" name="subprocess" data-risk-id='<?php echo json_encode($risks) ?>' data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process">&nbsp;&nbsp;&nbsp;
+                                                                <input type="checkbox" 
+                                                                name="subprocess" 
+                                                                data-risk-id='<?php echo json_encode($risks) ?>' 
+                                                                data-sub-id="<?php echo $sbprocess['sub_process_id'] ?>" 
+                                                                
+                                                                data-process-id="<?php echo $sbprocess['process_id'] ?>" 
+                                                                class="sub_process">&nbsp;&nbsp;&nbsp;
                                                                 <?php echo $sbprocess['sub_process_description']; ?></label>
                                                         </div>
                                                         </h5>

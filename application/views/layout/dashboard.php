@@ -115,8 +115,15 @@
                                     <tbody>
                                         <?php
                                         $count = 1;
+
+// echo $workOrder[0];
+
                                         if (!empty($workOrder)) {
-                                            foreach ($workOrder  as $works) { ?>
+                                            foreach ($workOrder  as $works) { 
+                                                
+                                                // echo $works;
+                                                
+                                                ?>
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
                                                     <td>
@@ -129,7 +136,7 @@
                                                     
                                                     ?>
                                                     </td>
-                                                    <td>  <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/').base64_encode($works['client_id']); ?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
+                                                    <td>  <a href="<?php echo base_url('AssignWorkOrder/allowcated_work_order/').base64_encode($works['client_id']).'/'.base64_encode($works['work_order_id']);?>" class="btn btn-outline-primary btn-xs all-work-order">Update</a></td>
                                                 </tr>
                                         <?php }
                                         }
@@ -192,3 +199,4 @@
             </div>
         </div>
     </div>
+    

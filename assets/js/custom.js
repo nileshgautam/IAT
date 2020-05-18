@@ -292,6 +292,7 @@ $(function () {
 
 
 
+
 // function for Exit button to remove local storage data 
 $(function () {
     $('.restore-work-steps').click(function () {
@@ -303,15 +304,15 @@ $(function () {
     })
 })
 
-
-
 // function to load workorder and list of all the selected process created admindata into  page
 $(function () {
+
+
+
     let data = $('#table-process').attr('process-data');
     let workstepTablebody = $('#process-body');
     // let myTable=$('#table-process');
-    let TOTALROWS = [];
-
+    // let TOTALROWS = [];
     let workorderId = $('#table-process').attr('work-order-id');
     let totalRows = [];
     if (data != undefined) {
@@ -332,7 +333,6 @@ $(function () {
                     // console.log(rows);
                     if (rows.responase != 'false') {
                         totalRows = JSON.parse(rows.saved_data);
-
                         // console.log(totalRows);
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
                         loadTable(totalRows);
@@ -351,52 +351,29 @@ $(function () {
         }
 
     }
+    let options = '';
     // function to generate table rows 
     function loadTable(list) {
         let len = list.length;
-        // let Sr = 1;
-        // console.log(list);
+        $.post(baseUrl + "Auditapp/getRisklevel", function (data, status) {
+            RISKLEVEL = JSON.parse(data);
+            options = RISKLEVEL.map((rl) => {
+                let optionTemplate = $(`<option value="${rl.id}">${rl.status}</option>`);
+                // console.log(optionTemplate);
+                return optionTemplate;
+            });
+            console.log(options);
+        });
+
         workstepTablebody.empty();
 
-        // let rows = list.map((ob, index) => {
-        //     let action= `<button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${ob.workstep_id}' data-row-id='${ob.row_id}'> <i class="fa fa-upload"></i>
-        //                </button>`
-        //     // console.log(ob);
-        //     let row = [
-        //         (index + 1),
-        //         ob.process_description,
-        //         ob.sub_process_description,
-        //         ob.risk_description,
-        //         ob.risklevel, 
-        //         ob.control_description, 
-        //         ob.control_objectives,
-        //         ob.step_description,
-        //         ob.observations,
-        //         ob.root_cause,
-        //         ob.recommendation,
-        //         ob.management_action_plan,
-        //         ob.timeline_for_action_plan,
-        //         ob.responsibility_for_implementation,
-        //         ob.files,
-        //         action];
-        //     return row;
-        // });
-
-        //    myTable.DataTable({
-        //         data: rows,
-        //          scrollY: '50vh',
-        //         scrollX: true
-
-        //       });
-
-
         for (let i = 0; i < len; i++) {
-            let row = $(` <tr>
+            let row = $(` <tr >
                     <td class="content">${list[i].row_id}</td>
                     <td style="width:100px ">${list[i].process_description}</td>
                     <td style="width:376px !important;">${list[i].sub_process_description}</td>
                     <td style="width:414px">${list[i].risk_description}</td>
-                    <td>${list[i].risklevel}</td>
+                    <td> <select class="form-control risk-level" ${list[i].risklevel}> </select></td>
                     <td  style="width:363px">${list[i].control_description}</td>
                     <td>${list[i].control_objectives}</td>
                     <td class="content">${list[i].step_description}</td>
@@ -404,7 +381,7 @@ $(function () {
                     <td contenteditable="true" class="root-cause">${list[i].root_cause}</td>
                     <td contenteditable="true" class="recommendation">${list[i].recommendation}</td>
                     <td contenteditable="true" class="management-action-plan">${list[i].management_action_plan}</td>
-                    <td class="date" style="width:100px"> <input class="timeline-for-action-plan"  value="${list[i].timeline_for_action_plan}"/> </td>
+                    <td class="date" style="width:100px"> <input class="timeline-for-action-plan" placeholder="DD/MM/YYYY"   value="${list[i].timeline_for_action_plan}"/> </td>
                     <td contenteditable="true" class="responsibility-for-implementation">${list[i].responsibility_for_implementation}</td>
                     <td class="files">${list[i].files}</td>
                     <td style="width:38px">
@@ -413,9 +390,6 @@ $(function () {
                         </button>
                     </td>
             </tr>`);
-
-
-
 
             // appending rows 
             // TOTALROWS=row;
@@ -459,15 +433,28 @@ $(function () {
             responsibilityForImplementation.data("item_key", 'responsibility_for_implementation');
             responsibilityForImplementation.keyup(cellKeyUP);
 
+            // let risk_level=row.find('.risk-level');
+            // risk_level.data("id", list[i].row_id);
+            // risk_level.data("item_key",'risk_level');
+            // risk_level.append(options);
+            // risk_level.change(package_onchange);
+
+            // risk_level.onChange(
         }
-
-
-
-
         // myTable.on( 'click', 'tbody td', function () {
         //     myTable.cell( this ).edit( {
         //         blur: 'submit'
         //     } );});
+    }
+
+    function package_onchange() {
+        // let rikslevel = $(this);
+        // let item_key = rikslevel.data('item_key');
+        // let cellData_id = rikslevel.data('id');
+        // let item = totalRows.find((item) => item.row_id == cellData_id);
+        // item[item_key] = rikslevel.val();
+        // localStorage.setItem('rowData', JSON.stringify(totalRows));
+
     }
 
     function cellKeyUP() {
@@ -481,7 +468,6 @@ $(function () {
         item[item_key] = cellData.text();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
-
     function onChange() {
         let cellData = $(this);
         let item_key = cellData.data('item_key');
@@ -490,16 +476,12 @@ $(function () {
         item[item_key] = cellData.val();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
-
     function uploadFileKey() {
         let cellData = $(this);
         let cellData_id = cellData.data('id');
         $('#row-id').val(cellData_id);
     }
-
     // console.log(workstepTablebody);
-
-
     $('#table-process').DataTable({
         //  data:TOTALROWS,
         scrollX: true,
@@ -509,12 +491,10 @@ $(function () {
         "paging": false,
         "info": false
     });
-
     $('.setdata').click(function () {
         let rowsNo = $(this).attr('data-row-id');
         $('#row-id').val(rowsNo);
     })
-
     // uploadfile
     $('#uploadfiles').submit(function (e) {
         e.preventDefault();
@@ -600,6 +580,323 @@ $(function () {
         }
     });
 });
+
+// for moving one container to another
+$(function () {
+    $('.subprocess-item').on('click', '.sub-item', function () {
+        let controlData = '';
+        let controlObjective = '';
+        let riskData = '';
+        let subProcessId = $(this).attr('data-spid');
+        let rdata = JSON.parse($(this).attr('data-risk'));
+        let rcontainer = $('#risk-control').hasClass('hide');
+        // console.log(rdata);
+        // console.log(rcontainer);
+        if (subProcessId != '') {
+            for (let r = 0; r < rdata.length; r++) {
+                // console.log(data[i]);
+                riskData += `
+                <li>${rdata[r].risk_description}
+                <input type="radio" id="risk${rdata[r].risk_id}" name="risk" value="${rdata[r].risk_level}">
+                <label for="">${rdata[r].risk_level}</label>
+            </li>
+                `;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'Auditapp/get_riskControl',
+                data: { id: subProcessId },
+                success: function (responce) {
+                    let data = JSON.parse(responce);
+                    // console.log(data);
+                    // for(let r=0; i<data.length)
+                    for (let i = 0; i < data.length; i++) {
+                        controlData += `
+                        <li><span>${data[i].control_description}</span>
+                    </li>
+                        `;
+                        controlObjective += `
+                        <li><span>${data[i].control_objectives}</span>
+
+                    </li>
+                        `;
+                    }
+                    // console.log(data);
+                    if (rcontainer == true) {
+                        // console.log('hi')
+                        $('#risk-container').empty();
+                        $('#control-container').empty();
+                        $('#control-bojective-container').empty();
+
+                        $('#risk-container').html(riskData);
+                        $('#control-container').html(controlData);
+                        $('#control-bojective-container').html(controlObjective);
+                        $("#risk-control").removeClass("hide").addClass("show");
+                    }
+                    else {
+                        // $("#risk-control").hide();
+                        $("#risk-control").removeClass("show").addClass("hide");
+                    }
+                }
+            })
+        }
+    });
+
+    $('.selected-subprocess').on('click', '.remove-item', function () {
+        let controlData = '';
+        let controlObjective = '';
+        let riskData = '';
+        let subProcessId = $(this).attr('data-spid');
+        let rdata = JSON.parse($(this).attr('data-risk'));
+        let rcontainer = $('#risk-control').hasClass('hide');
+        // console.log(rdata);
+        // console.log(rcontainer);
+        if (subProcessId != '') {
+            for (let r = 0; r < rdata.length; r++) {
+                // console.log(data[i]);
+                riskData += `
+                <li>${rdata[r].risk_description}
+                <input type="radio" id="risk${rdata[r].risk_id}" name="risk" value="${rdata[r].risk_level}">
+                <label for="">${rdata[r].risk_level}</label>
+            </li>
+                `;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'Auditapp/get_riskControl',
+                data: { id: subProcessId },
+                success: function (responce) {
+                    let data = JSON.parse(responce);
+                    // console.log(data);
+                    // for(let r=0; i<data.length)
+                    for (let i = 0; i < data.length; i++) {
+                        controlData += `
+                    <li><span>${data[i].control_description}</span>
+                    </li>`;
+                        controlObjective += `<li><span>${data[i].control_objectives}<span></li>`;
+                    }
+                    // console.log(data);
+                    if (rcontainer == true) {
+                        // console.log('hi')
+                        $('#risk-container').empty();
+                        $('#control-container').empty();
+                        $('#control-bojective-container').empty();
+                        $('#risk-container').html(riskData);
+                        $('#control-container').html(controlData);
+                        $('#control-bojective-container').html(controlObjective);
+                        $("#risk-control").removeClass("hide").addClass("show");
+                    }
+                    else {
+                        // $("#risk-control").hide();
+                        $("#risk-control").removeClass("show").addClass("hide");
+                    }
+                }
+            })
+        }
+    });
+
+    let sspObj = {}; // selected sub process global object
+    let ssubpArr = [];//selected subprocess global array
+
+    $('.subprocess-item').on('dblclick', '.sub-item', function () {
+        // console.log(ssubpArr)
+        let temp = (this);
+        // console.log(temp);
+        $(this).parent().parent().parent().siblings().children(1).children('ul').append(temp); // element move to selected box
+        // $('.ssubp-element').append(this);
+        let processId = $(temp).attr('data-process-id'); //process id
+        let spId = $(temp).attr('data-spid');// sub process id
+        let risk = JSON.parse($(temp).attr('data-risk')); // sub process risk data risk data
+        let spname = $(temp).text().trim(); // sub process name
+        // console.log(spname);
+        let processName = $(temp).attr('data-process-name').trim();
+        sspObj = {
+            spId: spId,
+            spname: spname,
+            processId: processId,
+            processname: processName,
+            riskData: risk
+        };
+
+        let lsd = JSON.parse(retriveData('sspdata'));
+        // console.log(lsd);
+        if (lsd != null) {
+            if (lsd.length == 0) {
+                ssubpArr = [];
+                removeData('sspdata');
+                ssubpArr.push(sspObj);
+
+            } else {
+                ssubpArr.push(sspObj);
+            }
+        } else {
+            ssubpArr.push(sspObj);
+        }
+        // console.log(ssubpArr)
+        saveData("sspdata", ssubpArr); //selected sub process data save on localstorage
+    });
+    // console.log(ssp);
+    $('.selected-subprocess').on('dblclick', '.remove-item', function () {
+        let temp = $(this);
+        let spId = $(temp).attr('data-spid');// sub process id
+        // console.log(spId);
+        $(this).parent().parent().parent().siblings().children(0).children('ul').append(temp);
+        let ckecklocal = hasData('sspdata');
+
+        if (ckecklocal == true) {
+            let localStorageData = retriveData('sspdata');
+            removeData('sspdata');
+            // let c = hasData('sspdata');
+            // console.log(c);
+            let itemarr = JSON.parse(localStorageData);
+            // console.log(itemarr);
+            const idToRemove = spId;
+            const filteredsubprocess = itemarr.filter((item) => item.spId !== idToRemove);
+            // console.log(filteredsubprocess);
+            saveData("sspdata", filteredsubprocess);
+
+        }
+    });
+    // function to submit all the process
+    $('.submit-services').on('click', function () {
+        // let proceesId = [];
+        let process = {};
+        let spdata = {};
+        let checkdata = hasData('sspdata');
+        if (checkdata) {
+            let sspdata = JSON.parse(retriveData('sspdata'));
+
+            // sspdata.forEach(e => {
+            //     let processName = e.processname;
+            //     let subprocessname = e.spname;
+            //     // console.log(processName)
+
+            //     if(spdata[processName]===undefined){
+            //         spdata = {
+            //             [processName]: {spname: [subprocessname]},
+            //             ...spdata
+            //         };                    
+            //     }
+            //     else{
+            //         spdata[processName]= { spname: [subprocessname], ...spdata[processName]};
+                    
+            //     }
+
+            //     });
+
+            //     console.log(spdata);
+
+
+
+
+                // console.log(sspdata);
+                sspdata.forEach(e => {
+                    let processid = e.processId;
+                    let subpid = e.spId;
+                    let riskData = e.riskData;
+                    // let processName = e.processname;
+                    // let subprocessname = e.spname;
+                    // console.log(processid);
+                    // console.log(subpid);
+                    // console.log(riskData);
+                    if (process[processid] === undefined) {
+                        process = {
+                            [processid]: { [subpid]: riskData },
+                            ...process,
+                        };
+                        // spdata = {
+                        //     [processName]: [subprocessname],
+                        //     ...spdata
+                        // };
+
+                    } else {
+                        // console.log(process);
+                        process[processid] = {[subpid]: riskData, ...process[processid] };
+                        // spdata[processName] = {
+                        //     [subprocessname]: [subprocessname],
+                        //     ...spdata
+                        // };
+                    }
+
+                });
+            }
+        // console.log(spdata);
+            saveData('spdata', process);
+            let message = "Required";
+            // console.log($("[type='text']"))
+            let clientId = $('#client').val().trim();
+            let workorderId = $('#textWork-Order-id').val().trim();
+            let workOrderName = $('#textWork-Order-Name').val().trim();
+            let startDate = $('#start-date').val().trim();
+            let endDate = $('#end-date').val().trim();
+            let error = false;
+            // console.log(`start date ${startDate} nd date ${endDate}`);
+
+            if (clientId == "") {
+                $('#messageclient').html(message)
+                $('#client').focus();
+                error = true;
+            } if (workorderId == "") {
+                $('#messageworkorderid').html(message)
+                error = true;
+            } if (workOrderName == "") {
+                $('#messageworkorder').html(message)
+                $('#textWork-Order-Name').focus();
+                error = true;
+            }
+            if (startDate == '') {
+                $('#start-date').focus();
+                error = true;
+            }
+            if (Object.keys(process).length == 0) {
+                showAlert('Please choose process first', "warning");
+                error = true;
+            }
+
+            // console.log(process);
+
+            if (error != true) {
+                let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate };
+                // console.log(formData);
+                // console.log(error);
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'Auditapp/create_work_order',
+                    data: formData,
+                    success: function (data, success) {
+                        // ssubpArr = [];
+                        // saveData('sspdata', ssubpArr);
+                        // removeData('sspdata'); //Removeing loacl storage object 
+                        let resonce = JSON.parse(data);
+                        // console.log(resonce);
+                        showAlert(resonce.msg, "success");
+                        // console.log(baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id));
+
+                        setTimeout(() => {
+                            window.location = baseUrl + "ControlUnit/selectedSubprocess/" + btoa(resonce.client_id) + '/' + btoa(resonce.work_order_id);
+                        }, 1000);
+                    }
+
+                });
+            }
+        });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.assign-workorder').click(function () {
+        let client_id = $(this).attr('data-clientid');
+        let work_order_id = $(this).attr('data-wid');
+        // console.log(client_id);
+        // console.log(work_order_id);
+
+        window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + client_id + '/' + work_order_id;
+    });
+
+});
+
+
 
 // Local storage function
 function retriveData(FILE_KEY) {

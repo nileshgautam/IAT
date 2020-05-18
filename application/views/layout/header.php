@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="<?php echo base_url(); ?>assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -42,6 +43,9 @@
         let baseUrl = "<?php echo base_url(); ?>"
     </script>
 
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+<!-- <script src="<?php echo base_url('assets/js/jquery.table.transpose.min.js')?>">
+</script> -->
     <title>AuditApp</title>
 
 </head>

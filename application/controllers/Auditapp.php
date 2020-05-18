@@ -576,6 +576,20 @@ class Auditapp extends CI_Controller
         echo $data;
     }
 
+    // get workorders by specific id
+     public function getworkorder()
+    {
+        $condition=array(
+        'client_id' => base64_decode($_POST['id']),
+        'work_order_id' => $_POST['wid']
+        );
+
+        $data = $this->MainModel->selectAllFromWhere('work_order',$condition);
+        // print_r($data);die;
+        $data = json_encode($data, true);
+        echo $data;
+    }
+
     // function to load all the users by ajax
     public function allemployees()
     {
@@ -885,5 +899,18 @@ class Auditapp extends CI_Controller
     {
         $completeworkorders = $this->MainModel->selectAll('complete_work_steps');
         echo json_encode($completeworkorders);
+    }
+
+// function to extracting risk and control data by subprocess id
+
+    function get_riskControl(){
+        $riskData = $this->MainModel->getRiskbyId($_POST['id']);
+        echo json_encode($riskData);
+    }
+
+    // Function to extracting risk level from database
+    function getRisklevel(){
+        $risklevel =$this->MainModel->selectAll('status');
+        echo json_encode($risklevel);
     }
 }

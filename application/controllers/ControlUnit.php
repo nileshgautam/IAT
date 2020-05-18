@@ -16,8 +16,10 @@ class ControlUnit extends CI_Controller
 	// admin dashboard
 	public function dashboard()
 	{
+		// echo '<pre>';
 		$data['allclients'] = $this->MainModel->selectAll('client_details');
 		$data['workOrder'] = $this->MainModel->selectAllworkOrder();
+
 		$data['Users'] = $this->MainModel->getallusers();
 		// print_r($data);die;
 		$this->load->view('layout/header');
@@ -112,21 +114,79 @@ class ControlUnit extends CI_Controller
 	public function newWorkOrder($clientid = null)
 	{
 		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
+		$data['processes'] = $this->MainModel->selectAll('process_master');
+		// $process_result = $this->MainModel->selectAll('process_master');
 		$data['clientid'] = $clientid;
+		// $tableName = 'sub_process_master';
+
+		// $condition = array('process_id' => $processes[$i]['process_id']);
+		// $subprocess = $this->MainModel->selectAllFromWhere($tableName, $condition);
+
+		// $tab_menu = '';
+		// $count = 0;
+		// $tab_content = '';
+
+		// for ($i = 0; $i < count($process_result); $i++) {
+
+		// 	if ($count == 0) {
+		// 		$tab_menu .= '
+		// <li class="nav-item">
+		// <a data-i="" class="nav-link active" id="" data-toggle="tab" href="#' . $process_result[$i]['process_id'] . '" role="tab" aria-controls="tab" aria-selected="true">' . $process_result[$i]['process_description'] . '
+		// </a><div data-id="" class="arrow-down hide"></div></li>';
+		// 		$tab_content .= ' <div class="tab-pane fade show active" id="outline-0" role="tabpanel" aria-labelledby="tab-outline-0"></div>';
+		// 	} else {
+		// 		$tab_menu .= '
+		// <li class="nav-item">
+		// <a data-i="" class="nav-link" id="" data-toggle="tab" href="#' . $process_result[$i]['process_id'] . '" role="tab" aria-controls="tab" aria-selected="true">' . $process_result[$i]['process_description'] . '
+		// </a><div data-id="" class="arrow-down hide"></div></li>';
+		// 		$tab_content .= ' <div class="tab-pane show " id="outline-0" role="tabpanel" aria-labelledby="tab-outline-0"></div>';
+		// 	}
+		// 	$condition = array('process_id' => $process_result[$i]['process_id']);
+		// 	$subprocess = $this->MainModel->selectAllFromWhere($tableName, $condition);
+		// 	for ($sub_p = 0; $sub_p < count($subprocess); $sub_p++) {
+		// 		$tab_content .= 'hi';
+		// 	}
+		// 	$tab_content .= '<div style="clear:both"></div></div>';
+
+		// 	$count++;
+		// }
+
+		// $data['processes'] = $tab_menu;
+		// $data['processes_sub_process'] = $tab_content;
+
+
 		$this->load->view('layout/header');
+
 		$this->load->view('layout/sidebar');
-		$this->load->view('pages/new-work-order', $data);
+		// $this->load->view('pages/new-work-order', $data);
+		$this->load->view('pages/new-work-order-demo', $data);
+
 		$this->load->view('layout/footer');
 	}
-// function to show list of all the workorder on admin menus
+	// function to show list of all the workorder on admin menus
 	public function allWorkOrder()
 	{
 		// $data['workOrder']=$this->MainModel->selectAllworkOrder();
 		// $data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
 		$data['worksOrders'] = $this->MainModel->selectAllworkOrder();
+
+		// print_r($data['worksOrders']);die;
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('pages/all-workorder', $data);
 		$this->load->view('layout/footer');
 	}
+
+	public function selectedSubprocess($clientId=null, $workOrderId=null)
+	{
+		$data['workid']=$workOrderId;
+		$data['clientid']=$clientId;
+		// $data['worksOrders'] = $this->MainModel->selectAllworkOrder();
+		$this->load->view('layout/header');
+		$this->load->view('layout/sidebar');
+		$this->load->view('pages/selected-process', $data);
+		$this->load->view('layout/footer');
+	}
 }
+
+

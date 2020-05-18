@@ -54,7 +54,6 @@ if (!empty($p_data)) {
 <!-- ============================================================== -->
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
-
         <!-- ============================================================== -->
         <!-- pagehader  -->
         <!-- ============================================================== -->
@@ -66,14 +65,11 @@ if (!empty($p_data)) {
 " class="btn btn-danger float-right restore-work-steps">Exit</button>
                     <button class="float-right btn btn-success save-work-step" data-client-id='<?php echo $clientId;?>' data-client-name='<?php echo $clientName ?>' style="margin: -43px 62px;
 ">Save</button>
-
-
-
                     <hr class="divider">
                 </div>
             </div>
         </div>
-        <table class="table table border" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
+        <table class="table table-bordered" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
             <thead class="bg-light">
                 <tr>
                     <th>#</th>

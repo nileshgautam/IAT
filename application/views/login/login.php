@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,6 +14,11 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
    <!-- jQuery 3 -->
    <script src="<?php echo base_url('assets/vendor/jquery/jquery-3.3.1.min.js') ?>"></script>
+
+   <!-- data table -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
     <!-- Alert Box -->
     <script src="  <?php echo base_url('assets/js/bootstrap-notify.min.js') ?>"></script>
     <script src="  <?php echo base_url('assets/js/MyScriptLibrary.js') ?>"></script>

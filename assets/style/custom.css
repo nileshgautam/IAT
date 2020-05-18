@@ -1,4 +1,4 @@
-.exit-btn-style{
+.exit-btn-style {
     margin: -28px 7px !important;
     padding: 2px 5px !important;
 }
@@ -7,10 +7,188 @@ td.details-control {
     background: url('../images/details_open.png') no-repeat center center;
     cursor: pointer;
 }
+
 tr.shown td.details-control {
     background: url('../images/details_close.png') no-repeat center center;
 }
 
-.chart{
-width: 100vw;
+.chart {
+    width: 100vw;
 }
+
+.process-h {
+    margin: 0px;
+    padding: 15px;
+    text-align: center;
+}
+
+.m-10 {
+    margin: 10px;
+}
+
+.backword-forword {
+    margin-top: 60px !important;
+    margin-left: 50px !important;
+}
+
+.sub-item {
+    list-style: none;
+    cursor: pointer;
+}
+
+.sub-item:hover {
+    list-style: none;
+    cursor: pointer;
+    /* color: blue; */
+}
+
+.nav-tabs li a {
+    padding-top: 18px;
+    height: 58px !important;
+}
+
+.tab-outline .nav-tabs .nav-link.active::after {
+    content: "";
+    background: url('../style/icon/t1.png');
+}
+
+.tab-outline .nav-tabs .nav-link {
+    /* border-radius: .25rem; */
+    border-bottom-right-radius: .50rem;
+    border-bottom-left-radius: .50rem;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.sub-process-container {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 20px;
+    min-height: 100px;
+    padding-top: 15px;
+    padding-right: 15px;
+    width: auto;
+    font-size: 14px;
+}
+
+.e-btn {
+    margin: -35px 20px !important;
+    height: 35px !important;
+}
+
+.ssubprocess-container {
+    /* border: 2px solid red; */
+    /* display: flex; */
+    justify-content: center;
+}
+
+.ssubprocess-container>h3 {
+    margin-left: 42%;
+    font-size: 16px;
+}
+
+#ssubp-element {
+    margin: auto;
+    justify-content: center;
+}
+
+.mt-0 {
+    margin-top: 0px !important;
+}
+
+.h-line {
+    /* margin: 0px !important; */
+    margin-top: 9px !important;
+    margin-bottom: 0 !important;
+    border-top: 2px solid rgba(0, 0, 0, .1) !important;
+
+}
+
+/* css for tooltip */
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid rgb(25, 104, 207);
+    margin: auto;
+}
+
+.btn-container{
+    display: flex;
+    margin-top: 15px;
+}
+.btn-success{
+    /* float:right !important; */
+    display: flex;
+    margin-left: auto;
+    justify-content: right;
+
+}
+
+.heading-process {
+    margin-bottom: 0px !important;
+    line-height: 5px !important;
+}
+
+
+.timeline-for-action-plan{
+    outline: none !important;
+    border: none !important;
+}
+
+.btn-apply {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    /* padding:5px 5px; */
+}
+
+.apply {
+    display: flex;
+    justify-content: center;
+    /* position: relative; */
+    margin-left: 91%;
+}
+
+/* tooltip background color */
+.tooltip-inner {
+    background-color: rgb(25, 104, 207);
+    }
+    .tooltip.bs-tooltip-right .arrow:before {
+        border-right-color: rgb(25, 104, 207) !important;
+    }
+    .tooltip.bs-tooltip-left .arrow:before {
+        border-left-color: rgb(25, 104, 207) !important;
+    }
+    .tooltip.bs-tooltip-bottom .arrow:before {
+        border-bottom-color: rgb(25, 104, 207) !important;
+    }
+    .tooltip.bs-tooltip-top .arrow:before {
+        border-top-color: rgb(25, 104, 207) !important;
+    }
+
+
+    /* select box control */
+
+    /* .select-control{
+        color: #71748d;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-position: 99% 52%;
+        background-size: auto;
+        background-repeat: no-repeat;
+        background-image: url(/images/down-arrow.png);
+        padding-right: 15px;
+        border: 1px solid #d2d2e4;
+        border-radius: 2px;
+    } */
+
+    }
