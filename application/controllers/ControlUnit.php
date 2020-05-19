@@ -13,7 +13,7 @@ class ControlUnit extends CI_Controller
 			redirect('Login/index');
 		}
 	}
-	// admin dashboard
+	// Admin dashboard
 	public function dashboard()
 	{
 		// echo '<pre>';
@@ -27,7 +27,7 @@ class ControlUnit extends CI_Controller
 		$this->load->view('layout/dashboard', $data);
 		$this->load->view('layout/footer');
 	}
-	// function to create new Client view
+	// Function to create new Client view
 	public function newClientPage()
 	{
 		$data['country'] = $this->MainModel->selectAll('countries', 'name');
@@ -37,7 +37,7 @@ class ControlUnit extends CI_Controller
 		$this->load->view('layout/footer');
 	}
 
-	// function to creatge new users
+	// Function to creatge new users
 	public function newUsersPage()
 	{
 		$data['country'] = $this->MainModel->selectAll('countries', 'name');
@@ -47,7 +47,7 @@ class ControlUnit extends CI_Controller
 		$this->load->view('pages/new-user', $data);
 		$this->load->view('layout/footer');
 	}
-	// function to show list of all the existing user from database
+	// Function to show list of all the existing user from database
 	public function allUsers()
 	{
 		// $data['users'] = $this->MainModel->selectAll('users', 'first_name');
@@ -57,7 +57,7 @@ class ControlUnit extends CI_Controller
 		$this->load->view('template/all-users', $data);
 		$this->load->view('layout/footer');
 	}
-	// function to show list of all the existing clients from database
+	// Function to show list of all the existing clients from database
 	public function allClients()
 	{
 		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
@@ -66,9 +66,7 @@ class ControlUnit extends CI_Controller
 		$this->load->view('template/all-clients', $data);
 		$this->load->view('layout/footer');
 	}
-
-
-	// team dashboard will apear after loggedin 
+	// Team dashboard will apear after loggedin 
 	public function teamDashboard()
 	{
 		$data['workorder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
@@ -77,7 +75,6 @@ class ControlUnit extends CI_Controller
 		$this->load->view('team/team-dashboard');
 		$this->load->view('layout/footer');
 	}
-
 	// Manager dashboard
 	public function manager()
 	{
@@ -90,19 +87,10 @@ class ControlUnit extends CI_Controller
 		$this->load->view('manager/manager-dashboard', $data);
 		$this->load->view('layout/footer');
 	}
-	// function to show list of all the existing clients from database to the manager menus
-	// public function managerallClients()
-	// {
-	// 	$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
-	// 	$this->load->view('layout/header');
-	// 	$this->load->view('manager/manager-sidebar');
-	// 	$this->load->view('pages/all-clients-manager', $data);
-	// 	$this->load->view('layout/footer');
-	// }
-	// function to show list of all the workorders, on manager screen
+	
+	// Function to show list of all the workorders, on manager screen
 	public function managerAllWorkOrder()
 	{
-		// $data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
 		$data['workOrder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
 		$data['workOrders'] = $this->MainModel->selectAllworkOrder();
 		$this->load->view('layout/header');
@@ -114,74 +102,35 @@ class ControlUnit extends CI_Controller
 	public function newWorkOrder($clientid = null)
 	{
 		$data['clients'] = $this->MainModel->selectAll('client_details', 'client_name');
+
 		$data['processes'] = $this->MainModel->selectAll('process_master');
-		// $process_result = $this->MainModel->selectAll('process_master');
+
 		$data['clientid'] = $clientid;
-		// $tableName = 'sub_process_master';
-
-		// $condition = array('process_id' => $processes[$i]['process_id']);
-		// $subprocess = $this->MainModel->selectAllFromWhere($tableName, $condition);
-
-		// $tab_menu = '';
-		// $count = 0;
-		// $tab_content = '';
-
-		// for ($i = 0; $i < count($process_result); $i++) {
-
-		// 	if ($count == 0) {
-		// 		$tab_menu .= '
-		// <li class="nav-item">
-		// <a data-i="" class="nav-link active" id="" data-toggle="tab" href="#' . $process_result[$i]['process_id'] . '" role="tab" aria-controls="tab" aria-selected="true">' . $process_result[$i]['process_description'] . '
-		// </a><div data-id="" class="arrow-down hide"></div></li>';
-		// 		$tab_content .= ' <div class="tab-pane fade show active" id="outline-0" role="tabpanel" aria-labelledby="tab-outline-0"></div>';
-		// 	} else {
-		// 		$tab_menu .= '
-		// <li class="nav-item">
-		// <a data-i="" class="nav-link" id="" data-toggle="tab" href="#' . $process_result[$i]['process_id'] . '" role="tab" aria-controls="tab" aria-selected="true">' . $process_result[$i]['process_description'] . '
-		// </a><div data-id="" class="arrow-down hide"></div></li>';
-		// 		$tab_content .= ' <div class="tab-pane show " id="outline-0" role="tabpanel" aria-labelledby="tab-outline-0"></div>';
-		// 	}
-		// 	$condition = array('process_id' => $process_result[$i]['process_id']);
-		// 	$subprocess = $this->MainModel->selectAllFromWhere($tableName, $condition);
-		// 	for ($sub_p = 0; $sub_p < count($subprocess); $sub_p++) {
-		// 		$tab_content .= 'hi';
-		// 	}
-		// 	$tab_content .= '<div style="clear:both"></div></div>';
-
-		// 	$count++;
-		// }
-
-		// $data['processes'] = $tab_menu;
-		// $data['processes_sub_process'] = $tab_content;
-
 
 		$this->load->view('layout/header');
-
 		$this->load->view('layout/sidebar');
-		// $this->load->view('pages/new-work-order', $data);
-		$this->load->view('pages/new-work-order-demo', $data);
-
+		$this->load->view('pages/new-work-order', $data);
 		$this->load->view('layout/footer');
 	}
-	// function to show list of all the workorder on admin menus
+	// Function show list of all the workorder on admin menus
 	public function allWorkOrder()
 	{
-		// $data['workOrder']=$this->MainModel->selectAllworkOrder();
-		// $data['worksOrders'] = $this->MainModel->selectAll('work_order', 'client_id');
 		$data['worksOrders'] = $this->MainModel->selectAllworkOrder();
 
 		// print_r($data['worksOrders']);die;
+
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('pages/all-workorder', $data);
 		$this->load->view('layout/footer');
 	}
 
+	// Function for show all the selected process and their sub process 
 	public function selectedSubprocess($clientId=null, $workOrderId=null)
 	{
 		$data['workid']=$workOrderId;
 		$data['clientid']=$clientId;
-		// $data['worksOrders'] = $this->MainModel->selectAllworkOrder();
+
 		$this->load->view('layout/header');
 		$this->load->view('layout/sidebar');
 		$this->load->view('pages/selected-process', $data);

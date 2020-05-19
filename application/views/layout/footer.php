@@ -61,43 +61,14 @@
         <script src="<?php echo base_url(); ?>assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
         <script src="<?php echo base_url(); ?>assets/vendor/charts/charts-bundle/chartjs.js"></script>
 
-
-
         <!-- dashboard sales js-->
         <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
         <!-- main js-->
         <!-- Optional JavaScript -->
+
         <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
-
-
-
-
-
-
-
-
-        <!-- show all the messages  -->
-        <!-- <?php
-                if ($this->session->flashdata('success')) {
-                ?><script>
-        showAlert("<?php echo $this->session->flashdata('success'); ?>", 'success');
-    </script>
-<?php
-                }
-?>
-<?php
-if ($this->session->flashdata('error')) {
-?>
-    <script>
-        showAlert("<?php echo $this->session->flashdata('error'); ?>", 'danger');
-    </script>
-<?php
-}
-?> -->
-
-        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

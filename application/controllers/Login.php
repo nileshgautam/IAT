@@ -51,17 +51,17 @@ class Login extends CI_Controller
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata("userInfo", $sesdata);
-
                 $result = json_encode(array('msg' => 'true', 'type' => 'success', 'role'=>$user_role, 'remember_me' => $remember_me), true);
                 echo $result;
             }
         }
                    
     }
-
+    // 
     function logout()
     {
         $this->session->sess_destroy();
         redirect('login');
     }
+
 }
