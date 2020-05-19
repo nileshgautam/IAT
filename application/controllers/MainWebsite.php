@@ -232,8 +232,7 @@ class MainWebsite extends CI_Controller
 			$this->session->set_flashdata('error', "Please check the header of file");
 			redirect('MainWebsite/upload_excel');
 		}
-	}
-	
+	}	
 	private function get_all_unique($data, $column_name)
 	{
 		$unique_columns = array_unique(array_column($data, $column_name));

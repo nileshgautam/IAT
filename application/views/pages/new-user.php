@@ -20,23 +20,6 @@
         <!-- ============================================================== -->
         <!-- pagehader  -->
         <!-- ============================================================== -->
-        <!-- <div class="row"> -->
-            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"> -->
-                <!-- <div class="page-header">
-                    <h3 class="mb-2">User</h3> <a style="margin: -45px 20px;
-" class="btn btn-danger float-right text-white" href="<?php echo base_url('dashboard') ?>">Exit</a>
-                    <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">User</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link"><?php echo (isset($user)) ? 'Edit User' : ' New User' ?></a></li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div> -->
-            <!-- </div> -->
-        <!-- </div> -->
         <div class="row">
             <!-- ============================================================== -->
             <!-- basic form -->
@@ -102,7 +85,7 @@
 
 
                                         </select>
-                                        <!-- <input id="inputUserName" type="text" name="name" data-parsley-trigger="change" required="" placeholder="Enter user name" autocomplete="off" class="form-control"> -->
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -111,7 +94,6 @@
                                         <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control">
                                             <option id='statechiled' value="<?php echo isset($user) ? $user[0]['state'] : '' ?>"><?php echo isset($user) ? $user[0]['state'] : 'Select State' ?></option>
                                         </select>
-                                        <!-- <input id="inputEmail" type="email" name="email" data-parsley-trigger="change" required="" placeholder="Enter email" autocomplete="off" class="form-control"> -->
                                     </div>
                                 </div>
                                 <div class="col-md-4">

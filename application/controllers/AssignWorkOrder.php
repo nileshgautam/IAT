@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class AssignWorkOrder extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -13,9 +11,7 @@ class AssignWorkOrder extends CI_Controller
             redirect('login');
         }
     }
-
-    function allowcated_work_order($clientid = null , $wid=null)
-
+    function allowcated_work_order($clientid = null, $wid = null)
     {
 
         $data['users'] = $this->MainModel->selectAllWhere('users', array('role!=' => 'Admin'));
@@ -33,7 +29,6 @@ class AssignWorkOrder extends CI_Controller
         $this->load->view('template/allowcateWorkorder', $data);
         $this->load->view('layout/footer');
     }
-
     function get_work_order()
     {
         if (isset($_POST['id'])) {
@@ -47,14 +42,13 @@ class AssignWorkOrder extends CI_Controller
             echo "System Error! Contact to IT";
         }
     }
-
     // assign Work orders
     function save_assigned_work()
     {
         // print_r($_POST);die;
-// echo '<pre>';
+        // echo '<pre>';
         if (isset($_POST)) {
-            $validate = $this->MainModel->selectAllWhere('users_work_order_relationship', array('work_order_id' => $_POST['workorderId'], 'user_id' => $_POST['employeeId'], 'role'=>$_POST['projectRole']));
+            $validate = $this->MainModel->selectAllWhere('users_work_order_relationship', array('work_order_id' => $_POST['workorderId'], 'user_id' => $_POST['employeeId'], 'role' => $_POST['projectRole']));
             // print_r($_POST);
             // print_r($validate);die;
             if (!empty($validate)) {
