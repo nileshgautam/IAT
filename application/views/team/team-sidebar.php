@@ -15,17 +15,26 @@
                  <ul class="navbar-nav ml-auto navbar-right-top">
                      <li class="nav-item active">
                          <a class="nav-link" title="dashboard" href="<?php echo base_url('ControlUnit/teamDashboard') ?>">
-                             <i class="fa fa-fw fa-home text-white"></i><span class="text-white"> Dashboard</span></a>
+                             <i class="fa fa-fw fa-home text-white"></i><span class="text-white"></span></a>
                      </li>
-                     <li class="nav-item dropdown connection">
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Testing
+                         </a>
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             <a class="dropdown-item" href="<?php echo base_url('po-testing')?>">Po Testing</a>
+                         </div>
+                     </li>
+
+                     <li class="nav-item dropdown">
                          <a title="Menu" class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-th text-white"></i>
-                        <span class="text-white">Menus</span> 
-                        </a>
+                             <span class="text-white">Menus</span>
+                         </a>
                          <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
                              <li class="connection-list">
                                  <div class="row">
                                      <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12 ">
-                                         <a  title="Assigned task" href="<?php echo base_url('Auditapp/assignedTask') ?>" class=" connection-item">
+                                         <a title="Assigned task" href="<?php echo base_url('Auditapp/assignedTask') ?>" class=" connection-item">
                                              <i class="fa fa-fw fa-tasks"></i> <span>Assigned task</span></a>
                                      </div>
 

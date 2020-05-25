@@ -106,7 +106,6 @@ tr.shown td.details-control {
     margin-top: 9px !important;
     margin-bottom: 0 !important;
     border-top: 2px solid rgba(0, 0, 0, .1) !important;
-
 }
 
 /* css for tooltip */
@@ -120,16 +119,16 @@ tr.shown td.details-control {
     margin: auto;
 }
 
-.btn-container{
+.btn-container {
     display: flex;
     margin-top: 15px;
 }
-.btn-success{
+
+.btn-success {
     /* float:right !important; */
     display: flex;
     margin-left: auto;
     justify-content: right;
-
 }
 
 .heading-process {
@@ -137,8 +136,7 @@ tr.shown td.details-control {
     line-height: 5px !important;
 }
 
-
-.timeline-for-action-plan{
+.timeline-for-action-plan {
     outline: none !important;
     border: none !important;
 }
@@ -159,26 +157,30 @@ tr.shown td.details-control {
 }
 
 /* tooltip background color */
+
 .tooltip-inner {
     background-color: rgb(25, 104, 207);
-    }
-    .tooltip.bs-tooltip-right .arrow:before {
-        border-right-color: rgb(25, 104, 207) !important;
-    }
-    .tooltip.bs-tooltip-left .arrow:before {
-        border-left-color: rgb(25, 104, 207) !important;
-    }
-    .tooltip.bs-tooltip-bottom .arrow:before {
-        border-bottom-color: rgb(25, 104, 207) !important;
-    }
-    .tooltip.bs-tooltip-top .arrow:before {
-        border-top-color: rgb(25, 104, 207) !important;
-    }
+}
 
+.tooltip.bs-tooltip-right .arrow:before {
+    border-right-color: rgb(25, 104, 207) !important;
+}
 
-    /* select box control */
+.tooltip.bs-tooltip-left .arrow:before {
+    border-left-color: rgb(25, 104, 207) !important;
+}
 
-    /* .select-control{
+.tooltip.bs-tooltip-bottom .arrow:before {
+    border-bottom-color: rgb(25, 104, 207) !important;
+}
+
+.tooltip.bs-tooltip-top .arrow:before {
+    border-top-color: rgb(25, 104, 207) !important;
+}
+
+/* select box control */
+
+/* .select-control{
         color: #71748d;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -191,4 +193,52 @@ tr.shown td.details-control {
         border-radius: 2px;
     } */
 
-    }
+.my-9 {
+    margin-top: 9px !important;
+}
+
+.mb-13 {
+    margin-bottom: 13px !important;
+}
+
+.p-10 {
+    padding: 10px !important;
+}
+
+.form-container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+.form-btn{
+    display: flex;
+    justify-content: center;
+    
+}
+.btn-flx{
+    display: flex;
+    justify-content: center !important;
+    margin: auto;
+    margin-top: 3px;
+
+}
+.cancel-btn{
+    margin: auto;
+}
+.f-18{
+    font-size: 17px;
+}
+.flr{
+    float: right !important;
+}
+.my-10{
+margin-top: 10px !important;
+}
+
+.sapce-even{
+    display: flex !important;
+    justify-content: space-around !important;
+}
+.mh-121{
+    min-height: 143px;
+}

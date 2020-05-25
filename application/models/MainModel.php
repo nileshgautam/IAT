@@ -155,6 +155,10 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+    public function trunctable( $table = null)
+    {
+        $this->db->empty_table($table);
+    }
 
     //create new id for product/order table
     // public function getNew_Id($prefix, $table, $pad_length = 3)

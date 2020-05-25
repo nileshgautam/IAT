@@ -41,6 +41,7 @@ class MainWebsite extends CI_Controller
 				redirect(__CLASS__ . '/upload_excel');
 			}
 		}
+
 		if (!is_readable($file)) {
 			$this->session->set_flashdata('error', "File is not readable.");
 			redirect(__CLASS__ . '/upload_excel');
@@ -53,7 +54,7 @@ class MainWebsite extends CI_Controller
 		//extract to a PHP readable array format
 		foreach ($objPHPExcel->getWorksheetIterator() as $key => $worksheet) {
 			$cell_collection = $worksheet->getCellCollection();
-
+			
 			for ($i = 0; $i < count($cell_collection); $i++) {
 				$column = $worksheet->getCell($cell_collection[$i])->getColumn();
 				$row = $worksheet->getCell($cell_collection[$i])->getRow();

@@ -3,7 +3,6 @@ $('#reload').click(function () {
     location.reload(true);
 });
 
-
 // login function
 $(function () {
     // setting userdata into the login form
@@ -58,52 +57,6 @@ $(function () {
         });
     });
 });
-
-// $(document).ready(() => {
-//     let process = $('#progressVal').val();
-//     let totalsteps = $('#totalsteps').val();
-//     let completeSteps = $('#completeSteps').val();
-//     let value;
-
-//     if (process != undefined || completeSteps != "" || + totalsteps != "") {
-//         // console.log(process);
-//         if (process != undefined) {
-
-
-//             let value = JSON.parse(process);
-//             let totalSteps = JSON.parse(totalsteps);
-//             let compSteps = JSON.parse(completeSteps);
-
-//             for (let i = 0; i < value.length; i++) {
-//                 $(`#process-progress${i}`).css('width', `${value[i]}%`);
-//                 $(`#complete-progress${i}`).text(`${value[i]}%`);
-//             }
-//             for (let j = 0; j < totalSteps.length; j++) {
-//                 $(`#total-steps${j}`).text(`${totalSteps[j]}`);
-//             }
-//             for (let k = 0; k < compSteps.length; k++) {
-//                 $(`#complete-steps${k}`).text(`${compSteps[k]}`);
-//             }
-//         }
-//     }
-//     // To calculate all the complete work steps
-//     const totlaCard = $('.total-card').length;
-//     const workOrderId = $('#work-orderid').val();
-//     if (value != undefined) {
-//         let completWorkorders = 0;
-//         for (let progress = 0; progress < value.length; progress++) {
-//             completWorkorders += parseInt(value[progress]);
-//         }
-//         // calculating values
-//         let completeWorkOrder = completWorkorders / totlaCard;
-//         $.post(baseUrl + "Auditapp/updateWorkorder", { workOrderId: workOrderId, completeWorkOrder: completeWorkOrder }, function (data, status) {
-//         });
-//         // console.log(completeWorkOrder);
-//         // console.log(workOrderId);
-//     }
-//     // }
-
-// });
 
 // function for client form validation
 $(function () {
@@ -288,12 +241,9 @@ $(function () {
 
         // alert('You clicked on Sub process')
     });
-})
+});
 
-
-
-
-// function for Exit button to remove local storage data 
+// Function for Exit button to remove local storage data 
 $(function () {
     $('.restore-work-steps').click(function () {
         confirm('Warning! Are you sure want to exit, will remove your filled data');
@@ -302,24 +252,18 @@ $(function () {
         }
         window.location.href = baseUrl + 'ControlUnit/teamDashboard';
     })
-})
+});
 
-// function to load workorder and list of all the selected process created admindata into  page
+// Function to load workorder and list of all the required stuff
 $(function () {
-
-
-
     let data = $('#table-process').attr('process-data');
     let workstepTablebody = $('#process-body');
-    // let myTable=$('#table-process');
-    // let TOTALROWS = [];
     let workorderId = $('#table-process').attr('work-order-id');
     let totalRows = [];
     if (data != undefined) {
         let serverResponce = JSON.parse(data);
-        let rowData = hasData('rowData');
+        let rowData = hasData('rowData'); // checking data in local storeage
         if (rowData == false) {
-            // let rows = undefined;
             let form_data = {
                 workOrderId: workorderId
             };
@@ -351,29 +295,23 @@ $(function () {
         }
 
     }
-    let options = '';
     // function to generate table rows 
     function loadTable(list) {
         let len = list.length;
-        $.post(baseUrl + "Auditapp/getRisklevel", function (data, status) {
-            RISKLEVEL = JSON.parse(data);
-            options = RISKLEVEL.map((rl) => {
-                let optionTemplate = $(`<option value="${rl.id}">${rl.status}</option>`);
-                // console.log(optionTemplate);
-                return optionTemplate;
-            });
-            console.log(options);
-        });
+    let options;
 
+        console.log(options);
         workstepTablebody.empty();
-
         for (let i = 0; i < len; i++) {
             let row = $(` <tr >
                     <td class="content">${list[i].row_id}</td>
                     <td style="width:100px ">${list[i].process_description}</td>
                     <td style="width:376px !important;">${list[i].sub_process_description}</td>
                     <td style="width:414px">${list[i].risk_description}</td>
-                    <td> <select class="form-control risk-level" ${list[i].risklevel}> </select></td>
+                    <td> <select class="form-control risk-level" value="${list[i].risk_level}">
+                    
+                    
+                    </select></td>
                     <td  style="width:363px">${list[i].control_description}</td>
                     <td>${list[i].control_objectives}</td>
                     <td class="content">${list[i].step_description}</td>
@@ -433,27 +371,47 @@ $(function () {
             responsibilityForImplementation.data("item_key", 'responsibility_for_implementation');
             responsibilityForImplementation.keyup(cellKeyUP);
 
-            // let risk_level=row.find('.risk-level');
-            // risk_level.data("id", list[i].row_id);
-            // risk_level.data("item_key",'risk_level');
-            // risk_level.append(options);
-            // risk_level.change(package_onchange);
 
-            // risk_level.onChange(
+            let risk_level=row.find('.risk-level');
+            risk_level.data("id", list[i].row_id);
+            risk_level.data("item_key",'risk_level');
+
+            $.post(baseUrl + "Auditapp/getRisklevel", function (data, status) {
+                RISKLEVEL = JSON.parse(data);
+                options = RISKLEVEL.map((rl) => {
+                    let optionTemplate
+                    if(rl.status==list[i].risk_level){
+                        optionTemplate = $(`<option value="${rl.status}" selected>${rl.status}</option>`);
+                    }else{
+                        optionTemplate = $(`<option value="${rl.status}">${rl.status}</option>`);
+                    }
+                    // console.log(optionTemplate);
+                    return optionTemplate;
+                });
+                risk_level.append(options)
+            });
+            risk_level.change(package_onchange);
+          
+            // risk_level.append(options);
         }
-        // myTable.on( 'click', 'tbody td', function () {
-        //     myTable.cell( this ).edit( {
-        //         blur: 'submit'
-        //     } );});
     }
 
     function package_onchange() {
-        // let rikslevel = $(this);
-        // let item_key = rikslevel.data('item_key');
-        // let cellData_id = rikslevel.data('id');
-        // let item = totalRows.find((item) => item.row_id == cellData_id);
-        // item[item_key] = rikslevel.val();
-        // localStorage.setItem('rowData', JSON.stringify(totalRows));
+        let rikslevel = $(this);
+        // console.log(rikslevel);
+        let item_key = rikslevel.data('item_key');
+        // console.log(item_key);
+        let cellData_id = rikslevel.data('id');
+        // console.log(cellData_id);
+
+        let item = totalRows.find((item) => item.row_id == cellData_id);
+        
+
+        item[item_key] = rikslevel.val();
+
+        console.log(item[item_key]);
+
+        localStorage.setItem('rowData', JSON.stringify(totalRows));
 
     }
 
@@ -468,6 +426,7 @@ $(function () {
         item[item_key] = cellData.text();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
+
     function onChange() {
         let cellData = $(this);
         let item_key = cellData.data('item_key');
@@ -476,6 +435,7 @@ $(function () {
         item[item_key] = cellData.val();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
+
     function uploadFileKey() {
         let cellData = $(this);
         let cellData_id = cellData.data('id');
@@ -491,6 +451,7 @@ $(function () {
         "paging": false,
         "info": false
     });
+
     $('.setdata').click(function () {
         let rowsNo = $(this).attr('data-row-id');
         $('#row-id').val(rowsNo);
@@ -500,6 +461,8 @@ $(function () {
         e.preventDefault();
         let error = false;
         let files = $('#files').val();
+
+
         if (files == '') {
             error = true;
             showAlert('Please select file', 'danger');
@@ -511,6 +474,7 @@ $(function () {
             let workstepId = $('#worksteps-id').val();
             form_data.append("workOrderId", workOrderId);
             form_data.append("workstepId", workstepId);
+           
             $.ajax({
                 method: "POST",
                 url: baseUrl + "Upload_files/Upload_file",
@@ -520,6 +484,7 @@ $(function () {
                 processData: false,
                 success: function (data) {
                     // console.log(data);
+
                     let message = JSON.parse(data);
                     if (message['files'] != '') {
                         let filesData = message['files'];
@@ -538,8 +503,8 @@ $(function () {
                 }
             });
         }
-
     });
+
     // function to save data into the database
     $('.save-work-step').on('click', function () {
         clientID = $(this).attr('data-client-id');
@@ -696,10 +661,8 @@ $(function () {
             })
         }
     });
-
     let sspObj = {}; // selected sub process global object
     let ssubpArr = [];//selected subprocess global array
-
     $('.subprocess-item').on('dblclick', '.sub-item', function () {
         // console.log(ssubpArr)
         let temp = (this);
@@ -890,13 +853,9 @@ $(function () {
         let work_order_id = $(this).attr('data-wid');
         // console.log(client_id);
         // console.log(work_order_id);
-
         window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + client_id + '/' + work_order_id;
     });
-
 });
-
-
 
 // Local storage function
 function retriveData(FILE_KEY) {
@@ -913,7 +872,3 @@ function removeData(FILE_KEY) {
     localStorage.removeItem(FILE_KEY);
     // localStorage 
 }
-
-
-
-
