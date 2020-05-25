@@ -242,9 +242,10 @@ class PoTesting extends CI_Controller
                                     }
                                     // Test two
                                     if ($arr_data[$i]['G'] == $arr_data[$i]['Y']) {
-                                        $arr_data[$i]['AB'] = 'Pass';
-                                        $arr_data[$i]['AG'] = 'Pass';
+                                        $arr_data[$i]['AB'] ='<lable class="text-success">Pass</lable>';
 
+                                        $arr_data[$i]['AG'] = '<lable class="text-success">Pass</lable>';
+                                        $arr_data[$i]['AA'] ='';
                                         $test2pass_counter++;
                                         $t2pass_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
@@ -253,7 +254,7 @@ class PoTesting extends CI_Controller
                                             'PO Number' => $arr_data[$i]['D'],
                                             'Vendor Code' => $arr_data[$i]['E'],
                                             'Vendor Name' => $arr_data[$i]['F'],
-                                            'Item Code' => $arr_data[$i]['G'],
+                                            'Item Code' => '<lable class="text-success">'.$arr_data[$i]['G'].'</lable>' ,
                                             'Item Description' => $arr_data[$i]['H'],
                                             'PO Qty' => $arr_data[$i]['I'],
                                             'PO Rate' => $arr_data[$i]['J'],
@@ -271,7 +272,7 @@ class PoTesting extends CI_Controller
                                             'GRN Qty' => $arr_data[$i]['V'],
                                             'Open PO Qty' => $arr_data[$i]['W'],
                                             'Any Other Important clause' => $arr_data[$i]['X'],
-                                            'PR Item' => $arr_data[$i]['Y'],
+                                            'PR Item' => '<lable class="text-success">'.$arr_data[$i]['G'].'</lable>' ,
                                             'PR Qty.' => $arr_data[$i]['Z'],
                                             'PR Date vs PO date' => $arr_data[$i]['AA'],
                                             'PR item vs PO item' => $arr_data[$i]['AB'],
@@ -283,11 +284,10 @@ class PoTesting extends CI_Controller
 
                                         );
                                         array_push($t2pass, $t2pass_list);
-                                    }
-
-                                    if ($arr_data[$i]['G'] != $arr_data[$i]['Y']) {
-                                        $arr_data[$i]['AB'] = ' Fail ';
-                                        $arr_data[$i]['AG'] = 'Fail';
+                                    } if ($arr_data[$i]['G'] != $arr_data[$i]['Y']) {
+                                        $arr_data[$i]['AB'] = '<lable class="bg-danger text-white">Fail';
+                                        $arr_data[$i]['AG'] = '<lable class="bg-danger text-white">Fail';
+                                        $arr_data[$i]['AA']='';
                                         $test2fail_counter++;
                                         $t2fail_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
@@ -332,7 +332,10 @@ class PoTesting extends CI_Controller
 
                                     // Test three
                                     if ($arr_data[$i]['I'] == $arr_data[$i]['Z']) {
-                                        $arr_data[$i]['AC'] = 'Pass';
+                                        $arr_data[$i]['AC'] = '<lable class="text-success">Pass</lable>';
+                                        $arr_data[$i]['AA'] = '';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AG'] = '';
                                         $test3pass_counter++;
                                         $t3pass_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
@@ -343,7 +346,7 @@ class PoTesting extends CI_Controller
                                             'Vendor Name' => $arr_data[$i]['F'],
                                             'Item Code' => $arr_data[$i]['G'],
                                             'Item Description' => $arr_data[$i]['H'],
-                                            'PO Qty' => $arr_data[$i]['I'],
+                                            'PO Qty' =>'<lable class="text-success">'. $arr_data[$i]['I'].'</lable>',
                                             'PO Rate' => $arr_data[$i]['J'],
                                             'PO Date' => $arr_data[$i]['K'],
                                             'PO Creation Date' => $arr_data[$i]['L'],
@@ -360,7 +363,7 @@ class PoTesting extends CI_Controller
                                             'Open PO Qty' => $arr_data[$i]['W'],
                                             'Any Other Important clause' => $arr_data[$i]['X'],
                                             'PR Item' => $arr_data[$i]['Y'],
-                                            'PR Qty.' => $arr_data[$i]['Z'],
+                                            'PR Qty.' => '<lable class="text-success">'. $arr_data[$i]['Z'].'</label>',
                                             'PR Date vs PO date' => $arr_data[$i]['AA'],
                                             'PR item vs PO item' => $arr_data[$i]['AB'],
                                             'PR qty vs PO qty' => $arr_data[$i]['AC'],
@@ -371,11 +374,13 @@ class PoTesting extends CI_Controller
 
                                         );
                                         array_push($t3pass, $t3pass_list);
-                                    } 
-                                    
-                                    else {
+                                    }  else {
+                                        
+                                        $arr_data[$i]['AC'] = '<lable class="bg-danger text-white">Fail</labe>';
                                         $test3fail_counter++;
-                                        $arr_data[$i]['AC'] = 'Fail';
+                                        $arr_data[$i]['AA'] = '';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AG'] = '';
                                         $t3fail_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -412,7 +417,7 @@ class PoTesting extends CI_Controller
                                             'PO Qty vs Invoice Qty' => $arr_data[$i]['AD'],
                                             'PO rate vs Invoice rate' => $arr_data[$i]['AE'],
                                             'Whether PO is created only after entering into an agreement with vendor/approval from Purchase Committee' => $arr_data[$i]['AF'],
-                                            'Whether all POs are supported by valid PRs' => ''
+                                            'Whether all POs are supported by valid PRs' => $arr_data[$i]['AG']
 
                                         );
                                         array_push($t3fail, $t3fail_list);
@@ -420,7 +425,11 @@ class PoTesting extends CI_Controller
                                     // Test four
 
                                     if ($arr_data[$i]['I'] == $arr_data[$i]['T']) {
-                                        $arr_data[$i]['AD'] = 'Pass';
+                                        $arr_data[$i]['AD'] = '<lable class="text-success">Pass</label>';
+                                        $arr_data[$i]['AA'] = '';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AC'] = '';
+                                         $arr_data[$i]['AG'] = '';
                                         $test4pass_counter++;
                                         $t4pass_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
@@ -431,7 +440,7 @@ class PoTesting extends CI_Controller
                                             'Vendor Name' => $arr_data[$i]['F'],
                                             'Item Code' => $arr_data[$i]['G'],
                                             'Item Description' => $arr_data[$i]['H'],
-                                            'PO Qty' => $arr_data[$i]['I'],
+                                            'PO Qty' =>'<lable class="text-success">'. $arr_data[$i]['I'].'</label>',
                                             'PO Rate' => $arr_data[$i]['J'],
                                             'PO Date' => $arr_data[$i]['K'],
                                             'PO Creation Date' => $arr_data[$i]['L'],
@@ -442,7 +451,7 @@ class PoTesting extends CI_Controller
                                             'Revision No.' => $arr_data[$i]['Q'],
                                             'Status of PO' => $arr_data[$i]['R'],
                                             'PO Approval date' => $arr_data[$i]['S'],
-                                            'Invoice Qty' => $arr_data[$i]['T'],
+                                            'Invoice Qty' =>'<lable class="text-success">'. $arr_data[$i]['T'].'</lable>',
                                             'Invoice value' => $arr_data[$i]['U'],
                                             'GRN Qty' => $arr_data[$i]['V'],
                                             'Open PO Qty' => $arr_data[$i]['W'],
@@ -462,7 +471,11 @@ class PoTesting extends CI_Controller
                                         array_push($t4pass, $t4pass_list);
                                     } else {
                                         $test4fail_counter++;
-                                        $arr_data[$i]['AD'] = 'Fail';
+                                        $arr_data[$i]['AD'] = '<lable class="bg-danger text-white">Fail</label>';
+                                        $arr_data[$i]['AC'] ='';
+                                        $arr_data[$i]['AA'] ='';
+                                        $arr_data[$i]['AB'] ='';
+                                        $arr_data[$i]['AG'] ='';
                                         $t4fail_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -472,7 +485,7 @@ class PoTesting extends CI_Controller
                                             'Vendor Name' => $arr_data[$i]['F'],
                                             'Item Code' => $arr_data[$i]['G'],
                                             'Item Description' => $arr_data[$i]['H'],
-                                            'PO Qty' => $arr_data[$i]['I'],
+                                            'PO Qty' =>'<lable class="bg-danger text-white">'.$arr_data[$i]['I'].'</lable>',
                                             'PO Rate' => $arr_data[$i]['J'],
                                             'PO Date' => $arr_data[$i]['K'],
                                             'PO Creation Date' => $arr_data[$i]['L'],
@@ -483,7 +496,7 @@ class PoTesting extends CI_Controller
                                             'Revision No.' => $arr_data[$i]['Q'],
                                             'Status of PO' => $arr_data[$i]['R'],
                                             'PO Approval date' => $arr_data[$i]['S'],
-                                            'Invoice Qty' => $arr_data[$i]['T'],
+                                            'Invoice Qty' => '<lable class="bg-danger text-white">'.$arr_data[$i]['T'].'</lable>',
                                             'Invoice value' => $arr_data[$i]['U'],
                                             'GRN Qty' => $arr_data[$i]['V'],
                                             'Open PO Qty' => $arr_data[$i]['W'],
@@ -506,6 +519,12 @@ class PoTesting extends CI_Controller
                                     if ($arr_data[$i]['J'] == $arr_data[$i]['U']) {
                                         $arr_data[$i]['AE'] = 'Pass';
                                         $test5pass_counter++;
+                                        $arr_data[$i]['AA'] = '';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AC'] = '';
+                                         $arr_data[$i]['AG'] = ''; 
+                                         $arr_data[$i]['AD'] = '';
+
                                         $t5pass_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -545,8 +564,12 @@ class PoTesting extends CI_Controller
 
                                         array_push($t5pass, $t5pass_list);
                                     } else {
-                                        $test4fail_counter++;
-                                        $arr_data[$i]['AE'] = 'Fail';
+                                        $test5fail_counter++;
+                                        $arr_data[$i]['AE'] = '<lable class="bg-danger text-white">Fail</label>';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AC'] = '';
+                                        $arr_data[$i]['AD'] = '';
+                                        $arr_data[$i]['AA'] = '';
                                         $t5fail_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -557,7 +580,7 @@ class PoTesting extends CI_Controller
                                             'Item Code' => $arr_data[$i]['G'],
                                             'Item Description' => $arr_data[$i]['H'],
                                             'PO Qty' => $arr_data[$i]['I'],
-                                            'PO Rate' => $arr_data[$i]['J'],
+                                            'PO Rate' => '<lable class="bg-danger text-white">'.$arr_data[$i]['J'].'</lable>',
                                             'PO Date' => $arr_data[$i]['K'],
                                             'PO Creation Date' => $arr_data[$i]['L'],
                                             'PO Approved Date' => $arr_data[$i]['M'],
@@ -568,7 +591,7 @@ class PoTesting extends CI_Controller
                                             'Status of PO' => $arr_data[$i]['R'],
                                             'PO Approval date' => $arr_data[$i]['S'],
                                             'Invoice Qty' => $arr_data[$i]['T'],
-                                            'Invoice value' => $arr_data[$i]['U'],
+                                            'Invoice value' => '<lable class="bg-danger text-white">'.$arr_data[$i]['U'].'</lable>',
                                             'GRN Qty' => $arr_data[$i]['V'],
                                             'Open PO Qty' => $arr_data[$i]['W'],
                                             'Any Other Important clause' => $arr_data[$i]['X'],
@@ -588,8 +611,15 @@ class PoTesting extends CI_Controller
 
                                     // Test 6
                                     if ($arr_data[$i]['K'] <= $arr_data[$i]['S']) {
-                                        $arr_data[$i]['AF'] = 'Pass';
+                                        $arr_data[$i]['AF'] = '<lable class="text-danger bg-success">Pass</label>';
+                                        $arr_data[$i]['AA'] = '';
+                                        $arr_data[$i]['AB'] = '';
+                                        $arr_data[$i]['AC'] = '';
+                                        $arr_data[$i]['AD'] = '';
+                                        $arr_data[$i]['AE'] = '';
+
                                         $test6pass_counter++;
+
                                         $t6pass_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -601,7 +631,7 @@ class PoTesting extends CI_Controller
                                             'Item Description' => $arr_data[$i]['H'],
                                             'PO Qty' => $arr_data[$i]['I'],
                                             'PO Rate' => $arr_data[$i]['J'],
-                                            'PO Date' => $arr_data[$i]['K'],
+                                            'PO Date' =>'<lable class="text-danger bg-success">'.$arr_data[$i]['K'].'</label>',
                                             'PO Creation Date' => $arr_data[$i]['L'],
                                             'PO Approved Date' => $arr_data[$i]['M'],
                                             'PO Creation By' => $arr_data[$i]['N'],
@@ -609,7 +639,7 @@ class PoTesting extends CI_Controller
                                             'Authorization Status' => $arr_data[$i]['P'],
                                             'Revision No.' => $arr_data[$i]['Q'],
                                             'Status of PO' => $arr_data[$i]['R'],
-                                            'PO Approval date' => $arr_data[$i]['S'],
+                                            'PO Approval date' =>'<lable class="text-danger bg-success">'.$arr_data[$i]['S'].'</label>',
                                             'Invoice Qty' => $arr_data[$i]['T'],
                                             'Invoice value' => $arr_data[$i]['U'],
                                             'GRN Qty' => $arr_data[$i]['V'],
@@ -630,7 +660,13 @@ class PoTesting extends CI_Controller
                                         array_push($t6pass, $t6pass_list);
                                     } else {
                                         $test6fail_counter++;
-                                        $arr_data[$i]['AF'] = 'Fail';
+                                        $arr_data[$i]['AF'] =  '<label class="text-white bg-danger">Fail</lable>';
+                                        $arr_data[$i]['AA'] ='';
+                                        $arr_data[$i]['AB'] ='';
+                                        $arr_data[$i]['AC'] ='';
+                                        $arr_data[$i]['AD'] ='';
+                                        $arr_data[$i]['AE'] ='';
+                                        $arr_data[$i]['AG'] ='';
                                         $t6fail_list = array(
                                             'S. No.' => $arr_data[$i]['A'],
                                             'PR Number' => $arr_data[$i]['B'],
@@ -642,7 +678,7 @@ class PoTesting extends CI_Controller
                                             'Item Description' => $arr_data[$i]['H'],
                                             'PO Qty' => $arr_data[$i]['I'],
                                             'PO Rate' => $arr_data[$i]['J'],
-                                            'PO Date' => $arr_data[$i]['K'],
+                                            'PO Date' => '<label class="text-white bg-danger">'.$arr_data[$i]['K'].'</label>',
                                             'PO Creation Date' => $arr_data[$i]['L'],
                                             'PO Approved Date' => $arr_data[$i]['M'],
                                             'PO Creation By' => $arr_data[$i]['N'],
@@ -650,7 +686,7 @@ class PoTesting extends CI_Controller
                                             'Authorization Status' => $arr_data[$i]['P'],
                                             'Revision No.' => $arr_data[$i]['Q'],
                                             'Status of PO' => $arr_data[$i]['R'],
-                                            'PO Approval date' => $arr_data[$i]['S'],
+                                            'PO Approval date' => '<label class="text-white bg-danger">'. $arr_data[$i]['S'].'</label>',
                                             'Invoice Qty' => $arr_data[$i]['T'],
                                             'Invoice value' => $arr_data[$i]['U'],
                                             'GRN Qty' => $arr_data[$i]['V'],
@@ -692,7 +728,7 @@ class PoTesting extends CI_Controller
                                         'testpass' => $test3pass_counter,
                                         'testfail' => $test3fail_counter,
                                         'passlist' => $t3pass,
-                                        'faillist' => $t4fail
+                                        'faillist' => $t3fail
                                     );
                                     $test4 = array(
                                         'testlevel' => 'Test 4',
