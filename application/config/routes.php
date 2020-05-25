@@ -80,3 +80,8 @@ $route['manager/work-orders'] ='ControlUnit/managerAllWorkOrder';
 $route['manager/all-clients'] ='ControlUnit/managerallClients';
 
 $route['login']='Login/index';
+
+// po-testing 
+
+$route['po-testing']='PoTesting/index';
+

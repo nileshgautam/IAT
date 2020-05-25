@@ -27,7 +27,9 @@ class Upload_files extends CI_Controller
             // File upload configuration
             $uploadPath = './upload/files';
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'csv|jpg|xlsx|png|doc|docx|pdf|txt|xls';
+            // $config['allowed_types'] = '*|csv|jpg|xlsx|png|doc|docx|pdf|txt|xls';
+            $config['allowed_types'] = '*';
+
             $config['max_size'] = 2000;
             // Load and initialize upload library
             $this->load->library('upload', $config);
