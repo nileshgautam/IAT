@@ -90,7 +90,7 @@ $(function () {
 
     $('#result-datatable').DataTable(
         {
-            "scrollY": 250,
+            // "scrollY": 250,
             "scrollX": true
         }
     );

@@ -298,7 +298,7 @@ $(function () {
     // function to generate table rows 
     function loadTable(list) {
         let len = list.length;
-    let options;
+        let options;
 
         console.log(options);
         workstepTablebody.empty();
@@ -372,17 +372,17 @@ $(function () {
             responsibilityForImplementation.keyup(cellKeyUP);
 
 
-            let risk_level=row.find('.risk-level');
+            let risk_level = row.find('.risk-level');
             risk_level.data("id", list[i].row_id);
-            risk_level.data("item_key",'risk_level');
+            risk_level.data("item_key", 'risk_level');
 
             $.post(baseUrl + "Auditapp/getRisklevel", function (data, status) {
                 RISKLEVEL = JSON.parse(data);
                 options = RISKLEVEL.map((rl) => {
                     let optionTemplate
-                    if(rl.status==list[i].risk_level){
+                    if (rl.status == list[i].risk_level) {
                         optionTemplate = $(`<option value="${rl.status}" selected>${rl.status}</option>`);
-                    }else{
+                    } else {
                         optionTemplate = $(`<option value="${rl.status}">${rl.status}</option>`);
                     }
                     // console.log(optionTemplate);
@@ -391,7 +391,7 @@ $(function () {
                 risk_level.append(options)
             });
             risk_level.change(package_onchange);
-          
+
             // risk_level.append(options);
         }
     }
@@ -405,7 +405,7 @@ $(function () {
         // console.log(cellData_id);
 
         let item = totalRows.find((item) => item.row_id == cellData_id);
-        
+
 
         item[item_key] = rikslevel.val();
 
@@ -474,7 +474,7 @@ $(function () {
             let workstepId = $('#worksteps-id').val();
             form_data.append("workOrderId", workOrderId);
             form_data.append("workstepId", workstepId);
-           
+
             $.ajax({
                 method: "POST",
                 url: baseUrl + "Upload_files/Upload_file",
@@ -744,7 +744,7 @@ $(function () {
             //     }
             //     else{
             //         spdata[processName]= { spname: [subprocessname], ...spdata[processName]};
-                    
+
             //     }
 
             //     });
@@ -754,97 +754,97 @@ $(function () {
 
 
 
-                // console.log(sspdata);
-                sspdata.forEach(e => {
-                    let processid = e.processId;
-                    let subpid = e.spId;
-                    let riskData = e.riskData;
-                    // let processName = e.processname;
-                    // let subprocessname = e.spname;
-                    // console.log(processid);
-                    // console.log(subpid);
-                    // console.log(riskData);
-                    if (process[processid] === undefined) {
-                        process = {
-                            [processid]: { [subpid]: riskData },
-                            ...process,
-                        };
-                        // spdata = {
-                        //     [processName]: [subprocessname],
-                        //     ...spdata
-                        // };
+            // console.log(sspdata);
+            sspdata.forEach(e => {
+                let processid = e.processId;
+                let subpid = e.spId;
+                let riskData = e.riskData;
+                // let processName = e.processname;
+                // let subprocessname = e.spname;
+                // console.log(processid);
+                // console.log(subpid);
+                // console.log(riskData);
+                if (process[processid] === undefined) {
+                    process = {
+                        [processid]: { [subpid]: riskData },
+                        ...process,
+                    };
+                    // spdata = {
+                    //     [processName]: [subprocessname],
+                    //     ...spdata
+                    // };
 
-                    } else {
-                        // console.log(process);
-                        process[processid] = {[subpid]: riskData, ...process[processid] };
-                        // spdata[processName] = {
-                        //     [subprocessname]: [subprocessname],
-                        //     ...spdata
-                        // };
-                    }
+                } else {
+                    // console.log(process);
+                    process[processid] = { [subpid]: riskData, ...process[processid] };
+                    // spdata[processName] = {
+                    //     [subprocessname]: [subprocessname],
+                    //     ...spdata
+                    // };
+                }
 
-                });
-            }
+            });
+        }
         // console.log(spdata);
-            saveData('spdata', process);
-            let message = "Required";
-            // console.log($("[type='text']"))
-            let clientId = $('#client').val().trim();
-            let workorderId = $('#textWork-Order-id').val().trim();
-            let workOrderName = $('#textWork-Order-Name').val().trim();
-            let startDate = $('#start-date').val().trim();
-            let endDate = $('#end-date').val().trim();
-            let error = false;
-            // console.log(`start date ${startDate} nd date ${endDate}`);
+        saveData('spdata', process);
+        let message = "Required";
+        // console.log($("[type='text']"))
+        let clientId = $('#client').val().trim();
+        let workorderId = $('#textWork-Order-id').val().trim();
+        let workOrderName = $('#textWork-Order-Name').val().trim();
+        let startDate = $('#start-date').val().trim();
+        let endDate = $('#end-date').val().trim();
+        let error = false;
+        // console.log(`start date ${startDate} nd date ${endDate}`);
 
-            if (clientId == "") {
-                $('#messageclient').html(message)
-                $('#client').focus();
-                error = true;
-            } if (workorderId == "") {
-                $('#messageworkorderid').html(message)
-                error = true;
-            } if (workOrderName == "") {
-                $('#messageworkorder').html(message)
-                $('#textWork-Order-Name').focus();
-                error = true;
-            }
-            if (startDate == '') {
-                $('#start-date').focus();
-                error = true;
-            }
-            if (Object.keys(process).length == 0) {
-                showAlert('Please choose process first', "warning");
-                error = true;
-            }
+        if (clientId == "") {
+            $('#messageclient').html(message)
+            $('#client').focus();
+            error = true;
+        } if (workorderId == "") {
+            $('#messageworkorderid').html(message)
+            error = true;
+        } if (workOrderName == "") {
+            $('#messageworkorder').html(message)
+            $('#textWork-Order-Name').focus();
+            error = true;
+        }
+        if (startDate == '') {
+            $('#start-date').focus();
+            error = true;
+        }
+        if (Object.keys(process).length == 0) {
+            showAlert('Please choose process first', "warning");
+            error = true;
+        }
 
-            // console.log(process);
+        // console.log(process);
 
-            if (error != true) {
-                let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate };
-                // console.log(formData);
-                // console.log(error);
-                $.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'Auditapp/create_work_order',
-                    data: formData,
-                    success: function (data, success) {
-                        // ssubpArr = [];
-                        // saveData('sspdata', ssubpArr);
-                        // removeData('sspdata'); //Removeing loacl storage object 
-                        let resonce = JSON.parse(data);
-                        // console.log(resonce);
-                        showAlert(resonce.msg, "success");
-                        // console.log(baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id));
+        if (error != true) {
+            let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate };
+            // console.log(formData);
+            // console.log(error);
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'Auditapp/create_work_order',
+                data: formData,
+                success: function (data, success) {
+                    // ssubpArr = [];
+                    // saveData('sspdata', ssubpArr);
+                    // removeData('sspdata'); //Removeing loacl storage object 
+                    let resonce = JSON.parse(data);
+                    // console.log(resonce);
+                    showAlert(resonce.msg, "success");
+                    // console.log(baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id));
 
-                        setTimeout(() => {
-                            window.location = baseUrl + "ControlUnit/selectedSubprocess/" + btoa(resonce.client_id) + '/' + btoa(resonce.work_order_id);
-                        }, 1000);
-                    }
+                    setTimeout(() => {
+                        window.location = baseUrl + "ControlUnit/selectedSubprocess/" + btoa(resonce.client_id) + '/' + btoa(resonce.work_order_id);
+                    }, 1000);
+                }
 
-                });
-            }
-        });
+            });
+        }
+    });
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -872,3 +872,11 @@ function removeData(FILE_KEY) {
     localStorage.removeItem(FILE_KEY);
     // localStorage 
 }
+
+// function for back button
+
+$(function () {
+    $('#back-to-admin-dashboard').click(function () {
+        window.location.href = baseUrl + 'dashboard';
+    });
+})

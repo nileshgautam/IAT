@@ -40,9 +40,9 @@
                 <tbody>
 
                     <?php if (!empty($p_data)) {
-                        $workOrderarr=array(
-                            'id'=>$work_order,
-                            'workOrderName'=>$work_order_name
+                        $workOrderarr = array(
+                            'id' => $work_order,
+                            'workOrderName' => $work_order_name
                         );
 
                         // echo '<pre>';
@@ -55,13 +55,13 @@
                                 <td>
                                     <?php
                                     echo '<ol>';
-                                
+
                                     foreach ($process['sub_process_data'] as $key => $subProcess) {
                                         // echo '<pre>';
-                                        $a=json_encode($subProcess, true);
-                                        $data=base64_encode($a);
-                                        $work=json_encode($workOrderarr,true);
-                                        echo '<li><a href='.base_url('Auditapp/riskData/').$data.'/'.base64_encode($work).'>' . $subProcess['sub_process_description'] . '</a></li>';
+                                        $a = json_encode($subProcess, true);
+                                        $data = base64_encode($a);
+                                        $work = json_encode($workOrderarr, true);
+                                        echo '<li><a href=' . base_url('Auditapp/riskData/') . $data . '/' . base64_encode($work) . '>' . $subProcess['sub_process_description'] . '</a></li>';
                                     }
                                     echo '<ol>'
                                     ?>
@@ -72,12 +72,11 @@
                                 <!-- <td>
                                     <?php foreach ($process['sub_process_data'] as $key => $subProcess) {
                                         // echo '<pre>';
-                                        if(!empty($subProcess['risk_data'])){
-                                        foreach($subProcess['risk_data'] as $key => $risk ){
-                                            print_r($risk['risk_description']);
+                                        if (!empty($subProcess['risk_data'])) {
+                                            foreach ($subProcess['risk_data'] as $key => $risk) {
+                                                print_r($risk['risk_description']);
+                                            }
                                         }
-                                    }
-                                        
                                     } ?>
                                 </td> -->
 
