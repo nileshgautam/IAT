@@ -52,6 +52,7 @@
             </div>
         </div>
 
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
         <!-- bootstrap bundle js-->
         <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -63,6 +64,8 @@
 
         <!-- dashboard sales js-->
         <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/bootstrap4.js"></script>
+
         <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
         <!-- main js-->
         <!-- Optional JavaScript -->

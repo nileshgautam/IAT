@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/custom.css">
+    
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/libs/css/style.css">
 
 
@@ -25,11 +26,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- datatable -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/custom/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/custom/jquery.dataTables.min.css"> -->
     <script src="<?php echo base_url(); ?>assets/js/custom/jquery.dataTables.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+   
     <!-- Alert Box -->
     <script src="  <?php echo base_url('assets/js/bootstrap-notify.min.js') ?>"></script>
     <script src="  <?php echo base_url('assets/js/MyScriptLibrary.js') ?>"></script>

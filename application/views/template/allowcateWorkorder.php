@@ -1,28 +1,10 @@
 <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="page-header">
-                    <h3 class="mb-2">Assign Work Order</h3> <a style="margin: -45px 20px;
-" class="btn btn-danger float-right text-white" href="<?php echo base_url('ControlUnit/dashboard') ?>">Exit</a>
-                    <p class="pageheader-text">Lorem ipsum dolor sit ametllam fermentum ipsum eu porta consectetur adipiscing elit.Nullam vehicula nulla ut egestas rhoncus.</p>
-                    <!-- <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Assign</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="#" class="breadcrumb-link">work order</a></li>
-                            </ol>
-                        </nav>
-                    </div> -->
-                </div>
-            </div>
-        </div>
+    <div class="container  dashboard-content">
         <div class="card">
-            <?php
-            // $client = $this->MainModel->selectAll('client_details', 'client_name');
-            // echo "<pre>";
-            // print_r($clientid);
-            ?>
+            <div class="card-header">
+                Assign Work Order
+                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>">Exit</a>
+            </div>
             <div class="card-body row">
                 <div class="form-group col-md-4">
                     <label for="select-client"> Select Client</label> &nbsp;<label for="message" id=message></label>
@@ -33,8 +15,8 @@
                             foreach ($clients as $item) { ?>
                                 <option value="<?php echo
                                                     base64_encode($item['client_id']) ?>" <?php if (!empty($clientid)) {
-                                                                            echo ($clientid ==  $item['client_id']) ? ' selected="selected"' : '';
-                                                                        } ?>>
+                                                                                                echo ($clientid ==  $item['client_id']) ? ' selected="selected"' : '';
+                                                                                            } ?>>
                                     <?php echo $item['client_name'] ?>
                                 </option>
                         <?php }
@@ -59,9 +41,8 @@
 
                 </div>
             </div>
-        </div>
         <div class="card-users" id="assigned-users" style="padding-bottom:20px;display:none">
-            <h4>Assigned Employee</h4>
+            <p class="ml-20">Assigned Employee</p>
             <table class="table dataTable">
                 <thead>
                     <tr>
@@ -90,4 +71,5 @@
             </table>
         </div>
     </div>
+</div>
 </div>

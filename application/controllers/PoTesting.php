@@ -611,7 +611,7 @@ class PoTesting extends CI_Controller
 
                                     // Test 6
                                     if ($arr_data[$i]['K'] <= $arr_data[$i]['S']) {
-                                        $arr_data[$i]['AF'] = '<lable class="text-danger bg-success">Pass</label>';
+                                        $arr_data[$i]['AF'] = '<lable class="text-success ">Pass</label>';
                                         $arr_data[$i]['AA'] = '';
                                         $arr_data[$i]['AB'] = '';
                                         $arr_data[$i]['AC'] = '';
@@ -631,7 +631,7 @@ class PoTesting extends CI_Controller
                                             'Item Description' => $arr_data[$i]['H'],
                                             'PO Qty' => $arr_data[$i]['I'],
                                             'PO Rate' => $arr_data[$i]['J'],
-                                            'PO Date' =>'<lable class="text-danger bg-success">'.$arr_data[$i]['K'].'</label>',
+                                            'PO Date' =>'<lable class="text-success">'.$arr_data[$i]['K'].'</label>',
                                             'PO Creation Date' => $arr_data[$i]['L'],
                                             'PO Approved Date' => $arr_data[$i]['M'],
                                             'PO Creation By' => $arr_data[$i]['N'],
@@ -639,7 +639,7 @@ class PoTesting extends CI_Controller
                                             'Authorization Status' => $arr_data[$i]['P'],
                                             'Revision No.' => $arr_data[$i]['Q'],
                                             'Status of PO' => $arr_data[$i]['R'],
-                                            'PO Approval date' =>'<lable class="text-danger bg-success">'.$arr_data[$i]['S'].'</label>',
+                                            'PO Approval date' =>'<lable class="text-success">'.$arr_data[$i]['S'].'</label>',
                                             'Invoice Qty' => $arr_data[$i]['T'],
                                             'Invoice value' => $arr_data[$i]['U'],
                                             'GRN Qty' => $arr_data[$i]['V'],

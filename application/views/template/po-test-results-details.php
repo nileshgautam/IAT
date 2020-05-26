@@ -1,15 +1,11 @@
 <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                <div class="page-header">
-                    <h3 class="mb-2">PO Testing Result</h3>
-
-                </div>
+    <div class="container-fluid dashboard-content">
+        <div class="card">
+            <div class="card-header">
+                PO Test Result
+                <a class="btn btn-warning float-right cancel-btn btn-xs" href="<?php echo base_url('PoTesting/poresults') ?>">Back</a>
             </div>
-        </div>
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 my-10">
-            <div class="container-fluid">
+            <div class="card-body bg-light">
                 <table id="result-datatable" class="table table-bordered">
                     <thead>
                         <?php
@@ -22,12 +18,12 @@
                                 foreach ($header as $item) {
                                 ?>
                                     <td><?php echo $item ?></td>
-                            <?php }
-                            }else{
-                                ?>
-                                <label for="">No data</label>  
-
                                 <?php }
+                            } else {
+                                ?>
+                                <label for="">No data</label>
+
+                            <?php }
                             ?>
                             </tr>
                     </thead>
@@ -77,21 +73,19 @@
 
 
                                 </tr>
-                        <?php }
+                            <?php }
                         } else {
-      ?>
-                            <tr><td colspan="32">No Data availble</td></tr>
-                            
-        <?php                }?>
+                            ?>
+                            <tr>
+                                <td colspan="32">No Data availble</td>
+                            </tr>
+
+                        <?php                } ?>
 
                     </tbody>
                 </table>
-                <div class="btn-flx">
-                    <a class="btn btn-warning cancel-btn" href="<?php echo base_url('PoTesting/poresults') ?>">Back</a>
-                </div>
-
             </div>
-
         </div>
     </div>
+</div>
 </div>

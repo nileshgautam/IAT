@@ -61,7 +61,7 @@ class Auditapp extends CI_Controller
         $myjson = json_encode($data, true);
         echo $myjson;
     }
-// Function to show all the assigned task to users
+    // Function to show all the assigned task to users
     public function assignedTask($var = null)
     {
         $data['workorder'] = $this->MainModel->getallworkorder($_SESSION['userInfo']['id']);
@@ -187,10 +187,8 @@ class Auditapp extends CI_Controller
     {
         // echo '<pre>';
         // print_r($_POST);die;
-
         if (empty($_POST)) {
-            // $this->session->set_flashdata("error", "Fill all details first.");
-            // redirect('ControlUnit/newUsersPage');
+       
             echo $responce = json_encode(array('message' => 'Fill all details first.', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
         } else {
             // print_r($_POST);die;
@@ -206,7 +204,7 @@ class Auditapp extends CI_Controller
                 'state' => $this->input->post('state'),
                 'city' => $this->input->post('city'),
                 'address' => $this->input->post('address'),
-                'adress_line_two' => $this->input->post('address-line-two'),
+                // 'adress_line_two' => $this->input->post('address-line-two'),
                 'phone' => $this->input->post('mobile-no'),
                 'zip_pin_code' => $this->input->post('zip-pin-code'),
                 'role' => $this->input->post('role')
@@ -263,12 +261,11 @@ class Auditapp extends CI_Controller
             'state' => $this->input->post('state'),
             'city' => $this->input->post('city'),
             'address' => $this->input->post('address'),
-            'adress_line_two' => $this->input->post('address-line-two'),
+            // 'adress_line_two' => $this->input->post('address-line-two'),
             'phone' => $this->input->post('mobile-no'),
             'zip_pin_code' => $this->input->post('zip-pin-code'),
             'role' => $this->input->post('role')
         );
-
         $id = $this->input->post('id');
         $result = $this->MainModel->update_table('users', array('user_id' => $id), $data);
         if ($result == "FALSE") {
