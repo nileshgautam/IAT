@@ -198,3 +198,192 @@
     }
 
   }
+
+
+
+
+  ''''''js demo''''''''''''''''''''
+
+
+  // function to show uploaded files in mandatory
+// $('.view-file').click(function () {
+//     // e.preventDefault();
+//     let workid = $(this).attr('data-work-order-id');
+//     let workstepsid = $(this).attr('data-work-step-id');
+//     let form_data = new FormData();
+//     let html = '';
+
+//     form_data.append('workid', workid);
+//     form_data.append('workstepsid', workstepsid);
+//     $('#view-file-data').append('');
+
+//     $.ajax({
+//         type: 'POST',
+//         url: baseUrl + '/Auditapp/viewFiles',
+//         data: form_data,
+//         contentType: false,
+//         cache: false,
+//         processData: false,
+//         success: function (data, success) {
+//             $('#view-file-data').empty();
+//             let fileData = JSON.parse(data);
+//             // console.log(fileData);
+//             html += `<table class="table">
+//                 <thead>
+//                     <tr>
+//                         <th>File Name</th>
+
+//                         <th>Remarks</th>
+//                         <th>Updated On</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>`
+//             for (const uploadfile of fileData) {
+//                 //    console.log(uploadfile.upload_time);
+//                 // let date = uploadfile.upload_time;
+
+//                 // console.log(newdate);
+//                 //  console.log(month);
+//                 //  console.log(day);
+
+
+//                 html += `
+//                 <tr>
+//             <td><a href="${baseUrl + `upload/files/${uploadfile.file_name}`}"> ${uploadfile.title == "" ? uploadfile.file_name : uploadfile.title} </a></td>
+
+//             <td>${uploadfile.remarks}</td> 
+
+//             <td>${dateFormatDDMMYY(uploadfile.upload_time)}</td>`
+//             }
+
+//             html += `  
+//              </tr>
+//     </tbody></table>
+// `
+//             $('#view-file-data').html(html);
+
+//         }
+
+//     });
+//     // console.log(companyid);
+// });
+
+
+
+
+// function to submit all the process
+// $('.submit-services').on('click', function () {
+//     // let proceesId = [];
+//     let process = {};
+//     $('input[name="subprocess"]:checked').each(function () {
+
+//         let riskData=JSON.parse($(this).attr('data-risk-id'));
+
+//         // console.log(riskData);
+
+//         if (process[$(this).attr('data-process-id')] === undefined) {
+//             process = {
+//                     [$(this).attr('data-process-id')]: {[$(this).attr('data-sub-id')]:riskData},
+//                 ...process
+//             };
+//         } else {
+//             console.log(process);
+//             process[$(this).attr('data-process-id')] =  {[$(this).attr('data-sub-id')]:riskData,...process[$(this).attr('data-process-id')]};
+//         }
+
+//     });
+
+// // console.log(process);
+
+
+//     let message = "Required";
+
+//     // console.log($("[type='text']"))
+
+//     let clientId = $('#client').val().trim();
+//     let workorderId = $('#textWork-Order-id').val().trim();
+//     let workOrderName = $('#textWork-Order-Name').val().trim();
+//     let startDate = $('#start-date').val().trim();
+//     let endDate = $('#end-date').val().trim();
+//     let error = false;
+//     console.log(`start date ${startDate} nd date ${endDate}`);
+
+//     if (clientId == "") {
+//         $('#messageclient').html(message)
+//         $('#client').focus();
+//         error = true;
+//     } if (workorderId == "") {
+//         $('#messageworkorderid').html(message)
+//         error = true;
+//     } if (workOrderName == "") {
+//         $('#messageworkorder').html(message)
+//         $('#textWork-Order-Name').focus();
+//         error = true;
+//     } 
+//     if(startDate==''){
+//         $('#start-date').focus();
+//         error =true;
+//     }
+//     if (Object.keys(process).length == 0) {
+//         showAlert('Please choose process first', "warning");
+//         error = true;
+//     }
+
+//     console.log(process);
+
+
+
+
+//     // if (error!=true) {
+
+//     //     let formData = { client_id: clientId, workorderId: workorderId, workOrderName: workOrderName, process: JSON.stringify(process), sdate: startDate, enddate: endDate }
+//     //     // console.log(error);
+
+//     //     $.ajax({
+//     //         type: 'POST',
+//     //         url: baseUrl + 'Auditapp/create_work_order',
+//     //         data: formData,
+//     //         success: function (data, success) {
+//     //             let resonce = JSON.parse(data);
+//     //             showAlert(resonce.msg, "success");
+//     //             setTimeout(() => {
+//     //                 window.location = baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id);
+//     //             }, 1000);
+//     //         }
+
+//     //     });
+//     // }
+// });
+
+
+
+
+// updating subprocess risk
+
+$('.set-risk-level').on('change', function () {
+    let selectedLevelsubprocessId = $(this).attr('data-risk-subprocess-id');
+    let selectedData = $(this).val();
+    let riskId = $(this).attr('data-risk-id');
+
+    // console.log(subid);
+
+    let subid = $(`[data-sub-id='${selectedLevelsubprocessId}']`).attr('data-risk-id')
+
+    // console.log(subid);
+
+    let risk_data = JSON.parse(subid);
+    risk_data = changeRiskLevel(riskId, selectedData, risk_data);
+    $(`[data-sub-id=${selectedLevelsubprocessId}]`).attr('data-risk-id', JSON.stringify(risk_data));
+
+});
+
+function changeRiskLevel(id, risk_level, risk_data) {
+    for (var i in risk_data) {
+        if (risk_data[i].risk_id == id) {
+            risk_data[i].risk_level = risk_level;
+            break; //Stop this loop, we found it!
+        }
+    }
+    return risk_data;
+}
+

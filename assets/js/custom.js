@@ -61,19 +61,24 @@ $(function () {
 // function for client form validation
 $(function () {
     var error = false;
+    let preText = $('#errormobile').text();
+    let emailPreText = $('#errorEmail').text();
+
     // function to validate mobile number
-    $('#txtmobile').on('change', function () {
+    $('#txtmobile').on('keyup change', function () {
         // alert('hi');
         const MOBILENUMBER = $(this).val();
-        // console.log(MOBILENUMBER);
         let validate = validateMobileNumber(MOBILENUMBER);
         // console.log(validate);
+
         if (validate == false) {
-            $('#errormobile').text('Enter valid mobile number, i.e.: 9999999999, It should be 10 digits only.');
+            $('#errormobile').addClass("text-danger");
+            $('#errormobile').text('Enter valid mobile number, i.e.: 999-999-9999, It should be 10 digits only.');
             error = true;
         }
-        else {
-            $('errormobile').empty();
+        else if (validate == true) {
+            $('#errormobile').text(preText);
+            $('#errormobile').removeClass("text-danger");
             error = false;
         }
     });
@@ -86,23 +91,28 @@ $(function () {
     //     console.log(validate);
     //     if (validate != undefined) {
     //         $('#errorgstno').text(validate);
+    //         $('#errorgstno').addClass("text-danger");
     //         error = true;
     //     }
     //     else {
     //         console.log(validate);
     //     }
     // });
+
     // function for email validation
 
-    $('#txtEmail').on('change', function () {
+    $('#txtEmail').on('keyup change', function () {
         const EMAIL = $(this).val();
         let validate = validateEmail(EMAIL);
         if (validate == false) {
             $('#errorEmail').text('Enter valid email id, i.e. example@example.example.');
+            $('##errorEmail').addClass("text-danger");
+
             error = true;
         }
-        else {
-            $('errorEmail').empty();
+        else if (validate == true) {
+            $('#errorEmail').text(emailPreText);
+            $('#errorEmail').removeClass('text-danger');
             error = false;
         }
     });
@@ -144,38 +154,44 @@ $(function () {
         }
         else {
             // console.log(error);
-            error = 'error';
+            error = 'Kindly fill all the required field';
             showAlert(error, 'danger');
         }
     });
 });
 
 //funtion for user form validation
-
 $(function () {
     let error = false;
-    $('#input-user-email').on('change', function () {
+    let emailPretext = $('#user-error-email').text();
+    let mobilePretext = $('#user-error-mobile').text();
+
+    $('#input-user-email').on('keyup change', function () {
         const EMAIL = $(this).val();
         const EMAILRESPONCE = validateEmail(EMAIL);
         if (EMAILRESPONCE == false) {
             $('#user-error-email').text('Enter valid email id, i.e. example@example.example.');
+            $('#user-error-email').addClass('text-danger');
             error = true;
         }
-        else {
-            $('#user-error-email').empty();
+        else if (EMAILRESPONCE == true) {
+            $('#user-error-email').text(emailPretext);
+            $('#user-error-email').removeClass('text-danger');
             error = false;
         }
     });
 
-    $('#input-user-mobile').on('change', function () {
+    $('#input-user-mobile').on('keyup change', function () {
         const MOBILENUMBER = $(this).val();
         const MOBILERESPONCE = validateMobileNumber(MOBILENUMBER);
         if (MOBILERESPONCE == false) {
-            $('#user-error-mobile').text('Enter valid mobile number, i.e.: 9999999999, It should be 10 digits only.');
+            $('#user-error-mobile').text('Enter valid mobile number, i.e.: 999-999-9999, It should be 10 digits only.');
+            $('#user-error-mobile').addClass('text-danger');
             error = true;
         }
-        else {
-            $('#user-error-mobile').empty();
+        else if (MOBILERESPONCE == true) {
+            $('#user-error-mobile').text(mobilePretext);
+            $('#user-error-mobile').removeClass('text-danger');
             error = false;
         }
     });
@@ -191,8 +207,6 @@ $(function () {
         } else {
             url = baseUrl + "Auditapp/user_editpost";
         }
-
-
         // console.log(USERID);
         // console.log(url);
 
@@ -217,7 +231,7 @@ $(function () {
             });
         }
         else {
-            // console.log(error);
+            error = 'Kindly fill all the required field';
             showAlert(error, 'danger');
         }
     });
