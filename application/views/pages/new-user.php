@@ -18,11 +18,9 @@
     <div class="container dashboard-content">
         <div class="card">
             <div class="card-header">
-            <?php echo (isset($user)) ? 'Edit User' : ' New User' ?>
-            <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>">Exit</a>
+                <?php echo (isset($user)) ? 'Edit User' : ' New User' ?>
+                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>">Exit</a>
             </div>
-          
-
             <div class="card-body">
                 <form id="user-form" method="post">
                     <div class="form-group">
@@ -36,19 +34,23 @@
                     <div class="form-group">
                         <label for="input-email">Email address</label>
                         <input id="input-user-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
-                        <label for="user-error-email" id="user-error-email" class="text-danger"></></label>
+                        <small id="user-error-email" class="">We'll never share your email with anyone else.</small>
+
                     </div>
                     <div class="form-group">
                         <label for="selectcountry">Country</label>
                         <select name="country" id="country" placeholder="Select state" autocomplete="off" class="form-control" data-state="<?php echo (isset($user) ? $user[0]['state'] : '') ?>">
                             <option>Select country</option>
                             <?php if (!empty($country)) {
-                            foreach ($country as $countries) { ?>
+                                foreach ($country as $countries) { ?>
                                     <option id='<?php echo $countries['id'] ?>' <?php if (!empty($user)) {
-                                echo ($countries['name'] ==  $user[0]['country']) ? ' selected="selected"' : '';
-                                } elseif ($countries['name'] == "India") {
-                                     echo "selected";
-                                                }  ?>>
+                 echo ($countries['name'] ==  $user[0]['country']) ? ' selected' : '';
+                                                                                } 
+                else {
+                    echo ($countries['name'] == "India") ? "selected" : '';
+                                                                                }
+
+                             ?>>
 
                                         <?php echo $countries['name']; ?>
                                     </option>
@@ -58,15 +60,11 @@
                                 }
                             }
                             ?>
-
-
                         </select>
-
                     </div>
                     <div class="form-group">
                         <label for="state">State</label>
-                        <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control">
-                            <option id='statechiled' value="<?php echo isset($user) ? $user[0]['state'] : '' ?>"><?php echo isset($user) ? $user[0]['state'] : 'Select State' ?></option>
+                        <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control" data-city="<?php echo (isset($user) ? $user[0]['city'] : '') ?>">
                         </select>
                     </div>
                     <div class="form-group">
@@ -74,26 +72,17 @@
                         <select name="city" id="city" autocomplete="off" class="form-control">
                             <option value="<?php echo isset($user) ? $user[0]['city'] : '' ?>"><?php echo isset($user) ? $user[0]['city'] : 'Select State' ?></option>
                         </select>
-
                     </div>
                     <div class="form-group">
                         <label for="mobile-no">Mobile No.</label>
                         <input id="input-user-mobile" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
-                        <label for="mobile-no" id="user-error-mobile" class="text-danger"></label>
+                        <small id="user-error-mobile">We'll never share your mobile with anyone else.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="address">Address </label>
-
                         <textarea name="address" id="" cols="60" rows="3" class='form-control' placeholder="Address..."><?php echo (isset($user)) ? $user[0]['address'] : "" ?></textarea>
-
-                        <!-- <input id="address" type="text" name="address" placeholder="Enter address line 1" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['address'] : "" ?>"> -->
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="address-line-two">Address line 2</label>
-                        <input id="address-line-two" type="text" name="address-line-two" placeholder="Enter address line 2" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['adress_line_two'] : "" ?>">
-                    </div> -->
-
                     <div class="form-group">
                         <label for="zip-pin-code">Zip/Pin Code</label>
                         <input id="zip-pin-code" type="text" name="zip-pin-code" placeholder="Zip/Pin Code" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['zip_pin_code'] : "" ?>">
@@ -128,9 +117,7 @@
                             <input type="hidden" id="user-id" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
                             <button type="submit" class="btn btn-space  btn-xs btn-success">Submit</button>
                             <button type="" class="btn btn-space btn-warning btn-xs " id="back-to-admin-dashboard">Back</button>
-
                         </div>
-
                     </div>
                 </form>
             </div>
