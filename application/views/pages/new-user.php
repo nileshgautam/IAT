@@ -23,22 +23,32 @@
             </div>
             <div class="card-body">
                 <form id="user-form" method="post">
-                    <div class="form-group">
-                        <label for="inputUserName">First Name</label>
+                <div class="row container">
+                    <div class="form-group col-md-6">
+                        <label for="inputUserName">First Name  <span class="text-danger">*</span></label>
                         <input id="inputUserName" type="text" name="first-name" placeholder="Enter first name" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['first_name'] : "" ?>" required>
                     </div>
-                    <div class="form-group">
-                        <label for="last-name">Last Name</label>
+                    <div class="form-group col-md-6">
+                        <label for="last-name">Last Name <span class="text-danger">*</span></label>
                         <input id="last-name" type="text" name="last-name" placeholder="Enter last name" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['last_name'] : "" ?>" required>
                     </div>
-                    <div class="form-group">
-                        <label for="input-email">Email address</label>
+                    <div class="form-group col-md-6">
+                        <label for="input-email">Email address <span class="text-danger">*</span></label>
                         <input id="input-user-email" type="email" name="email" placeholder="Enter email" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['email'] : "" ?>" required>
                         <small id="user-error-email" class="">We'll never share your email with anyone else.</small>
 
                     </div>
-                    <div class="form-group">
-                        <label for="selectcountry">Country</label>
+                    <div class="form-group col-md-6">
+                        <label for="mobile-no">Mobile No. <span class="text-danger">*</span></label>
+                        <input id="input-user-mobile" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
+                        <small id="user-error-mobile">We'll never share your mobile with anyone else.</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Address <span class="text-danger">*</span></label>
+                        <textarea name="address" id="" cols="60" rows="3" class='form-control' placeholder="Address..."><?php echo (isset($user)) ? $user[0]['address'] : "" ?></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="selectcountry">Country <span class="text-danger">*</span></label>
                         <select name="country" id="country" placeholder="Select state" autocomplete="off" class="form-control" data-state="<?php echo (isset($user) ? $user[0]['state'] : '') ?>">
                             <option>Select country</option>
                             <?php if (!empty($country)) {
@@ -62,33 +72,23 @@
                             ?>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="state">State</label>
+                    <div class="form-group col-md-6">
+                        <label for="state">State <span class="text-danger">*</span></label>
                         <select name="state" id="state" placeholder="Select state" autocomplete="off" class="form-control" data-city="<?php echo (isset($user) ? $user[0]['city'] : '') ?>">
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="city">City</label>
+                    <div class="form-group col-md-6">
+                        <label for="city">City <span class="text-danger">*</span></label>
                         <select name="city" id="city" autocomplete="off" class="form-control">
                             <option value="<?php echo isset($user) ? $user[0]['city'] : '' ?>"><?php echo isset($user) ? $user[0]['city'] : 'Select State' ?></option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="mobile-no">Mobile No.</label>
-                        <input id="input-user-mobile" type="number" name="mobile-no" placeholder="Enter mobile no." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['phone'] : "" ?>" required>
-                        <small id="user-error-mobile">We'll never share your mobile with anyone else.</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address">Address </label>
-                        <textarea name="address" id="" cols="60" rows="3" class='form-control' placeholder="Address..."><?php echo (isset($user)) ? $user[0]['address'] : "" ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="zip-pin-code">Zip/Pin Code</label>
+                    <div class="form-group col-md-4">
+                        <label for="zip-pin-code">Zip/Pin Code<span class="text-danger">*</span></label>
                         <input id="zip-pin-code" type="text" name="zip-pin-code" placeholder="Zip/Pin Code" autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['zip_pin_code'] : "" ?>">
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                    <div class="form-group col-md-6">
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <div class="input-group" id="show_hide_password">
                             <input id="password" type="password" name="password" placeholder="Enter password." autocomplete="off" class="form-control" value="<?php echo (isset($user)) ? $user[0]['password'] : "" ?>" required>
                             <div class="input-group-addon">
@@ -96,10 +96,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="password">Role</label>
                         <select name="role" id="role" autocomplete="off" class="form-control">
-                            <option>Select Role</option>
+                            <option>Select Role <span class="text-danger">*</span></option>
                             <?php if (!empty($role)) {
                                 foreach ($role as $user_role) {
                             ?>
@@ -112,17 +112,16 @@
                             } ?>
                         </select>
                     </div>
-                    <div class="form-group py-2">
-                        <div class="btn-submit">
+                    </div>
+
+                        <div class="btn-submit py-2">
                             <input type="hidden" id="user-id" name="id" value="<?php echo (isset($user) ? $user[0]['user_id'] : '') ?>">
                             <button type="submit" class="btn btn-space  btn-xs btn-success">Submit</button>
                             <button type="" class="btn btn-space btn-warning btn-xs " id="back-to-admin-dashboard">Back</button>
                         </div>
-                    </div>
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 <!-- ============================================================== -->

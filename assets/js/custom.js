@@ -74,11 +74,14 @@ $(function () {
         if (validate == false) {
             $('#errormobile').addClass("text-danger");
             $('#errormobile').text('Enter valid mobile number, i.e.: 999-999-9999, It should be 10 digits only.');
+            $('#errormobile').focus();
             error = true;
         }
         else if (validate == true) {
             $('#errormobile').text(preText);
             $('#errormobile').removeClass("text-danger");
+
+
             error = false;
         }
     });
@@ -106,7 +109,9 @@ $(function () {
         let validate = validateEmail(EMAIL);
         if (validate == false) {
             $('#errorEmail').text('Enter valid email id, i.e. example@example.example.');
-            $('##errorEmail').addClass("text-danger");
+            $('#errorEmail').addClass("text-danger");
+            $('#errorEmail').focus();
+
 
             error = true;
         }
@@ -154,8 +159,8 @@ $(function () {
         }
         else {
             // console.log(error);
-            error = 'Kindly fill all the required field';
-            showAlert(error, 'danger');
+            showAlert('Warning!  (*) field are required', 'warning');
+            error = true;
         }
     });
 });
@@ -231,8 +236,8 @@ $(function () {
             });
         }
         else {
-            error = 'Kindly fill all the required field';
-            showAlert(error, 'danger');
+            showAlert('Warning!  (*) field are required', 'warning');
+            error = true;
         }
     });
 

@@ -778,9 +778,6 @@ class PoTesting extends CI_Controller
         }
     }
 
-
-
-
     // Funtion to set temp result list in to the data base
     public function poresults()
     {

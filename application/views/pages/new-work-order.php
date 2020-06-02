@@ -12,10 +12,6 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="client">Clients</label>
-                                
-                                <!-- <label for="messageclient" id="messageclient" class="text-danger"></label> -->
-
-
                                 <select name="client" id="client" class="form-control h-34" id="input-select">
                                     <option>Choose Client</option>
                                     <?php if (!empty($clients)) {

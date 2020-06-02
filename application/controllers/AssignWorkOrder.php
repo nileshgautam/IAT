@@ -45,30 +45,47 @@ class AssignWorkOrder extends CI_Controller
     // assign Work orders
     function save_assigned_work()
     {
-        // print_r($_POST);die;
-        // echo '<pre>';
+        $tableName = 'users_work_order_relationship';
         if (isset($_POST)) {
-            $validate = $this->MainModel->selectAllWhere('users_work_order_relationship', array('work_order_id' => $_POST['workorderId'], 'user_id' => $_POST['employeeId'], 'role' => $_POST['projectRole']));
-            // print_r($_POST);
-            // print_r($validate);die;
-            if (!empty($validate)) {
+            $condition = array(
+                'work_order_id' => $_POST['workorderId'],
+                'user_id' => $_POST['employeeId'],
+                'role' => $_POST['projectRole']
+            );
+            $check_one = $this->MainModel->selectAllWhere($tableName, $condition);
+            if (!empty($check_one)) {
                 echo json_encode(array("type" => 'danger', 'msg' => "User Already working on this work order", 'status' => 'A'));
-                // for terminate process
-            } else {
-                $insert = array(
+            } else if (empty($check_one)) {
+                $condition = array(
                     'work_order_id' => $_POST['workorderId'],
-                    'user_id' => $_POST['employeeId'],
-                    'role' => $_POST['projectRole'],
-                    'clientId' => $_POST['clientId'],
-                    'work_status' => false
+                    'user_id' => $_POST['employeeId']
                 );
 
-                $res = $this->MainModel->insertInto('users_work_order_relationship', $insert);
-
-                if (!empty($res)) {
-                    echo json_encode(array("type" => 'success', 'msg' => "Work Successfully Assigned", 'status' => 'Y'));
+                $check_two = $this->MainModel->selectAllWhere($tableName, $condition);
+                if (!empty($check_two)) {
+                    // print_r($check_two);
+                    $data = array(
+                        'role' => $_POST['projectRole']
+                    );
+                    $res = $this->MainModel->update_table($tableName, $condition, $data);
+                    if ($res > 0) {
+                        echo json_encode(array("type" => 'success', 'msg' => "Role updated successfully", 'status' => 'Y'));
+                    }
                 } else {
-                    echo json_encode(array("type" => 'danger', 'msg' => "work did not Assign, Contact to IT", 'status' => 'E'));
+                    $insert = array(
+                        'work_order_id' => $_POST['workorderId'],
+                        'user_id' => $_POST['employeeId'],
+                        'role' => $_POST['projectRole'],
+                        'clientId' => $_POST['clientId'],
+                        'work_status' => false
+                    );
+                    $res = $this->MainModel->insertInto($tableName, $insert);
+
+                    if (!empty($res)) {
+                        echo json_encode(array("type" => 'success', 'msg' => "Work Successfully Assigned", 'status' => 'Y'));
+                    } else {
+                        echo json_encode(array("type" => 'danger', 'msg' => "work did not Assign, Contact to IT", 'status' => 'E'));
+                    }
                 }
             }
         }
