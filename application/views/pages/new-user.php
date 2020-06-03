@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-header">
                 <?php echo (isset($user)) ? 'Edit User' : ' New User' ?>
-                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>">Exit</a>
+                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard')?>">Exit</a>
             </div>
             <div class="card-body">
                 <form id="user-form" method="post">

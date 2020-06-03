@@ -167,6 +167,17 @@ $(function () {
 
 //funtion for user form validation
 $(function () {
+  
+    $('#table-process').DataTable({
+        scrollX: true,
+        scrollY: '50vh',
+        "ordering": false,
+        "searching": false,
+        "paging": false,
+        "info": false
+    });
+  
+  
     let error = false;
     let emailPretext = $('#user-error-email').text();
     let mobilePretext = $('#user-error-mobile').text();
@@ -319,17 +330,15 @@ $(function () {
         let len = list.length;
         let options;
 
-        console.log(options);
+        // console.log(options);
         workstepTablebody.empty();
         for (let i = 0; i < len; i++) {
             let row = $(` <tr >
                     <td class="content">${list[i].row_id}</td>
                     <td style="width:100px ">${list[i].process_description}</td>
-                    <td style="width:376px !important;">${list[i].sub_process_description}</td>
+                    <td style="width:376px">${list[i].sub_process_description}</td>
                     <td style="width:414px">${list[i].risk_description}</td>
                     <td> <select class="form-control risk-level" value="${list[i].risk_level}">
-                    
-                    
                     </select></td>
                     <td  style="width:363px">${list[i].control_description}</td>
                     <td>${list[i].control_objectives}</td>
@@ -426,9 +435,9 @@ $(function () {
         let item = totalRows.find((item) => item.row_id == cellData_id);
 
 
-        item[item_key] = rikslevel.val();
+        item[item_key] = escape(rikslevel.val());
 
-        console.log(item[item_key]);
+        // console.log(item[item_key]);
 
         localStorage.setItem('rowData', JSON.stringify(totalRows));
 
@@ -442,7 +451,7 @@ $(function () {
         // console.log(totalRows);
         // console.log(Id);
         // console.log(item_key);
-        item[item_key] = cellData.text();
+        item[item_key] = escape(cellData.text());
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
 
@@ -451,7 +460,7 @@ $(function () {
         let item_key = cellData.data('item_key');
         let cellData_id = cellData.data('id');
         let item = totalRows.find((item) => item.row_id == cellData_id);
-        item[item_key] = cellData.val();
+        item[item_key] = escape(cellData.val());
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
 
@@ -461,15 +470,7 @@ $(function () {
         $('#row-id').val(cellData_id);
     }
     // console.log(workstepTablebody);
-    $('#table-process').DataTable({
-        //  data:TOTALROWS,
-        scrollX: true,
-        scrollY: '50vh',
-        "ordering": false,
-        "searching": false,
-        "paging": false,
-        "info": false
-    });
+  
 
     $('.setdata').click(function () {
         let rowsNo = $(this).attr('data-row-id');

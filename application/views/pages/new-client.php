@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-header">
                 <?php echo (isset($client)) ? 'Edit Client' : ' New Client' ?>
-                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>">Exit</a>
+                <a class="btn btn-danger float-right btn-space btn-xs" href="<?php echo base_url('dashboard') ?>#clients-vertical">Exit</a>
             </div>
 
             <div class="card-body">

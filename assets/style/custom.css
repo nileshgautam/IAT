@@ -279,3 +279,9 @@ tr.shown td.details-control {
 .h-34{
     height: 34px !important;
 }
+
+
+.btn-upload{
+display: flex ;
+justify-content: center;
+}

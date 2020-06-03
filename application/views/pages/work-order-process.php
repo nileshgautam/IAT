@@ -52,7 +52,7 @@ if (!empty($p_data)) {
                 <span id="work-order-name">
                     <?php echo ucfirst($work_order_name); ?>
                 </span>
-                <button class="btn btn-danger float-right  btn-xs btn-space restore-work-steps">Exit<button>
+                <button class="btn btn-danger float-right  btn-xs btn-space restore-work-steps">Exit</button>
                         <button class="float-right btn btn-success btn-xs btn-space save-work-step" data-client-id='<?php echo $clientId; ?>' data-client-name='<?php echo $clientName ?>'>Save</button>
             </div>
             <div class="card-body">
@@ -91,18 +91,18 @@ if (!empty($p_data)) {
 <div class="modal fade" id="viewModalCenter" tabindex="-1" role="dialog" aria-labelledby="viewModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-body bg-gray">
+            <div class="modal-body">
                 <form method="POST" id="uploadfiles" enctype="multipart/form-data">
-                    <div class="from-group">
+                    <div class="from-group col-md-4">
                         <label for="files">Choose a file:</label>
                         <input type="file" id="files" name="files" class="form-control">
                         <input type="hidden" id="row-id" name="row-id">
                     </div>
-                    <!-- <div id="">
-                    </div>uploaded_files -->
-                    <div class="form-group float-right">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+                    <div class="btn-upload">
+                        <button type="submit" class="btn btn-success btn-xs btn-space">Save</button>
+
+                        <button type="button" class="btn btn-secondary btn-xs btn-space" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

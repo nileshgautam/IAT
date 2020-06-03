@@ -35,3 +35,12 @@ function yymmdd($date)
     $date = $yy . '-' . $mm . '-' . $dd;
     return $date;
 }
+
+// Function to validate inputs 
+
+function validateInput($inp)
+{
+    $val = htmlspecialchars($inp, ENT_QUOTES);
+    $val = stripslashes($val);
+    return $val;
+}
