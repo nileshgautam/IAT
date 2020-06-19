@@ -8,7 +8,7 @@
             <div class="card-header">
                 Upload PO Data
                 <a class="download-master text-success float-right" title="Download PO data Sample/format file" data-toggle="tooltip" href="<?php echo base_url('assets/sample_data/sample_podata.xlsx') ?>">
-                <i class="fas fa-download"></i>
+               <span>Download sample file for PO test</span> <i class="fas fa-download"></i>
             </a>
 
             </div>

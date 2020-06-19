@@ -173,7 +173,7 @@ $(function () {
         scrollY: '50vh',
         "ordering": false,
         "searching": false,
-        "paging": false,
+        // "paging": false,
         "info": false
     });
   
@@ -335,9 +335,9 @@ $(function () {
         for (let i = 0; i < len; i++) {
             let row = $(` <tr >
                     <td class="content">${list[i].row_id}</td>
-                    <td style="width:100px ">${list[i].process_description}</td>
-                    <td style="width:376px">${list[i].sub_process_description}</td>
-                    <td style="width:414px">${list[i].risk_description}</td>
+                    <td colspan="1">${list[i].process_description}</td>
+                    <td colspan="1">${list[i].sub_process_description}</td>
+                    <td colspan="1">${list[i].risk_description}</td>
                     <td> <select class="form-control risk-level" value="${list[i].risk_level}">
                     </select></td>
                     <td  style="width:363px">${list[i].control_description}</td>

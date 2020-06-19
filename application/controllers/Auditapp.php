@@ -61,6 +61,7 @@ class Auditapp extends CI_Controller
         $myjson = json_encode($data, true);
         echo $myjson;
     }
+    
     // Function to show all the assigned task to users
     public function assignedTask($var = null)
     {

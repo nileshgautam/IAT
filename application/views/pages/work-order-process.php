@@ -84,6 +84,8 @@ if (!empty($p_data)) {
         </div>
     </div>
 </div>
+
+
 <!-- </div> -->
 
 <!-- upload file model -->
@@ -100,7 +102,7 @@ if (!empty($p_data)) {
                     </div>
             
                     <div class="btn-upload">
-                        <button type="submit" class="btn btn-success btn-xs btn-space">Save</button>
+                        <button type="submit" class="btn btn-success btn-xs btn-space">Upload</button>
 
                         <button type="button" class="btn btn-secondary btn-xs btn-space" data-dismiss="modal">Close</button>
                     </div>

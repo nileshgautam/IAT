@@ -33,7 +33,6 @@ $(function () {
         // alert(id);
     });
 
-
     // select all the  state
     $("#state").change(function () {
         let s_city = $(this).attr('data-city');
