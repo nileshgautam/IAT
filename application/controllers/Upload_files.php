@@ -28,7 +28,7 @@ class Upload_files extends CI_Controller
         if (!empty($_FILES['files']['name'])) {
 
             // File upload configuration
-            
+
             $file_name = $_FILES['files']['name'];
             $file_name = preg_replace("/\s+/", "_", $file_name);
 
@@ -37,7 +37,16 @@ class Upload_files extends CI_Controller
 
             $file_name = $file_name . "_" . $work_order_id . "_" . $work_step_id . "_" . date('mjYHis') . "." . $file_ext;
             $config['file_name'] = $file_name;
-            $config['upload_path'] = './upload/files';
+
+            $config['upload_path'] = './upload/files'; // working on localhost
+
+            // $config["upload_path"] = base_url() . "upload/files/";
+
+            // // or Code:
+
+            // $config[‘upload_path’] = site_url() . "upload/files/";
+
+
             $config['allowed_types'] = '*';
             $config['max_size'] = 2000;
 
@@ -84,7 +93,7 @@ class Upload_files extends CI_Controller
                     $result = $this->MainModel->insertInto('files', $data);
                     // Upload status message
                     if ($result) {
-                      
+
                         echo json_encode(array("type" => 'success', 'msg' => "File successfully uploaded ", 'file_name' => $file_name), true);
                     } else {
                         echo json_encode(array("type" => 'danger', 'msg' => $this->upload->display_errors()), true);

@@ -343,7 +343,7 @@ $(function () {
                     <td contenteditable="true" class="management-action-plan">${list[i].management_action_plan}</td>
                     <td class="date" style="width:100px"> <input class="timeline-for-action-plan" placeholder="DD/MM/YYYY"   value="${list[i].timeline_for_action_plan}"/> </td>
                     <td contenteditable="true" class="responsibility-for-implementation">${list[i].responsibility_for_implementation}</td>
-                    <td class="files"><a href="${baseUrl + '/upload/files/' + list[i].files}">${list[i].files}</a></td>
+                    <td class="files"><a href="${baseUrl + 'upload/files/' + list[i].files}">${list[i].files}</a></td>
                     <td style="width:38px">
                         <button class="btn btn-sm btn-outline-light uploadfile" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].row_id}'> 
                         <i class="fa fa-upload"></i>
