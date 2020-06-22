@@ -3,6 +3,10 @@ $('#reload').click(function () {
     location.reload(true);
 });
 
+$('.btn-refrash').click(function () {
+    location.reload(true);
+});
+
 // login function
 $(function () {
     // setting userdata into the login form
@@ -167,17 +171,7 @@ $(function () {
 
 //funtion for user form validation
 $(function () {
-  
-    $('#table-process').DataTable({
-        scrollX: true,
-        scrollY: '50vh',
-        "ordering": false,
-        "searching": false,
-        // "paging": false,
-        "info": false
-    });
-  
-  
+
     let error = false;
     let emailPretext = $('#user-error-email').text();
     let mobilePretext = $('#user-error-mobile').text();
@@ -287,7 +281,10 @@ $(function () {
 // Function to load workorder and list of all the required stuff
 $(function () {
     let data = $('#table-process').attr('process-data');
+
     let workstepTablebody = $('#process-body');
+    let table=$('#table-process');
+
     let workorderId = $('#table-process').attr('work-order-id');
     let totalRows = [];
     if (data != undefined) {
@@ -297,7 +294,6 @@ $(function () {
             let form_data = {
                 workOrderId: workorderId
             };
-
             $.ajax({
                 type: 'GET',
                 data: form_data,
@@ -329,8 +325,6 @@ $(function () {
     function loadTable(list) {
         let len = list.length;
         let options;
-
-        // console.log(options);
         workstepTablebody.empty();
         for (let i = 0; i < len; i++) {
             let row = $(` <tr >
@@ -349,9 +343,9 @@ $(function () {
                     <td contenteditable="true" class="management-action-plan">${list[i].management_action_plan}</td>
                     <td class="date" style="width:100px"> <input class="timeline-for-action-plan" placeholder="DD/MM/YYYY"   value="${list[i].timeline_for_action_plan}"/> </td>
                     <td contenteditable="true" class="responsibility-for-implementation">${list[i].responsibility_for_implementation}</td>
-                    <td class="files">${list[i].files}</td>
+                    <td class="files"><a href="${baseUrl + '/upload/files/' + list[i].files}">${list[i].files}</a></td>
                     <td style="width:38px">
-                        <button class="btn btn-sm btn-outline-light setdata" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].row_id}'> 
+                        <button class="btn btn-sm btn-outline-light uploadfile" data-toggle="modal" data-target="#viewModalCenter" data-workstep-id='${list[i].workstep_id}' data-row-id='${list[i].row_id}'> 
                         <i class="fa fa-upload"></i>
                         </button>
                     </td>
@@ -360,6 +354,7 @@ $(function () {
             // appending rows 
             // TOTALROWS=row;
             workstepTablebody.append(row);
+
 
             let uploadFile = row.find('.uploadfile');
             uploadFile.data("id", list[i].row_id);
@@ -399,7 +394,6 @@ $(function () {
             responsibilityForImplementation.data("item_key", 'responsibility_for_implementation');
             responsibilityForImplementation.keyup(cellKeyUP);
 
-
             let risk_level = row.find('.risk-level');
             risk_level.data("id", list[i].row_id);
             risk_level.data("item_key", 'risk_level');
@@ -422,6 +416,15 @@ $(function () {
 
             // risk_level.append(options);
         }
+
+        table.DataTable({
+            scrollX: true,
+            scrollY: '50vh',
+            "ordering": false,
+            "searching": false,
+            "paging": false,
+            "info": false
+        });
     }
 
     function package_onchange() {
@@ -434,8 +437,12 @@ $(function () {
 
         let item = totalRows.find((item) => item.row_id == cellData_id);
 
-
+        // item[item_key] = escape(rikslevel.val());
         item[item_key] = escape(rikslevel.val());
+
+
+
+        // removeSpecialChar(
 
         // console.log(item[item_key]);
 
@@ -448,10 +455,9 @@ $(function () {
         let Id = cellData.data('id');
         let item_key = cellData.data('item_key');
         let item = totalRows.find((item) => item.row_id == Id);
-        // console.log(totalRows);
-        // console.log(Id);
-        // console.log(item_key);
-        item[item_key] = escape(cellData.text());
+        // item[item_key] = escape(cellData.text());
+        item[item_key] = removeSpecialChar(cellData.text());
+
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
 
@@ -460,7 +466,7 @@ $(function () {
         let item_key = cellData.data('item_key');
         let cellData_id = cellData.data('id');
         let item = totalRows.find((item) => item.row_id == cellData_id);
-        item[item_key] = escape(cellData.val());
+        item[item_key] = removeSpecialChar(cellData.val());
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
 
@@ -468,20 +474,16 @@ $(function () {
         let cellData = $(this);
         let cellData_id = cellData.data('id');
         $('#row-id').val(cellData_id);
+        let wid = cellData.attr('data-workstep-id');
+        $('#row-id').attr('ctrl_id', wid);
     }
-    // console.log(workstepTablebody);
-  
 
-    $('.setdata').click(function () {
-        let rowsNo = $(this).attr('data-row-id');
-        $('#row-id').val(rowsNo);
-    })
+
     // uploadfile
     $('#uploadfiles').submit(function (e) {
         e.preventDefault();
         let error = false;
         let files = $('#files').val();
-
 
         if (files == '') {
             error = true;
@@ -490,10 +492,8 @@ $(function () {
         // alert(files);
         if (error != true) {
             let form_data = new FormData(this);
-            let workOrderId = $('#workorder-id').val();
-            let workstepId = $('#worksteps-id').val();
-            form_data.append("workOrderId", workOrderId);
-            form_data.append("workstepId", workstepId);
+            let ctrl_id = $('#row-id').attr('ctrl_id');
+            form_data.append("workstepId", ctrl_id);
 
             $.ajax({
                 method: "POST",
@@ -504,19 +504,26 @@ $(function () {
                 processData: false,
                 success: function (data) {
                     // console.log(data);
-
                     let message = JSON.parse(data);
-                    if (message['files'] != '') {
-                        let filesData = message['files'];
+
+                    if (message['file_name']) {
+
+                        let filesData = message['file_name'];
+
                         let rowID = $('#row-id').val();
-                        // console.log(message)
+
+                        // console.log(filesData)
+
                         let items = totalRows.find((item) => item.row_id == rowID);
-                        console.log(filesData[0]['file_name'])
-                        items['files'] = filesData[0]['file_name'];
+
+
+                        items['files'] = filesData;
+
                         localStorage.setItem('rowData', JSON.stringify(totalRows));
 
-                        // let path = `<div><a href="${baseUrl + 'upload/files/' + filesData[0]['file_name']}"> ${filesData[0]['file_name']} <a><div>`
-                        // $('#uploaded_files').append(path);
+                        showAlert(message['msg'], message['type']);
+                    }
+                    else {
                         showAlert(message['msg'], message['type']);
                     }
 
@@ -900,3 +907,9 @@ $(function () {
         window.location.href = baseUrl + 'dashboard';
     });
 })
+
+// functiont to RemoveSpecialChar
+function removeSpecialChar(value) {
+    result = value.replace(/[^\w\s]/gi, '');
+    return result;
+}

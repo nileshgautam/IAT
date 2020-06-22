@@ -1,5 +1,6 @@
 <?php
 $processData = [];
+
 if (!empty($p_data)) {
     $count = 1;
     foreach ($p_data as $process) { //for process
@@ -7,6 +8,12 @@ if (!empty($p_data)) {
             foreach ($subProcess['risk_data'] as $subProcess_key => $risks) {
                 foreach ($risks['control_data'] as $risk_key => $controls) {
                     foreach ($controls['work_step'] as $ws_key => $workSteps) {
+
+                        $file_arr = '';
+
+                        $file_data = $this->MainModel->selectAllFromWhere('files', array('work_order_id' => $work_order, 'work_step_id' => $workSteps['work_steps_id']));
+                        // print_r($file_data);
+                        $file_arr = $file_data[0]['file_name'];
                         $row = array(
                             'row_id' => $count++,
                             'process_id' => $process['process_id'],
@@ -27,7 +34,7 @@ if (!empty($p_data)) {
                             'management_action_plan' => '',
                             'timeline_for_action_plan' => '',
                             'responsibility_for_implementation' => '',
-                            'files' => ''
+                            'files' => (isset($file_arr)) ? $file_arr : ""
                         );
 
                         array_push($processData, $row);
@@ -53,9 +60,9 @@ if (!empty($p_data)) {
                     <?php echo ucfirst($work_order_name); ?>
                 </span>
                 <button class="btn btn-danger float-right  btn-xs btn-space restore-work-steps">Exit</button>
-                        <button class="float-right btn btn-success btn-xs btn-space save-work-step" data-client-id='<?php echo $clientId; ?>' data-client-name='<?php echo $clientName ?>'>Save</button>
+                <button class="float-right btn btn-success btn-xs btn-space save-work-step" data-client-id='<?php echo $clientId; ?>' data-client-name='<?php echo $clientName ?>'>Save</button>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table class="table table-bordered" id="table-process" work-order-id="<?php echo $work_order ?>" process-data='<?php echo json_encode($processData) ?>'>
                     <thead class="bg-light">
                         <tr>
@@ -99,16 +106,17 @@ if (!empty($p_data)) {
                         <label for="files">Choose a file:</label>
                         <input type="file" id="files" name="files" class="form-control">
                         <input type="hidden" id="row-id" name="row-id">
+                        <input type="hidden" id="work-order-id" name="work-order-id" value="<?php echo $work_order ?>">
+
                     </div>
-            
+
                     <div class="btn-upload">
                         <button type="submit" class="btn btn-success btn-xs btn-space">Upload</button>
 
-                        <button type="button" class="btn btn-secondary btn-xs btn-space" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary btn-xs btn-space btn-refrash" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
 </div>

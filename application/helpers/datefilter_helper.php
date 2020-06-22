@@ -44,3 +44,10 @@ function validateInput($inp)
     $val = stripslashes($val);
     return $val;
 }
+
+// functiont to RemoveSpecialChar
+function RemoveSpecialChar($value)
+{
+    $result  = preg_replace('/[^a-zA-Z0-9_ -]/s', '', $value);
+    return $result;
+}

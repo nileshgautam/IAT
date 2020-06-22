@@ -15,8 +15,10 @@ class Upload_files extends CI_Controller
     {
         // echo '<pre>';
         // print_r($_POST);
-        // print_r()
         // die;
+        $work_order_id = $_POST['work-order-id'];
+        $work_step_id = $_POST['workstepId'];
+
         $data = array();
         if (empty($_FILES['files']['name'])) {
             echo json_encode(array("type" => 'danger', 'msg' => "Please select file"));
@@ -24,63 +26,71 @@ class Upload_files extends CI_Controller
         }
         // print_r($_SESSION['userInfo']['id']);die;
         if (!empty($_FILES['files']['name'])) {
-            // File upload configuration
-            $uploadPath = './upload/files';
-            $config['upload_path'] = $uploadPath;
-            // $config['allowed_types'] = '*|csv|jpg|xlsx|png|doc|docx|pdf|txt|xls';
-            $config['allowed_types'] = '*';
 
+            // File upload configuration
+            
+            $file_name = $_FILES['files']['name'];
+            $file_name = preg_replace("/\s+/", "_", $file_name);
+
+            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+            $file_name = pathinfo($file_name, PATHINFO_FILENAME);
+
+            $file_name = $file_name . "_" . $work_order_id . "_" . $work_step_id . "_" . date('mjYHis') . "." . $file_ext;
+            $config['file_name'] = $file_name;
+            $config['upload_path'] = './upload/files';
+            $config['allowed_types'] = '*';
             $config['max_size'] = 2000;
+
+
             // Load and initialize upload library
             $this->load->library('upload', $config);
+
             $this->upload->initialize($config);
+
+            $this->upload->do_upload();
 
             // Upload file to server
             if ($this->upload->do_upload('files')) {
                 // Uploaded file data
-                $fileData = $this->upload->data();
-                // print_r($fileData);die;
+
                 $data = array(
-                    'file_name' => $fileData['file_name'],
+                    'file_name' => $file_name,
                     'upload_time' => date("Y-m-d H:i:s"),
                     'uploaded_by' => $_SESSION['userInfo']['id'],
-                    'work_order_id' => $_POST['workOrderId'],
+                    'work_order_id' => $_POST['work-order-id'],
                     'work_step_id' => $_POST['workstepId']
                     // 'complete_status' => 0
                 );
+                // print_r($data);
             } else {
                 // print_r($_FILES['file']['name']);
                 echo  json_encode(array('type' => 'danger', 'msg' => $this->upload->display_errors()));
             }
             if (!empty($data)) {
                 // Insert files data into the database
-                $result = $this->MainModel->insertInto('files', $data);
 
-                // print_r($result);
-                // die;
-                // Upload status message
-                if ($result) {
-                    $uploadedFile = $this->MainModel->selectAllFromWhere('files', array('id' => $result));
-                    
-                    
-                // print_r($uploadedFile);
-                // die;
-                    
-                    echo json_encode(array("type" => 'success', 'msg' => "Files uploaded successfully" ,'files'=>$uploadedFile));
+                $checkFiles = $this->MainModel->selectAllFromWhere('files', array(
+                    'work_order_id' => $work_order_id,
+                    'work_step_id' => $work_step_id
+                ));
+
+                // print_r($checkFiles);die;
+                if ($checkFiles > 0) {
+
+                    $res = $this->MainModel->update_table('files', array('work_order_id' => $work_order_id,  'work_step_id' => $work_step_id), $data);
+
+                    echo json_encode(array("type" => 'success', 'msg' => "File updated.", 'file_name' => $file_name), true);
                 } else {
-                    echo json_encode(array("type" => 'danger', 'msg' => $this->upload->display_errors()));
+                    $result = $this->MainModel->insertInto('files', $data);
+                    // Upload status message
+                    if ($result) {
+                      
+                        echo json_encode(array("type" => 'success', 'msg' => "File successfully uploaded ", 'file_name' => $file_name), true);
+                    } else {
+                        echo json_encode(array("type" => 'danger', 'msg' => $this->upload->display_errors()), true);
+                    }
                 }
             }
         }
     }
-
-    // $this->load->view('Auditapp/upload_file', $data);
-
-
-    // function get_Uploaded_file()
-    // {
-    //     // Get files data from the database
-    //     $filedata = $this->MainModel->selectAll('files');
-    //     echo $filedata = json_encode($filedata, true);
-    // }
 }
