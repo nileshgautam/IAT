@@ -106,7 +106,7 @@
 
                             <button type="submit" class="btn btn-space btn-success btn-xs">Submit</button>
 
-                            <button type="" class="btn btn-space btn-warning btn-xs" id="back-to-admin-dashboard">Back</button>
+                            <button type="button" class="btn btn-space btn-warning btn-xs" id="back-to-admin-dashboard">Back</button>
 
                         </div>
                 </form>

@@ -154,10 +154,12 @@ $(function () {
                     // console.log(data);
                     // console.log(baseUrl+data.path);
                     showAlert(data.message, data.type);
-                    if (data.path != undefined)
+                    if (data.path != undefined) {
                         setTimeout(() => {
                             window.location.href = baseUrl + data.path
                         }, 1000);
+                    }
+
                 }
             });
         }
@@ -183,11 +185,13 @@ $(function () {
             $('#user-error-email').text('Enter valid email id, i.e. example@example.example.');
             $('#user-error-email').addClass('text-danger');
             error = true;
+            return;
         }
         else if (EMAILRESPONCE == true) {
             $('#user-error-email').text(emailPretext);
             $('#user-error-email').removeClass('text-danger');
             error = false;
+            return;
         }
     });
 
@@ -198,11 +202,13 @@ $(function () {
             $('#user-error-mobile').text('Enter valid mobile number, i.e.: 999-999-9999, It should be 10 digits only.');
             $('#user-error-mobile').addClass('text-danger');
             error = true;
+            return;
         }
         else if (MOBILERESPONCE == true) {
             $('#user-error-mobile').text(mobilePretext);
             $('#user-error-mobile').removeClass('text-danger');
             error = false;
+            return;
         }
     });
 
@@ -227,16 +233,20 @@ $(function () {
                 url: url,
                 data: form_data,
                 success: function (responce) {
-                    // console.log(responce);
                     let data = JSON.parse(responce);
-                    // console.log(data);
+                    console.log(data);
                     // console.log(baseUrl+data.path);
-                    showAlert(data.message, data.type);
-                    if (data.path != undefined)
+
+                    if (data.path) {
+                        showAlert(data.message, data.type);
                         setTimeout(() => {
                             window.location.href = baseUrl + data.path
                         }, 1000);
 
+                    }else{
+                        showAlert(data.message, data.type);
+                        return;
+                    }
                 }
             });
         }
@@ -283,7 +293,7 @@ $(function () {
     let data = $('#table-process').attr('process-data');
 
     let workstepTablebody = $('#process-body');
-    let table=$('#table-process');
+    let table = $('#table-process');
 
     let workorderId = $('#table-process').attr('work-order-id');
     let totalRows = [];
@@ -466,7 +476,7 @@ $(function () {
         let item_key = cellData.data('item_key');
         let cellData_id = cellData.data('id');
         let item = totalRows.find((item) => item.row_id == cellData_id);
-        item[item_key] = removeSpecialChar(cellData.val());
+        item[item_key] = cellData.val();
         localStorage.setItem('rowData', JSON.stringify(totalRows));
     }
 
@@ -749,7 +759,7 @@ $(function () {
 
         }
     });
-    // function to submit all the process
+    // Function to submit all the process in to the DB
     $('.submit-services').on('click', function () {
         // let proceesId = [];
         let process = {};
@@ -757,31 +767,8 @@ $(function () {
         let checkdata = hasData('sspdata');
         if (checkdata) {
             let sspdata = JSON.parse(retriveData('sspdata'));
-
-            // sspdata.forEach(e => {
-            //     let processName = e.processname;
-            //     let subprocessname = e.spname;
-            //     // console.log(processName)
-
-            //     if(spdata[processName]===undefined){
-            //         spdata = {
-            //             [processName]: {spname: [subprocessname]},
-            //             ...spdata
-            //         };                    
-            //     }
-            //     else{
-            //         spdata[processName]= { spname: [subprocessname], ...spdata[processName]};
-
-            //     }
-
-            //     });
-
-            //     console.log(spdata);
-
-
-
-
             // console.log(sspdata);
+            // Sellectting all the selected processess form process tab
             sspdata.forEach(e => {
                 let processid = e.processId;
                 let subpid = e.spId;
@@ -791,29 +778,27 @@ $(function () {
                 // console.log(processid);
                 // console.log(subpid);
                 // console.log(riskData);
+
+                // Created object for sected process
                 if (process[processid] === undefined) {
                     process = {
                         [processid]: { [subpid]: riskData },
                         ...process,
                     };
-                    // spdata = {
-                    //     [processName]: [subprocessname],
-                    //     ...spdata
-                    // };
-
                 } else {
                     // console.log(process);
                     process[processid] = { [subpid]: riskData, ...process[processid] };
-                    // spdata[processName] = {
-                    //     [subprocessname]: [subprocessname],
-                    //     ...spdata
-                    // };
                 }
 
             });
         }
+
         // console.log(spdata);
+
+        // Saving process object to the local storage
+
         saveData('spdata', process);
+
         let message = "Required";
         // console.log($("[type='text']"))
         let clientId = $('#client').val().trim();
@@ -828,21 +813,26 @@ $(function () {
             $('#messageclient').html(message)
             $('#client').focus();
             error = true;
+            return;
         } if (workorderId == "") {
             $('#messageworkorderid').html(message)
             error = true;
+            return;
         } if (workOrderName == "") {
             $('#messageworkorder').html(message)
             $('#textWork-Order-Name').focus();
             error = true;
+            return;
         }
         if (startDate == '') {
             $('#start-date').focus();
             error = true;
+            return;
         }
         if (Object.keys(process).length == 0) {
             showAlert('Please choose process first', "warning");
             error = true;
+            return;
         }
 
         // console.log(process);
@@ -856,17 +846,18 @@ $(function () {
                 url: baseUrl + 'Auditapp/create_work_order',
                 data: formData,
                 success: function (data, success) {
-                    // ssubpArr = [];
-                    // saveData('sspdata', ssubpArr);
-                    // removeData('sspdata'); //Removeing loacl storage object 
                     let resonce = JSON.parse(data);
-                    // console.log(resonce);
-                    showAlert(resonce.msg, "success");
-                    // console.log(baseUrl + "AssignWorkOrder/allowcated_work_order/" + btoa(resonce.client_id));
+                    console.log(resonce);
+                    if (resonce.type === "success") {
+                        showAlert(resonce.msg, resonce.type);
+                        setTimeout(() => {
+                            window.location = baseUrl + "ControlUnit/selectedSubprocess/" + btoa(resonce.client_id) + '/' + btoa(resonce.work_order_id);
+                        }, 1000);
+                    } else {
+                        showAlert(resonce.msg, resonce.type);
+                        return
+                    }
 
-                    setTimeout(() => {
-                        window.location = baseUrl + "ControlUnit/selectedSubprocess/" + btoa(resonce.client_id) + '/' + btoa(resonce.work_order_id);
-                    }, 1000);
                 }
 
             });

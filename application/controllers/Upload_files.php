@@ -38,10 +38,11 @@ class Upload_files extends CI_Controller
             $file_name = $file_name . "_" . $work_order_id . "_" . $work_step_id . "_" . date('mjYHis') . "." . $file_ext;
             $config['file_name'] = $file_name;
 
-            // $config['upload_path'] = './upload/files'; // working on localhost
+            $config['upload_path'] = realpath(APPPATH . '../upload/files'); // working on localhost
 
-            $config["upload_path"] = base_url() . "upload/files/";
+            // echo $config['upload_path'];die;
 
+            // $config["upload_path"] = base_url() . "upload/files";                                                   
             // // or Code:
 
             // $config[‘upload_path’] = site_url() . "upload/files/";

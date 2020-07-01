@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 class Filter
 {
@@ -61,7 +64,7 @@ class Auditapp extends CI_Controller
         $myjson = json_encode($data, true);
         echo $myjson;
     }
-    
+
     // Function to show all the assigned task to users
     public function assignedTask($var = null)
     {
@@ -100,14 +103,12 @@ class Auditapp extends CI_Controller
 
         if (isset($c_email)) {
             $data = $this->MainModel->selectAllFromWhere('client_details', array('email' => $c_email));
-            if (!empty($data)) {
-                // $this->session->set_flashdata("error", "");
-                echo $responce = json_encode(array('message' => 'Email, already exists', 'type' => 'error'), true);
-                // redirect(__CLASS__ . '/client_registration_form');
-            } else if (empty($data)) {
+            if ($data) {
+                echo json_encode(array('message' => 'Email id already exist, Duplicate email not allowed', 'type' => 'danger'), true);
+            } else {
                 $insert = array(
-                    'client_name' => $c_name,
                     'client_id' => $c_id,
+                    'client_name' => $c_name,
                     'address' => $c_address,
                     'city' => $c_city,
                     'state' => $c_state,
@@ -127,8 +128,7 @@ class Auditapp extends CI_Controller
                         'company_id' => $res
                     );
                     $this->session->set_userdata("company_data", $company_data);
-                    // redirect('ControlUnit/newWorkOrder/' . $c_id);
-                    echo $responce = json_encode(array('message' => 'Successfully registered', 'type' => 'success', 'path' => 'ControlUnit/newWorkOrder/' . $c_id), true);
+                    echo $responce = json_encode(array('message' => 'Client details successfully submitted', 'type' => 'success', 'path' => 'ControlUnit/newWorkOrder/' . $c_id), true);
                 }
             }
         } else {
@@ -162,24 +162,31 @@ class Auditapp extends CI_Controller
                 'contact_no' => $_POST['mobile-number'],
                 'email' => $_POST['email'],
                 'gst_number' => $_POST['gst-number'],
-                // 'process' => $_POST['process']
             );
-            $res = $this->MainModel->update_table('client_details', array('client_id' => $_POST['client_id']), $insert);
-            if (!empty($res)) {
-                // $this->session->set_flashdata("success", "Client Successfully Updated.");
-                $company_data = array(
-                    'company_name' => $_POST['client-name'],
-                    'email' => $_POST['email'],
-                    'company_id' => $_POST['client_id']
-                );
 
-                $this->session->set_userdata("company_data", $company_data);
-                echo $responce = json_encode(array('message' => 'client, successfully updated', 'type' => 'success', 'path' => 'ControlUnit/allClients'), true);
+            $responce = $this->MainModel->selectAllFromWhere('client_details', array('email' => $insert['email']));
+
+            if ($responce) {
+                echo json_encode(array('message' => 'Email id already exist, Duplicate email not allowed', 'type' => 'warning'), true);
+            } else {
+                $res = $this->MainModel->update_table('client_details', array('client_id' => $_POST['client_id']), $insert);
+                if (!empty($res)) {
+                    // $this->session->set_flashdata("success", "Client Successfully Updated.");
+                    $company_data = array(
+                        'company_name' => $_POST['client-name'],
+                        'email' => $_POST['email'],
+                        'company_id' => $_POST['client_id']
+                    );
+
+                    $this->session->set_userdata("company_data", $company_data);
+                    echo $responce = json_encode(array('message' => 'client, successfully updated', 'type' => 'success', 'path' => 'ControlUnit/allClients'), true);
+                }
             }
         } else {
             // $this->session->set_flashdata("error", "System Error Contact to IT.");
             echo $responce = json_encode(array('message' => 'System Error Contact to IT', 'type' => 'error', 'path' => 'ControlUnit/allClients'), true);
         }
+
         // redirect('ControlUnit/allClients');
     }
     // ***********************************users***********
@@ -189,8 +196,7 @@ class Auditapp extends CI_Controller
         // echo '<pre>';
         // print_r($_POST);die;
         if (empty($_POST)) {
-       
-            echo $responce = json_encode(array('message' => 'Fill all details first.', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
+            echo $responce = json_encode(array('message' => 'Fill all details first.', 'type' => 'danger', 'path' => 'ControlUnit/newUsersPage'), true);
         } else {
             // print_r($_POST);die;
             $data = array(
@@ -212,28 +218,18 @@ class Auditapp extends CI_Controller
             );
             $email = $this->input->post('email');
             if (!empty($email)) {
-                $userid = $this->MainModel->selectAllFromWhere(
+                $user = $this->MainModel->selectAllFromWhere(
                     'users',
                     array('email' => $email)
                 );
-                if (!empty($userid)) {
-                    // $this->session->set_flashdata("error", "User already exist");
-                    // redirect('ControlUnit/newUsersPage');
-
-                    echo $responce = json_encode(array('message' => 'User already exist', 'type' => 'error', 'path' => 'ControlUnit/newUsersPage'), true);
-                } elseif (empty($userid)) {
-                    $inserted_data = $this->MainModel->insertInto('users', $data);
-                    if (isset($inserted_data)) {
-
-                        // $this->session->set_flashdata("success", "User successfuly register.");
-                        // redirect('ControlUnit/allUsers');
-
-                        echo $responce = json_encode(array('message' => 'User successfuly register', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
+                if (!empty($user)) {
+                    echo json_encode(array('message' => 'Email already exist, Duplicate email not allowed.', 'type' => 'warning'), true);
+                } else {
+                    $submitted = $this->MainModel->insertInto('users', $data);
+                    if ($submitted) {
+                        echo json_encode(array('message' => 'User details successfuly submitted', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
                     } else {
-                        // $this->session->set_flashdata("error", "error.");
-                        // redirect('ControlUnit/allUsers');
-
-                        echo $responce = json_encode(array('message' => 'System error contact IT', 'type' => 'error', 'path' => 'ControlUnit/allUsers'), true);
+                        echo json_encode(array('message' => 'OOps... System error contact IT', 'type' => 'danger'), true);
                     }
                 }
             }
@@ -262,17 +258,25 @@ class Auditapp extends CI_Controller
             'state' => $this->input->post('state'),
             'city' => $this->input->post('city'),
             'address' => $this->input->post('address'),
-            // 'adress_line_two' => $this->input->post('address-line-two'),
             'phone' => $this->input->post('mobile-no'),
             'zip_pin_code' => $this->input->post('zip-pin-code'),
             'role' => $this->input->post('role')
         );
-        $id = $this->input->post('id');
-        $result = $this->MainModel->update_table('users', array('user_id' => $id), $data);
-        if ($result == "FALSE") {
-            echo $responce = json_encode(array('message' => 'User successfuly updated ', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
-        } else if ($result == "TRUE") {
-            echo $responce = json_encode(array('message' => 'System error! contact IT', 'type' => 'error', 'path' => 'ControlUnit/allUsers'), true);
+        $user = $this->MainModel->selectAllFromWhere(
+            'users',
+            array('email' => $data['email'])
+        );
+        if (!empty($user)) {
+            echo json_encode(array('message' => 'Email already exist, Duplicate email not allowed.', 'type' => 'warning'), true);
+        } else {
+            $id = $this->input->post('id');
+            $result = $this->MainModel->update_table('users', array('user_id' => $id), $data);
+
+            if ($result == "FALSE") {
+                echo json_encode(array('message' => 'User successfuly updated ', 'type' => 'success', 'path' => 'ControlUnit/allUsers'), true);
+            } else {
+                echo json_encode(array('message' => 'System error! contact IT', 'type' => 'danger'), true);
+            }
         }
     }
     // Function to delete user details from database by given id.
@@ -308,28 +312,50 @@ class Auditapp extends CI_Controller
                 'complete_status' => '0'
             );
             // echo '<pre>';
-            //             print_r($data);die;
+            // print_r($data);die;
 
-            $result = $this->MainModel->insertInto('work_order', $data); //save work order
-
-            $relation = array(
-                'work_order_id' => $wo_id,
-                'client_id' => $_POST['client_id'],
+            $condition = array(
+                'work_order_name' => $data['work_order_name'],
+                'client_id' => $data['client_id']
             );
-            $result = $this->MainModel->insertInto('client_workorder_relationship', $relation); //save relationship between workorder and client
-            if ($result) {
+
+            $res = $this->MainModel->selectAllFromWhere('work_order', $condition);
+            // Checking Duplicate work order name in DB for same client
+            if ($res) {
                 $reply = array(
+                    'msg' => "Duplicate 'work-Order' name not allwed. Kindly enter Uniq",
+                    'type' => "warning"
+                );
+                echo json_encode($reply, true);
+            } else {
+                $result = $this->MainModel->insertInto('work_order', $data); //save work order
+                $relation = array(
                     'work_order_id' => $wo_id,
                     'client_id' => $_POST['client_id'],
-                    'msg' => "Work order successfully created"
                 );
-                $result = json_encode($reply, true);
-                echo $result;
-            } else {
-                echo "Something Wrong!";
+                $result = $this->MainModel->insertInto('client_workorder_relationship', $relation); //save relationship between workorder and client
+                if ($result) {
+                    $reply = array(
+                        'work_order_id' => $wo_id,
+                        'client_id' => $_POST['client_id'],
+                        'msg' => "Work order successfully created",
+                        'type' => "success"
+                    );
+                    echo json_encode($reply, true);
+                } else {
+                    $reply = array(
+                        'msg' => "OOps... Something Wrong! Contact IT.",
+                        'type' => "danger"
+                    );
+                    echo json_encode($reply, true);
+                }
             }
         } else {
-            echo "System Error! contact to IT";
+            $reply = array(
+                'msg' => "OOps... System Error! contact to IT",
+                'type' => "danger"
+            );
+            echo json_encode($reply, true);
         }
     }
 

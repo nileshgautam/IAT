@@ -352,7 +352,7 @@ $(document).ready(() => {
                                 <input type="radio" name="radio-inline${name[i].id}" value="Team leader" class="custom-control-input checked" ${name[i].role == 'Manager' ? "checked" : ''}><span class="custom-control-label">Team leader</span>
                                 </label>
                                 </td>
-                                <td><button data-employees-id='${name[i].user_id}' data-radio-name="radio-inline${name[i].id}" class="btn btn-outline-primary btn-xs assign-task">Update</button></td>
+                                <td><button data-employees-id='${name[i].user_id}' data-radio-name="radio-inline${name[i].id}" class="btn btn-outline-primary btn-xs assign-task">Assign</button></td>
                             </tr>`
             }
 

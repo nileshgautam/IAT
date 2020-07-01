@@ -74,11 +74,16 @@
                          </ul>
                      </li>
 
-                     <li class="nav-item dropdown nav-user">
-                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo base_url(); ?>assets/images/icons/user.svg" alt="" class="user-avatar-md rounded-circle" width="25"></a>
-                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                     <li class="nav-item dropdown nav-user show">
+                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                             <img src="<?php echo base_url(); ?>assets/images/icons/user.svg" alt="" class="user-avatar-md rounded-circle" width="25" />
+                            </a>
+
+                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenu">
                              <div class="nav-user-info">
-                                 <h5 class="mb-0 text-white nav-user-name"><?php echo $_SESSION['userInfo']['username'] ?> </h5>
+                                 <h5 class="mb-0 text-white nav-user-name">
+                                     <?php echo $_SESSION['userInfo']['username'] ?> 
+                                </h5>
                                  <!-- <h5 class="mb-0 text-white nav-user-name"></h5> -->
                                  <span class="status"></span><span class="ml-2">Available</span>
                              </div>
@@ -92,7 +97,7 @@
          </nav>
      </div>
      
- </div>
+
  
      <!-- ============================================================== -->
      <!-- end navbar -->
